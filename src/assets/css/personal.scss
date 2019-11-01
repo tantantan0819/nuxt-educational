@@ -1,0 +1,61 @@
+@import "./base";
+.person_content{
+  .person_item{
+    padding: 20px 0;
+    border-bottom: 1px solid $f1;
+    @include cb();
+    .title{
+      display: inline-block;
+      width: 150px;
+      @include fontc(16px,1,$f3);
+    }
+    .avatar_text{
+      color: $f69!important;
+    }
+    .con{
+      width: 235px;
+      @include fontc(16px,1,$f3);
+      img{
+        background: $fcc;
+        border: 1px solid $f63;
+        @include wh(70px,70px);
+        @include borderRadius(50%);
+      }
+    }
+    .modify{
+        cursor: pointer;
+        @include wh(130px,36px);
+        @include cr();
+        @include gradient();
+        @include borderRadius(30px);
+        i{
+          background: $fc;
+          @include wh(128px,34px);
+          @include borderRadius(30px);
+          @include fontc(16px, 1, $f69);
+          @include cr();
+        }
+    }
+  }
+}
+.person_change{
+  .el-dialog{
+    width: 550px!important;
+    overflow: hidden;
+    @include borderRadius(10px);
+  }
+}
+.code{
+  display: flex;
+  .el-form-item{
+    flex: 1;
+  }
+  .sendCode{
+    margin-left: 20px;
+    padding: 12px 0;
+    @include wh(130px,43px);
+    @include gradient();
+    border: none;
+    //@include borderRadius(10px);
+  }
+}

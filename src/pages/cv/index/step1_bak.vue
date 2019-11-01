@@ -1,0 +1,148 @@
+<template>
+  <!--取的sso数据，提交到sso-->
+  <div class="cv_step1">
+    <div class="title_box">
+      <div class="cv_title">
+        <p>基本信息</p>
+        <span>请认真填写您空缺的资料，保存后不能修改，如需修改请联系您的顾问老师进行修改</span>
+      </div>
+    </div>
+    <div class="cv_content cv1">
+      <el-form :model="cvForm1" status-icon :rules="rules" ref="cvForm1" label-width="300px" label-position="top">
+        <el-form-item label="姓名" prop="truename">
+          <el-input v-model="cvForm1.truename" placeholder="请输入您的姓名" autocomplete="off"
+                    v-bind:readonly="userForm.truename | textFormat"></el-input>
+        </el-form-item>
+        <!--0未知，1男，2女-->
+        <el-form-item label="性别" prop="sex" readonly>
+          <el-select v-model="cvForm1.sex" class="widthAll" placeholder="请选择您的性别">
+            <el-option value="0" label="未知" v-bind:disabled="userForm.sex | textFormat"></el-option>
+            <el-option value="1" label="男" v-bind:disabled="userForm.sex | textFormat"></el-option>
+            <el-option value="2" label="女" v-bind:disabled="userForm.sex | textFormat"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="生日" prop="birth">
+          <el-date-picker type="date" format="yyyy-MM-dd" value-format="yyyy-MM-dd" placeholder="请输入您的生日"
+                          v-model="cvForm1.birth" class="widthAll"
+                          v-bind:readonly="userForm.birth | textFormat"></el-date-picker>
+        </el-form-item>
+        <el-form-item label="手机" prop="phone">
+          <el-input v-model.number="cvForm1.phone" placeholder="请输入您的手机" autocomplete="off"
+                    v-bind:readonly="userForm.phone | textFormat"></el-input>
+        </el-form-item>
+        <el-form-item label="邮箱" prop="email">
+          <el-input v-model="cvForm1.email" placeholder="请输入您的邮箱" autocomplete="off"
+                    v-bind:readonly="userForm.email | textFormat"></el-input>
+        </el-form-item>
+        <el-form-item label="地址" prop="address">
+          <el-input v-model="cvForm1.address" placeholder="请输入您的地址" autocomplete="off"
+                    v-bind:readonly="userForm.address | textFormat"></el-input>
+        </el-form-item>
+      </el-form>
+    </div>
+    <div class="cv_footer">
+      <div class="footer_button">
+        <span @click="submitForm('cvForm1')">下一步</span>
+      </div>
+      <span class="next">请在退出前点击“下一步”按钮，您当前填写的信息可以被保存。</span>
+    </div>
+  </div>
+</template>
+<style lang="scss">
+  @import "~/assets/css/cv.scss";
+</style>
+<script>
+    import {validEmail, validPhone} from '~/plugins/validate';
+    import {deepClone, emptyObj} from '~/plugins/utils';
+    import uhttp from "~/plugins/uhttp";
+
+    export default {
+        transition: '',
+        layout: 'utrack',
+        data() {
+            return {
+                userForm: {},
+                cvForm1: {
+                    truename: '',
+                    sex: '',
+                    birth: '',
+                    phone: '',
+                    email: '',
+                    address: ''
+                },
+                rules: {
+                    truename: [
+                        {required: true, message: '请输入您的姓名', trigger: 'blur'}
+                    ],
+                    sex: [
+                        {required: true, message: '请选择您的性别', trigger: 'blur'}
+                    ],
+                    birth: [
+                        {required: true, message: '请输入您的生日', trigger: 'blur'}
+                    ],
+                    phone: [
+                        {required: true, validator: validPhone, trigger: 'blur'}
+                    ],
+                    email: [
+                        {required: true, validator: validEmail, trigger: 'blur'}
+                    ],
+                    address: [
+                        {required: true, message: '请输入您的地址', trigger: 'blur'}
+                    ]
+                }
+            }
+        },
+        mounted() {
+            let _this = this;
+            // 获取用户信息
+            let userInfo = this.$store.state.user;
+            if (!emptyObj(userInfo)) {
+                _this.userForm = userInfo;
+            } else {
+                uhttp.get('/user/detail').then((res) => {
+                    _this.$store.commit('user/SET_USER', res);
+                    _this.userForm = res;
+                })
+            }
+            //不能动态修改mutations数据
+            _this.cvForm1 = deepClone(_this.userForm);
+        },
+        filters: {
+            textFormat(val) {
+                if (typeof val == 'undefined') {
+                    return false;
+                }
+                if (val == '') {
+                    return false;
+                }
+                if (!val && typeof(val)!="undefined" && val!=0){
+                    return false;
+                }
+                return true;
+            }
+        },
+        methods: {
+            //提交表单 --下一步
+            submitForm(formName) {
+                let _this = this;
+                _this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        uhttp.post('/user/edit', _this.cvForm1).then((res) => {
+                            if (JSON.stringify(res) == '[]') {
+                                _this.$store.commit('user/SET_USER', _this.cvForm1);
+                                let successMsg = _this.$message({
+                                    message: '提交成功',
+                                    type: 'success'
+                                });
+                                setTimeout(() => {
+                                    successMsg.close();
+                                    _this.$router.push('/cv/step2')
+                                }, 1000);
+                            }
+                        })
+                    }
+                });
+            },
+        }
+    }
+</script>

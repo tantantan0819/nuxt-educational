@@ -1,0 +1,117 @@
+@import "./base";
+.nav{
+  background: $fc;
+  min-height: 100vh;
+  margin-right: 20px;
+  @include wh(280px,100%);
+  @include shadow();
+  .avatar{
+    margin-top: 61px;
+    @include cc();
+    .avatar_box{
+      @include wh(132px,132px);
+      @include borderRadius(50%);
+      @include gradient();
+      @include cr();
+      img{
+        @include wh(126px,126px);
+        @include borderRadius(50%);
+      }
+    }
+  }
+  .user_name{
+    @include fontc(20px,40px,$ff4);
+  }
+  .logout{
+    @include cc();
+    margin-top: 20px;
+    cursor: pointer;
+    span{
+      position: relative;
+      border: 1px solid $e5;
+      padding-left: 47px;
+      @include wh(100px,30px);
+      @include borderRadius(15px);
+      @include cb();
+      @include fontc(14px,1,$f6);
+      &:before{
+        content: '';
+        display: inline-block;
+        @include absolute(7px,27px);
+        @include wh(14px,16px);
+        @include bg("/images/logout.png");
+      }
+    }
+  }
+  .nav_list{
+    margin-top: 48px;
+    li{
+      cursor: pointer;
+      padding-left: 116px;
+      overflow: hidden;
+      position: relative;
+      &:before{
+        content: '';
+        display: inline-block;
+        position: relative;
+        transition: all 0.1s ease-in-out;
+      }
+      transition: all 0.1s ease-in-out;
+      @include wh(280px,52px);
+      @include fontc(16px,52px,$f6);
+      @include cb();
+      &:nth-child(1){
+        &:before{
+          @include wh(20px,22px);
+          @include bg("/images/nav1.png");
+          @include absolute(17px,75px);
+        }
+      }
+      &:nth-child(2){
+        &:before{
+          @include wh(20px,22px);
+          @include bg("/images/nav2.png");
+          @include absolute(17px,75px);
+        }
+      }
+      &:nth-child(3){
+        &:before{
+          @include wh(23px,22px);
+          @include bg("/images/nav3.png");
+          @include absolute(17px,75px);
+        }
+      }
+      &:nth-child(4){
+        &:before{
+          @include wh(26px,22px);
+          @include bg("/images/nav4.png");
+          @include absolute(17px,75px);
+        }
+      }
+    }
+    .active{
+      background-color: $fd5;
+      color: $f69;
+      &:nth-child(1){
+        &:before{
+          @include bg("/images/nav11.png");
+        }
+      }
+      &:nth-child(2){
+        &:before{
+          @include bg("/images/nav22.png");
+        }
+      }
+      &:nth-child(3){
+        &:before{
+          @include bg("/images/nav33.png");
+        }
+      }
+      &:nth-child(4){
+        &:before{
+          @include bg("/images/nav44.png");
+        }
+      }
+    }
+  }
+}

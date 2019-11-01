@@ -1,0 +1,17 @@
+@import "./base";
+
+.header {
+  background-color: $fc;
+  margin: 20px 20px 24px 0;
+  padding: 20px 40px;
+  @include shadow();
+  @include borderRadius(6px);
+  @include cb();
+  img{
+    @include wh(40px,40px);
+    margin-right: 20px;
+  }
+  p{
+    @include fontc(16px,20px,$f8);
+  }
+}

@@ -1,0 +1,137 @@
+@import "./base";
+.preview{
+    padding: 32px 100px;
+  .content{
+    width: 790px;
+    margin-top: 26px;
+    padding: 40px 26px;
+    box-shadow: 2px 2px 3px 0px rgba(164, 163, 163, 0.1);
+    border: solid 1px rgba(147, 146, 146, 0.15);
+    @include borderRadius(10px);
+    .info{
+      position: relative;
+      min-height: 100px;
+      justify-content: center;
+      @include cuc();
+      .info_name{
+        margin-bottom: 20px;
+        @include fontc(24px,32px,$f3);
+      }
+      .info_other{
+        span{
+          @include fontc(16px,26px,$f3);
+          border-right: 1px solid $f3;
+          padding: 0 6px;
+          &:nth-child(1){
+            padding-left: 0;
+          }
+          &:last-child{
+            padding-right: 0;
+            border: none;
+          }
+        }
+      }
+      .info_avatar{
+        @include wh(130px,130px);
+        @include gradient();
+        @include borderRadius(50%);
+        @include cr();
+        @include absolute(0,570px);
+        img{
+          @include wh(126px,126px);
+          @include borderRadius(50%);
+        }
+      }
+    }
+    .cv_item{
+      margin-top: 30px;
+      .title_box1 {
+        display: flex;
+        position: relative;
+        margin-bottom: 30px;
+        justify-content: space-between;
+
+        &:before {
+          content: '';
+          display: inline-block;
+          background: $e6;
+          @include wh(100%, 1px);
+          @include absolute(41px, 0)
+        }
+
+        .cv_title {
+          position: relative;
+          z-index: 2;
+          @include cb();
+
+          p {
+            padding-left: 8px;
+            position: relative;
+            @include fontc(20px, 32px, $f3);
+
+            &:before {
+              content: '';
+              display: inline-block;
+              @include wh(96px, 1px);
+              @include gradient();
+              @include absolute(41px, 0)
+            }
+          }
+
+          span {
+            margin-left: 40px;
+            @include fontc(16px, 48px, $f63);
+          }
+        }
+      }
+      .job_title{
+        .cv_title{
+          p{
+            &:before{
+              width: 140px!important;
+            }
+          }
+        }
+      }
+      .language_title{
+        .cv_title{
+          p{
+            &:before{
+              width: 194px!important;
+            }
+          }
+        }
+      }
+
+      .cv_box{
+        p{
+          padding-left: 30px;
+          margin-bottom: 4px;
+          position: relative;
+          @include fontc(16px,32px,$f3);
+          &:before{
+            content: '';
+            display: inline-block;
+            background-color: $f63;
+            @include wh(7px,7px);
+            @include borderRadius(50%);
+            @include absolute(11px,12px);
+          }
+        }
+      }
+    }
+  }
+  .preview_close{
+    width: 750px;
+    margin-top: 30px;
+    cursor: pointer;
+    @include cc();
+    span{
+      @include cr();
+      @include wh(250px,50px);
+      @include borderRadius(30px);
+      @include gradient();
+      @include fontc(16px,1,$fc);
+    }
+  }
+}
