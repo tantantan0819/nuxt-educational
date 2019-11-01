@@ -245,7 +245,7 @@
         filters:{
             //匹配申请结果
             resultFormat:function(result){
-                let result_cn = ''
+                let result_cn = '';
                 that.resultArr.map((item)=>{
                     if(item.id == result){
                         return result_cn = item.cvalue_cn;

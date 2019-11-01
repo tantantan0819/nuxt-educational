@@ -86,8 +86,7 @@
                     callback(new Error('请输入您的手机号码'));
                 } else {
                     let reg = this.regex;
-                    reg = reg.substring(0, reg.length - 1);
-                    reg = reg.substring(1, reg.length);
+                    reg = reg.substring(0,reg.length);
                     let regex = new RegExp(reg);
                     if (!regex.test(value)) {
                         callback(new Error('请输入正确的手机号码'));

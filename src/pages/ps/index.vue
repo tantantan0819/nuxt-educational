@@ -166,7 +166,7 @@
                 _this.viewDetail = [];
                 _this.viewDetail.push(_this.contract[contract].apply[index]);
                 _this.psDetailForm = this.viewDetail[0];
-                _this.psDetailForm.need_teacher += ''
+                _this.psDetailForm.need_teacher += '';
                 _this.psDatil = true;
             }
         }
