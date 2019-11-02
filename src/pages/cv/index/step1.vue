@@ -13,7 +13,6 @@
           <el-input v-model="cvForm1.customer_name" placeholder="请输入您的姓名" autocomplete="off"
                     v-bind:readonly="userForm.customer_name | textFormat"></el-input>
         </el-form-item>
-        <!--0未知，1男，2女-->
         <el-form-item label="性别" prop="sex" readonly>
           <el-select v-model="cvForm1.sex" class="widthAll" placeholder="请选择您的性别">
             <!--crm规则：0:未知 男：4 女：5-->
@@ -37,7 +36,7 @@
         </el-form-item>
         <el-form-item label="地址" prop="now_address">
           <el-input v-model="cvForm1.now_address" placeholder="请输入您的地址" autocomplete="off"
-                    v-bind:readonly="userForm.now_address | textFormat"></el-input>
+                    v-bind:readonly="userForm.now_address | textFormat" @keydown.enter.native="submitForm('cvForm1')"></el-input>
         </el-form-item>
       </el-form>
     </div>
@@ -97,23 +96,14 @@
         mounted() {
             let _this = this;
             //获取用户信息
-            let crmInfo = getStore('crmInfo');
-            if (crmInfo) {
-                _this.userForm = crmInfo;
-                    //不能动态修改mutations数据
-                    _this.cvForm1 = deepClone(_this.userForm);
-                    _this.cvForm1.sex = _this.cvForm1.sex+'';
-                    _this.cvForm1.sex == 'null' ? _this.cvForm1.sex == '0' : '';
-            } else {
-                http.get('customer/get-info').then((res) => {
-                    _this.userForm = res;
-                    setStore('crmInfo', res);
-                    //不能动态修改mutations数据
-                    _this.cvForm1 = deepClone(_this.userForm);
-                    _this.cvForm1.sex = _this.cvForm1.sex + '';
-                    _this.cvForm1.sex == 'null' ? _this.cvForm1.sex = '0' : '';
-                })
-            }
+            http.get('customer/get-info').then((res) => {
+                _this.userForm = res;
+                setStore('crmInfo', res);
+                //不能动态修改mutations数据
+                _this.cvForm1 = deepClone(_this.userForm);
+                _this.cvForm1.sex = _this.cvForm1.sex + '';
+                _this.cvForm1.sex == 'null' ? _this.cvForm1.sex = '0' : '';
+            })
         },
         filters: {
             textFormat(val) {

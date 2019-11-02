@@ -12,11 +12,11 @@
         <el-table :data="tableData" stripe style="width: 100%">
           <el-table-column type="index" label="序号" width="70"></el-table-column>
           <el-table-column prop="name" label="推荐人" width="100"></el-table-column>
-          <el-table-column prop="sex" label="性别" width="70"></el-table-column>
+          <el-table-column prop="sex" label="性别" width="70" :formatter="sexFormat"></el-table-column>
           <el-table-column prop="job" label="职位头衔"></el-table-column>
           <el-table-column prop="unit_name" label="单位名称"></el-table-column>
           <el-table-column prop="phone" label="联系电话" width="120"></el-table-column>
-          <el-table-column prop="relation" label="与您的关系" width="120"></el-table-column>
+          <el-table-column prop="relation" label="与您的关系" width="120" :formatter="relashipFormat"></el-table-column>
           <el-table-column prop="createtime" label="创建时间" width="200"></el-table-column>
           <el-table-column prop="operation" label="操作" width="130">
             <template slot-scope="scope">
@@ -48,11 +48,11 @@
             <div class="detail_table">
               <el-table :data="viewDetail" stripe style="width: 100%" class="psDetail_talbe">
                 <el-table-column prop="name" label="推荐人" width="150"></el-table-column>
-                <el-table-column prop="sex" label="性别" width="98"></el-table-column>
+                <el-table-column prop="sex" label="性别" width="98" :formatter="sexFormat"></el-table-column>
                 <el-table-column prop="job" label="职位头衔" width="154"></el-table-column>
                 <el-table-column prop="unit_name" label="单位名称"></el-table-column>
                 <el-table-column prop="phone" label="联系电话" width="150"></el-table-column>
-                <el-table-column prop="relation" label="与你的关系" width="100"></el-table-column>
+                <el-table-column prop="relation" label="与你的关系" width="100" :formatter="relashipFormat"></el-table-column>
                 <el-table-column prop="createtime" label="创建时间" width="200"></el-table-column>
               </el-table>
             </div>
@@ -104,9 +104,12 @@
                 major: ['专业xxx', '专业yyy'], // 专业
                 record: ['初中', '高中'], // 学历
                 tableData: [], //table
+                relaship: [], //关系下拉
+                sexList:[],//性别下拉
                 psDetailForm: {},// ps详情内容
                 viewDetail: [],// 当前详情
                 letterLength: '',//当前推荐信条数
+                allLetter: 3,//推荐信限制数量
             }
         },
         mounted() {
@@ -119,12 +122,23 @@
                     _this.$store.commit('SET_LEETER',_this.letterLength);
                 }
             });
+            //获取关系、性别下拉
+            let dictionary = getStore('dictionary');
+            if (dictionary) {
+                _this.sexList = dictionary.SEX;
+                _this.relaship = dictionary.MY_RELATIONSHIP;
+            } else {
+                http.get('code-val/group-key-list').then((res) => {
+                    _this.sexList = res.SEX;
+                    _this.relaship = res.MY_RELATIONSHIP;
+                    setStore('dictionary', res)
+                })
+            }
         },
         computed: {
             //剩余推荐信份数
             count() {
-                let all = 3;
-                let residue = all - this.letterLength;
+                let residue = this.allLetter - this.letterLength;
                 if (residue > 0) {
                     return residue
                 }
@@ -132,6 +146,26 @@
             }
         },
         methods: {
+            //过滤性别
+            sexFormat(row,column){
+                let sex = '未知'
+                 this.sexList.map((item,index)=>{
+                     if(item.id == Number(row.sex)){
+                         sex = item.cvalue_cn;
+                     }
+                 });
+                return sex;
+            },
+            //过滤关系
+            relashipFormat(row,column){
+                let relaship = '';
+                this.relaship.map((item,index)=>{
+                    if(item.id == Number(row.relation)){
+                     relaship = item.cvalue_cn;
+                    }
+                });
+                return relaship;
+            },
             //新增推荐信
             addLetter() {
                 if(this.count != '0'){
@@ -155,7 +189,7 @@
                         type: 'warning'
                     });
                 } else {
-                    this.$router.push('/letter/edit')
+                    this.$router.push({path:'/letter/edit',query:{num: this.allLetter}})
                 }
             },
             //查看详情

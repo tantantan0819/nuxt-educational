@@ -49,7 +49,6 @@
         },
         methods: {
             goBack() {
-                console.log('00')
                 this.$router.go(-1);
             }
         }

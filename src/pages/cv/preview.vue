@@ -18,7 +18,7 @@
           <span v-else-if="user.sex == '2'">女</span>
           <span v-else></span>
         </div>
-        <span class="info_avatar" v-if="user"><img :src="user.avatar" alt=""/></span>
+        <span class="info_avatar" v-if="user.avatar"><img :src="user.avatar" alt=""/></span>
         <span class="info_avatar" v-else><img src="/images/avatar.jpg" alt=""/></span>
       </div>
       <!-- 教育背景 -->

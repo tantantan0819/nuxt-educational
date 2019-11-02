@@ -59,7 +59,7 @@
               </el-select>
             </el-form-item>
             <el-form-item label="平均成绩" prop="average_result">
-              <el-input v-model="cvForm2.average_result" placeholder="请输入您的平均成绩" autocomplete="off"></el-input>
+              <el-input v-model="cvForm2.average_result" placeholder="请输入您的平均成绩" autocomplete="off"  @keydown.enter.native="submitForm('cvForm2')"></el-input>
             </el-form-item>
           </el-form>
           <div class="footer_button">
@@ -185,14 +185,14 @@
                 });
             }
             //获取学历下拉
-            let eduList = getStore('eduList');
-            if (eduList) {
-                _this.select.record = eduList
+            let dictionary = getStore('dictionary');
+            if (dictionary) {
+                _this.select.record = dictionary.CURRENT_DEGREE;
             } else {
                 http.get('code-val/group-key-list').then((res) => {
                     this.select.record = res.CURRENT_DEGREE;
-                    setStore('eduList', res.CURRENT_DEGREE)
-                });
+                    setStore('dictionary', res)
+                })
             }
             //获取专业下拉
             let majorList = getStore('majorList');

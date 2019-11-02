@@ -58,15 +58,10 @@
             let pathReset = path.substring(0, path.indexOf("/", 2));
             pathReset == ''?_this.active = path : _this.active = pathReset;
             // 获取用户信息
-            let userInfo = this.$store.state.user;
-            if (!emptyObj(userInfo)) {
-                _this.user = userInfo;
-            } else {
-                uhttp.get('/user/detail').then((res) => {
-                    _this.$store.commit('user/SET_USER', res);
-                    _this.user = res;
-                })
-            }
+            uhttp.get('/user/detail').then((res) => {
+                _this.$store.commit('user/SET_USER', res);
+                _this.user = res;
+            })
         },
         methods: {
             //跳转

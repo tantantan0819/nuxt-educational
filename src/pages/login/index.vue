@@ -15,7 +15,7 @@
               <el-input v-model.number="loginForm.username" placeholder="请输入账号" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item prop="password">
-              <el-input type="password" v-model="loginForm.password" placeholder="请输入密码" autocomplete="off" show-password></el-input>
+              <el-input type="password" v-model="loginForm.password" placeholder="请输入密码" autocomplete="off" show-password @keydown.enter.native="submitForm('loginForm')"></el-input>
             </el-form-item>
             <el-form-item class="login_submit">
               <div class="forget_password"><span @click="forget">忘记密码?</span></div>
@@ -43,15 +43,6 @@
                 interval: 2000,//轮播切换时间
                 carouselImg: [
                     '/images/login/utrack_login.png',
-                    // '/images/login/planb1.png',
-                    // '/images/login/planb2.png',
-                    // '/images/login/planb3.png',
-                    // '/images/login/planb4.png',
-                    // '/images/login/planb5.png',
-                    // '/images/login/planb6.png',
-                    // '/images/login/planb7.png',
-                    // '/images/login/planb8.png',
-                    // '/images/login/planb9.png',
                 ],//轮播图片
                 loginForm: {
                     password: '',
@@ -69,6 +60,12 @@
             }
         },
         methods: {
+            //enter下一个input获得焦点
+            fun() {
+                const DOM = event.target;
+                const nextDOM = DOM.nextElementSibling;
+                nextDOM.focus()
+            },
             //提交表单
             submitForm(formName) {
                 let _this = this;

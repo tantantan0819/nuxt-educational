@@ -4,7 +4,7 @@
       <div class="title_box">
         <div class="cv_title">
           <p>新增推荐信</p>
-          <span>目前您有{{letterLength}}份推荐信，您还可新增{{10-letterLength}}份推荐信</span>
+          <span>目前您有{{letterLength}}份推荐信，您还可新增{{allLetter-letterLength}}份推荐信</span>
         </div>
       </div>
       <div class="cv_content ps_add ps_detail add">
@@ -19,9 +19,7 @@
                 <el-form-item label="性别：" prop="sex" placeholder="请选择推荐人的性别">
                   <el-select v-model="letterForm.sex" class="widthAll" placeholder="请选择推荐人的性别">
                     <!--crm规则：0:未知 男：4 女：5-->
-                    <el-option label="未知" value="0"></el-option>
-                    <el-option label="男" value="4"></el-option>
-                    <el-option label="女" value="5"></el-option>
+                    <el-option v-for="(item,index) in sexList" :key="index" :label="item.cvalue_cn" :value="item.id"></el-option>
                   </el-select>
                 </el-form-item>
                 <el-form-item label="职位头衔：" prop="job">
@@ -40,7 +38,7 @@
                 </el-form-item>
                 <el-form-item label="与您的关系：" prop="relation">
                   <el-select v-model="letterForm.relation" class="widthAll" placeholder="请选择推荐人与您的关系">
-                    <el-option v-for="(item,index) in relaship" :key=index :label="item.cvalue_cn" :value="item.cvalue_cn"></el-option>
+                    <el-option v-for="(item,index) in relaship" :key=index :label="item.cvalue_cn" :value="item.id"></el-option>
                   </el-select>
                 </el-form-item>
               </div>
@@ -67,7 +65,7 @@
                 </el-form-item>
                 <el-form-item label="5、 其他你特别想放在推荐信里面的内容" prop="content5">
                   <el-input type="textarea" v-model="letterForm.content5" placeholder=""
-                            autocomplete="off" :maxlength="titleMaxLength"></el-input>
+                            autocomplete="off" :maxlength="titleMaxLength" @keydown.enter.native="submitForm('letterForm')"></el-input>
                   <span class="textareaTip">还可输入{{titleMaxLength - letterForm.content5.length}}字</span>
                 </el-form-item>
               </div>
@@ -104,9 +102,11 @@
                 }
             };
             return {
+                allLetter: 0,//推荐信限制数量
                 letterLength: '' ,//当前推荐信条数
                 titleMaxLength: 100,//文本域最大字数
-                relaship: [], // 关系
+                relaship: [], //关系下拉
+                sexList:[],//性别下拉
                 letterForm: {
                     name: '',
                     sex: '',//男：4，女：5
@@ -164,14 +164,17 @@
         },
         mounted(){
             let _this = this;
-            // //获取关系下拉
-            let result = getStore('relaship');
-            if (result) {
-                _this.relaship = result;
+            _this.allLetter = _this.$route.query.num;
+            //获取关系、性别下拉
+            let dictionary = getStore('dictionary');
+            if (dictionary) {
+                _this.sexList = dictionary.SEX;
+                _this.relaship = dictionary.MY_RELATIONSHIP;
             } else {
                 http.get('code-val/group-key-list').then((res) => {
-                    this.relaship = res.MY_RELATIONSHIP;
-                    setStore('relaship', res.MY_RELATIONSHIP)
+                    _this.sexList = res.SEX;
+                    _this.relaship = res.MY_RELATIONSHIP;
+                    setStore('dictionary', res)
                 })
             }
             //推荐信条数
@@ -189,6 +192,7 @@
                 _this.letterForm.phone = _this.letterForm.phone +'';
                 _this.$refs[formName].validate((valid) => {
                     if (valid) {
+                        _this.letterForm.sex+='';
                         http.post('customer-recommendation/add',_this.letterForm).then((res) => {
                             let successMsg = _this.$message({
                                 message: '提交成功！',

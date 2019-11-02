@@ -34,14 +34,14 @@
                               v-model="cvForm4.start_time"
                               class="widthAll"></el-date-picker>
             </el-form-item>
-            <el-form-item label="结束时间" prop="timeEnd">
+            <el-form-item label="结束时间" prop="end_time">
               <el-date-picker type="date" format="yyyy-MM-dd" value-format="yyyy-MM-dd" placeholder="请选择您的工作/实习经历结束时间"
                               v-model="cvForm4.end_time"
                               class="widthAll"></el-date-picker>
             </el-form-item>
             <el-form-item label="经历描述" prop="descript" class="cvTextareaBox">
               <el-input type="textarea" v-model="cvForm4.descript" placeholder="整体框架遵循【做了什么】【结果是什么】【有什么价值】的逻辑。"
-                        class="cvTextarea" autocomplete="off" :maxlength="titleMaxLength"></el-input>
+                        class="cvTextarea" autocomplete="off" :maxlength="titleMaxLength" @keydown.enter.native="submitForm('cvForm4')"></el-input>
               <span class="textareaTip">还可输入{{titleMaxLength - cvForm4.descript.length}}字</span>
             </el-form-item>
           </el-form>
@@ -80,7 +80,7 @@
                         {required: true, message: '请选择您的工作/实习经历结束时间', trigger: 'blur'}
                     ],
                     descript: [
-                        {required: true, message: '请输入您的经历描述', trigger: 'blur'}
+                        {required: true, message: '请输入您的您的工作/实习经历描述', trigger: 'blur'}
                     ],
 
                 }

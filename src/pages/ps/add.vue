@@ -67,7 +67,7 @@
               </tr>
               <tr>
                 <td>网申方式</td>
-                <td>{{detail.sign_inapply_type}}</td>
+                <td>{{detail.sign_inapply_type | signFormat}}</td>
                 <td>网申账号</td>
                 <td>{{detail.net_client_id}}</td>
               </tr>
@@ -101,7 +101,7 @@
               </tr>
               <tr>
                 <td>押金类型</td>
-                <td colspan="3">{{detail.deposit_type}}</td>
+                <td colspan="3">{{detail.deposit_type | depositFormat}}</td>
               </tr>
               <tr>
                 <td>押金截止日期</td>
@@ -123,15 +123,18 @@
               </tr>
               <tr>
                 <td>CO</td>
-                <td colspan="3"><a class="reviewBtn" target="_blank" :href="view_href+detail.co_file" v-if="detail.co_file">查看CO</a></td>
+                <td colspan="3"><a class="reviewBtn" target="_blank" :href="view_href+detail.co_file"
+                                   v-if="detail.co_file">查看CO</a></td>
               </tr>
               <tr>
                 <td>UO</td>
-                <td colspan="3"><a class="reviewBtn" target="_blank" :href="view_href+detail.uo_file" v-if="detail.uo_file">查看UO</a></td>
+                <td colspan="3"><a class="reviewBtn" target="_blank" :href="view_href+detail.uo_file"
+                                   v-if="detail.uo_file">查看UO</a></td>
               </tr>
               <tr>
                 <td>CAS</td>
-                <td colspan="3"><a class="reviewBtn" target="_blank" :href="view_href+detail.cas_file" v-if="detail.cas_file">查看CAS</a></td>
+                <td colspan="3"><a class="reviewBtn" target="_blank" :href="view_href+detail.cas_file"
+                                   v-if="detail.cas_file">查看CAS</a></td>
               </tr>
               <tr>
                 <td>备注</td>
@@ -162,6 +165,7 @@
     import http from "~/plugins/http";
     import config from '~/plugins/config';
     import {getStore, setStore} from '~/plugins/utils';
+
     let that;
     export default {
         layout: 'utrack',
@@ -177,6 +181,7 @@
                 deposit: [],//押金类型
                 resultArr: [],//申请结果
                 update: [],//院校实时更新
+                signList:[],//网申方式
             }
         },
         beforeCreate: function () {
@@ -189,65 +194,82 @@
             this.view_href = config.view_host;
             //获取可以申请方案列表
             http.get('customer-apply-question/get-my-ps?search[id]=' + _this.id).then((res) => {
-                if(res.length != 0){
+                if (res.length != 0) {
                     _this.plan = res[0]
-                    res[0].apply.length != 0 ? this.apply_id = res[0].apply[0].id: '';
-                }else{
+                    res[0].apply.length != 0 ? this.apply_id = res[0].apply[0].id : '';
+                } else {
                     _this.plan = {}
                 }
-            })
-            //获取押金类型
-            let depositList = getStore('depositList');
-            if (depositList) {
-                _this.deposit = depositList;
-            } else {
-                http.get('code-val/group-key-list').then((res) => {
-                    _this.deposit = res.DEPOSIT_TYPE;
-                    setStore('depositList', res.DEPOSIT_TYPE);
-                });
-            }
-            //获取申请结果
-            let resultList = getStore('resultList');
-            if (resultList) {
-                _this.resultArr = resultList;
+            });
+            //获取申请结果、押金类型
+            let dictionary = getStore('dictionary');
+            if (dictionary) {
+                _this.resultArr = dictionary.RESULT_OFFER;
+                _this.deposit = dictionary.DEPOSIT_TYPE;
+                _this.signList = dictionary.APPLY_TYPE;
             } else {
                 http.get('code-val/group-key-list').then((res) => {
                     _this.resultArr = res.RESULT_OFFER;
-                    setStore('resultList', res.RESULT_OFFER);
-                });
+                    _this.deposit = res.DEPOSIT_TYPE;
+                    _this.signList = res.APPLY_TYPE;
+                    setStore('dictionary', res)
+                })
             }
         },
         methods: {
             //上一步
             prev() {
-               this.$router.push('/ps')
+                this.$router.push('/ps')
             },
             //下一步
             next() {
-                this.$router.push({path: '/ps/edit', query: {id: this.id, type: this.addIndex,apply_id:this.apply_id}});
+                this.$router.push({
+                    path: '/ps/edit',
+                    query: {id: this.id, type: this.addIndex, apply_id: this.apply_id}
+                });
             },
             //查看详情
-            viewDetail(index,id) {
+            viewDetail(index, id) {
                 //获取院校实时更新
-                http.get('customer-apply-update/list',{'apply_id':id}).then((res) => {
+                http.get('customer-apply-update/list', {'apply_id': id}).then((res) => {
                     this.update = res;
                 })
                 this.detail = this.plan.apply[index];
                 this.outerVisible = true;
             },
             //选择方案
-            selectApply(index){
+            selectApply(index) {
                 this.addIndex = index;
                 this.apply_id = this.plan.apply[index].id;
             }
 
         },
-        filters:{
+        filters: {
             //匹配申请结果
-            resultFormat:function(result){
+            resultFormat: function (result) {
                 let result_cn = '';
-                that.resultArr.map((item)=>{
-                    if(item.id == result){
+                that.resultArr.map((item) => {
+                    if (item.id == result) {
+                        return result_cn = item.cvalue_cn;
+                    }
+                });
+                return result_cn;
+            },
+            //匹配网申方式
+            signFormat(result) {
+                let result_cn = '';
+                that.signList.map((item) => {
+                    if (item.id == result) {
+                        return result_cn = item.cvalue_cn;
+                    }
+                });
+                return result_cn;
+            },
+            //匹配押金类型
+            depositFormat(result) {
+                let result_cn = '';
+                that.deposit.map((item) => {
+                    if (item.id == result) {
                         return result_cn = item.cvalue_cn;
                     }
                 });

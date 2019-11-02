@@ -145,7 +145,7 @@
 </style>
 <script>
     import {validEmail, validPhone, valiPassward} from '~/plugins/validate';
-    import {getStore, setStore, deepClone} from '~/plugins/utils';
+    import {getStore, setStore, deepClone,emptyObj} from '~/plugins/utils';
     import uhttp from "~/plugins/uhttp";
 
     export default {
@@ -236,12 +236,13 @@
             let _this = this;
             //获取用户信息
             _this.active = location.pathname;
+
             let userInfo = this.$store.state.user;
-            if (JSON.stringify(userInfo) != "{}") {
+            if (!emptyObj(userInfo)) {
                 _this.user = userInfo;
             } else {
                 uhttp.get('/user/detail').then((res) => {
-                    _this.$store.commit('SET_USER', res);
+                    _this.$store.commit('user/SET_USER', res);
                     _this.user = res;
                 })
             }

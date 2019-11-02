@@ -3,7 +3,7 @@
 //验证手机
 export const isPhone = /^1[345789]\d{9}$/;
 //验证邮箱
-export const isEmail = /^\w[_\w]+@\w+(?:\.\w+)+$/;
+export const isEmail = /^\w+@\w+(?:\.\w+)+$/;
 //验证6-16位数字和字母
 export const isPassword = /[a-z0-9]{6,16}/;
 
