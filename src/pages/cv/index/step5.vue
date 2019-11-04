@@ -17,7 +17,7 @@
     </div>
     <div class="cv_footer">
       <div class="footer_button">
-        <span @click="prev">上一步</span>
+        <span @click="prev"><i>上一步</i></span>
         <span @click="next">下一步</span>
       </div>
       <span class="next">请在退出前点击“下一步”按钮，您当前填写的信息可以被保存。</span>

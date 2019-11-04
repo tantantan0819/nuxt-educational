@@ -340,7 +340,6 @@
 .footer_button {
   margin-top: 10px;
   @include cc();
-
   span {
     cursor: pointer;
     @include wh(132px, 48px);
@@ -348,7 +347,6 @@
     @include gradient();
     @include borderRadius(30px);
     @include fontc(16px, 1, $fc);
-
     &:nth-child(1) {
       i {
         display: inline-block;

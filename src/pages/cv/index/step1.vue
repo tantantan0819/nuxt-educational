@@ -16,7 +16,6 @@
         <el-form-item label="性别" prop="sex" readonly>
           <el-select v-model="cvForm1.sex" class="widthAll" placeholder="请选择您的性别" @change="$forceUpdate()">
             <!--crm规则：0:未知 男：4 女：5-->
-            <el-option value="0" label="未知" v-bind:disabled="userForm.sex | textFormat"></el-option>
             <el-option value="4" label="男" v-bind:disabled="userForm.sex | textFormat"></el-option>
             <el-option value="5" label="女" v-bind:disabled="userForm.sex | textFormat"></el-option>
           </el-select>
@@ -98,20 +97,18 @@
             //获取用户信息
             http.get('customer/get-info').then((res) => {
                 _this.userForm = res;
-                setStore('crmInfo', res);
                 //不能动态修改mutations数据
                 _this.cvForm1 = deepClone(_this.userForm);
+                if(_this.userForm.sex == 0 || !_this.userForm.sex){
+                    _this.cvForm1.sex = '';
+                }
                 _this.cvForm1.sex = _this.cvForm1.sex + '';
-                _this.cvForm1.sex == 'null' ? _this.cvForm1.sex = '0' : '';
             })
         },
         filters: {
             textFormat(val) {
                 if (typeof val == 'undefined') {
                     return false;
-                }
-                if(typeof val == 'number'){
-                    return true
                 }
                 if (val == '') {
                     return false;

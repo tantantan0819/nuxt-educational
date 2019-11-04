@@ -41,7 +41,7 @@
             },
             //预览cv
             preview() {
-                this.$router.push('/cv/preview')
+                window.open('/cv/preview')
             }
         },
         watch:{
