@@ -25,6 +25,9 @@ module.exports = {
   // 配置加载进度条颜色
   loading: {color: '#ff4e82'},
 
+  //
+  dev: process.env.NODE_ENV === 'DEV',
+
   //配置实例化之前需要运行的插件
   plugins: [
     {
