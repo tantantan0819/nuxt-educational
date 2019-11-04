@@ -101,9 +101,8 @@
                 setStore('crmInfo', res);
                 //不能动态修改mutations数据
                 _this.cvForm1 = deepClone(_this.userForm);
-                console.log(res.sex,'res')
                 _this.cvForm1.sex = _this.cvForm1.sex + '';
-                // _this.cvForm1.sex == 'null' ? _this.cvForm1.sex = '0' : '';
+                _this.cvForm1.sex == 'null' ? _this.cvForm1.sex = '0' : '';
             })
         },
         filters: {
