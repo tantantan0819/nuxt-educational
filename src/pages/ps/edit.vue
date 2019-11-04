@@ -61,15 +61,15 @@
                           autocomplete="off" :maxlength="titleMaxLength"></el-input>
               </el-form-item>
               <el-form-item label="7、你是否读过相关书籍跟申请的专业相关？" prop="content6">
-                <span class="textareaTip">还可输入{{titleMaxLength - psDetailForm.content6.length}}字</span>
+                <span class="textareaTip">还可输入{{titleMaxLength2 - psDetailForm.content6.length}}字</span>
                 <el-input type="textarea" v-model="psDetailForm.content6"
                           placeholder="最好作者是国外的，如果没有，就写国内的。用两句话阐述这些书籍主要研究的是什么问题，对于你要申请的专业有什么借鉴和学习作用。" autocomplete="off"
-                          :maxlength="titleMaxLength"></el-input>
+                          :maxlength="titleMaxLength2"></el-input>
               </el-form-item>
               <el-form-item label="8、其他你特别想放在PS里面的内容。" prop="content7">
-                <span class="textareaTip">还可输入{{titleMaxLength - psDetailForm.content7.length}}字</span>
+                <span class="textareaTip">还可输入{{titleMaxLength2 - psDetailForm.content7.length}}字</span>
                 <el-input type="textarea" v-model="psDetailForm.content7" placeholder="其他你特别想放在PS里面的内容。"
-                          autocomplete="off" :maxlength="titleMaxLength" @keydown.enter.native="submitForm('psDetailForm')"></el-input>
+                          autocomplete="off" :maxlength="titleMaxLength2" @keydown.enter.native="submitForm('psDetailForm')"></el-input>
               </el-form-item>
             </el-form>
           </div>
@@ -102,7 +102,8 @@
                 psLength: '',//当前ps长度
                 addIndex: 1,// 选中的ps方案
                 outerVisible: false,// 外层弹出框
-                titleMaxLength: 100,//文本域最大字数
+                titleMaxLength: 500,//文本域最大字数
+                titleMaxLength2: 300,//文本域最大字数
                 tableData: [], //table
                 psDetailForm: {
                     apply_id: '',//ps-id

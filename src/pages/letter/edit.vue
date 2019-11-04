@@ -11,7 +11,8 @@
         <span class="ps_tip">内容填写完毕，保存后将无法修改，请认真回答以下所有问题！如需修改只能联系自己的顾问老师协助修改</span>
         <div class="ps_plan">
           <div class="add_content add_form letter_form">
-            <el-form :model="letterForm" :rules="rules" status-icon ref="letterForm" label-width="300px" label-position="top" class="letterForm">
+            <el-form :model="letterForm" :rules="rules" status-icon ref="letterForm" label-width="300px"
+                     label-position="top" class="letterForm">
               <div class="letter_info">
                 <el-form-item label="推荐人：" prop="name" label-width="300">
                   <el-input v-model="letterForm.name" placeholder="请输入推荐人的姓名" autocomplete="off"></el-input>
@@ -19,7 +20,8 @@
                 <el-form-item label="性别：" prop="sex" placeholder="请选择推荐人的性别">
                   <el-select v-model="letterForm.sex" class="widthAll" placeholder="请选择推荐人的性别">
                     <!--crm规则：0:未知 男：4 女：5-->
-                    <el-option v-for="(item,index) in sexList" :key="index" :label="item.cvalue_cn" :value="item.id"></el-option>
+                    <el-option v-for="(item,index) in sexList" :key="index" :label="item.cvalue_cn"
+                               :value="item.id"></el-option>
                   </el-select>
                 </el-form-item>
                 <el-form-item label="职位头衔：" prop="job">
@@ -38,35 +40,37 @@
                 </el-form-item>
                 <el-form-item label="与您的关系：" prop="relation">
                   <el-select v-model="letterForm.relation" class="widthAll" placeholder="请选择推荐人与您的关系">
-                    <el-option v-for="(item,index) in relaship" :key=index :label="item.cvalue_cn" :value="item.id"></el-option>
+                    <el-option v-for="(item,index) in relaship" :key=index :label="item.cvalue_cn"
+                               :value="item.id"></el-option>
                   </el-select>
                 </el-form-item>
               </div>
               <div class="letter_content psDetailForm cvTextareaBox">
                 <el-form-item label="1、 推荐人在何时何地开始与您相互认识？" prop="content1">
-                  <el-input type="textarea" v-model="letterForm.content1" placeholder=""
-                            autocomplete="off" :maxlength="titleMaxLength"></el-input>
-                  <span class="textareaTip">还可输入{{titleMaxLength - letterForm.content1.length}}字</span>
+                  <el-input type="textarea" v-model="letterForm.content1" placeholder="例：课堂上，新生入学，面试，某个活动等"
+                            autocomplete="off" :maxlength="titleMaxLength50"></el-input>
+                  <span class="textareaTip">还可输入{{titleMaxLength50 - letterForm.content1.length}}字</span>
                 </el-form-item>
                 <el-form-item label="2、推荐人如果是您的授课老师，具体教授您哪些课程，分别的课程成绩如何？" prop="content2">
-                  <el-input type="textarea" v-model="letterForm.content2" placeholder=""
-                            autocomplete="off" :maxlength="titleMaxLength"></el-input>
-                  <span class="textareaTip">还可输入{{titleMaxLength - letterForm.content2.length}}字</span>
+                  <el-input type="textarea" v-model="letterForm.content2" placeholder="例：学年+学期+课程名称+课程分数等"
+                            autocomplete="off" :maxlength="titleMaxLength100"></el-input>
+                  <span class="textareaTip">还可输入{{titleMaxLength100 - letterForm.content2.length}}字</span>
                 </el-form-item>
                 <el-form-item label="3、推荐人是否对您有进行跟申请相关的项目或论文指导，如有，请简述在此过程中的印象与评价" prop="content3">
-                  <el-input type="textarea" v-model="letterForm.content3" placeholder=""
-                            autocomplete="off" :maxlength="titleMaxLength"></el-input>
-                  <span class="textareaTip">还可输入{{titleMaxLength - letterForm.content3.length}}字</span>
+                  <el-input type="textarea" v-model="letterForm.content3" placeholder="例：什么项目+什么事情引起了老师的注意+老师如何评价"
+                            autocomplete="off" :maxlength="titleMaxLength200"></el-input>
+                  <span class="textareaTip">还可输入{{titleMaxLength200 - letterForm.content3.length}}字</span>
                 </el-form-item>
                 <el-form-item label="4、 推荐人在和您接触过程中对您的整体印象与评价？" prop="content4">
-                  <el-input type="textarea" v-model="letterForm.content4" placeholder=""
-                            autocomplete="off" :maxlength="titleMaxLength"></el-input>
-                  <span class="textareaTip">还可输入{{titleMaxLength - letterForm.content4.length}}字</span>
+                  <el-input type="textarea" v-model="letterForm.content4" placeholder="例：课堂或表现、学习或工作能力、主动性、独立性、创新性、责任感等，请以评价+具体事例结合的方式阐述："
+                            autocomplete="off" :maxlength="titleMaxLength50"></el-input>
+                  <span class="textareaTip">还可输入{{titleMaxLength50 - letterForm.content4.length}}字</span>
                 </el-form-item>
                 <el-form-item label="5、 其他你特别想放在推荐信里面的内容" prop="content5">
-                  <el-input type="textarea" v-model="letterForm.content5" placeholder=""
-                            autocomplete="off" :maxlength="titleMaxLength" @keydown.enter.native="submitForm('letterForm')"></el-input>
-                  <span class="textareaTip">还可输入{{titleMaxLength - letterForm.content5.length}}字</span>
+                  <el-input type="textarea" v-model="letterForm.content5" placeholder="例：课堂或表现、学习或工作能力、主动性、独立性、创新性、责任感等，请以评价+具体事例结合的方式阐述："
+                            autocomplete="off" :maxlength="titleMaxLength100"
+                            @keydown.enter.native="submitForm('letterForm')"></el-input>
+                  <span class="textareaTip">还可输入{{titleMaxLength100 - letterForm.content5.length}}字</span>
                 </el-form-item>
               </div>
             </el-form>
@@ -89,6 +93,7 @@
 <script>
     import http from "~/plugins/http";
     import {getStore, setStore} from '~/plugins/utils';
+
     export default {
         layout: 'utrack',
         data() {
@@ -103,15 +108,17 @@
             };
             return {
                 allLetter: 0,//推荐信限制数量
-                letterLength: '' ,//当前推荐信条数
-                titleMaxLength: 100,//文本域最大字数
+                letterLength: '',//当前推荐信条数
+                titleMaxLength50: 50,//文本域最大字数
+                titleMaxLength100: 100,//文本域最大字数
+                titleMaxLength200: 200,//文本域最大字数
                 relaship: [], //关系下拉
-                sexList:[],//性别下拉
+                sexList: [],//性别下拉
                 letterForm: {
                     name: '',
                     sex: '',//男：4，女：5
                     job: '',
-                    unit_address:'',
+                    unit_address: '',
                     unit_name: '',
                     phone: '',
                     relation: '',
@@ -162,7 +169,7 @@
                 }
             }
         },
-        mounted(){
+        mounted() {
             let _this = this;
             _this.allLetter = _this.$route.query.num;
             //获取关系、性别下拉
@@ -189,11 +196,11 @@
             //保存--提交表单
             submitForm(formName) {
                 let _this = this;
-                _this.letterForm.phone = _this.letterForm.phone +'';
+                _this.letterForm.phone = _this.letterForm.phone + '';
                 _this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        _this.letterForm.sex+='';
-                        http.post('customer-recommendation/add',_this.letterForm).then((res) => {
+                        _this.letterForm.sex += '';
+                        http.post('customer-recommendation/add', _this.letterForm).then((res) => {
                             let successMsg = _this.$message({
                                 message: '提交成功！',
                                 type: 'success'
