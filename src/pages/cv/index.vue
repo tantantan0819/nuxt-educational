@@ -1,9 +1,8 @@
 <template>
   <div class="cv">
     <div class="cv_header">
-      <ul class="cv_nav no_nav">
-<!--        <li v-for="(item,index) in cvArr" :key="index" :class="{'active':item == active}" @click="cvChange(item)">0{{index+1}}</li>-->
-        <li v-for="(item,index) in cvArr" :key="index" :class="{'active':item == active}">0{{index+1}}</li>
+      <ul class="cv_nav">
+        <li v-for="(item,index) in cvArr" :key="index" :class="{'active':item == active}" @click="cvChange(item)">0{{index+1}}</li>
       </ul>
       <span class="cv_button" @click="preview">预览我的CV</span>
     </div>
