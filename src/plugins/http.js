@@ -54,7 +54,6 @@ service.interceptors.request.use(async function (config) {
       //同步请求token
       let tokenData = await requestTokenSync();
       setToken(tokenData.token);
-      setTokenKey(tokenData.key);
       config.headers["Api-Token"] = tokenData.token;
     }
   }

@@ -43,6 +43,11 @@
         @include gradient();
       }
     }
+    .no_nav{
+      li{
+        cursor: default;
+      }
+    }
   }
 
   .cv_footer {

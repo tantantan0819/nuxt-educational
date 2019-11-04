@@ -41,7 +41,7 @@
             </el-form-item>
             <el-form-item label="经历描述" prop="descript" class="cvTextareaBox">
               <el-input type="textarea" v-model="cvForm4.descript" placeholder="整体框架遵循【做了什么】【结果是什么】【有什么价值】的逻辑。"
-                        class="cvTextarea" autocomplete="off" :maxlength="titleMaxLength" @keydown.enter.native="submitForm('cvForm4')"></el-input>
+                        class="cvTextarea cvTextarea2" autocomplete="off" :maxlength="titleMaxLength" @keydown.enter.native="submitForm('cvForm4')"></el-input>
               <span class="textareaTip">还可输入{{titleMaxLength - cvForm4.descript.length}}字</span>
             </el-form-item>
           </el-form>
@@ -66,7 +66,7 @@
             return {
                 outerVisible: false,//外层
                 tableData: [], //table
-                titleMaxLength: 500,//文本域最大字数
+                titleMaxLength: 100,//文本域最大字数
                 cvForm4: {
                     start_time: '',
                     end_time: '',
