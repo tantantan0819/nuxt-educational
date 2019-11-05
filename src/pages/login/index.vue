@@ -10,12 +10,12 @@
       <div class="loginForm">
         <div class="form_box">
           <p class="login_title tc">欢迎登录</p>
-          <el-form :model="loginForm" status-icon :rules="rules" ref="loginForm" label-width="0px" class="login_form">
+          <el-form :model="loginForm" status-icon :rules="rules" ref="loginForm" label-width="0px" class="login_form" autocomplete="off">
             <el-form-item prop="username">
-              <el-input v-model.number="loginForm.username" placeholder="请输入账号" autocomplete="off"></el-input>
+              <el-input v-model.number="loginForm.username" placeholder="请输入账号" autocomplete="off" v-if="isShow"></el-input>
             </el-form-item>
             <el-form-item prop="password">
-              <el-input type="password" v-model="loginForm.password" placeholder="请输入密码" autocomplete="off" show-password @keydown.enter.native="submitForm('loginForm')"></el-input>
+              <el-input type="passward" v-model="loginForm.password" placeholder="请输入密码" autocomplete="off"  @keydown.enter.native="submitForm('loginForm')" v-if="isShow" show-password></el-input>
             </el-form-item>
             <el-form-item class="login_submit">
               <div class="forget_password"><span @click="forget">忘记密码?</span></div>
@@ -40,6 +40,7 @@
     export default {
         data() {
             return {
+                isShow: false,
                 interval: 2000,//轮播切换时间
                 carouselImg: [
                     '/images/login/utrack_login.png',
@@ -58,6 +59,12 @@
                 }
 
             }
+        },
+        mounted(){
+            //谷歌自动填充
+            setTimeout(()=>{
+                this.isShow = true;
+            },1)
         },
         methods: {
             //enter下一个input获得焦点
