@@ -8,7 +8,8 @@
         </div>
       </div>
       <div class="cv_content ps_add ps_add2">
-        <span class="ps_tip">请选择您要新增PS的申请方案</span>
+        <span class="ps_tip" v-if="isNext">请选择您要新增PS的申请方案</span>
+        <span class="ps_tip" v-else>该合同下暂无可申请的PS方案哦~ 如有疑问，请联系你的顾问老师！</span>
         <div class="add_box">
           <div class="add_item" v-for="(item,index) in plan.apply" :key="index" :class="{'active': index == addIndex}">
             <div class="add_title">申请方案{{index+1}} <span @click="viewDetail(index,item.id)">查看详情</span></div>
@@ -32,7 +33,7 @@
       <div class="cv_footer ps_footer">
         <div class="footer_button">
           <span @click="prev"><i>取消</i></span>
-          <span @click="next">下一步</span>
+          <span @click="next" :class="{'gray':!isNext}">下一步</span>
         </div>
       </div>
     </div>
@@ -171,6 +172,7 @@
         layout: 'utrack',
         data() {
             return {
+                isNext: false,//是否可以下一步
                 plan: {},//申请方案列表
                 detail: {},//查看详情
                 addIndex: 0,// 选中的ps方案
@@ -196,8 +198,12 @@
             http.get('customer-apply-question/get-my-ps?search[id]=' + _this.id).then((res) => {
                 if (res.length != 0) {
                     _this.plan = res[0]
-                    res[0].apply.length != 0 ? this.apply_id = res[0].apply[0].id : '';
+                    if(res[0].apply.length != 0 ){
+                        this.apply_id = res[0].apply[0].id;
+                        this.isNext = true;
+                    }
                 } else {
+                    _this.isNext = false;
                     _this.plan = {}
                 }
             });
@@ -223,10 +229,17 @@
             },
             //下一步
             next() {
-                this.$router.push({
-                    path: '/ps/edit',
-                    query: {id: this.id, type: this.addIndex, apply_id: this.apply_id}
-                });
+                if(this.isNext){
+                    this.$router.push({
+                        path: '/ps/edit',
+                        query: {id: this.id, type: this.addIndex, apply_id: this.apply_id}
+                    });
+                }else{
+                    this.$message({
+                        message: '该合同下暂无可申请的PS方案哦~ 如有疑问，请联系你的顾问老师！',
+                        type: 'warning'
+                    });
+                }
             },
             //查看详情
             viewDetail(index, id) {
