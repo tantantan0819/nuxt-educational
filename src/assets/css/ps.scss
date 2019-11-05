@@ -13,7 +13,7 @@
     .add_box {
       display: flex;
       flex-wrap: wrap;
-
+      min-height: 50px;
       .add_item {
         cursor: pointer;
         margin: 0 40px 90px 0;
