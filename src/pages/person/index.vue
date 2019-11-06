@@ -236,14 +236,17 @@
             let _this = this;
             //获取用户信息
             _this.active = location.pathname;
-
-            let userInfo = this.$store.state.user;
+            let userInfo = _this.$store.state.user;
             if (!emptyObj(userInfo)) {
                 _this.user = userInfo;
+                //不能动态修改mutations数据
+                _this.person = deepClone(_this.user);
             } else {
                 uhttp.get('/user/detail').then((res) => {
                     _this.$store.commit('user/SET_USER', res);
-                    _this.user = res;
+                    _this.user = _this.$store.state.user;
+                    //不能动态修改mutations数据
+                    _this.person = deepClone(_this.user);
                 })
             }
             //获取区号
@@ -264,8 +267,6 @@
             }
             //获取图形验证码
             _this.changeGraphic();
-            //不能动态修改mutations数据
-            _this.person = deepClone(_this.user);
         },
         methods: {
             //头像上传之前
@@ -294,8 +295,17 @@
             successUpload(res) {
                 let _this = this;
                 let img_url = _this.base_url + res.hash;
-                _this.person.avatar = img_url;
-                _this.$store.commit('user/SET_USER', _this.person);
+                uhttp.post('user/edit', {avatar:img_url}).then((res) => {
+                    if (res) {
+                        _this.$message({
+                            message: '头像修改成功！',
+                            type: 'success'
+                        });
+                        _this.person.avatar = img_url;
+                        _this.$store.commit('user/SET_USER', _this.person);
+                    }
+                })
+
             },
             //获取图形验证码
             changeGraphic() {

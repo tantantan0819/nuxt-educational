@@ -113,7 +113,7 @@
             } else {
                 uhttp.get('/user/detail').then((res) => {
                     _this.$store.commit('user/SET_USER', res);
-                    _this.user = res;
+                    _this.user = _this.$store.state.user;
                 })
             }
             //获取cv预览
