@@ -29,7 +29,7 @@ const ERROR_TOKEN_EXPIRE = 2050;
 /**
  * 需要登录访问
  */
-const ERROR_NEED_LOGIN = 4000;
+const ERROR_NEED_LOGIN = 3000;
 
 
 // 创建 axios 实例
@@ -152,6 +152,7 @@ const http = {
         "Api-Timestamp": timestamp,
         "Api-Version": Config.user_version,
         "Api-Token": token,
+        'Api-Sso': Config.user_id,
         "Api-Token-Sign": getTokenSign(timestamp, salt),
       }
     };
