@@ -92,7 +92,7 @@
         methods: {
             //获取校园活动
             getSchool() {
-                http.get('customer-school-exp/list').then((res) => {
+                http.get('/customer-school-exp/list').then((res) => {
                     this.tableData = res;
                 })
             },

@@ -179,7 +179,7 @@
             if (schoolList) {
                 _this.select.school = schoolList
             } else {
-                http.get('school-local/list').then((res) => {
+                http.get('/school-local/list').then((res) => {
                     _this.select.school = res.list;
                     setStore('schoolList', res.list)
                 });
@@ -189,7 +189,7 @@
             if (dictionary) {
                 _this.select.record = dictionary.CURRENT_DEGREE;
             } else {
-                http.get('code-val/group-key-list').then((res) => {
+                http.get('/code-val/group-key-list').then((res) => {
                     this.select.record = res.CURRENT_DEGREE;
                     setStore('dictionary', res)
                 })
@@ -199,7 +199,7 @@
             if (majorList) {
                 _this.select.major = majorList;
             } else {
-                http.get('major-local/list').then((res) => {
+                http.get('/major-local/list').then((res) => {
                     _this.select.major = res.list;
                     setStore('majorList', res.list);
                 });
@@ -209,7 +209,7 @@
             if (stateList) {
                 _this.select.state = stateList;
             } else {
-                http.get('school-local/country', {showALL: 0}).then((res) => {
+                http.get('/school-local/country', {showALL: 0}).then((res) => {
                     _this.select.state = res;
                     setStore('stateList', res);
                 });
@@ -235,14 +235,14 @@
             },
             //获取教育背景列表
             getEdu() {
-                http.get('customer-education/get-my-list').then((res) => {
+                http.get('/customer-education/get-my-list').then((res) => {
                     this.tableData = res;
                 });
             },
             //请求院校选择
             schoolData() {
                 let _this = this;
-                http.get('school-local/list?page='+_this.nowSchool+'&pageSize='+_this.pageSize+'&search[country]='+_this.state+'&search[school_name]='+_this.search).then((res) => {
+                http.get('/school-local/list?page='+_this.nowSchool+'&pageSize='+_this.pageSize+'&search[country]='+_this.state+'&search[school_name]='+_this.search).then((res) => {
                     if(res){
                         _this.schoolTotal = Number(res.count);
                         _this.schoolTable = res.list;

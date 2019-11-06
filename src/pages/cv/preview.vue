@@ -122,7 +122,7 @@
         methods: {
             //获取cv预览
             getPreview() {
-                http.get('customer-pre-see/list').then((res) => {
+                http.get('/customer-pre-see/list').then((res) => {
                     this.preview = res;
                 })
             },

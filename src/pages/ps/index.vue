@@ -133,7 +133,7 @@
         mounted() {
             let _this = this;
             //ps列表
-            http.get('customer-apply-question/get-my-ps1').then((res) => {
+            http.get('/customer-apply-question/get-my-ps1').then((res) => {
                 _this.contract = res;
             })
         },

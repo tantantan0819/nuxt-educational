@@ -255,7 +255,7 @@
                 _this.region = regionList;
                 _this.regex = regionList[0].regex;
             } else {
-                uhttp.get('region/list').then((res) => {
+                uhttp.get('/region/list').then((res) => {
                     _this.region = res;
                     _this.regex = res[0].regex;
                     setStore('regionList', res)

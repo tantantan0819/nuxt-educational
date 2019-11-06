@@ -81,7 +81,7 @@
                         uhttp.post('/login/login', _this.loginForm).then((res) => {
                             if (JSON.stringify(res) == '[]') {
                                 //是否是crm的客户
-                                http.get('utrack-user/is-crm-user').then((res)=>{
+                                http.get('/utrack-user/is-crm-user').then((res)=>{
                                     if(res == 'yes'){
                                         let successMsg = _this.$message({
                                             message: '登录成功！',

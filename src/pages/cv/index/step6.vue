@@ -91,7 +91,7 @@
         methods: {
             //获取完善兴趣/语言/技能/证书
             getIntroduce() {
-                http.get('customer-introduce/list').then((res) => {
+                http.get('/customer-introduce/list').then((res) => {
                     if (JSON.stringify(res) !='[]') {
                         this.tableData = res;
                         this.cvForm6 = res[0];

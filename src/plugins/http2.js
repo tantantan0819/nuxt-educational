@@ -31,7 +31,6 @@ const ERROR_TOKEN_EXPIRE = 2050;
  */
 const ERROR_NEED_LOGIN = 3000;
 
-
 // 创建 axios 实例
 const service = axios.create({
   baseURL: Config.api_host, // api的base_url
@@ -43,6 +42,7 @@ const service = axios.create({
 
 // 请求拦截
 service.interceptors.request.use(async function (config) {
+
   if (!config.headers["Api-Token"]) {
     if (process.server) {
       //同步请求token
@@ -96,6 +96,7 @@ const http = {
     });
     return res;
   },
+
   /**
    * GET 请求
    * @param url
@@ -131,7 +132,7 @@ const http = {
 
   request: function (config) {
     const timestamp = Util.getUnixTime();
-    const salt = Util.randomString(5);
+    const salt = Util.randomString(4);
     const config_bak = config;
 
     var msg = '';
@@ -142,16 +143,19 @@ const http = {
       var token = getToken();
       msg = 'client'
     }
+
     if (token == '') {
       throw new Error('token 不能为空');
     }
+
     const conf = {
       headers: {
-        "Api-Appid": Config.api_host,
+        "Api-Appid": Config.api_id,
         "Api-Salt": salt,
         "Api-Timestamp": timestamp,
         "Api-Version": Config.api_version,
         "Api-Token": token,
+        'Debug': true,
         'Api-Utrack': Config.api_id,
         "Api-Token-Sign": getTokenSign(timestamp, salt),
       }
@@ -162,30 +166,26 @@ const http = {
     if (conf.method == "post") {
       conf.headers['Api-Sign'] = createSignUtrack(config.data, timestamp, salt);
     }
-
     return service.request(conf).then(async function (response) {
       const res = response.data;
       if (res.code !== 0) {
         // Token 过期了重试
-
         if (res.code == ERROR_TOKEN_EMPTY || res.code === ERROR_TOKEN_INVALID || res.code === ERROR_TOKEN_EXPIRE) {
           if (process.server) {
-
             //同步请求token
             var tokenData = await requestTokenSync();
             global.ctx.cookies.set('token', tokenData.token, {path: "/", httpOnly: false});
+            global.ctx.cookies.set('key', tokenData.key, {path: "/", httpOnly: false});
             global.token = token = tokenData.token;
           } else {
-
             //同步请求token
             var tokenData = await requestTokenSync();
             setToken(tokenData.token);
+            setTokenKey(tokenData.key);
             token = tokenData.token;
           }
-
           //重新发起axios请求
           return http.request(config_bak);
-
           //处理需要登录的情况
         } else if (res.code === ERROR_NEED_LOGIN) {
           Util.setStore('isLogin', '0');
@@ -198,7 +198,6 @@ const http = {
           }).catch(action => {
             window.location.href='/login'
           });
-
         } else {
           MessageBox({
             message: res.msg,
@@ -207,7 +206,6 @@ const http = {
           });
           return Promise.reject(res.msg);
         }
-
       } else {
         return Promise.resolve(res.data);
       }

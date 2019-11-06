@@ -151,7 +151,7 @@
             _this.psDetailForm.apply_id = _this.$route.query.apply_id;
             _this.type = _this.$route.query.type;
             //获取可以申请方案列表
-            http.get('customer-apply-question/get-my-ps?search[id]=' + _this.id).then((res) => {
+            http.get('/customer-apply-question/get-my-ps?search[id]=' + _this.id).then((res) => {
                 if (res && res.length != 0) {
                     _this.plan = res[0];
                     _this.tableData.push(res[0].apply[_this.type]);

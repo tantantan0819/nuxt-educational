@@ -196,7 +196,7 @@
             //查看href
             this.view_href = config.view_host;
             //获取可以申请方案列表
-            http.get('customer-apply-question/get-my-ps?search[id]=' + _this.id).then((res) => {
+            http.get('/customer-apply-question/get-my-ps?search[id]=' + _this.id).then((res) => {
                 if (res.length != 0) {
                     _this.plan = res[0]
                     if(res[0].apply.length != 0 ){
@@ -217,7 +217,7 @@
                 _this.course = dictionary.COURSE_TYPE;
 
             } else {
-                http.get('code-val/group-key-list').then((res) => {
+                http.get('/code-val/group-key-list').then((res) => {
                     _this.resultArr = res.RESULT_OFFER;
                     _this.deposit = res.DEPOSIT_TYPE;
                     _this.signList = res.APPLY_TYPE;
@@ -248,7 +248,7 @@
             //查看详情
             viewDetail(index, id) {
                 //获取院校实时更新
-                http.get('customer-apply-update/list', {'apply_id': id}).then((res) => {
+                http.get('/customer-apply-update/list', {'apply_id': id}).then((res) => {
                     this.update = res;
                 })
                 this.detail = this.plan.apply[index];

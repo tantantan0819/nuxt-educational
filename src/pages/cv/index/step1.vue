@@ -95,7 +95,7 @@
         mounted() {
             let _this = this;
             //获取用户信息
-            http.get('customer/get-info').then((res) => {
+            http.get('/customer/get-info').then((res) => {
                 _this.userForm = res;
                 //不能动态修改mutations数据
                 _this.cvForm1 = deepClone(_this.userForm);
@@ -126,7 +126,7 @@
                 _this.$refs[formName].validate((valid) => {
                     if (valid) {
                         _this.cvForm1.phone += '';
-                        http.post('customer/edit', _this.cvForm1).then((res) => {
+                        http.post('/customer/edit', _this.cvForm1).then((res) => {
                             _this.$store.commit('user/SET_USER', _this.cvForm1);
                             let successMsg = _this.$message({
                                 message: '提交成功',

@@ -178,7 +178,7 @@
                 _this.sexList = dictionary.SEX;
                 _this.relaship = dictionary.MY_RELATIONSHIP;
             } else {
-                http.get('code-val/group-key-list').then((res) => {
+                http.get('/code-val/group-key-list').then((res) => {
                     _this.sexList = res.SEX;
                     _this.relaship = res.MY_RELATIONSHIP;
                     setStore('dictionary', res)

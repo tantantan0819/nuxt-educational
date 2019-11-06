@@ -94,7 +94,7 @@
         methods: {
             //获取学术经历
             getAcademic() {
-                http.get('customer-academic-career/list').then((res) => {
+                http.get('/customer-academic-career/list').then((res) => {
                     this.tableData = res;
                 })
             },

@@ -93,7 +93,7 @@
         methods: {
             //获取工作/实习经历
             getExp() {
-                http.get('customer-work-exp/list').then((res) => {
+                http.get('/customer-work-exp/list').then((res) => {
                     this.tableData = res;
                 })
             },
