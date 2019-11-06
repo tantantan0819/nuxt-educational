@@ -22,7 +22,7 @@
         <span class="info_avatar" v-else><img src="/images/avatar.jpg" alt=""/></span>
       </div>
       <!-- 教育背景 -->
-      <div class="cv_item">
+      <div class="cv_item" v-if="preview.education!=''">
         <div class="title_box1">
           <div class="cv_title">
             <p>教育背景</p>
