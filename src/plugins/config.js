@@ -4,9 +4,8 @@ export default {
   // api_host: 'http://apicn.portal.my/',//utrack
   api_host: 'http://test.apicn.utrack.cn/',//utrack
   api_version: 'v1',
-  api_id: 'cc613542d',
-  // api_key: '56a1d11798254ab79cc613542d178f62993e73f0',
-  api_key: 'cr3bip2bn75ttxpf0zwg8h3441v3ex2llvg4w5zi',
+  api_id: 'cr3bip2b',
+  api_key: 'n75ttxpf0zwg8h3441v3ex2llvg4w5zi',
   // user_host: 'http://i.sso.cn/',
   user_host: '', //sso
   user_id: 'cc613542',
