@@ -48,7 +48,7 @@
                 <td>方案号</td>
                 <td>{{detail.scheme_no}}</td>
                 <td>课程类型</td>
-                <td>{{detail.apply_course_type}}</td>
+                <td>{{detail.apply_course_type | courseFormat}}</td>
               </tr>
               <tr>
                 <td>申请院校</td>
@@ -184,6 +184,7 @@
                 resultArr: [],//申请结果
                 update: [],//院校实时更新
                 signList:[],//网申方式
+                course:[],//课程类型
             }
         },
         beforeCreate: function () {
@@ -207,17 +208,20 @@
                     _this.plan = {}
                 }
             });
-            //获取申请结果、押金类型
+            //获取申请结果、押金类型、申请结果、课程类型
             let dictionary = getStore('dictionary');
             if (dictionary) {
                 _this.resultArr = dictionary.RESULT_OFFER;
                 _this.deposit = dictionary.DEPOSIT_TYPE;
                 _this.signList = dictionary.APPLY_TYPE;
+                _this.course = dictionary.COURSE_TYPE;
+
             } else {
                 http.get('code-val/group-key-list').then((res) => {
                     _this.resultArr = res.RESULT_OFFER;
                     _this.deposit = res.DEPOSIT_TYPE;
                     _this.signList = res.APPLY_TYPE;
+                    _this.course = res.COURSE_TYPE;
                     setStore('dictionary', res)
                 })
             }
@@ -287,7 +291,17 @@
                     }
                 });
                 return result_cn;
-            }
+            },
+            //匹配课程类型
+            courseFormat(result) {
+                let result_cn = '';
+                that.course.map((item) => {
+                    if (item.id == result) {
+                        return result_cn = item.cvalue_cn;
+                    }
+                });
+                return result_cn;
+            },
         }
     }
 </script>
