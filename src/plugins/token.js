@@ -102,6 +102,7 @@ export function requestTokenAsync() {
     'Api-Appid': User_id,
     'Api-Timestamp': timeStamp,
     'Api-Salt': salt,
+    'Api-Sso': Config.user_id,
     'Api-Sign': createSign('', timeStamp, salt)
   }
   return axios.get('/token/get', {
@@ -130,6 +131,7 @@ export async function requestTokenSync() {
     'Api-Appid': User_id,
     'Api-Timestamp': timeStamp,
     'Api-Salt': salt,
+    'Api-Sso': Config.user_id,
     'Api-Sign': createSign('', timeStamp, salt)
   }
   var res = await axios.get('/token/get', {
