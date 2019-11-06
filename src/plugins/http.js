@@ -7,7 +7,6 @@
 
 import axios from 'axios';
 import {MessageBox} from 'element-ui';
-import store from '../store/index';
 import Config from './config';
 import * as Util from './utils';
 import {getToken, getTokenSign, requestTokenSync, createSignUtrack, setToken} from './token';
