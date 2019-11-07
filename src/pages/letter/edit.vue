@@ -200,7 +200,7 @@
                 _this.$refs[formName].validate((valid) => {
                     if (valid) {
                         _this.letterForm.sex += '';
-                        http.post('customer-recommendation/add', _this.letterForm).then((res) => {
+                        http.post('/customer-recommendation/add', _this.letterForm).then((res) => {
                             let successMsg = _this.$message({
                                 message: '提交成功！',
                                 type: 'success'

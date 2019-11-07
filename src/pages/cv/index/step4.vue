@@ -115,7 +115,7 @@
                 let _this = this;
                 _this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        http.post('customer-work-exp/add', _this.cvForm4).then((res) => {
+                        http.post('/customer-work-exp/add', _this.cvForm4).then((res) => {
                             let successMsg = _this.$message({
                                 message: '提交成功！',
                                 type: 'success'

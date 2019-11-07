@@ -168,7 +168,7 @@
                 let _this = this;
                 _this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        http.post('customer-apply-question/add', _this.psDetailForm).then((res) => {
+                        http.post('/customer-apply-question/add', _this.psDetailForm).then((res) => {
                             if (res) {
                                 let successMsg = _this.$message({
                                     message: '提交成功！',

@@ -275,7 +275,7 @@
                 _this.cvForm2.qualification = _this.cvForm2.qualification + '';
                 _this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        http.post('customer-education/add', _this.cvForm2).then((res) => {
+                        http.post('/customer-education/add', _this.cvForm2).then((res) => {
                             let successMsg = _this.$message({
                                 message: '提交成功！',
                                 type: 'success'

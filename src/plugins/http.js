@@ -147,7 +147,7 @@ const http = {
     }
     const conf = {
       headers: {
-        "Api-Appid": Config.api_host,
+        "Api-Appid": Config.api_id,
         "Api-Salt": salt,
         "Api-Timestamp": timestamp,
         "Api-Version": Config.api_version,

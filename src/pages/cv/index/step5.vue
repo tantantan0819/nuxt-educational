@@ -116,7 +116,7 @@
                 _this.cvForm5.start_time = dateFormat(_this.cvForm5.start_time);
                 _this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        http.post('customer-school-exp/add', _this.cvForm5).then((res) => {
+                        http.post('/customer-school-exp/add', _this.cvForm5).then((res) => {
                             let successMsg = _this.$message({
                                 message: '提交成功！',
                                 type: 'success'

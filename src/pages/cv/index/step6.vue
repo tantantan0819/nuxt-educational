@@ -125,7 +125,7 @@
                 if (valid) {
                     //新增
                     if (!isEdit) {
-                        http.post('customer-introduce/add', _this.cvForm6).then((res) => {
+                        http.post('/customer-introduce/add', _this.cvForm6).then((res) => {
                             if (res) {
                                 let successMsg = _this.$message({
                                     message: '提交成功！',
@@ -142,7 +142,7 @@
                         return;
                     }
                     //编辑
-                    http.post('customer-introduce/edit', _this.cvForm6).then((res) => {
+                    http.post('/customer-introduce/edit', _this.cvForm6).then((res) => {
                         if (res) {
                             let successMsg = _this.$message({
                                 message: '提交成功！',
