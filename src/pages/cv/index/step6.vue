@@ -27,28 +27,29 @@
       <el-dialog title="" :visible.sync="outerVisible">
         <div class="add_title">兴趣/语言/技能/证书</div>
         <div class="add_content">
-          <el-form :model="cvForm6" status-icon :rules="rules" ref="cvForm6" label-width="300px"
+          <el-form :model="cvForm6" status-icon ref="cvForm6" label-width="300px"
                    label-position="top">
             <el-form-item label="兴趣" prop="interest" class="cvTextareaBox">
-              <el-input type="textarea" v-model="cvForm6.interest"
+              <el-input type="textarea" v-model.trim="cvForm6.interest"
                         placeholder="兴趣名称（程度描述），如：篮球（校队队长），小提琴（音乐学院10级），动漫（xx动漫社社长）"
                         class="cvTextarea cvTextarea2" autocomplete="off" :maxlength="titleMaxLength"></el-input>
               <span class="textareaTip">还可输入{{titleMaxLength - cvForm6.interest.length}}字</span>
             </el-form-item>
             <el-form-item label="语言" prop="lang" class="cvTextareaBox">
-              <el-input type="textarea" v-model="cvForm6.lang" placeholder="语言名称（程度描述），如：英语（CET-6），日语（N2）"
+              <el-input type="textarea" v-model.trim="cvForm6.lang" placeholder="语言名称（程度描述），如：英语（CET-6），日语（N2）"
                         class="cvTextarea cvTextarea2" autocomplete="off" :maxlength="titleMaxLength"></el-input>
               <span class="textareaTip">还可输入{{titleMaxLength - cvForm6.lang.length}}字</span>
             </el-form-item>
             <el-form-item label="技能" prop="skill" class="cvTextareaBox">
-              <el-input type="textarea" v-model="cvForm6.skill"
+              <el-input type="textarea" v-model.trim="cvForm6.skill"
                         placeholder="技能名称（程度描述），如：SPSS，Excel（熟练使用数据透视表），PowerPoint（熟练）"
                         class="cvTextarea cvTextarea2" autocomplete="off" :maxlength="titleMaxLength"></el-input>
               <span class="textareaTip">还可输入{{titleMaxLength - cvForm6.skill.length}}字</span>
             </el-form-item>
             <el-form-item label="证书" prop="certificate" class="cvTextareaBox">
-              <el-input type="textarea" v-model="cvForm6.certificate" placeholder="证书名称（程度描述），如：计算机二级"
-                        class="cvTextarea cvTextarea2" autocomplete="off" :maxlength="titleMaxLength" @keydown.enter.native="submitForm('cvForm6')"></el-input>
+              <el-input type="textarea" v-model.trim="cvForm6.certificate" placeholder="证书名称（程度描述），如：计算机二级"
+                        class="cvTextarea cvTextarea2" autocomplete="off" :maxlength="titleMaxLength"
+                        @keydown.enter.native="submitForm('cvForm6')"></el-input>
               <span class="textareaTip">还可输入{{titleMaxLength - cvForm6.certificate.length}}字</span>
             </el-form-item>
           </el-form>
@@ -81,7 +82,6 @@
                     skill: '',
                     certificate: '',
                 },//添加教育背景
-                rules: {}
             }
         },
         mounted() {
@@ -92,9 +92,16 @@
             //获取完善兴趣/语言/技能/证书
             getIntroduce() {
                 http.get('/customer-introduce/list').then((res) => {
-                    if (JSON.stringify(res) !='[]') {
+                    if (JSON.stringify(res) != '[]') {
                         this.tableData = res;
                         this.cvForm6 = res[0];
+                        for(let i in res[0]){
+                            for(let m in this.cvForm6){
+                                if(i == m && !res[0][i]){
+                                    this.cvForm6[m] = '';
+                                }
+                            }
+                        }
                     }
                 })
             },
