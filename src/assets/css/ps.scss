@@ -149,9 +149,6 @@
     .contract_info {
       flex: 1;
       @include fontc(16px, 1, $fe);
-      font-size: 16px;
-      line-height: 32px;
-      color: #fefefe;
 
       span:nth-child(1) {
         margin-right: 20px;
@@ -244,4 +241,8 @@
       @include fontc(10px,1,$f9);
     }
   }
+}
+.noData{
+  @include fontc(16px, 50px, $f6);
+  margin-top: 50px;
 }

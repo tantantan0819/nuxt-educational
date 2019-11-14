@@ -96,13 +96,15 @@
             let _this = this;
             //获取用户信息
             http.get('/customer/get-info').then((res) => {
-                _this.userForm = res;
-                //不能动态修改mutations数据
-                _this.cvForm1 = deepClone(_this.userForm);
-                if(_this.userForm.sex == 0 || !_this.userForm.sex){
-                    _this.cvForm1.sex = '';
+                if(res){
+                    _this.userForm = res;
+                    //不能动态修改mutations数据
+                    _this.cvForm1 = deepClone(_this.userForm);
+                    if(_this.userForm.sex == 0 || !_this.userForm.sex){
+                        _this.cvForm1.sex = '';
+                    }
+                    _this.cvForm1.sex = _this.cvForm1.sex + '';
                 }
-                _this.cvForm1.sex = _this.cvForm1.sex + '';
             })
         },
         filters: {
