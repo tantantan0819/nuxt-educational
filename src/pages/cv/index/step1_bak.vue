@@ -55,7 +55,6 @@
     import {validEmail, validPhone} from '~/plugins/validate';
     import {deepClone, emptyObj} from '~/plugins/utils';
     import uhttp from "~/plugins/uhttp";
-
     export default {
         transition: '',
         layout: 'utrack',
