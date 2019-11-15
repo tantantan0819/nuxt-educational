@@ -138,10 +138,7 @@
             },
             //关闭cv预览
             close() {
-                //获取cv来源
-                let cvPath = decodeURI(window.location.search);
-                cvPath = cvPath.charAt(cvPath.length-1)
-                location.href = '/cv/step'+cvPath;
+                window.close();
             }
         },
         filters: {

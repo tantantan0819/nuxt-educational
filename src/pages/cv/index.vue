@@ -42,9 +42,7 @@
             },
             //预览cv
             preview() {
-                let nowPath = location.pathname;
-                nowPath = nowPath.charAt(nowPath.length-1)
-                window.open('/cv/preview?path='+nowPath);
+                window.open('/cv/preview');
             }
         },
         watch:{

@@ -12,7 +12,7 @@
           <p class="login_title tc">欢迎登录</p>
           <el-form :model="loginForm" status-icon :rules="rules" ref="loginForm" label-width="0px" class="login_form" autocomplete="off">
             <el-form-item prop="username">
-              <el-input v-model.number="loginForm.username" placeholder="请输入账号" autocomplete="off" v-if="isShow"></el-input>
+              <el-input v-model.number="loginForm.username" placeholder="请输入账号" autocomplete="off" v-if="isShow" @keydown.enter.native="submitForm('loginForm')"></el-input>
             </el-form-item>
             <el-form-item prop="password">
               <el-input type="passward" v-model="loginForm.password" placeholder="请输入密码" autocomplete="off"  @keydown.enter.native="submitForm('loginForm')" v-if="isShow" show-password></el-input>
