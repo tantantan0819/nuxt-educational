@@ -1,6 +1,6 @@
 export const state= ()=>({
   isLogin: 0,//是否登录 0:未登录，1：已登录
-  cvStep: '',//cv-step
+  cvPath: '',//cv-path
   ps: '',//ps长度
   letter: '',//推荐信长度
   resetToken: '',//重置密码的token
@@ -11,7 +11,7 @@ export const mutations = {
     state.isLogin = msg;
   },
   SET_CV: (state,msg) =>{
-    state.cvStep = msg;
+    state.cvPath = msg;
   },
   SET_PS:(state,msg)=>{
     state.ps = msg;
@@ -21,6 +21,6 @@ export const mutations = {
   },
   SET_LEETER:(state,msg)=>{
     state.letter = msg;
-  },
+  }
 };
 

@@ -13,6 +13,7 @@
   @import "~/assets/css/cv.scss";
 </style>
 <script>
+    import {setStore} from '~/plugins/utils';
     export default {
         layout: 'utrack',
         data() {
@@ -41,7 +42,9 @@
             },
             //预览cv
             preview() {
-                window.open('/cv/preview')
+                let nowPath = location.pathname;
+                nowPath = nowPath.charAt(nowPath.length-1)
+                window.open('/cv/preview?path='+nowPath);
             }
         },
         watch:{

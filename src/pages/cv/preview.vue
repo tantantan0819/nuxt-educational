@@ -98,8 +98,7 @@
 <script>
     import http from "~/plugins/http";
     import uhttp from "~/plugins/uhttp";
-    import {dateTime,emptyObj} from '~/plugins/utils';
-
+    import {dateTime,emptyObj,getStore} from '~/plugins/utils';
     export default {
         layout: 'utrack',
         data() {
@@ -125,7 +124,6 @@
             http.get('/customer/get-info').then((res) => {
                 if(res){
                     _this.crmUser = res;
-                    console.log(res)
                 }
             })
             //获取cv预览
@@ -140,7 +138,10 @@
             },
             //关闭cv预览
             close() {
-                this.$router.go(-1);
+                //获取cv来源
+                let cvPath = decodeURI(window.location.search);
+                cvPath = cvPath.charAt(cvPath.length-1)
+                location.href = '/cv/step'+cvPath;
             }
         },
         filters: {
