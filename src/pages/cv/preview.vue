@@ -8,18 +8,22 @@
     <div class="content">
       <!-- 基本信息 -->
       <div class="info">
-        <div class="info_name">{{user.truename || ''}}</div>
-        <div class="info_other"><span>{{user.phone | phoneFormat}}</span><span>{{user.email || ''}}</span></div>
-        <div class="info_other">
-          <span>生日:{{user.birth | timeFormat}}</span>
-          <!--0未知，1男，2女-->
-          <span v-if="user.sex == '0'">未知</span>
-          <span v-else-if="user.sex == '1'">男</span>
-          <span v-else-if="user.sex == '2'">女</span>
-          <span v-else></span>
+        <div class="infoBox">
+          <div class="info_name">{{crmUser.customer_name || '--'}}</div>
+          <div class="info_other"><span>{{crmUser.phone | phoneFormat}}</span><span>{{crmUser.email || ''}}</span></div>
+          <div class="info_other">
+            <span>生日:{{crmUser.birthday}}</span>
+            <!--crm规则：0:未知 男：4 女：5-->
+            <span v-if="crmUser.sex == '0'">未知</span>
+            <span v-else-if="crmUser.sex == '4'">男</span>
+            <span v-else-if="crmUser.sex == '5'">女</span>
+            <span v-else></span>
+          </div>
         </div>
-        <span class="info_avatar" v-if="user.avatar"><img :src="user.avatar" alt=""/></span>
-        <span class="info_avatar" v-else><img src="/images/avatar.jpg" alt=""/></span>
+        <div class="avatarBox">
+          <span class="info_avatar" v-if="user.avatar"><img :src="user.avatar" alt=""/></span>
+          <span class="info_avatar" v-else><img src="/images/avatar.jpg" alt=""/></span>
+        </div>
       </div>
       <!-- 教育背景 -->
       <div class="cv_item" v-if="preview.education!=''">
@@ -101,12 +105,13 @@
         data() {
             return {
                 preview: {},//cv预览
-                user: {}//用户信息
+                user: {},//用户信息--sso
+                crmUser: {}//用户信息--crm
             }
         },
         mounted() {
             let _this = this;
-            // 获取用户信息
+            // 获取用户信息--sso
             let userInfo = this.$store.state.user;
             if (!emptyObj(userInfo)) {
                 _this.user = userInfo;
@@ -116,6 +121,13 @@
                     _this.user = _this.$store.state.user;
                 })
             }
+            //获取用户信息--crm
+            http.get('/customer/get-info').then((res) => {
+                if(res){
+                    _this.crmUser = res;
+                    console.log(res)
+                }
+            })
             //获取cv预览
             _this.getPreview();
         },

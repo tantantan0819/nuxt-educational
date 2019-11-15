@@ -12,7 +12,17 @@
       position: relative;
       min-height: 100px;
       justify-content: center;
-      @include cuc();
+      display: flex;
+      flex-direction: inherit;
+      .infoBox{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .avatarBox{
+        padding-left: 73px;
+        position: relative;
+      }
       .info_name{
         margin-bottom: 20px;
         @include fontc(24px,32px,$f3);
@@ -36,7 +46,7 @@
         @include gradient();
         @include borderRadius(50%);
         @include cr();
-        @include absolute(0,570px);
+        @include absolute(-10px,60px);
         img{
           @include wh(126px,126px);
           @include borderRadius(50%);
