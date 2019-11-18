@@ -69,7 +69,7 @@
               <el-form-item label="8、其他你特别想放在PS里面的内容。" prop="content7">
                 <span class="textareaTip">还可输入{{titleMaxLength2 - psDetailForm.content7.length}}字</span>
                 <el-input type="textarea" v-model="psDetailForm.content7" placeholder="其他你特别想放在PS里面的内容。"
-                          autocomplete="off" :maxlength="titleMaxLength2" @keydown.enter.native="submitForm('psDetailForm')"></el-input>
+                          autocomplete="off" :maxlength="titleMaxLength2"></el-input>
               </el-form-item>
             </el-form>
           </div>

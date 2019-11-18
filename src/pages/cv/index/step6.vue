@@ -48,8 +48,7 @@
             </el-form-item>
             <el-form-item label="证书" prop="certificate" class="cvTextareaBox">
               <el-input type="textarea" v-model.trim="cvForm6.certificate" placeholder="证书名称（程度描述），如：计算机二级"
-                        class="cvTextarea cvTextarea2" autocomplete="off" :maxlength="titleMaxLength"
-                        @keydown.enter.native="submitForm('cvForm6')"></el-input>
+                        class="cvTextarea cvTextarea2" autocomplete="off" :maxlength="titleMaxLength"></el-input>
               <span class="textareaTip">还可输入{{titleMaxLength - cvForm6.certificate.length}}字</span>
             </el-form-item>
           </el-form>

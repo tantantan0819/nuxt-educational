@@ -40,7 +40,7 @@
             <el-form-item label="经历描述" prop="exp" class="cvTextareaBox">
               <el-input type="textarea" v-model="cvForm3.exp"
                         placeholder="[在这个部分描述做过的项目，可以是独立的毕业设计/论文，或者小组的项目、作业，参加的宣讲，学术会议或者讲座等等][写出你负责的具体内容，调研、考察、访谈、分析、感受等，以及最终的项目成果，受到导师好评、获奖等][如：进行XX行业研究，负责调研XX的商业模式、市场空间、XXXX等影响因素， 筛选出XXXX通过XXX数据库、问卷调研、XX实验，分析其核心竞争力和持续盈利能力， 撰写3000+字调研报告，并提出XXX建议；此项目锻炼了我的XXXXX能力]整体框架遵循【做了什么】【结果是什么】【有什么价值】的逻辑。"
-                        class="cvTextarea" autocomplete="off" :maxlength="titleMaxLength" @keydown.enter.native="submitForm('cvForm3')"></el-input>
+                        class="cvTextarea" autocomplete="off" :maxlength="titleMaxLength" ></el-input>
               <span class="textareaTip">还可输入{{titleMaxLength - cvForm3.exp.length}}字</span>
             </el-form-item>
           </el-form>

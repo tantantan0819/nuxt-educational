@@ -68,8 +68,7 @@
                 </el-form-item>
                 <el-form-item label="5、 其他你特别想放在推荐信里面的内容" prop="content5">
                   <el-input type="textarea" v-model="letterForm.content5" placeholder="例：课堂或表现、学习或工作能力、主动性、独立性、创新性、责任感等，请以评价+具体事例结合的方式阐述："
-                            autocomplete="off" :maxlength="titleMaxLength100"
-                            @keydown.enter.native="submitForm('letterForm')"></el-input>
+                            autocomplete="off" :maxlength="titleMaxLength100"></el-input>
                   <span class="textareaTip">还可输入{{titleMaxLength100 - letterForm.content5.length}}字</span>
                 </el-form-item>
               </div>

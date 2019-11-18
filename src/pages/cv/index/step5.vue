@@ -39,7 +39,7 @@
             </el-form-item>
             <el-form-item label="活动描述" prop="descript" class="cvTextareaBox">
               <el-input type="textarea" v-model="cvForm5.descript" placeholder="整体框架遵循【做了什么】【结果是什么】【有什么价值】的逻辑。"
-                        class="cvTextarea cvTextarea2" autocomplete="off" :maxlength="titleMaxLength" @keydown.enter.native="submitForm('cvForm5')"></el-input>
+                        class="cvTextarea cvTextarea2" autocomplete="off" :maxlength="titleMaxLength" ></el-input>
               <span class="textareaTip">还可输入{{titleMaxLength - cvForm5.descript.length}}字</span>
             </el-form-item>
           </el-form>

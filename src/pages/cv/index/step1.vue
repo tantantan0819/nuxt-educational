@@ -35,7 +35,7 @@
         </el-form-item>
         <el-form-item label="地址" prop="now_address">
           <el-input v-model="cvForm1.now_address" placeholder="请输入您的地址" autocomplete="off"
-                    v-bind:readonly="userForm.now_address | textFormat" @keydown.enter.native="submitForm('cvForm1')"></el-input>
+                    v-bind:readonly="userForm.now_address | textFormat"></el-input>
         </el-form-item>
       </el-form>
     </div>

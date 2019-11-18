@@ -59,7 +59,7 @@
               </el-select>
             </el-form-item>
             <el-form-item label="平均成绩" prop="average_result">
-              <el-input v-model="cvForm2.average_result" placeholder="请输入您的平均成绩" autocomplete="off"  @keydown.enter.native="submitForm('cvForm2')"></el-input>
+              <el-input v-model="cvForm2.average_result" placeholder="请输入您的平均成绩" autocomplete="off"></el-input>
             </el-form-item>
           </el-form>
           <div class="footer_button">
