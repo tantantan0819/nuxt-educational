@@ -2,7 +2,7 @@
 .preview{
     padding: 32px 100px;
   .content{
-    width: 790px;
+    width: 1000px;
     margin-top: 26px;
     padding: 40px 26px;
     box-shadow: 2px 2px 3px 0px rgba(164, 163, 163, 0.1);
@@ -132,7 +132,7 @@
     }
   }
   .preview_close{
-    width: 750px;
+    width: 1000px;
     margin-top: 30px;
     cursor: pointer;
     @include cc();
@@ -144,4 +144,8 @@
       @include fontc(16px,1,$fc);
     }
   }
+}
+.previewTable{
+  padding: 10px 0!important;
+  min-height: auto!important;
 }

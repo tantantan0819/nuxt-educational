@@ -161,7 +161,7 @@
         methods: {
             //上一步
             prev() {
-                this.$router.go(-1);
+                this.$router.push({path: '/ps/add', query: {id: this.id}});
             },
             //保存--提交表单
             submitForm(formName) {

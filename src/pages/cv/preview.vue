@@ -1,23 +1,26 @@
 <template>
-  <div class="preview">
+  <div class="preview cv">
     <div class="title_box">
       <div class="cv_title">
         <p>我的CV</p>
       </div>
     </div>
-    <div class="content">
+    <div class="content cv_step2">
       <!-- 基本信息 -->
       <div class="info">
         <div class="infoBox">
           <div class="info_name">{{crmUser.customer_name || '--'}}</div>
-          <div class="info_other"><span>{{crmUser.phone | phoneFormat}}</span><span>{{crmUser.email || ''}}</span></div>
+          <div class="info_other"><span>电话:{{crmUser.phone | phoneFormat}}</span><span>邮箱:{{crmUser.email || ''}}</span></div>
           <div class="info_other">
             <span>生日:{{crmUser.birthday}}</span>
             <!--crm规则：0:未知 男：4 女：5-->
-            <span v-if="crmUser.sex == '0'">未知</span>
-            <span v-else-if="crmUser.sex == '4'">男</span>
-            <span v-else-if="crmUser.sex == '5'">女</span>
+            <span v-if="crmUser.sex == '0'">性别:未知</span>
+            <span v-else-if="crmUser.sex == '4'">性别:男</span>
+            <span v-else-if="crmUser.sex == '5'">性别:女</span>
             <span v-else></span>
+          </div>
+          <div class="info_other">
+            <span>地址:{{crmUser.now_address}}</span>
           </div>
         </div>
         <div class="avatarBox">
@@ -32,12 +35,19 @@
             <p>教育背景</p>
           </div>
         </div>
-        <div class="cv_box" v-for="(item,index) in preview.education" :key="index">
-          <p>于{{item.admission_date | timeFormat}}到{{item.graduaction_date | timeFormat}}在{{item.school_name ||
-            '--'}}就读于{{item.majorname_cn || '--'}}专业，{{item.qualification_name}}学历，在校期间平均成绩为{{item.average_result ||
-            '--'}}分</p>
+        <div class="cv_content cv2 centerTable previewTable">
+          <el-table :data="education" stripe style="width: 100%">
+            <el-table-column type="index" label="序号" width="74"></el-table-column>
+            <el-table-column prop="admission_date" label="入学时间" width="120"></el-table-column>
+            <el-table-column prop="graduaction_date" label="毕业时间" width="120"></el-table-column>
+            <el-table-column prop="school_name" label="毕业/就读院校"></el-table-column>
+            <el-table-column prop="majorname_cn" label="毕业/就读专业"></el-table-column>
+            <el-table-column prop="qualification_name" label="学历" width="140"></el-table-column>
+            <el-table-column prop="average_result" label="平均成绩" width="100"></el-table-column>
+          </el-table>
         </div>
       </div>
+
       <!-- 学术经历 -->
       <div class="cv_item" v-if="preview.academic!=''">
         <div class="title_box1">
@@ -45,8 +55,13 @@
             <p>学术经历</p>
           </div>
         </div>
-        <div class="cv_box" v-for="(item,index) in preview.academic" :key="index">
-          <p>于{{item.start_time | timeFormat}}到{{item.end_time | timeFormat}}，{{item.exp}}</p>
+        <div class="cv_content centerTable step3Table cv2 previewTable">
+          <el-table :data="academic" stripe style="width: 100%">
+            <el-table-column type="index" label="序号" width="74"></el-table-column>
+            <el-table-column prop="start_time" label="入学时间" width="150"></el-table-column>
+            <el-table-column prop="end_time" label="毕业时间" width="150"></el-table-column>
+            <el-table-column prop="exp" label="经历描述"></el-table-column>
+          </el-table>
         </div>
       </div>
       <!-- 工作/实习经历 -->
@@ -56,8 +71,13 @@
             <p>工作/实习经历</p>
           </div>
         </div>
-        <div class="cv_box" v-for="(item,index) in preview.work" :key="index">
-          <p>于{{item.start_time | timeFormat}}到{{item.end_time | timeFormat}}，{{item.descript}}</p>
+        <div class="cv_content cv2 centerTable step3Table previewTable">
+          <el-table :data="work" stripe style="width: 100%">
+            <el-table-column type="index" label="序号" width="74"></el-table-column>
+            <el-table-column prop="start_time" label="入学时间" width="150"></el-table-column>
+            <el-table-column prop="end_time" label="毕业时间" width="150"></el-table-column>
+            <el-table-column prop="descript" label="经历描述"></el-table-column>
+          </el-table>
         </div>
       </div>
       <!-- 校园活动 -->
@@ -67,8 +87,13 @@
             <p>校园活动</p>
           </div>
         </div>
-        <div class="cv_box" v-for="(item,index) in preview.school" :key="index">
-          <p>于{{item.start_time | timeFormat}}到{{item.end_time | timeFormat}}，{{item.descript}}</p>
+        <div class="cv_content cv2 centerTable step3Table previewTable">
+          <el-table :data="school" stripe style="width: 100%">
+            <el-table-column type="index" label="序号" width="74"></el-table-column>
+            <el-table-column prop="start_time" label="入学时间" width="150"></el-table-column>
+            <el-table-column prop="end_time" label="毕业时间" width="150"></el-table-column>
+            <el-table-column prop="descript" label="校园活动"></el-table-column>
+          </el-table>
         </div>
       </div>
       <!-- 兴趣/语言/技能/证书 -->
@@ -78,11 +103,13 @@
             <p>兴趣/语言/技能/证书</p>
           </div>
         </div>
-        <div class="cv_box" v-for="(item,index) in preview.introduce" :key="index" v-if="index==0">
-          <p><span>我的兴趣：</span>{{item.interest}}</p>
-          <p><span>我的语言：</span>{{item.lang}}</p>
-          <p><span>我的技能：</span>{{item.skill}}</p>
-          <p><span>我的证书：</span>{{item.certificate}}</p>
+        <div class="cv_content cv2 previewTable">
+          <el-table :data="introduce" stripe style="width: 100%">
+            <el-table-column prop="interest" label="兴趣"></el-table-column>
+            <el-table-column prop="lang" label="语言"></el-table-column>
+            <el-table-column prop="skill" label="技能"></el-table-column>
+            <el-table-column prop="certificate" label="证书"></el-table-column>
+          </el-table>
         </div>
       </div>
     </div>
@@ -94,6 +121,7 @@
 </template>
 <style lang="scss">
   @import "~/assets/css/preview.scss";
+  @import "~/assets/css/cv.scss";
 </style>
 <script>
     import http from "~/plugins/http";
@@ -103,9 +131,15 @@
         layout: 'utrack',
         data() {
             return {
+
                 preview: {},//cv预览
                 user: {},//用户信息--sso
-                crmUser: {}//用户信息--crm
+                crmUser: {},//用户信息--crm
+                education: [],//教育背景
+                academic: [],//学术经历
+                work: [],//工作经历
+                school: [], //校园活动
+                introduce: [], //兴趣/语言/技能/证书
             }
         },
         mounted() {
@@ -134,6 +168,11 @@
             getPreview() {
                 http.get('/customer-pre-see/list').then((res) => {
                     this.preview = res;
+                    this.education = res.education;
+                    this.academic = res.academic;
+                    this.work = res.work;
+                    this.school = res.school;
+                    this.introduce = res.introduce;
                 })
             },
             //关闭cv预览

@@ -156,6 +156,25 @@
         </div>
       </el-dialog>
     </div>
+    <!--  新增PS须知  -->
+    <div class="add notice">
+      <el-dialog title="" :visible.sync="tipVisible" :closeOnClickModal="false">
+        <div class="add_title">新增PS须知</div>
+        <div class="add_content notice_content">
+          <p>请仔细阅读以下内容，一旦点击“我已了解”，默认为已阅读并同意如下所有内容：</p>
+          <p>1）开始前，再次确认目前可新增PS数量；如可新增PS数量为0，代表不能添加PS素材收集表；</p>
+          <p>2）请在确认并选择你的主申院校与专业后，开始制作第一份PS素材收集表；</p>
+          <p>3）如主申院校与专业不确定，将默认以第一次选择的院校与专业为主申院校；</p>
+          <p>4）PS撰写时，将以主申院校与专业对PS的要求为基础，提取PS素材收集表内容撰写通用版PS；</p>
+          <p>5）非主申院校与专业的PS只在通用版PS上进行修改，修改占比约5%，不单独撰写PS；</p>
+          <p>6）PS素材收集表内问题均带有填写提示，请仔细阅读后再填写；</p>
+          <p>7）如需额外撰写非主申院校与专业的PS，请联系您的销售顾问，额外采购“加写PS服务”。</p>
+          <div class="footer_button footer_button_156 footer_tip active">
+            <span @click="tip">我已了解！</span>
+          </div>
+        </div>
+      </el-dialog>
+    </div>
   </div>
 </template>
 <style lang="scss">
@@ -177,6 +196,7 @@
                 detail: {},//查看详情
                 addIndex: 0,// 选中的ps方案
                 outerVisible: false,// 外层弹出框
+                tipVisible: false,// 外层弹出框
                 view_href: '', //查看href
                 id: '',//合同id
                 apply_id: '',//ps-id
@@ -190,9 +210,20 @@
         beforeCreate: function () {
             that = this;
         },
+        beforeRouteEnter(to, from, next) {
+            next(vm => {
+                //因为当钩子执行前，组件实例还没被创建
+                // vm 就是当前组件的实例相当于上面的 this，所以在 next 方法里你就可以把 vm 当 this 来用了。
+                //是否展示新增PS须知
+                if (from.path == '/ps') {
+                    vm.tipVisible = true;
+                    return;
+                }
+            });
+        },
         mounted() {
             let _this = this;
-            _this.id = this.$route.query.id;
+            _this.id = _this.$route.query.id;
             //查看href
             this.view_href = config.view_host;
             //获取可以申请方案列表
@@ -230,6 +261,10 @@
             //上一步
             prev() {
                 this.$router.push('/ps')
+            },
+            //tip下一步
+            tip(){
+                this.tipVisible = false;
             },
             //下一步
             next() {
