@@ -58,8 +58,8 @@
         <div class="cv_content centerTable step3Table cv2 previewTable">
           <el-table :data="academic" stripe style="width: 100%">
             <el-table-column type="index" label="序号" width="74"></el-table-column>
-            <el-table-column prop="start_time" label="入学时间" width="150"></el-table-column>
-            <el-table-column prop="end_time" label="毕业时间" width="150"></el-table-column>
+            <el-table-column prop="start_time" label="开始时间" width="150"></el-table-column>
+            <el-table-column prop="end_time" label="结束时间" width="150"></el-table-column>
             <el-table-column prop="exp" label="经历描述"></el-table-column>
           </el-table>
         </div>
@@ -74,8 +74,8 @@
         <div class="cv_content cv2 centerTable step3Table previewTable">
           <el-table :data="work" stripe style="width: 100%">
             <el-table-column type="index" label="序号" width="74"></el-table-column>
-            <el-table-column prop="start_time" label="入学时间" width="150"></el-table-column>
-            <el-table-column prop="end_time" label="毕业时间" width="150"></el-table-column>
+            <el-table-column prop="start_time" label="开始时间" width="150"></el-table-column>
+            <el-table-column prop="end_time" label="结束时间" width="150"></el-table-column>
             <el-table-column prop="descript" label="经历描述"></el-table-column>
           </el-table>
         </div>
@@ -90,8 +90,8 @@
         <div class="cv_content cv2 centerTable step3Table previewTable">
           <el-table :data="school" stripe style="width: 100%">
             <el-table-column type="index" label="序号" width="74"></el-table-column>
-            <el-table-column prop="start_time" label="入学时间" width="150"></el-table-column>
-            <el-table-column prop="end_time" label="毕业时间" width="150"></el-table-column>
+            <el-table-column prop="start_time" label="开始时间" width="150"></el-table-column>
+            <el-table-column prop="end_time" label="结束时间" width="150"></el-table-column>
             <el-table-column prop="descript" label="校园活动"></el-table-column>
           </el-table>
         </div>

@@ -10,8 +10,8 @@
     <div class="cv_content centerTable step3Table cv2">
       <el-table :data="tableData" stripe style="width: 100%">
         <el-table-column type="index" label="序号" width="74"></el-table-column>
-        <el-table-column prop="start_time" label="入学时间" width="150"></el-table-column>
-        <el-table-column prop="end_time" label="毕业时间" width="150"></el-table-column>
+        <el-table-column prop="start_time" label="开始时间" width="150"></el-table-column>
+        <el-table-column prop="end_time" label="结束时间" width="150"></el-table-column>
         <el-table-column prop="exp" label="经历描述"></el-table-column>
       </el-table>
     </div>
@@ -29,7 +29,7 @@
         <div class="add_content">
           <el-form :model="cvForm3" status-icon :rules="rules" ref="cvForm3" label-width="300px"
                    label-position="top">
-            <el-form-item label="起始时间" prop="start_time">
+            <el-form-item label="开始时间" prop="start_time">
               <el-date-picker type="date" placeholder="请选择您的学术经历起始时间" v-model="cvForm3.start_time"
                               class="widthAll"></el-date-picker>
             </el-form-item>
