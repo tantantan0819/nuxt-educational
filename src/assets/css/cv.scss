@@ -300,6 +300,11 @@
       @include fontc(16px,32px,$f3);
     }
   }
+  .psDetailForm_edit{
+    textarea{
+      height: 156px!important;
+    }
+  }
   .el-form-item__label {
     padding: 0;
   }

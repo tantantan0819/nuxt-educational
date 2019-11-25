@@ -64,41 +64,41 @@
               </el-table>
             </div>
             <el-form :model="psDetailForm" status-icon ref="psDetailForm" label-width="300px" label-position="top"
-                     class="psDetailForm">
+                     class="psDetailForm psDetailForm_edit">
               <el-form-item label="1、是否需要写作老师与您本人沟通内容和逻辑？">
                 <el-radio-group v-model="psDetailForm.need_teacher">
                   <el-radio label="204" class="need_teacher" :disabled="psDetailForm.need_teacher != '204'">我对内容和逻辑有自己的要求，需要语音沟通</el-radio>
                   <el-radio label="205" class="need_teacher" :disabled="psDetailForm.need_teacher != '205'">不需要，我没有什么想法，请专业老师自行撰写</el-radio>
                 </el-radio-group>
               </el-form-item>
-              <el-form-item label="2、你选择这个研究领域有什么职业规划方面的考虑？">
+              <el-form-item label="2、你为什么申请这个专业？">
                 <el-input type="textarea" v-model="psDetailForm.content1" readonly
                           autocomplete="off"></el-input>
               </el-form-item>
-              <el-form-item label="3、如果你是转专业申请的话，什么原因促使你转到这个领域来学习？">
+              <el-form-item label="3、你为什么觉的自己是一个有竞争力的申请者？">
                 <el-input type="textarea" v-model="psDetailForm.content2" readonly
                           autocomplete="off"></el-input>
               </el-form-item>
-              <el-form-item label="4、你为什么选择这个专业而不是其他专业？">
+              <el-form-item label="4、你是否读过与申请专业相关的书籍？">
                 <el-input type="textarea" v-model="psDetailForm.content3" readonly
                           autocomplete="off"></el-input>
               </el-form-item>
-              <el-form-item label="5、你本科或者上一段学习阶段，在专业课上学习成果如何？">
+              <el-form-item label="5、是否有过与申请专业相关的实习或工作经历？">
                 <el-input type="textarea" v-model="psDetailForm.content4" readonly
                           autocomplete="off"></el-input>
               </el-form-item>
-              <el-form-item label="6、你为什么觉的自己是一个有竞争力的申请者？">
+              <el-form-item label="6、除你的学习能力及经历之外，你是否参加过譬如学生会，社团及其他社会活动？其是否对你培养团队协作能力、组织领导能力，独立性等产生重要影响？">
                 <el-input type="textarea" v-model="psDetailForm.content5" readonly
                           autocomplete="off"></el-input>
               </el-form-item>
-              <el-form-item label="7、你是否读过相关书籍跟申请的专业相关？">
+              <el-form-item label="7、其他你特别想放在PS里面的内容。比如特别想去某所大学的原因；或者其他内容。">
                 <el-input type="textarea" v-model="psDetailForm.content6" readonly
                           autocomplete="off"></el-input>
               </el-form-item>
-              <el-form-item label="8、其他你特别想放在PS里面的内容。">
-                <el-input type="textarea" v-model="psDetailForm.content7" readonly
-                          autocomplete="off"></el-input>
-              </el-form-item>
+<!--              <el-form-item label="8、其他你特别想放在PS里面的内容。">-->
+<!--                <el-input type="textarea" v-model="psDetailForm.content7" readonly-->
+<!--                          autocomplete="off"></el-input>-->
+<!--              </el-form-item>-->
             </el-form>
             <div class="footer_button psDetail_button">
               <span @click="psDatil = false"><i>关闭</i></span>

@@ -165,7 +165,6 @@
             return {
                 codeImg: '', // 图形验证码
                 region: [],//区号下拉
-                user: {},//用户信息
                 person: {},//用户信息--拷贝
                 avatar: '',//用户头像
                 isSendEmail: true, //是否可发送邮箱验证码
@@ -238,15 +237,13 @@
             _this.active = location.pathname;
             let userInfo = _this.$store.state.user;
             if (!emptyObj(userInfo)) {
-                _this.user = userInfo;
-                //不能动态修改mutations数据
-                _this.person = deepClone(_this.user);
+                _this.person = userInfo;
             } else {
                 uhttp.get('/user/detail').then((res) => {
-                    _this.$store.commit('user/SET_USER', res);
-                    _this.user = _this.$store.state.user;
-                    //不能动态修改mutations数据
-                    _this.person = deepClone(_this.user);
+                    if(res){
+                        _this.$store.commit('user/SET_USER', res);
+                        _this.person = res;
+                    }
                 })
             }
             //获取区号

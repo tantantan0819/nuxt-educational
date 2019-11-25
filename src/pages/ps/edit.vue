@@ -23,59 +23,77 @@
           </div>
           <div class="add_content add_form cvTextareaBox">
             <el-form :model="psDetailForm" status-icon ref="psDetailForm" :rules="rules" label-width="300px"
-                     label-position="top" class="psDetailForm">
+                     label-position="top" class="psDetailForm psDetailForm_edit">
               <el-form-item label="1、是否需要写作老师与您本人沟通内容和逻辑？" prop="need_teacher">
                 <el-radio-group v-model="psDetailForm.need_teacher">
                   <el-radio label="204">我对内容和逻辑有自己的要求，需要语音沟通</el-radio>
                   <el-radio label="205">不需要，我没有什么想法，请专业老师自行撰写</el-radio>
                 </el-radio-group>
               </el-form-item>
-              <el-form-item label="2、你选择这个研究领域有什么职业规划方面的考虑？" prop="content1">
-                <span class="textareaTip">还可输入{{titleMaxLength - psDetailForm.content1.length}}字</span>
+              <el-form-item label="2、你为什么申请这个专业？（请选择2个动机并分段回答，每个动机500字以内）" prop="content1">
+                <span class="textareaTip">还可输入{{titleMaxLength2 - psDetailForm.content1.length}}字</span>
                 <el-input type="textarea" v-model="psDetailForm.content1"
-                          placeholder="可以简述这个行业目前在中国的发展或者行业大事，越细节的事件越好；可以描述自己未来的职业理想；可以描述自己向往的公司及自己的职业规划；可以描述自己PHD方向的研究想法"
-                          autocomplete="off" :maxlength="titleMaxLength"></el-input>
-              </el-form-item>
-              <el-form-item label="3、如果你是转专业申请的话，什么原因促使你转到这个领域来学习？" prop="content2">
-                <span class="textareaTip">还可输入{{titleMaxLength - psDetailForm.content1.length}}字</span>
-                <el-input type="textarea" v-model="psDetailForm.content2"
-                          placeholder="以因为一次事件的激励或者从兴趣出发；事件可以是一次会议，一次讲座或者任何能激发你学习兴趣的事件；可以对于行业前景比较看好；" autocomplete="off"
-                          :maxlength="titleMaxLength"></el-input>
-              </el-form-item>
-              <el-form-item label="4、你为什么选择这个专业而不是其他专业？" prop="content3">
-                <span class="textareaTip">还可输入{{titleMaxLength - psDetailForm.content3.length}}字</span>
-                <el-input type="textarea" v-model="psDetailForm.content3"
-                          placeholder="选修课中有你喜欢的课程可以作为原因；官网公布的该专业特色可以作为原因；该专业在中国的就业趋势可以作为原因；你的学术研究兴趣偏向于这个方面； "
-                          autocomplete="off" :maxlength="titleMaxLength"></el-input>
-              </el-form-item>
-              <el-form-item label="5、你本科或者上一段学习阶段，在专业课上学习成果如何？" prop="content4">
-                <span class="textareaTip">还可输入{{titleMaxLength - psDetailForm.content4.length}}字</span>
-                <el-input type="textarea" v-model="psDetailForm.content4"
-                          placeholder="有哪些课程是与你申请的专业相关；分别从这些课程上学到哪些具体的专业知识；锻炼了哪些核心能力；对你未来有哪些帮助；有什么研究案例跟你申请的专业特别相关，请详述；"
-                          autocomplete="off" :maxlength="titleMaxLength"></el-input>
-              </el-form-item>
-              <el-form-item label="6、你为什么觉的自己是一个有竞争力的申请者？" prop="content5">
-                <span class="textareaTip">还可输入{{titleMaxLength - psDetailForm.content5.length}}字</span>
-                <el-input type="textarea" v-model="psDetailForm.content5"
-                          placeholder="如果学校排名不高，可以着重描述专业领域在中国的地位；学习成绩出色、专业排名等；做过很多这方面的研究，列举1-2个；这个专业所具备的专业技能掌握的如何；详细描述1-2个特别相关的实习经历"
-                          autocomplete="off" :maxlength="titleMaxLength"></el-input>
-              </el-form-item>
-              <el-form-item label="7、你是否读过相关书籍跟申请的专业相关？" prop="content6">
-                <span class="textareaTip">还可输入{{titleMaxLength2 - psDetailForm.content6.length}}字</span>
-                <el-input type="textarea" v-model="psDetailForm.content6"
-                          placeholder="最好作者是国外的，如果没有，就写国内的。用两句话阐述这些书籍主要研究的是什么问题，对于你要申请的专业有什么借鉴和学习作用。" autocomplete="off"
-                          :maxlength="titleMaxLength2"></el-input>
-              </el-form-item>
-              <el-form-item label="8、其他你特别想放在PS里面的内容。" prop="content7">
-                <span class="textareaTip">还可输入{{titleMaxLength2 - psDetailForm.content7.length}}字</span>
-                <el-input type="textarea" v-model="psDetailForm.content7" placeholder="其他你特别想放在PS里面的内容。"
+                          placeholder="动机1：因为职业发展的考虑，简述自己的职业规划、行业现状及发展、向往的公司及职业状态。（必选）
+动机2：因为选修课里有我非常喜欢的专业；搜索官网课程，挑选自己真正喜欢的课程，说明喜欢的原因。
+动机3：因为想解决某个问题而选择这门课程；比如：因为一次行业事件，发现现在国内的XX行业存在什么样的问题，想要通过学习这门课来深入研究解决。
+动机4：因为本科阶段已经对该课程产生了浓厚的兴趣；希望进行大量的研究或深入钻研某个兴趣点；也可以是因为未来继续读PHD，钻研某个领域。
+动机5：因为一本书，一次活动，一次演讲，一次课程，一个故事对这个行业及相关专业产生了浓厚的兴趣。
+动机6：官网公布的选择理由。"
                           autocomplete="off" :maxlength="titleMaxLength2"></el-input>
               </el-form-item>
+              <el-form-item label="3、你为什么觉的自己是一个有竞争力的申请者？（1000字）" prop="content2">
+                <span class="textareaTip">还可输入{{titleMaxLength2 - psDetailForm.content1.length}}字</span>
+                <el-input type="textarea" v-model="psDetailForm.content2"
+                          placeholder="写法1：请与教育顾问老师联系，确认本专业有无特殊录取要求（如对某些课程或者经历有特殊要求，务必写上）。例：曼彻斯特大学的发展金融专业要求宏观经济学，微观经济学，统计学都要达到80分以上，因此，必须在PS里面详述这三门课的学习成果，研究能力；可以通过课堂作业，小组作业等举例描述。
+写法2：如专业没有特殊要求，请阐述上一阶段学习中有哪些课程是与你申请的专业相关；分别从这些课程上学到哪些具体的专业知识；锻炼了哪些能力；对你未来有哪些帮助。
+补充：你是否读过相关书籍跟申请的专业相关，最好作者是国外的，如果没有，就写国内的。用两句话阐述这些书籍主要研究的是什么问题，对于你要申请的专业有什么借鉴和学习作用；你是否参加过相关内容的课程，讲座，研讨等，表明自己对这方面的浓厚兴趣和研究动机；你有什么研究案例或者著作发表跟你申请的专业特别相关，请详述；充分说明自己的研究能力、学习能力。" autocomplete="off"
+                          :maxlength="titleMaxLength2"></el-input>
+              </el-form-item>
+              <el-form-item label="4、你是否读过与申请专业相关的书籍？（选填，500字）" prop="content3">
+                <span class="textareaTip">还可输入{{titleMaxLength - psDetailForm.content3.length}}字</span>
+                <el-input type="textarea" v-model="psDetailForm.content3"
+                          placeholder="填写说明：
+1）用两句话阐述这些书籍主要研究的是什么问题？对于你要申请的专业有什么借鉴和学习作用？
+2）首选作者是外国人的书籍，如果没有，可选国内作者书籍。 " autocomplete="off" :maxlength="titleMaxLength"></el-input>
+              </el-form-item>
+              <el-form-item label="5、是否有过与申请专业相关的实习或工作经历？（选填，500字）" prop="content4">
+                <span class="textareaTip">还可输入{{titleMaxLength - psDetailForm.content4.length}}字</span>
+                <el-input type="textarea" v-model="psDetailForm.content4"
+                          placeholder="填写说明：
+1）请填写实习/工作具体起止时间、公司名称、岗位及工作内容（包括获得的成果、给你带来哪些具体知识和能力的提升）、工作表现（遇到的挫折及克服方法、收获与经验）共计4项内容；
+2）请按照如下格式填写（如有多个经历，中间请空出一行作为间隔）；
+     起止时间：
+     公司名称：
+     岗位及工作内容：
+     工作表现：" autocomplete="off" :maxlength="titleMaxLength"></el-input>
+              </el-form-item>
+              <el-form-item label="6、除你的学习能力及经历之外，你是否参加过譬如学生会，社团及其他社会活动？其是否对你培养团队协作能力、组织领导能力，独立性等产生重要影响？（选填，500字）" prop="content5">
+                <span class="textareaTip">还可输入{{titleMaxLength - psDetailForm.content5.length}}字</span>
+                <el-input type="textarea" v-model="psDetailForm.content5"
+                          placeholder="填写说明：
+1）如有多个备选事件，请选取你认为最具代表性的，切勿全部罗列；
+2）请写明具体起止时间和个人的具体工作内容，以及你获得的收获；
+3）请按照如下格式填写：
+    起止时间：
+    具体工作内容：
+    获得收获：" autocomplete="off" :maxlength="titleMaxLength"></el-input>
+              </el-form-item>
+              <el-form-item label="7、其他你特别想放在PS里面的内容。比如特别想去某所大学的原因；或者其他内容。（选填，500字）" prop="content6">
+                <span class="textareaTip">还可输入{{titleMaxLength - psDetailForm.content6.length}}字</span>
+                <el-input type="textarea" v-model="psDetailForm.content6"
+                          placeholder="" autocomplete="off"
+                          :maxlength="titleMaxLength"></el-input>
+              </el-form-item>
+<!--              <el-form-item label="8、其他你特别想放在PS里面的内容。" prop="content7">-->
+<!--                <span class="textareaTip">还可输入{{titleMaxLength2 - psDetailForm.content7.length}}字</span>-->
+<!--                <el-input type="textarea" v-model="psDetailForm.content7" placeholder="其他你特别想放在PS里面的内容。"-->
+<!--                          autocomplete="off" :maxlength="titleMaxLength2"></el-input>-->
+<!--              </el-form-item>-->
             </el-form>
           </div>
         </div>
       </div>
-      <div class="cv_footer">
+      <div class="cv_footer ps_edit_footer">
         <div class="footer_button">
           <span @click="prev"><i>上一步</i></span>
           <span @click="submitForm('psDetailForm')">保存</span>
@@ -103,7 +121,7 @@
                 addIndex: 1,// 选中的ps方案
                 outerVisible: false,// 外层弹出框
                 titleMaxLength: 500,//文本域最大字数
-                titleMaxLength2: 300,//文本域最大字数
+                titleMaxLength2: 1000,//文本域最大字数
                 tableData: [], //table
                 psDetailForm: {
                     apply_id: '',//ps-id
@@ -114,33 +132,33 @@
                     content4: '',
                     content5: '',
                     content6: '',
-                    content7: ''
+                    // content7: ''
                 },// ps详情
                 rules: {
                     need_teacher: [
                         {required: true, message: '请选择是否需要写作老师与您本人沟通内容和逻辑', trigger: 'blur'}
                     ],
                     content1: [
-                        {required: true, message: '请填写你选择这个研究领域有什么职业规划方面的考虑', trigger: 'blur'}
+                        {required: true, message: '请填写你为什么申请这个专业', trigger: 'blur'}
                     ],
                     content2: [
-                        {required: true, message: '请填写你是转专业申请的话，什么原因促使你转到这个领域来学习', trigger: 'blur'}
-                    ],
-                    content3: [
-                        {required: true, message: '请填写你为什么选择这个专业而不是其他专业', trigger: 'blur'}
-                    ],
-                    content4: [
-                        {required: true, message: '请填写你本科或者上一段学习阶段，在专业课上学习成果如何', trigger: 'blur'}
-                    ],
-                    content5: [
                         {required: true, message: '请填写你为什么觉的自己是一个有竞争力的申请者', trigger: 'blur'}
                     ],
-                    content6: [
-                        {required: true, message: '请填写你是否读过相关书籍跟申请的专业相关', trigger: 'blur'}
+                    content3: [
+                        {required: true, message: '你是否读过与申请专业相关的书籍', trigger: 'blur'}
                     ],
-                    content7: [
-                        {required: true, message: '请填写其他你特别想放在PS里面的内容', trigger: 'blur'}
-                    ]
+                    // content4: [
+                    //     {required: true, message: '请填写你是否读过与申请专业相关的书籍', trigger: 'blur'}
+                    // ],
+                    // content5: [
+                    //     {required: true, message: '请填写除你的学习能力及经历之外，你是否参加过譬如学生会，社团及其他社会活动？其是否对你培养团队协作能力、组织领导能力，独立性等产生重要影响', trigger: 'blur'}
+                    // ],
+                    // content6: [
+                    //     {required: true, message: '请填写其他你特别想放在PS里面的内容。比如特别想去某所大学的原因；或者其他内容', trigger: 'blur'}
+                    // ],
+                    // content7: [
+                    //     {required: true, message: '请填写其他你特别想放在PS里面的内容', trigger: 'blur'}
+                    // ]
                 }
 
             }
@@ -181,6 +199,12 @@
                             }
 
                         })
+                    }else{
+                        _this.$message({
+                            message: '请完整填写表单！',
+                            type: 'error'
+                        });
+                        return false;
                     }
                 });
             },

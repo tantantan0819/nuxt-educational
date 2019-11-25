@@ -1,6 +1,9 @@
 @import "./base";
 
 .ps {
+  textarea::-webkit-input-placeholder {
+    color: $f9;
+  }
   .ps_add {
     padding: 50px 0 100px 0;
 
@@ -248,4 +251,7 @@
 }
 .footer_tip{
   margin-top: 30px;
+}
+.ps_edit_footer{
+  margin-top: -60px;
 }
