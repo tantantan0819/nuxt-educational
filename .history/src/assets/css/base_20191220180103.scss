@@ -1,0 +1,224 @@
+//****** 样式还原 ******/
+@import "./reset";
+
+//****** 颜色变量 ******/
+$f0: #000;
+$f8: #888;
+$f6: #666;
+$fc: #fff;
+$f3: #333;
+$f9: #999;
+$fcc: #ccc;
+$fe: #fefefe;
+$f1: #f1f1f1;
+$fd: #fdfafa;
+$e5: #e5e5e5;
+$fd5: #fdf5f5;
+$f69: #ff6977;
+$ff6: #ff6878;
+$f53: #535353;
+$fc6: #c6c6c6;
+$fd1: #d1d1d1;
+$f63: #ff6633;
+$e6: #e6e6e6;
+$fba: #baf0fa;
+$ff5: #ff537f;
+$f60: #606266;
+$fdc: #dcdfe6;
+$ff3: #ffc3d2;
+$ff4: #ff4b82;
+$ff7: #ff7e70;
+
+//****** 混合指令 ******/
+
+// 宽高
+@mixin wh($width, $height) {
+  width: $width;
+  height: $height;
+}
+
+// 渐变背景色
+@mixin gradient{
+  background-image: linear-gradient(-90deg, $ff4 0%, $ff7 100%), linear-gradient( $fd, $fd);
+  background-blend-mode: normal, normal!important;
+}
+
+// 公用阴影
+@mixin shadow{
+  box-shadow: 0px 0px 20px 0px rgba(255, 119, 114, 0.15);
+}
+
+// 水平居中
+@mixin cc{
+  display: flex;
+  justify-content: center;
+}
+
+// 垂直居中
+@mixin cb{
+  display: flex;
+  align-items: center;
+}
+
+// 垂直布局，居中对齐
+@mixin cuc{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+// 上下左右居中
+@mixin cr{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+//字体大小、行高
+@mixin font($size, $line-height) {
+  font-size: $size;
+  line-height: $line-height;
+  font-family: helvetica,Microsoft YaHei;
+  word-break: break-word;
+}
+//字体大小、行高、颜色
+@mixin fontc($size, $line-height,$color) {
+  color: $color;
+  font-size: $size;
+  line-height: $line-height;
+  font-family: helvetica,Microsoft YaHei;
+  word-break: break-word;
+}
+
+//圆角
+@mixin borderRadius($radius:4px) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  -o-border-radius: $radius;
+  border-radius: $radius;
+}
+
+// 背景图片地址、大小
+@mixin bg($url,$size:100% 100%) {
+  background-image: url($url);
+  background-repeat: no-repeat;
+  background-size: $size;
+}
+
+//定位
+@mixin absolute($top:0,$left:0){
+   position: absolute;
+   top: $top;
+   left: $left;
+}
+
+
+//****** 公共样式 ******/
+.tc{
+  text-align: center;
+}
+body{
+  background: $fd;
+}
+
+#utrack{
+  display: flex;
+  .utrack_right{
+    flex: 1;
+    .utrack_content{
+      min-height: -moz-calc(100% - 140px);
+      min-height: -webkit-calc(100% - 140px);
+      min-height: calc(100% - 140px);
+      margin-right: 20px;
+      background-color: $fc;
+      margin-bottom: 60px;
+      @include borderRadius(10px);
+      @include shadow();
+    }
+  }
+}
+//日期插件
+.widthAll{
+  width: 100%!important;
+}
+//公用标题
+.title_box {
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+
+  &:before {
+    content: '';
+    display: inline-block;
+    background: $e6;
+    @include wh(100%, 1px);
+    @include absolute(49px, 0)
+  }
+
+  .cv_title {
+    position: relative;
+    z-index: 2;
+    @include cb();
+
+    p {
+      position: relative;
+      @include fontc(24px, 48px, $f3);
+
+      &:before {
+        content: '';
+        display: inline-block;
+        @include wh(96px, 1px);
+        @include gradient();
+        @include absolute(49px, 0)
+      }
+    }
+
+    span {
+      margin-left: 40px;
+      @include fontc(16px, 48px, $f63);
+    }
+  }
+}
+//查看详情按钮
+.viewBtn{
+  border: none!important;
+  background: transparent!important;
+  color: $f60!important;
+  &:hover{
+    color: $f69!important;
+  }
+}
+.el-radio__input.is-checked+.el-radio__label{
+   color: $f69;
+}
+.el-radio__input.is-checked .el-radio__inner{
+  border-color: $f69;
+  background: $f69;
+}
+//按钮不可点击
+.gray{
+  background-color: #ccc;
+  background-image: none !important;
+}
+//手机验证码布局
+#isPhone{
+  display: flex;
+  .isRegion{
+    width: 100px;
+  }
+  .isPhone{
+    flex: 1;
+  }
+}
+#graphic{
+  display: flex;
+  .el-form-item{
+    flex: 1;
+  }
+  img{
+    @include wh(130px,40px);
+    margin-left: 20px;
+    cursor: pointer;
+  }
+}
