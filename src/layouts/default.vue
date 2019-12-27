@@ -62,6 +62,5 @@ textarea::-moz-placeholder {
 textarea::-ms-input-placeholder {
   color: #808080;
 }
- 
 </style>
 
