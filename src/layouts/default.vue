@@ -52,19 +52,19 @@ html {
 
 textarea::-webkit-input-placeholder {
   /* WebKit browsers */
-  color: #9e9e9e;
+  color: #808080;
 }
 textarea:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
-  color: #9e9e9e;
+  color: #808080;
 }
 textarea::-moz-placeholder {
   /* Mozilla Firefox 19+ */
-  color: #9e9e9e;
+  color: #808080;
 }
 textarea::-ms-input-placeholder {
   /* Internet Explorer 10+ */
-  color: #9e9e9e;
+  color: #808080;
 }
  
 </style>
