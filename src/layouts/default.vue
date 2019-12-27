@@ -51,16 +51,16 @@ html {
 }
 
 textarea::-webkit-input-placeholder {
-  color: #808080;
+  color: #808080 !important ;
 }
 textarea:-moz-placeholder {
-  color: #808080;
+  color: #808080 !important ;
 }
 textarea::-moz-placeholder {
-  color: #808080;
+  color: #808080 !important ;
 }
 textarea::-ms-input-placeholder {
-  color: #808080;
+  color: #808080 !important ;
 }
 </style>
 
