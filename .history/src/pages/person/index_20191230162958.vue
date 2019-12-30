@@ -182,7 +182,7 @@
                 },
                 tokenParams: {//请求token的参数
                     bucket: 'user',
-                    path: 'upload/user',
+                    path: 'upload/avatar',
                     ext: ''
                 },
                 fileList: [],
