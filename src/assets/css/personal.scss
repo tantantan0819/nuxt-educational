@@ -16,7 +16,7 @@
       width: 235px;
       @include fontc(16px,1,$f3);
       img{
-        background: $fcc;
+        @include gradient();
         border: 1px solid $f63;
         @include wh(70px,70px);
         @include borderRadius(50%);
