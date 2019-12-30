@@ -237,7 +237,7 @@
             _this.active = location.pathname;
             let userInfo = _this.$store.state.user;
             if (!emptyObj(userInfo)) {
-                _this.person = userInfo;
+                  _this.person = deepClone(userInfo);
             } else {
                 uhttp.get('/user/detail').then((res) => {
                     if(res){
