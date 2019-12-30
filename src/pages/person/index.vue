@@ -178,10 +178,11 @@
                 base_url: '',//头像路径
                 postData: {
                     token: "",
-                    name: ''
+                    name: '',
                 },
                 tokenParams: {//请求token的参数
                     bucket: 'user',
+                    key:'None',
                     path: 'upload/user',
                     ext: ''
                 },
