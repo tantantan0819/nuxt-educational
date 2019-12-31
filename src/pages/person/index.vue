@@ -179,10 +179,10 @@
                 postData: {
                     token: "",
                     name: '',
+                    key:'',
                 },
                 tokenParams: {//请求token的参数
                     bucket: 'user',
-                    key:'None',
                     path: 'upload/user',
                     ext: ''
                 },
@@ -247,6 +247,7 @@
                     }
                 })
             }
+            console.log(this.person)
             //获取区号
             let regionList = getStore('regionList');
             if (regionList) {
@@ -284,15 +285,17 @@
             },
             //获取上传token
             async uploadToken() {
+                let _this = this;
                 await uhttp.get('/upload/get-avatar-qiniu-token', this.tokenParams).then((res) => {
-                    this.postData.token = res.token;
-                    this.base_url = res.base_url;
+                    _this.postData.token = res.token;
+                    _this.postData.key = res.key;
+                    _this.base_url = res.key;
                 });
             },
             //成功上传图片
             successUpload(res) {
                 let _this = this;
-                let img_url = _this.base_url + res.hash;
+                 let img_url = res.data.url;
                 uhttp.post('user/edit', {avatar:img_url}).then((res) => {
                     if (res) {
                         _this.$message({

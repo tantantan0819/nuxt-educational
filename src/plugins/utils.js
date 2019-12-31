@@ -1,3 +1,5 @@
+import {md5} from './crypto'; // md5算法加密
+
 /**
  * 存储localStorage
  */
@@ -308,4 +310,10 @@ export function emptyObj(obj) {
     }
   }
   return flag;
+}
+
+export function qinniuKey(id){
+    const timeStamp = getUnixTime(); //时间戳
+    const salt = rendomString(6); //随机字符串6位，数字、大小写
+    return md5(id + timeStamp + salt)
 }

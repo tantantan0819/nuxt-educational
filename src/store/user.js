@@ -8,6 +8,7 @@ export const state = () => ({
   phone: '',//手机
   birth: '',//生日
   address: '',//地址
+  id: '',//客户id
 });
 
 export const mutations = {
@@ -20,5 +21,6 @@ export const mutations = {
     state.phone = user.phone;
     state.birth = user.birth;
     state.address = user.address;
+    state.id = user.id;
   }
 };
