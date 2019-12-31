@@ -178,6 +178,7 @@
             //关闭cv预览
             close() {
                 window.close();
+                this.$router.push('/cv/step1');
             }
         },
         filters: {
