@@ -175,7 +175,6 @@
                 visiblePhone: false, //修改手机号码
                 visibleEmail: false,//修改邮箱
                 qiniu_url: 'http://upload.qiniup.com',//头像上传地址
-                base_url: '',//头像路径
                 postData: {
                     token: "",
                     name: '',
@@ -247,7 +246,6 @@
                     }
                 })
             }
-            console.log(this.person)
             //获取区号
             let regionList = getStore('regionList');
             if (regionList) {
@@ -289,7 +287,6 @@
                 await uhttp.get('/upload/get-avatar-qiniu-token', this.tokenParams).then((res) => {
                     _this.postData.token = res.token;
                     _this.postData.key = res.key;
-                    _this.base_url = res.key;
                 });
             },
             //成功上传图片
