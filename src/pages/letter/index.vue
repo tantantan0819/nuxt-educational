@@ -13,12 +13,13 @@
           <el-table-column type="index" label="序号" width="70"></el-table-column>
           <el-table-column prop="name" label="推荐人" width="100"></el-table-column>
           <el-table-column prop="sex" label="性别" width="70" :formatter="sexFormat"></el-table-column>
-          <el-table-column prop="job" label="职位头衔"></el-table-column>
-          <el-table-column prop="unit_name" label="单位名称"></el-table-column>
-          <el-table-column prop="phone" label="联系电话" width="120"></el-table-column>
-          <el-table-column prop="relation" label="与您的关系" width="120" :formatter="relashipFormat"></el-table-column>
-          <el-table-column prop="createtime" label="创建时间" width="200"></el-table-column>
-          <el-table-column prop="operation" label="操作" width="130">
+          <el-table-column prop="job" label="职位头衔" width="110"></el-table-column>
+          <el-table-column prop="unit_name" label="单位名称" width="110"></el-table-column>
+          <el-table-column prop="phone" label="联系电话" width="110"></el-table-column>
+          <el-table-column prop="relation" label="与您的关系" width="100" :formatter="relashipFormat"></el-table-column>
+          <el-table-column prop="email" label="单位邮箱" width="120"></el-table-column>
+          <el-table-column prop="createtime" label="创建时间" ></el-table-column>
+          <el-table-column prop="operation" label="操作" width="80">
             <template slot-scope="scope">
               <el-button size="mini" @click="handleEdit(scope.$index, scope.row)" class="viewBtn">查看详情</el-button>
             </template>
@@ -49,11 +50,12 @@
               <el-table :data="viewDetail" stripe style="width: 100%" class="psDetail_talbe">
                 <el-table-column prop="name" label="推荐人" width="150"></el-table-column>
                 <el-table-column prop="sex" label="性别" width="98" :formatter="sexFormat"></el-table-column>
-                <el-table-column prop="job" label="职位头衔" width="154"></el-table-column>
-                <el-table-column prop="unit_name" label="单位名称"></el-table-column>
+                <el-table-column prop="job" label="职位头衔" width="180"></el-table-column>
+                <el-table-column prop="unit_name" label="单位名称" width="170"></el-table-column>
                 <el-table-column prop="phone" label="联系电话" width="150"></el-table-column>
-                <el-table-column prop="relation" label="与你的关系" width="100" :formatter="relashipFormat"></el-table-column>
-                <el-table-column prop="createtime" label="创建时间" width="200"></el-table-column>
+                <el-table-column prop="relation" label="与你的关系" width="80" :formatter="relashipFormat"></el-table-column>
+                <el-table-column prop="email" label="单位邮箱" width="120"></el-table-column>
+                <el-table-column prop="createtime" label="创建时间" width="180"></el-table-column>
               </el-table>
             </div>
             <el-form :model="psDetailForm" status-icon ref="psDetailForm" label-width="300px" label-position="top"

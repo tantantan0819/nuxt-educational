@@ -77,8 +77,18 @@
             },
             //退出登录
             layout() {
-                setStore('isLogin', '0');
-                this.$router.push('/login');
+                let _this = this;
+                uhttp.get('/login/logout').then((res) => {
+                    let layoutMsg = _this.$message({
+                        message: '退出成功！',
+                        type: 'success'
+                    });
+                    setTimeout(() => {
+                        layoutMsg.close();
+                        setStore('isLogin', '0');
+                        _this.$router.push('/login')
+                    }, 1500);
+                })
             },
         }
     }

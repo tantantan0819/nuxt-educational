@@ -30,11 +30,11 @@
           <el-form :model="cvForm3" status-icon :rules="rules" ref="cvForm3" label-width="300px"
                    label-position="top">
             <el-form-item label="开始时间" prop="start_time">
-              <el-date-picker type="date" placeholder="请选择您的学术经历起始时间" v-model="cvForm3.start_time"
+              <el-date-picker type="date" format="yyyy-MM-dd" value-format="yyyy-MM-dd" placeholder="请选择您的学术经历起始时间" v-model="cvForm3.start_time"
                               class="widthAll"></el-date-picker>
             </el-form-item>
             <el-form-item label="结束时间" prop="end_time">
-              <el-date-picker type="date" placeholder="请选择您的学术经历结束时间" v-model="cvForm3.end_time"
+              <el-date-picker type="date" format="yyyy-MM-dd" value-format="yyyy-MM-dd" placeholder="请选择您的学术经历结束时间" v-model="cvForm3.end_time"
                               class="widthAll"></el-date-picker>
             </el-form-item>
             <el-form-item label="经历描述" prop="exp" class="cvTextareaBox">
@@ -114,8 +114,6 @@
             //保存--提交表单
             submitForm(formName) {
                 let _this = this;
-                _this.cvForm3.end_time = dateFormat(_this.cvForm3.end_time);
-                _this.cvForm3.start_time = dateFormat(_this.cvForm3.start_time);
                 _this.$refs[formName].validate((valid) => {
                     if (valid) {
                         http.post('/customer-academic-career/add', _this.cvForm3).then((res) => {
@@ -136,3 +134,4 @@
         }
     }
 </script>
+ 

@@ -44,6 +44,9 @@
                                :value="item.id"></el-option>
                   </el-select>
                 </el-form-item>
+                  <el-form-item label="单位邮箱" prop="email">
+                  <el-input v-model="letterForm.email" placeholder="请输入推荐人的单位邮箱" autocomplete="off"></el-input>
+                </el-form-item>
               </div>
               <div class="letter_content psDetailForm cvTextareaBox">
                 <el-form-item label="1、 推荐人在何时何地开始与您相互认识？" prop="content1">
@@ -92,19 +95,20 @@
 <script>
     import http from "~/plugins/http";
     import {getStore, setStore} from '~/plugins/utils';
+    import {validEmail, validPhone} from '~/plugins/validate';
 
     export default {
         layout: 'utrack',
         data() {
-            var validPhone = (rule, value, callback) => {
-                if (!value) {
-                    callback(new Error('请输入联系人电话'))
-                } else if (!/^1[345789]\d{9}$/.test(value)) {
-                    callback(new Error('请输入正确的联系人电话'))
-                } else {
-                    callback()
-                }
-            };
+            // var validPhone = (rule, value, callback) => {
+            //     if (!value) {
+            //         callback(new Error('请输入联系人电话'))
+            //     } else if (!/^1[345789]\d{9}$/.test(value)) {
+            //         callback(new Error('请输入正确的联系人电话'))
+            //     } else {
+            //         callback()
+            //     }
+            // };
             return {
                 allLetter: 0,//推荐信限制数量
                 letterLength: '',//当前推荐信条数
@@ -120,6 +124,7 @@
                     unit_address: '',
                     unit_name: '',
                     phone: '',
+                    email:'',
                     relation: '',
                     content1: '',
                     content2: '',
@@ -139,13 +144,16 @@
                         {required: true, message: '请输入推荐人职位头衔', trigger: 'blur'}
                     ],
                     unit_address: [
-                        {required: true, message: '请请入推荐人单位地址', trigger: 'blur'}
+                        {required: true, message: '请输入推荐人单位地址', trigger: 'blur'}
                     ],
                     unit_name: [
-                        {required: true, message: '请请入推荐人单位名称', trigger: 'blur'}
+                        {required: true, message: '请输入推荐人单位名称', trigger: 'blur'}
                     ],
                     phone: [
                         {required: true, validator: validPhone, trigger: 'blur'}
+                    ],
+                    email: [
+                        {required: true, validator: validEmail, trigger: 'blur'}
                     ],
                     relation: [
                         {required: true, message: '请选择推荐人与您的关系', trigger: 'blur'}

@@ -12,7 +12,7 @@
         <span class="ps_tip" v-else>该合同下暂无可申请的PS方案哦~ 如有疑问，请联系你的顾问老师！</span>
         <div class="add_box">
           <div class="add_item" v-for="(item,index) in plan.apply" :key="index" :class="{'active': index == addIndex}">
-            <div class="add_title">申请方案{{index+1}} <span @click="viewDetail(index,item.id)">查看详情</span></div>
+            <div class="add_title">申请方案{{index+1}} <span v-if="isView" @click="viewDetail(index,item.id)">查看详情</span></div>
             <div class="add_content" @click="selectApply(index)">
               <div class="detail_item">
                 <span>申请院校</span>
@@ -205,6 +205,7 @@
                 update: [],//院校实时更新
                 signList:[],//网申方式
                 course:[],//课程类型
+                isView: false,//是否隐藏查看详情
             }
         },
         beforeCreate: function () {

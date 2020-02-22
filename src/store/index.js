@@ -1,5 +1,5 @@
 export const state= ()=>({
-  isLogin: 0,//是否登录 0:未登录，1：已登录
+  isLogin: 1,//是否登录 0:未登录，1：已登录
   cvPath: '',//cv-path
   ps: '',//ps长度
   letter: '',//推荐信长度
