@@ -33,7 +33,6 @@
 <script>
     import {valiPassward} from '~/plugins/validate';
     import {setStore} from '~/plugins/utils';
-
     import uhttp from "~/plugins/uhttp";
     import http from "~/plugins/http";
 
@@ -89,6 +88,8 @@
                                         });
                                         setTimeout(() => {
                                             successMsg.close();
+                                            _this.$store.commit('user/SET_USER', {});
+                                            _this.$store.commit('SET_RESET', '');
                                             setStore('isLogin','1');
                                             _this.$router.push('/cv/step1')
                                         }, 1500);

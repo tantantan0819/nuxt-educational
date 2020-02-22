@@ -86,6 +86,8 @@
                     setTimeout(() => {
                         layoutMsg.close();
                         setStore('isLogin', '0');
+                        _this.$store.commit('user/SET_USER', {});
+                        _this.$store.commit('SET_RESET', '');
                         _this.$router.push('/login')
                     }, 1500);
                 })
