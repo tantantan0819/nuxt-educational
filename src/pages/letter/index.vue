@@ -17,7 +17,7 @@
           <el-table-column prop="unit_name" label="单位名称" width="110"></el-table-column>
           <el-table-column prop="phone" label="联系电话" width="110"></el-table-column>
           <el-table-column prop="relation" label="与您的关系" width="100" :formatter="relashipFormat"></el-table-column>
-          <el-table-column prop="email" label="单位邮箱" width="120"></el-table-column>
+          <el-table-column prop="email" label="单位邮箱" width="180"></el-table-column>
           <el-table-column prop="createtime" label="创建时间" ></el-table-column>
           <el-table-column prop="operation" label="操作" width="100">
             <template slot-scope="scope">
