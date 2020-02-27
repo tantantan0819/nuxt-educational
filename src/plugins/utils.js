@@ -155,7 +155,7 @@ export function sortParamsToStr(data) {
     var newData = [];
     for (let i of keys) {
       if (typeof data[i] !== 'undefined') {
-        newData.push(i + '=' + data[i].toString().trim());
+        newData.push(i + '=' + data[i].toString());
       }
     }
     queryString = newData.join('&');
