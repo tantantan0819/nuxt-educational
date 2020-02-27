@@ -44,6 +44,10 @@
                         link: '/letter'
                     },
                     {
+                        name: '材料信息',
+                        link: '/material'
+                    },
+                    {
                         name: '个人设置',
                         link: '/person'
                     },

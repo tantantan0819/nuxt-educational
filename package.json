@@ -38,5 +38,12 @@
     "node-sass": "^4.11.0",
     "nodemon": "^1.18.9",
     "sass-loader": "^8.0.0"
-  }
+  },
+  "main": ".eslintrc.js",
+  "repository": {
+    "type": "git",
+    "url": "http://192.168.1.10/tanhongyu/nuxt-utrack-ui.git"
+  },
+  "keywords": [],
+  "license": "ISC"
 }

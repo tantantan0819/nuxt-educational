@@ -10,7 +10,10 @@
       <div class="info">
         <div class="infoBox">
           <div class="info_name">{{crmUser.customer_name || '--'}}</div>
-          <div class="info_other"><span>电话:{{crmUser.phone | phoneFormat}}</span><span>邮箱:{{crmUser.email || ''}}</span></div>
+          <div class="info_other">
+            <span>电话:{{crmUser.phone | phoneFormat}}</span>
+            <span>邮箱:{{crmUser.email || ''}}</span>
+          </div>
           <div class="info_other">
             <span>生日:{{crmUser.birthday}}</span>
             <!--crm规则：0:未知 男：4 女：5-->
@@ -24,8 +27,12 @@
           </div>
         </div>
         <div class="avatarBox">
-          <span class="info_avatar" v-if="user.avatar"><img :src="user.avatar" alt=""/></span>
-          <span class="info_avatar" v-else><img src="/images/avatar.jpg" alt=""/></span>
+          <span class="info_avatar" v-if="user.avatar">
+            <img :src="user.avatar" alt />
+          </span>
+          <span class="info_avatar" v-else>
+            <img src="/images/avatar.jpg" alt />
+          </span>
         </div>
       </div>
       <!-- 教育背景 -->
@@ -115,93 +122,121 @@
     </div>
     <div class="preview_close">
       <span @click="close">关闭</span>
+      <span @click="makeCV" v-if="isMack">提交CV制作素材</span>
     </div>
-
   </div>
 </template>
 <style lang="scss">
-  @import "~/assets/css/preview.scss";
-  @import "~/assets/css/cv.scss";
+@import "~/assets/css/preview.scss";
+@import "~/assets/css/cv.scss";
 </style>
 <script>
-    import http from "~/plugins/http";
-    import uhttp from "~/plugins/uhttp";
-    import {dateTime,emptyObj,getStore} from '~/plugins/utils';
-    export default {
-        layout: 'utrack',
-        data() {
-            return {
-
-                preview: {},//cv预览
-                user: {},//用户信息--sso
-                crmUser: {},//用户信息--crm
-                education: [],//教育背景
-                academic: [],//学术经历
-                work: [],//工作经历
-                school: [], //校园活动
-                introduce: [], //兴趣/语言/技能/证书
-            }
-        },
-        mounted() {
-            let _this = this;
-            // 获取用户信息--sso
-            let userInfo = this.$store.state.user;
-            if (!emptyObj(userInfo)) {
-                _this.user = userInfo;
-            } else {
-                uhttp.get('/user/detail').then((res) => {
-                    _this.$store.commit('user/SET_USER', res);
-                    _this.user = _this.$store.state.user;
-                })
-            }
-            //获取用户信息--crm
-            http.get('/customer/get-info').then((res) => {
-                if(res){
-                    _this.crmUser = res;
-                }
-            })
-            //获取cv预览
-            _this.getPreview();
-        },
-        methods: {
-            //获取cv预览
-            getPreview() {
-                http.get('/customer-pre-see/list').then((res) => {
-                    this.preview = res;
-                    this.education = res.education;
-                    this.academic = res.academic;
-                    this.work = res.work;
-                    this.school = res.school;
-                    this.introduce = res.introduce;
-                })
-            },
-            //关闭cv预览
-            close() {
-                window.close();
-                this.$router.push('/cv/step1');
-            }
-        },
-        filters: {
-            //时间格式转换：xxxx-xx-xx转为xxxx年xx月xx日
-            timeFormat(time) {
-                let newTime = '';
-                if (time) {
-                    newTime = dateTime(time);
-                }
-                return newTime;
-            },
-            //时间格式转换：xxxxxxxxxxx转为xxx-xxxx-xxxx
-            phoneFormat(phone) {
-                let phoneArr = []
-                let phoneStr = phone+'';
-                if (phone) {
-                    phoneArr.push(phoneStr.slice(0,3));
-                    phoneArr.push(phoneStr.slice(3,7));
-                    phoneArr.push(phoneStr.slice(7,11));
-                    return phoneArr.join('-')
-                }
-                return '';
-            }
-        }
+import http from "~/plugins/http";
+import uhttp from "~/plugins/uhttp";
+import { dateTime, emptyObj, getStore } from "~/plugins/utils";
+export default {
+  layout: "utrack",
+  data() {
+    return {
+      preview: {}, //cv预览
+      user: {}, //用户信息--sso
+      crmUser: {}, //用户信息--crm
+      education: [], //教育背景
+      academic: [], //学术经历
+      work: [], //工作经历
+      school: [], //校园活动
+      introduce: [], //兴趣/语言/技能/证书
+      isMackCV: false //是否已经提交过了CV制作素材
+    };
+  },
+  mounted() {
+    let _this = this;
+    // 获取用户信息--sso
+    let userInfo = this.$store.state.user;
+    if (!emptyObj(userInfo)) {
+      _this.user = userInfo;
+    } else {
+      uhttp.get("/user/detail").then(res => {
+        _this.$store.commit("user/SET_USER", res);
+        _this.user = _this.$store.state.user;
+      });
     }
+    //获取用户信息--crm
+    http.get("/customer/get-info").then(res => {
+      if (res) {
+        _this.crmUser = res;
+      }
+    });
+    //获取cv预览
+    _this.getPreview();
+    //
+  },
+  methods: {
+    //获取cv预览
+    getPreview() {
+      http.get("/customer-pre-see/list").then(res => {
+        this.preview = res;
+        this.education = res.education;
+        this.academic = res.academic;
+        this.work = res.work;
+        this.school = res.school;
+        this.introduce = res.introduce;
+      });
+    },
+    //关闭cv预览
+    close() {
+      window.close();
+      this.$router.push("/cv/step1");
+    },
+    //提交CV制作素材
+    makeCV() {
+      let _this = this;
+      let successMsg = _this.$message({
+        message: "提交成功！",
+        type: "success"
+      });
+      setTimeout(() => {
+        _this.isMackCV = true;
+      }, 500);
+    }
+  },
+  computed: {
+    //所有cv填完展示，当其提交过了就隐藏
+    isMack() {
+      if (
+        this.education.length != 0 &&
+        this.academic.length != 0 &&
+        this.work.length != 0 &&
+        this.school.length != 0 &&
+        this.introduce.length != 0 &&
+        isMackCV == false
+      ) {
+        return true;
+      }
+      return false;
+    }
+  },
+  filters: {
+    //时间格式转换：xxxx-xx-xx转为xxxx年xx月xx日
+    timeFormat(time) {
+      let newTime = "";
+      if (time) {
+        newTime = dateTime(time);
+      }
+      return newTime;
+    },
+    //时间格式转换：xxxxxxxxxxx转为xxx-xxxx-xxxx
+    phoneFormat(phone) {
+      let phoneArr = [];
+      let phoneStr = phone + "";
+      if (phone) {
+        phoneArr.push(phoneStr.slice(0, 3));
+        phoneArr.push(phoneStr.slice(3, 7));
+        phoneArr.push(phoneStr.slice(7, 11));
+        return phoneArr.join("-");
+      }
+      return "";
+    }
+  }
+};
 </script>

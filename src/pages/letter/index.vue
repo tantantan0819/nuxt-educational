@@ -111,7 +111,7 @@
                 psDetailForm: {},// ps详情内容
                 viewDetail: [],// 当前详情
                 letterLength: '',//当前推荐信条数
-                allLetter: 3,//推荐信限制数量
+                allLetter: 2,//推荐信限制数量
             }
         },
         mounted() {

@@ -54,9 +54,9 @@
         content: '';
         display: inline-block;
         position: relative;
-        transition: all 0.1s ease-in-out;
+        // transition: all 0.1s ease-in-out;
       }
-      transition: all 0.1s ease-in-out;
+      // transition: all 0.1s ease-in-out;
       @include wh(280px,52px);
       @include fontc(16px,52px,$f6);
       @include cb();
@@ -84,6 +84,13 @@
       &:nth-child(4){
         &:before{
           @include wh(26px,22px);
+          @include absolute(17px,75px);
+          background: url('/images/material/icon.png') -22px -380px no-repeat;
+        }
+      }
+      &:nth-child(5){
+        &:before{
+          @include wh(26px,22px);
           @include bg("/images/nav4.png");
           @include absolute(17px,75px);
         }
@@ -108,6 +115,11 @@
         }
       }
       &:nth-child(4){
+        &:before{
+          background: url('/images/material/icon.png') -23px -859px no-repeat;
+        }
+      }
+      &:nth-child(5){
         &:before{
           @include bg("/images/nav44.png");
         }
