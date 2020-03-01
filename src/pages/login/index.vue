@@ -91,7 +91,7 @@
                                             _this.$store.commit('user/SET_USER', {});
                                             _this.$store.commit('SET_RESET', '');
                                             setStore('isLogin','1');
-                                            _this.$router.push('/cv/step1')
+                                            _this.$router.push('/cv/step1');
                                         }, 1500);
                                     }else{
                                         _this.$message({

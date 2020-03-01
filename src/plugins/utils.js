@@ -321,9 +321,11 @@ export function deepClone(source) {
  */
 export function emptyObj(obj) {
   let flag = true;
+  jump:
   for(let i in obj){
-    if(obj[i] != ''){
+    if(obj[i] != '' && typeof(obj[i])  != 'undefined' && typeof(obj[i]) != 'unll'){
       flag = false;
+      break jump;
     }
   }
   return flag;

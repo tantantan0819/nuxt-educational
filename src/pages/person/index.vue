@@ -293,7 +293,6 @@
             successUpload(res) {
                 let _this = this;
                  let img_url = res.data.url;
-                 console.log(res.data.url,'-----')
                 uhttp.post('user/edit', {avatar:img_url}).then((res) => {
                     if (res) {
                         _this.$message({
