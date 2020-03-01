@@ -181,7 +181,7 @@
                     key:'',
                 },
                 tokenParams: {//请求token的参数
-                    bucket: 'user',
+                    bucket: 'ukec',
                     path: 'upload/user',
                     ext: ''
                 },
@@ -284,7 +284,7 @@
             //获取上传token
             async uploadToken() {
                 let _this = this;
-                await uhttp.get('/upload/get-avatar-qiniu-token', this.tokenParams).then((res) => {
+                await uhttp.get('/qiniu/token', this.tokenParams).then((res) => {
                     _this.postData.token = res.token;
                     _this.postData.key = res.key;
                 });
@@ -293,6 +293,7 @@
             successUpload(res) {
                 let _this = this;
                  let img_url = res.data.url;
+                 console.log(res.data.url,'-----')
                 uhttp.post('user/edit', {avatar:img_url}).then((res) => {
                     if (res) {
                         _this.$message({

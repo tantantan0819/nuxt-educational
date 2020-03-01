@@ -87,14 +87,7 @@
     }
   }
 
-  .cv_button {
-    cursor: pointer;
-    @include wh(140px, 40px);
-    @include gradient();
-    @include cr();
-    @include fontc(16px, 1, $fc);
-    @include borderRadius(20px);
-  }
+
 
   .cv_button2 {
     @include wh(170px, 40px);
@@ -311,32 +304,7 @@
 
 
 }
-.cvTextareaBox {
-  .el-form-item{
-    position: relative;
-  }
-  .cvTextarea {
-    textarea {
-      height: 320px !important;
-      resize: none;
-      padding-bottom: 30px;
-    }
-  }
 
-  .cvTextarea2 {
-    textarea {
-      height: 110px !important;
-    }
-  }
-
-  .textareaTip {
-    position: absolute;
-    bottom: 12px;
-    right: 12px;
-    z-index: 3;
-    @include fontc(16px, 1, $f63);
-  }
-}
 .add_form{
   padding: 30px 0 70px 0;
 }

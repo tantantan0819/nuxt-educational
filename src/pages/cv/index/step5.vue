@@ -5,7 +5,10 @@
         <p>校园活动</p>
         <span>请认真填写您空缺的资料，保存后不能修改，如需修改请联系您的顾问老师进行修改</span>
       </div>
-      <span class="cv_button" @click="outerVisible=true">新增校园活动</span>
+       <div class="modify_wrap">
+        <info-modify :type="modifyType"></info-modify>
+        <span class="cv_button" @click="outerVisible=true">新增校园活动</span>
+      </div>
     </div>
     <div class="cv_content cv2 centerTable step3Table">
       <el-table :data="tableData" stripe style="width: 100%">
@@ -58,11 +61,13 @@
 <script>
     import http from "~/plugins/http";
     import {dateFormat} from '~/plugins/utils';
-
+    import InfoModify from "~/components/InfoModify";
     export default {
         layout: 'utrack',
+        components: { InfoModify },
         data() {
             return {
+                modifyType: 'cv',//修改类型
                 outerVisible: false,//外层
                 tableData: [], //table
                 titleMaxLength: 100,//文本域最大字数

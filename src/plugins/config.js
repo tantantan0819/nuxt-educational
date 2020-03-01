@@ -13,4 +13,5 @@ export default {
   user_key:'56a1d11798254ab79cc613542d178f62993e73f',
   user_version: '',
   view_host:'http://crm.mailxpv.com/',//查看文件前缀
+  // view_host:'http://test.mailxpv.com/',//查看文件前缀 -- 本地测试环境
 };

@@ -5,6 +5,7 @@
         <div class="cv_title">
           <p>我的PS</p>
         </div>
+        <info-modify :type="modifyType"></info-modify>
       </div>
       <p class="noData" v-if="contract.length == 0">您名下没有留学方案，故没有PS信息</p>
       <div class="contract_box" v-for="(item,index) in contract" :key="index">
@@ -115,11 +116,13 @@
 </style>
 <script>
     import http from "~/plugins/http";
-
+    import InfoModify from "~/components/InfoModify";
     export default {
         layout: 'utrack',
+        components: { InfoModify },
         data() {
             return {
+               modifyType: 'ps',//修改类型
                 contract: [],//ps合同
                 AID: '1',
                 outerVisible: false, // 外层

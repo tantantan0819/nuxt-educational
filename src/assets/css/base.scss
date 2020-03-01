@@ -7,6 +7,7 @@ $f8: #888;
 $f6: #666;
 $fc: #fff;
 $f3: #333;
+$f4: #444;
 $f9: #999;
 $fcc: #ccc;
 $fe: #fefefe;
@@ -28,7 +29,12 @@ $fdc: #dcdfe6;
 $ff3: #ffc3d2;
 $ff4: #ff4b82;
 $ff7: #ff7e70;
-
+$fd5: #fdf5f5;
+$f53: #535353;
+$dbe: #dbedff;
+$dff: #429dff;
+$d8f: #d8f0f0;
+$f0c: #0cb959;
 //****** 混合指令 ******/
 
 // 宽高
@@ -138,6 +144,48 @@ body{
     }
   }
 }
+//cv按钮样式
+.cv_button {
+  cursor: pointer;
+  @include wh(140px, 40px);
+  @include gradient();
+  @include cr();
+  @include fontc(16px, 1, $fc);
+  @include borderRadius(20px);
+}
+.modify_button{
+  width: 100px;
+}
+//文本域样式
+.cvTextareaBox {
+  .el-form-item{
+    position: relative;
+  }
+  .cvTextarea {
+    textarea {
+      height: 320px !important;
+      resize: none;
+      padding-bottom: 30px;
+    }
+  }
+  .cvTextarea2 {
+    textarea {
+      height: 110px !important;
+    }
+  }
+  .textareaTip {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    z-index: 3;
+    @include fontc(16px, 1, $f63);
+  }
+}
+.noteTextarea{
+  textarea {
+    height: 100 !important;
+  }
+}
 //日期插件
 .widthAll{
   width: 100%!important;
@@ -179,6 +227,16 @@ body{
       @include fontc(16px, 48px, $f63);
     }
   }
+  @media screen and (max-width: 1500px){
+    .cv_title6{
+      span{
+        margin-left: 10px;
+        @include fontc(15px, 48px, $f63);
+      }
+    }
+ }
+    
+     
 }
 //查看详情按钮
 .viewBtn{
@@ -220,5 +278,28 @@ body{
     @include wh(130px,40px);
     margin-left: 20px;
     cursor: pointer;
+  }
+}
+.modify{
+  .el-form-item{
+    display: flex;
+    .el-form-item__label{
+      width: 70px;
+    }
+    .el-form-item__content{
+      flex:1;
+    }
+  }
+}
+.noteTextarea{
+  textarea{
+    height: 140px!important;
+    resize: none;
+  }
+}
+.modify_wrap{
+  display: flex;
+  span{
+    margin-left: 10px;
   }
 }

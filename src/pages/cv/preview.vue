@@ -169,9 +169,17 @@ export default {
     });
     //获取cv预览
     _this.getPreview();
-    //
+    //检查是否已提交制作cv素材
+    _this.checkCV();
   },
   methods: {
+    //检查cv素材
+    checkCV() {
+      let _this = this;
+      http.get("/schedule/check-cv").then(res => {
+        res.length == 0 ? (_this.isMackCV = false) : (_this.isMackCV = true);
+      });
+    },
     //获取cv预览
     getPreview() {
       http.get("/customer-pre-see/list").then(res => {
@@ -196,24 +204,31 @@ export default {
         type: "success"
       });
       setTimeout(() => {
-        _this.isMackCV = true;
+        http.get("/schedule/add-cv").then(res => {
+          if (res) {
+            _this.isMackCV = true;
+          }
+        });
       }, 500);
     }
   },
   computed: {
     //所有cv填完展示，当其提交过了就隐藏
     isMack() {
+      let flag = false;
       if (
         this.education.length != 0 &&
         this.academic.length != 0 &&
         this.work.length != 0 &&
         this.school.length != 0 &&
         this.introduce.length != 0 &&
-        isMackCV == false
+        this.isMackCV == false
       ) {
-        return true;
+        flag = !flag;
       }
-      return false;
+      return flag;
+  
+    
     }
   },
   filters: {

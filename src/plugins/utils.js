@@ -262,7 +262,24 @@ export function dateFormat(date) {
     return date.getFullYear()+ '-'+date.getMonth()+'-'+date.getDay();
   }
 }
+/**
+ * 格式化时间: 2018-3-4
+ * @param nS 时间字符串
+ * @returns {string}
+ */
 
+export function timeDetail(date) {
+  if(date){
+    var date = new Date(date * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+    var Y = date.getFullYear() + '-';
+    var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+    var D = date.getDate() + ' ';
+    var h = date.getHours() + ':';
+    var m = (date.getMinutes())< 10 ? '0' + (date.getMinutes()) +':': (date.getMinutes())+':';
+    var s = (date.getSeconds())< 10 ? '0' + (date.getSeconds()) : (date.getSeconds());
+    return Y+M+D+h+m+s
+  }
+}
 /**
  * 创建当前时间: 2019-10-22
  * @param xx

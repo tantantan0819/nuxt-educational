@@ -35,7 +35,7 @@ const ERROR_NEED_LOGIN = 3000;
 // 创建 axios 实例
 const service = axios.create({
   baseURL: Config.user_host, // api的base_url
-  timeout: 10000, // request timeout
+  timeout: 100000, // request timeout
   retry: 3,
   retryDelay: 500,
   shouldRetry: (error) => true,
