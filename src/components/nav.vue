@@ -44,7 +44,7 @@
                         link: '/letter'
                     },
                     {
-                        name: '材料信息',
+                        name: '文书材料',
                         link: '/material'
                     },
                     {
