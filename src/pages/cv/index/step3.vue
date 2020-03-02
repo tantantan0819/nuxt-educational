@@ -62,7 +62,7 @@
 <script>
     import http from "~/plugins/http";
     import {dateFormat} from '~/plugins/utils';
-    import InfoModify from "~/components/InfoModify";
+    import InfoModify from "~/components/infoModify";
     
     export default {
         transition: '',

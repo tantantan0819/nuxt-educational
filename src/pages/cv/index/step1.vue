@@ -56,7 +56,7 @@
     import {deepClone, emptyObj} from '~/plugins/utils';
     import {getStore, setStore} from '~/plugins/utils';
     import http from "~/plugins/http";
-    import InfoModify from "~/components/InfoModify";
+    import InfoModify from "~/components/infoModify";
 
     export default {
         transition: '',
