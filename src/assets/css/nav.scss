@@ -91,6 +91,13 @@
       &:nth-child(5){
         &:before{
           @include wh(26px,22px);
+          @include absolute(17px,75px);
+          background: url('/images/material/icon.png') -24px -66px no-repeat;
+        }
+      }
+      &:nth-child(6){
+        &:before{
+          @include wh(26px,22px);
           @include bg("/images/nav4.png");
           @include absolute(17px,75px);
         }
@@ -120,6 +127,11 @@
         }
       }
       &:nth-child(5){
+        &:before{
+          background: url('/images/material/icon.png') -24px -545px no-repeat;
+        }
+      }
+      &:nth-child(6){
         &:before{
           @include bg("/images/nav44.png");
         }

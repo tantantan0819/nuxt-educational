@@ -96,7 +96,7 @@ props:['type'],
         noteType: []
       },
       modify: {
-        type: 1,
+        type: '',
         content: "",
         files: []
       },

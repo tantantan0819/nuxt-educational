@@ -409,3 +409,26 @@
     overflow: hidden;
   }
 }
+.note_item{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  span{
+    &:nth-child(1){
+      @include fontc(14px,1,$f60);
+      i{
+        margin-right: 8px;
+        @include fontc(16px,1,$f90);
+      }
+    }
+    &:nth-child(2){
+      cursor: pointer;
+      display: inline-block;
+      @include wh(20px,20px);
+      background: url('/images/material/clicon.png') -19px -18px no-repeat;
+    }
+   
+  }
+}
+
