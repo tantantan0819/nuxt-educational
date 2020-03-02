@@ -23,6 +23,9 @@
                 ></el-option>
               </el-select>
             </el-form-item>
+             <el-form-item label="  " v-if="isShow" class="modfityTip">
+                <span>内容修改只可进行1次，修改件的返还时间为72小时</span>
+            </el-form-item>
             <el-form-item label="备注:" prop="content" class="cvTextareaBox modifyText">
               <el-input
                 type="textarea"
@@ -144,6 +147,22 @@ props:['type'],
         _this.modify.type = res.NOTE_TYPE_CV[0].id;
         setStore("noteType", res);
       });
+    }
+  },
+   computed: {
+    //当选中修改类型为’内容‘时提示：内容修改只可进行1次，修改件的返还时间为72小时
+    isShow() {
+      let flag = false;
+      let contentId = '';
+      this.select.noteType.map(item=>{
+        if(item.cvalue_cn == '内容'){
+          contentId = item.id;
+        }
+      })
+      if (this.modify.type == contentId) {
+        flag = !flag;
+      }
+      return flag;
     }
   },
   methods: {
