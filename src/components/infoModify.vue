@@ -89,7 +89,7 @@ export default {
             },
             tokenParams: {
                 //请求token的参数
-                bucket: "user",
+                bucket: "ukec",
                 path: "upload/user",
                 ext: ""
             },
