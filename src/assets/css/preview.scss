@@ -149,6 +149,10 @@
         margin-left: 20px;
         border: 1px solid $f69;
         @include fontc(16px,1,$f69);
+        -webkit-user-select:none;
+	    -moz-user-select:none;
+	    -o-user-select:none;
+	    user-select:none;
       }
     
     }
