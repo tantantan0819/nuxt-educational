@@ -167,7 +167,7 @@ export default {
                     contentId = item.id;
                 }
             });
-            if (this.modify.type == contentId) {
+            if (this.modify.note_type == contentId) {
                 flag = !flag;
             }
             return flag;
