@@ -123,6 +123,7 @@
                 titleMaxLength: 500,//文本域最大字数
                 titleMaxLength2: 1000,//文本域最大字数
                 tableData: [], //table
+                isSubmit: true,//是否可提交，避免重复提交
                 psDetailForm: {
                     apply_id: '',//ps-id
                     need_teacher: '',
@@ -185,7 +186,8 @@
             submitForm(formName) {
                 let _this = this;
                 _this.$refs[formName].validate((valid) => {
-                    if (valid) {
+                    if (valid && _this.isSubmit) {
+                      _this.isSubmit = false;
                         http.post('/customer-apply-question/add', _this.psDetailForm).then((res) => {
                             if (res) {
                                 let successMsg = _this.$message({
@@ -193,13 +195,14 @@
                                     type: 'success'
                                 });
                                 setTimeout(() => {
+                                    _this.isSubmit = true;
                                     successMsg.close();
                                     _this.$router.push('/ps')
                                 }, 1500);
                             }
 
                         })
-                    }else{
+                    }else if(!valid){
                         _this.$message({
                             message: '请完整填写表单！',
                             type: 'error'
