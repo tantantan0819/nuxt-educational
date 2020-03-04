@@ -8,10 +8,10 @@
       </div>
       <div class="cv_content cv2 centerTable">
         <el-table :data="tableData" stripe style="width: 100%">
-          <el-table-column prop="type" label="材料类型"></el-table-column>
-          <el-table-column prop="modify" label="修改类别" :formatter="sexFormat"></el-table-column>
-          <el-table-column prop="note" label="备注"></el-table-column>
-          <el-table-column prop="time" label="提交时间"></el-table-column>
+          <el-table-column prop="page_type" label="材料类型"></el-table-column>
+          <el-table-column prop="note_type" label="修改类别" :formatter="typeFormat"></el-table-column>
+          <el-table-column prop="note_body" label="备注"></el-table-column>
+          <el-table-column prop="create_time" label="提交时间" :formatter="timeFormat"></el-table-column>
           <el-table-column label="操作">
             <template slot-scope="scope">
               <el-button
@@ -26,54 +26,59 @@
 
       <!--  PS详情  -->
       <div class="add modify">
-        <el-dialog title :visible.sync="psDetail" width="1377">
+        <el-dialog title :visible.sync="isDetail" width="1377">
           <div class="add_title">修改详情</div>
           <div class="add_content">
-          <el-form
-            :model="modify"
-            status-icon
-            ref="modify"
-            label-width="300px"
-            label-position="top"
-          >
-            <el-form-item label="类别:" prop="type">
-              <el-select v-model="modify.type" class="widthAll" placeholder="类别">
-                <el-option
-                  v-for="(item,index) in select.noteType"
-                  :key="index"
-                  :label="item.cvalue_cn"
-                  :value="item.id"
-                ></el-option>
-              </el-select>
-            </el-form-item>
-             <el-form-item label="  " v-if="isShow" class="modfityTip">
+            <el-form
+              :model="modify"
+              status-icon
+              ref="modify"
+              label-width="320px"
+              label-position="top"
+            >
+              <el-form-item label="类别:" prop="type">
+                <el-select v-model="modify.note_type" class="widthAll" placeholder="类别">
+                  <el-option
+                    v-for="(item,index) in select.noteType"
+                    :key="index"
+                    :label="item.cvalue_cn"
+                    :value="item.id"
+                    v-bind:disabled="item.id | typeFormat2"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="  " v-if="isShow" class="modfityTip">
                 <span>内容修改只可进行1次，修改件的返还时间为72小时</span>
-            </el-form-item>
-            <el-form-item label="备注:" prop="content" class="cvTextareaBox modifyText">
-              <el-input
-                type="textarea"
-                v-model="modify.content"
-                class="noteTextarea"
-                autocomplete="off"
-              ></el-input>
-            </el-form-item>
-            <el-form-item label="附件:" prop="files">
-                <div class="note_item">
-                  <span><i class="el-icon-document"></i>语言课程.docx</span>
-                  <span class="note_view"></span>
+              </el-form-item>
+              <el-form-item label="备注:" prop="note_body" class="cvTextareaBox modifyText">
+                <el-input
+                  type="textarea"
+                  v-model="modify.note_body"
+                  class="noteTextarea"
+                  autocomplete="off"
+                  readonly
+                ></el-input>
+              </el-form-item>
+              <el-form-item label="附件:" prop="files">
+                <div class="note_item" v-for="(item,index) in modify.note_files" :key="index">
+                  <span>
+                    <i class="el-icon-document"></i>{{item.name}}
+                  </span>
+                  <span class="note_view el-icon-view" @click="view(item.url)"></span>
                 </div>
-                  <div class="note_item">
-                  <span><i class="el-icon-document"></i>语言课程.docx</span>
-                  <span class="note_view"></span>
-                </div>
-            </el-form-item>
-          </el-form>
-          <div class="footer_button">
-            <span @click="cancel('modify')">
-              <i>关闭</i>
-            </span>
+              </el-form-item > 
+                <el-form-item label="提交时间:" class="modify_itme">
+               <span>
+                    {{modify.create_time | timeFormat2}}
+                  </span>
+              </el-form-item>
+            </el-form>
+            <div class="footer_button">
+              <span @click="cancel('modify')">
+                <i>关闭</i>
+              </span>
+            </div>
           </div>
-        </div>
         </el-dialog>
       </div>
     </div>
@@ -84,108 +89,123 @@
 </style>
 <script>
 import http from "~/plugins/http";
-import { getStore, setStore } from "~/plugins/utils";
+import config from "~/plugins/config";
+import { getStore, setStore,timeDetail } from "~/plugins/utils";
+let that;
 export default {
   layout: "utrack",
   data() {
     return {
-      psDetail: false,
-      tableData: [
-        {
-          type: "材料类别1",
-          modify: "修改内容类别2",
-          time: "2010-29",
-          note: "aaa"
-        }
-      ], //table
-      psDetailForm: {
-        content1: "",
-        content2: "",
-        content3: "",
-        content4: "",
-        content5: "",
-        content6: ""
-      },
-        select: {
+      isDetail: false,
+      tableData: [], //table
+      select: {
         noteType: []
       },
-       modify: {
-        type: '',
-        content: "",
+      modify: {
+        note_type: "",
+        note_body: "",
         files: [],
-        time:''
-      },
+        time: ""
+      }
     };
+  },
+  beforeCreate(){
+    that = this;
   },
   mounted() {
     let _this = this;
-     //获取类别下拉
-    let noteType = getStore("noteType");
-    if (noteType) {
-      _this.select.noteType = noteType.NOTE_TYPE_CV;
-      _this.modify.type = noteType.NOTE_TYPE_CV[0].id;
-    } else {
-      http.get("/code-val/group-key-list").then(res => {
-        _this.select.noteType = res.NOTE_TYPE_CV;
-        _this.modify.type = res.NOTE_TYPE_CV[0].id;
-        setStore("noteType", res);
-      });
-    }
+    //获取类别下拉
+    _this.getType();
   },
-   computed: {
+  computed: {
     //当选中修改类型为’内容‘时提示：内容修改只可进行1次，修改件的返还时间为72小时
     isShow() {
       let flag = false;
-      let contentId = '';
-      this.select.noteType.map(item=>{
-        if(item.cvalue_cn == '内容'){
+      let contentId = "";
+      this.select.noteType.map(item => {
+        if (item.cvalue_cn == "内容") {
           contentId = item.id;
         }
-      })
-      if (this.modify.type == contentId) {
+      });
+      if (this.modify.note_type == contentId) {
         flag = !flag;
       }
       return flag;
     }
   },
+  filters:{
+    //显示修改类型
+    typeFormat2(type){
+      let flag = true;
+      that.modify.note_type == type ? flag = false : flag = true;
+      return flag;  
+    },
+    //显示提交时间
+     //过滤关系
+    timeFormat2(val) {
+      let time = timeDetail(val)
+      return time;
+    },
+  },
   methods: {
+    //获取类别下拉
+    getType() {
+      let _this = this;
+      let noteType = getStore("noteType");
+      if (noteType) {
+        _this.select.noteType = noteType.NOTE_TYPE_CV;
+        _this.modify.type = noteType.NOTE_TYPE_CV[0].id;
+      //获取修改信息
+      http.post("/customer-note/list").then(res => {
+          _this.tableData = res.rows;
+      });
+      } else {
+        http.get("/code-val/group-key-list").then(res => {
+          _this.select.noteType = res.NOTE_TYPE_CV;
+          _this.modify.type = res.NOTE_TYPE_CV[0].id;
+             //获取修改信息
+            http.post("/customer-note/list").then(res => {
+                _this.tableData = res.rows;
+            });
+          setStore("noteType", res);
+        });
+      }
+    },
+
     //过滤性别
-    sexFormat(row, column) {
-      let sex = "未知";
-      //   this.sexList.map((item, index) => {
-      //     if (item.id == Number(row.sex)) {
-      //       sex = item.cvalue_cn;
-      //     }
-      //   });
-      return sex;
+    typeFormat(row, column) {
+      let type = "";
+       if(this.select.noteType.length>0){
+         this.select.noteType.map(item=>{
+           item.id == row.note_type ? type = item.cvalue_cn : '';
+         })
+       }
+      return type;
     },
     //过滤关系
-    relashipFormat(row, column) {
-      let relaship = "";
-      //   this.relaship.map((item, index) => {
-      //     if (item.id == Number(row.relation)) {
-      //       relaship = item.cvalue_cn;
-      //     }
-      //   });
-      return relaship;
+    timeFormat(row, column) {
+      let time = timeDetail(row.create_time)
+      return time;
     },
-   //取消查看详情
+    //取消查看详情
     cancel(formName) {
       let _this = this;
-      _this.psDetail = false;
+      _this.isDetail = false;
     },
     //查看详情
-    handleEdit(index) {
+    handleEdit(index,row) {
       let _this = this;
-      //   _this.viewDetail = [];
-      //   _this.viewDetail.push(_this.tableData[index]);
-      //   _this.psDetailForm = _this.viewDetail[0];
-        _this.psDetail = true;
-      console.log("查看详情-----");
+      _this.modify = row;
+      _this.isDetail = true;
+      _this.modify.note_files = JSON.parse(_this.modify.note_files)
     },
     // 关闭查看详情
     close() {
       this.psDetail = false;
+    },
+    //查看附件
+    view(url){
+      window.open(config.view_host+url,'_blank')
     }
   }
 };
