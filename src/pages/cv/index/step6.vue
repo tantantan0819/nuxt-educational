@@ -46,9 +46,8 @@
                 placeholder="兴趣名称（程度描述），如：篮球（校队队长），小提琴（音乐学院10级），动漫（xx动漫社社长）"
                 class="cvTextarea cvTextarea2"
                 autocomplete="off"
-                :maxlength="titleMaxLength"
               ></el-input>
-              <span class="textareaTip">还可输入{{titleMaxLength - cvForm6.interest.length}}字</span>
+              <!-- <span class="textareaTip">还可输入{{titleMaxLength - cvForm6.interest.length}}字</span> -->
             </el-form-item>
             <el-form-item label="语言" prop="lang" class="cvTextareaBox">
               <el-input
@@ -57,9 +56,8 @@
                 placeholder="语言名称（程度描述），如：英语（CET-6），日语（N2）"
                 class="cvTextarea cvTextarea2"
                 autocomplete="off"
-                :maxlength="titleMaxLength"
               ></el-input>
-              <span class="textareaTip">还可输入{{titleMaxLength - cvForm6.lang.length}}字</span>
+              <!-- <span class="textareaTip">还可输入{{titleMaxLength - cvForm6.lang.length}}字</span> -->
             </el-form-item>
             <el-form-item label="技能" prop="skill" class="cvTextareaBox">
               <el-input
@@ -68,9 +66,8 @@
                 placeholder="技能名称（程度描述），如：SPSS，Excel（熟练使用数据透视表），PowerPoint（熟练）"
                 class="cvTextarea cvTextarea2"
                 autocomplete="off"
-                :maxlength="titleMaxLength"
               ></el-input>
-              <span class="textareaTip">还可输入{{titleMaxLength - cvForm6.skill.length}}字</span>
+              <!-- <span class="textareaTip">还可输入{{titleMaxLength - cvForm6.skill.length}}字</span> -->
             </el-form-item>
             <el-form-item label="证书" prop="certificate" class="cvTextareaBox">
               <el-input
@@ -79,9 +76,8 @@
                 placeholder="证书名称（程度描述），如：计算机二级"
                 class="cvTextarea cvTextarea2"
                 autocomplete="off"
-                :maxlength="titleMaxLength"
               ></el-input>
-              <span class="textareaTip">还可输入{{titleMaxLength - cvForm6.certificate.length}}字</span>
+              <!-- <span class="textareaTip">还可输入{{titleMaxLength - cvForm6.certificate.length}}字</span> -->
             </el-form-item>
           </el-form>
           <div class="footer_button">

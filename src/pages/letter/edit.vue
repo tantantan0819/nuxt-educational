@@ -51,28 +51,28 @@
               <div class="letter_content psDetailForm cvTextareaBox">
                 <el-form-item label="1、 推荐人在何时何地开始与您相互认识？" prop="content1">
                   <el-input type="textarea" v-model="letterForm.content1" placeholder="例：课堂上，新生入学，面试，某个活动等"
-                            autocomplete="off" :maxlength="titleMaxLength50"></el-input>
-                  <span class="textareaTip">还可输入{{titleMaxLength50 - letterForm.content1.length}}字</span>
+                            autocomplete="off" ></el-input>
+                  <!-- <span class="textareaTip">还可输入{{titleMaxLength50 - letterForm.content1.length}}字</span> -->
                 </el-form-item>
                 <el-form-item label="2、推荐人如果是您的授课老师，具体教授您哪些课程，分别的课程成绩如何？" prop="content2">
                   <el-input type="textarea" v-model="letterForm.content2" placeholder="例：学年+学期+课程名称+课程分数等"
-                            autocomplete="off" :maxlength="titleMaxLength100"></el-input>
-                  <span class="textareaTip">还可输入{{titleMaxLength100 - letterForm.content2.length}}字</span>
+                            autocomplete="off" ></el-input>
+                  <!-- <span class="textareaTip">还可输入{{titleMaxLength100 - letterForm.content2.length}}字</span> -->
                 </el-form-item>
                 <el-form-item label="3、推荐人是否对您有进行跟申请相关的项目或论文指导，如有，请简述在此过程中的印象与评价" prop="content3">
                   <el-input type="textarea" v-model="letterForm.content3" placeholder="例：什么项目+什么事情引起了老师的注意+老师如何评价"
-                            autocomplete="off" :maxlength="titleMaxLength200"></el-input>
-                  <span class="textareaTip">还可输入{{titleMaxLength200 - letterForm.content3.length}}字</span>
+                            autocomplete="off" ></el-input>
+                  <!-- <span class="textareaTip">还可输入{{titleMaxLength200 - letterForm.content3.length}}字</span> -->
                 </el-form-item>
                 <el-form-item label="4、 推荐人在和您接触过程中对您的整体印象与评价？" prop="content4">
                   <el-input type="textarea" v-model="letterForm.content4" placeholder="例：课堂或表现、学习或工作能力、主动性、独立性、创新性、责任感等，请以评价+具体事例结合的方式阐述："
-                            autocomplete="off" :maxlength="titleMaxLength50"></el-input>
-                  <span class="textareaTip">还可输入{{titleMaxLength50 - letterForm.content4.length}}字</span>
+                            autocomplete="off" ></el-input>
+                  <!-- <span class="textareaTip">还可输入{{titleMaxLength50 - letterForm.content4.length}}字</span> -->
                 </el-form-item>
                 <el-form-item label="5、 其他你特别想放在推荐信里面的内容" prop="content5">
                   <el-input type="textarea" v-model="letterForm.content5" placeholder="例：课堂或表现、学习或工作能力、主动性、独立性、创新性、责任感等，请以评价+具体事例结合的方式阐述："
-                            autocomplete="off" :maxlength="titleMaxLength100"></el-input>
-                  <span class="textareaTip">还可输入{{titleMaxLength100 - letterForm.content5.length}}字</span>
+                            autocomplete="off" ></el-input>
+                  <!-- <span class="textareaTip">还可输入{{titleMaxLength100 - letterForm.content5.length}}字</span> -->
                 </el-form-item>
               </div>
             </el-form>

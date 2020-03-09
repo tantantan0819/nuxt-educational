@@ -67,9 +67,8 @@
                 placeholder="整体框架遵循【做了什么】【结果是什么】【有什么价值】的逻辑。"
                 class="cvTextarea cvTextarea2"
                 autocomplete="off"
-                :maxlength="titleMaxLength"
               ></el-input>
-              <span class="textareaTip">还可输入{{titleMaxLength - cvForm4.descript.length}}字</span>
+              <!-- <span class="textareaTip">还可输入{{titleMaxLength - cvForm4.descript.length}}字</span> -->
             </el-form-item>
           </el-form>
           <div class="footer_button">
