@@ -254,15 +254,10 @@ export default {
       });
     }
     //获取专业下拉
-    let majorList = getStore("majorList");
-    if (majorList) {
-      _this.select.major = majorList;
-    } else {
-      http.get("/major-local/list").then(res => {
+    http.get("/major-local/list").then(res => {
         _this.select.major = res.list;
         setStore("majorList", res.list);
       });
-    }
     //获取国家下拉
     let stateList = getStore("stateList");
     if (stateList) {
