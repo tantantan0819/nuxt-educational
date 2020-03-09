@@ -48,6 +48,10 @@
                         link: '/material'
                     },
                     {
+                        name: '修改记录',
+                        link: '/modify'
+                    },
+                    {
                         name: '个人设置',
                         link: '/person'
                     },
