@@ -112,10 +112,10 @@
               v-model="search"
               @keyup.enter.native="searchSchool"
             >
-              <!--                              <el-select v-model="state" slot="prepend" placeholder="请选择">-->
-              <!--                                <el-option label="全部" value=""></el-option>-->
-              <!--                                <el-option v-for="(item,index) in select.state" :key=index :label="item.country" :value="item.country"></el-option>-->
-              <!--                              </el-select>-->
+            <el-select v-model="state" slot="prepend" placeholder="请选择" @change="changeState">
+                <el-option label="全部" value=""></el-option>
+                <el-option v-for="(item,index) in select.state" :key=index :label="item.country" :value="item.country"></el-option>
+            </el-select>
               <el-button slot="append" icon="el-icon-search" @click="searchSchool"></el-button>
             </el-input>
             <div class="school_table">
@@ -165,7 +165,7 @@ export default {
       modifyType: 'cv',//修改类型
       outerVisible: false, //外层
       innerVisible: false, //内层
-      state: "中国", //院校选择国家
+      state: "", //院校选择国家
       selectSchool: "", //选中的院校选择
       search: "", //院校选择搜索内容
       searchCon: "", //院校选择搜索内容
@@ -292,6 +292,12 @@ export default {
       http.get("/customer-education/get-my-list").then(res => {
         this.tableData = res;
       });
+    },
+    //切换国家
+    changeState(val){
+        let _this = this;
+        _this.state = val;
+        _this.schoolData();
     },
     //请求院校选择
     schoolData() {
