@@ -35,10 +35,25 @@ $dbe: #dbedff;
 $dff: #429dff;
 $d8f: #d8f0f0;
 $f0c: #0cb959;
+$fce: #cec5c8;
+$fb1: #fbe4e1;
+$fde: #dce8f1;
+$f36: #366c93;
+$f64: #e64c37;
+$fc8: #f3ccd8;
+$f1d: #1d557e;
+$fa3: #a3a3a3;
+$e75: #e75b4f;
 $f90: #909399;
 $f3a: rgba(8,141,245,.02);
 $f40: #409EFF;
 //****** 混合指令 ******/
+//单号省略
+@mixin space {
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+}
 
 // 宽高
 @mixin wh($width, $height) {

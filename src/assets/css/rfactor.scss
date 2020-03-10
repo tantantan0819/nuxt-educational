@@ -1,0 +1,125 @@
+@import "./base";
+#rfactor{
+    display: flex;
+    min-height: 100vh;
+    background: linear-gradient(45deg,$fb1,$fde);
+    .rfactor_left{
+        width: 280px;
+        border-right: 1px solid $fce;
+        .rnav{
+            .rnav_img{
+                @include cr();
+                height: 102px;
+                img{
+                    @include wh(210px,50px);
+                }
+            }
+            .rnav_box{
+                li{
+                    display: flex;
+                    padding: 18px 0;
+                    align-items: center;
+                    cursor: pointer;
+                    .rnav_navbox{
+                        width: 93px;
+                        display: flex;
+                        justify-content: flex-end;
+                        .rnav_nav{
+                            width: 22px;
+                            @include cc();
+                            position: relative;
+                            // img{
+                                // border-right: 20px solid transparent;
+                                // -webkit-filter: drop-shadow(#0033FF 20px 0);
+                                // filter: drop-shadow(#0033FF 20px 0)
+                            // }
+                        }
+                    }
+                    .rnav_tex{
+                        padding-left: 10px;
+                        @include fontc(16px,1,$f36);
+                    }
+                    &:hover{
+                        .rnav_tex{
+                            color: $f64;
+                        }
+                    }
+                }
+            }
+        }
+        .active{
+            background-color: $fc8;
+            .rnav_tex{
+                color: $f64!important;
+            }
+        }
+    }
+    .rfactor_right{
+        flex: 1;
+        padding: 16px 19px 55px 16px;
+        .rHeader{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            .rHeader_left{
+                display: flex;
+                justify-items: center;
+                align-items: center;
+                img{
+                    @include wh(61px,61px);
+                    margin: 0 14px 0 20px;
+                    border-radius: 50%;
+                    box-shadow: 2px 3px 3px 0px rgba(0, 0, 0, 0.31);
+                }
+                .rHeader_text{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    .text_item{
+                        display: flex;
+                        height: 24px;
+                        @include fontc(14px,24px,$f1d);
+                        p{
+                            
+                            span{
+                                margin-right: 8px;
+                            }
+                            i{
+                                margin-left: 4px;
+                            }
+                        }
+                        &:nth-child(1){
+                            p{
+                                margin-right: 12px;
+
+                            }
+                        }
+                        &:nth-child(2){
+                            p{
+                                margin-right: 6px;
+
+                            }
+                        }
+                       
+                    }
+                }
+            }
+            .rHeader_right{
+                width: 100px;
+                height: 30px;
+                cursor: pointer;
+                border-radius: 15px;
+                border: solid 1px $f1d;
+                @include cr();
+                @include fontc(14px,1,$f1d);
+                i{
+                    @include wh(14px,16px);
+                    border-radius: 50%;
+                    margin-right: 6px;
+                    @include bg("/images/refactor/layout.png");
+                }
+            }
+        }
+    }
+}
