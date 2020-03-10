@@ -32,11 +32,8 @@
                                 v-model="modify.note_body"
                                 class="noteTextarea"
                                 autocomplete="off"
-                                :maxlength="titleMaxLength"
                             ></el-input>
-                            <span
-                                class="textareaTip"
-                            >还可输入{{titleMaxLength - modify.note_body.length}}字</span>
+                          
                         </el-form-item>
                         <el-form-item label="附件:" prop="note_files">
                             <el-upload

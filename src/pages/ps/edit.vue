@@ -70,11 +70,11 @@
                                     autocomplete="off"
                                 ></el-input>
                             </el-form-item>
-                                <el-form-item label="4、请陈述就读该专业后的短期（1-5年）和长期（5-10年）的职业规划" prop="plan">
+                                <el-form-item label="4、请陈述就读该专业后的短期（1-5年）和长期（5-10年）的职业规划" prop="content8">
                                
                                 <el-input
                                     type="textarea"
-                                    v-model="psDetailForm.plan"
+                                    v-model="psDetailForm.content8"
                                     placeholder="请陈述就读该专业后的短期（1-5年）和长期（5-10年）的职业规划"
                                     autocomplete="off"
                                 ></el-input>
@@ -180,11 +180,11 @@ export default {
                 content4: "",
                 content5: "",
                 content6: "",
-                plan: ""
+                content8: ""
                 // content7: ''
             }, // ps详情
             rules: {
-                plan: [
+                content8: [
                     {
                         required: true,
                         message: "请陈述就读该专业后的短期（1-5年）和长期（5-10年）的职业规划",

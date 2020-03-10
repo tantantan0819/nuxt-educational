@@ -80,19 +80,23 @@
                 <el-input type="textarea" v-model="psDetailForm.content2" readonly
                           autocomplete="off"></el-input>
               </el-form-item>
-              <el-form-item label="4、你是否读过与申请专业相关的书籍？">
+                <el-form-item label="4、请陈述就读该专业后的短期（1-5年）和长期（5-10年）的职业规划">
+                <el-input type="textarea" v-model="psDetailForm.content8" readonly
+                          autocomplete="off"></el-input>
+              </el-form-item>
+              <el-form-item label="5、你是否读过与申请专业相关的书籍？">
                 <el-input type="textarea" v-model="psDetailForm.content3" readonly
                           autocomplete="off"></el-input>
               </el-form-item>
-              <el-form-item label="5、是否有过与申请专业相关的实习或工作经历？">
+              <el-form-item label="6、是否有过与申请专业相关的实习或工作经历？">
                 <el-input type="textarea" v-model="psDetailForm.content4" readonly
                           autocomplete="off"></el-input>
               </el-form-item>
-              <el-form-item label="6、除你的学习能力及经历之外，你是否参加过譬如学生会，社团及其他社会活动？其是否对你培养团队协作能力、组织领导能力，独立性等产生重要影响？">
+              <el-form-item label="7、除你的学习能力及经历之外，你是否参加过譬如学生会，社团及其他社会活动？其是否对你培养团队协作能力、组织领导能力，独立性等产生重要影响？">
                 <el-input type="textarea" v-model="psDetailForm.content5" readonly
                           autocomplete="off"></el-input>
               </el-form-item>
-              <el-form-item label="7、其他你特别想放在PS里面的内容。比如特别想去某所大学的原因；或者其他内容。">
+              <el-form-item label="8、其他你特别想放在PS里面的内容。比如特别想去某所大学的原因；或者其他内容。">
                 <el-input type="textarea" v-model="psDetailForm.content6" readonly
                           autocomplete="off"></el-input>
               </el-form-item>
