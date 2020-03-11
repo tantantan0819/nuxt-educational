@@ -68,6 +68,7 @@
             pathReset == '' ? _this.active = path : _this.active = pathReset;
             // 获取用户信息
             uhttp.get('/user/detail').then((res) => {
+                console.log(res,'用户信息')
                 _this.$store.commit('user/SET_USER', res);
                 _this.user = _this.$store.state.user;
             })

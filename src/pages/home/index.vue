@@ -1,159 +1,368 @@
 <template>
-  <div class="home">
-    <div class="notice">
-      <div class="notice_title">UKEC通知</div>
-      <div class="notice_con">
-        <el-carousel :interval="2000" height="20px" direction="vertical">
-          <el-carousel-item v-for="(item,index) in notice" :key="index">
-            <p>{{ item }}</p>
-          </el-carousel-item>
-        </el-carousel>
-      </div>
-    </div>
-    <div class="note">
-      <div class="note_box">
-        <div class="note_title">事件日历</div>
-        <div class="calendar">
-          <div class="calendar_top">
-            <span class="el-icon-arrow-left" @click="lastMonth"></span>
-            <span>{{calendar_year}}年{{calendar_month}}月</span>
-            <span class="el-icon-arrow-right" @click="nextMonth"></span>
-          </div>
-          <div class="week">
-            <span v-for="(item,index) in week" :key="index+1">{{item}}</span>
-          </div>
-          <div class="data">
-            <!-- 上月剩余天数 -->
-            <div class="data_item grey" v-for="(item,index) in lastArr" :key="index+2">
-              <span>{{item}}</span>
+    <div class="home">
+        <div class="notice">
+            <div class="notice_title">UKEC通知</div>
+            <div class="notice_con">
+                <el-carousel :interval="2000" height="20px" direction="vertical">
+                    <el-carousel-item v-for="(item,index) in notice" :key="index">
+                        <p>{{ item.content }}</p>
+                    </el-carousel-item>
+                </el-carousel>
             </div>
-            <!-- 当月天数 -->
-            <div class="data_item" v-for="(item,index) in duringNum" :key="index+3">
-              <span>{{item}}</span>
-            </div>
-            <!-- 下个月天数 -->
-            <div class="data_item grey" v-for="(item,index) in nextNum" :key="index+4">
-              <span>{{item}}</span>
-            </div>
-          </div>
-          <!-- <el-calendar>
-            <template slot="dateCell" slot-scope="{date, data}">
-              <p
-                :class="data.isSelected ? 'is-selected' : ''"
-              >{{data.day.split('-')[2]}}{{ data.isSelected ? '✔️' : ''}}</p>
-            </template>
-          </el-calendar>-->
         </div>
-      </div>
-      <div class="note_box">
-        <div class="note_title">待办事项</div>
-        <div calss="note_con">
-          <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
-            <el-tab-pane label="全部提醒" name="1">1、全部提醒</el-tab-pane>
-            <el-tab-pane label="我的提醒" name="2">1、我的提醒</el-tab-pane>
-            <el-tab-pane label="顾问提醒" name="3">1、顾问提醒</el-tab-pane>
-          </el-tabs>
+        <div class="note">
+            <div class="note_box">
+                <div class="note_title">事件日历</div>
+                <div class="calendar">
+                    <div class="calendar_top">
+                        <span class="el-icon-arrow-left" @click="lastMonth"></span>
+                        <span>{{calendar_year}}年{{calendar_month}}月</span>
+                        <span class="el-icon-arrow-right" @click="nextMonth"></span>
+                    </div>
+                    <div class="week">
+                        <span v-for="(item,index) in week" :key="index+1">{{item}}</span>
+                    </div>
+                    <div class="data">
+                        <!-- 上月剩余天数 -->
+                        <div
+                            class="data_item grey"
+                            v-for="(item,index) in lastArr"
+                            :key="index+'_lastArr'"
+                        >
+                            <span>{{item}}</span>
+                        </div>
+                        <!-- 当月天数 -->
+                        <div
+                            class="data_item"
+                            v-for="(item,index) in duringNum"
+                            :key="index+'_duringNum'"
+                            :class="{greyActive:isGrey(item),redActive:isRed(item),greenActive:isGreen(item)}"
+                        >
+                            <span @click="changeNoteCon(calendar_year,calendar_month,item)">{{item}}</span>
+                        </div>
+                        <!-- 下个月天数 -->
+                        <div
+                            class="data_item grey"
+                            v-for="(item,index) in nextNum"
+                            :key="index+'_nextNum'"
+                        >
+                            <span>{{item}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="note_box">
+                <div class="note_day">
+                    <span>{{now_day}}</span>
+                    <span>{{now_month}}月</span>
+                </div>
+                <div class="note_add">
+                    <i @click="noteShow = true"></i>
+                    新增提醒
+                </div>
+                <div class="note_title">待办事项</div>
+                <div class="note_con">
+                    <span
+                        v-for="(item,index) in note"
+                        :key="index"
+                        :class="{'active':index == noteActive}"
+                        @click="changeNote(index)"
+                    >{{item}}</span>
+                </div>
+                <div class="note_item" v-if="noteActive == 0">
+                    11111
+                </div>
+                <div class="note_item" v-if="noteActive == 1">
+                    <p>1、这是我的提醒</p>
+                </div>
+                <div class="note_item" v-if="noteActive == 2">
+                    <p>1、这是顾问提醒</p>
+                </div>
+            </div>
         </div>
-      </div>
+        <div class="about">
+            <div class="about_title">关于UKEC</div>
+            <div class="about_box">
+                <p>{{aboutUKec}}</p>
+            </div>
+        </div>
+        <!-- 新增代办事项的 -->
+        <div class="add_note">
+            <el-dialog :visible.sync="noteShow" width="717px" center>
+                <div class="add_title">新增提醒</div>
+                <div class="add_con">
+                    <el-form :model="addForm" ref="addForm" :rules="rules">
+                        <el-form-item label="提醒日期" prop="begin_date">
+                            <el-date-picker
+                                type="date"
+                                format="yyyy-MM-dd"
+                                value-format="yyyy-MM-dd"
+                                placeholder="请选择提醒日期"
+                                v-model="addForm.begin_date"
+                            ></el-date-picker>
+                        </el-form-item>
+                        <el-form-item prop="content" label="提醒内容" class="content">
+                            <el-input type="textarea" v-model="addForm.content" :maxLength="50"></el-input>
+                            <span>{{addForm.content.length}}字/50字</span>
+                        </el-form-item>
+                    </el-form>
+                    <div class="add_footer">
+                        <span @click="noteShow = false">取消</span>
+                        <span @click="submitForm('addForm')">确定</span>
+                    </div>
+                </div>
+            </el-dialog>
+        </div>
     </div>
-    <div class="about">
-      <div class="about_title">关于UKEC</div>
-      <div class="about_box">
-        <p>UKEC英国教育中心于1999年成立于英国，是英国本土最大的教育机构之一。成立之初便获得英国百所高等院校、英国高等教育招生委员会（UCAS）、英国内政部特许移民专署（OISC）的权威授权。</p>
-        <p>经由英国内政部特许移民专署（OISC）的权威认证的签证团队免费为UKEC学子提供签证咨询相关的服务，确保90%以上的申请成功率。</p>
-         <p>作为逾百所英国中学及高等院校官方招生机构、英国总领事馆文化教育处长期教育推广会员机构，UKEC英国教育中心每年为牛津大学、剑桥大学、帝国理工大学、伦敦政治经济学院等英国顶尖名校输送大量优秀学子。</p>
-         <p>作为逾百所英国中学及高等院校官方招生机构、英国总领事馆文化教育处长期教育推广会员机构，UKEC英国教育中心每年为牛津大学、剑桥大学、帝国理工大学、伦敦政治经济学院等英国顶尖名校输送大量优秀学子</p>
-      </div>
-    </div>
-  </div>
 </template>
 <script>
+import http from "~/plugins/http";
 export default {
-  layout: "refactor",
-  data() {
-    return {
-      notice: [
-        "与部分中国211、985高校，如四川大学、电子科技大学、华侨大学、重庆大学、西南大学、西北政法大学、西南财经大学等，共同创立众多中英教育项目，增进中英两国高等院校学术合作，培养多元化国际人才。",
-        "UKEC英国教育中心于1999年成立于英国，是英国本土最大的教育机构之一。成立之初便获得英国百所高等院校、英国高等教育招生委员会（UCAS）、英国内政部特许移民专署（OISC）的权威授权。",
-        "作为逾百所英国中学及高等院校官方招生机构、英国总领事馆文化教育处长期教育推广会员机构，UKEC英国教育中心每年为牛津大学、剑桥大学、帝国理工大学、伦敦政治经济学院等英国顶尖名校输送大量优秀学子。"
-      ],
-      first_day: null, //当月第一天星期几（周末为0）
-      lastArr: [], //日历上个月的天数
-      duringNum: null, //日历当前月天数
-      nextNum: null, //日历下个月剩余天数
-      calendar_year: "", //日历展示年份
-      calendar_month: "", //日历展示月份
-      calendar_day: "", //日历展示--当前号数
-      week: ["日", "一", "二", "三", "四", "五", "六"],
-      activeName: '1'
-    };
-  },
-  beforeMount() {},
-  created() {
-    let _this = this;
-    //获取当前日期
-    _this.initCalendar();
-    //展示当前日历
-    _this.showCalendar(_this.calendar_year, _this.calendar_month);
-  },
-  mounted() {},
-  methods: {
-      //切换备注
-      handleClick(val){
-          console.log(val)
-      },
-    //获取当前日期
-    initCalendar() {
-      let _this = this;
-      const date = new Date();
-      _this.calendar_year = date.getFullYear();
-      _this.calendar_month = date.getUTCMonth() + 1;
-      _this.calendar_day = date.getDate();
+    layout: "refactor",
+    data() {
+        return {
+            noteShow: false, //是否展示新增代办事项
+            noteActive: 0, //待办事项选中分类index
+            note: ["全部提醒", "我的提醒", "顾问提醒"], //待办事项分类
+            noteArr: [], //待办事项内容 -- 日历当月的内容（获取未展示）
+            noteShowArr: [], //待办事项内容 -- 展示
+            noteShowDay: "", //当前展示日期
+            notice: [], //ukec通知内容
+            aboutUKec: "", //关于ukec内容
+            first_day: null, //当月第一天星期几（周末为0）
+            lastArr: [], //日历上个月的天数
+            duringNum: null, //日历当前月天数
+            nextNum: null, //日历下个月剩余天数
+            calendar_year: "", //日历展示年份
+            calendar_month: "", //日历展示月份
+            now_date: "", //今天日期 xxxx-xx-xx
+            now_day: "", //提醒展示--当前号数
+            now_month: "", //提醒展示--当前月份
+            now_year: "", //提醒展示--当前年份
+            week: ["日", "一", "二", "三", "四", "五", "六"],
+            addForm: {
+                begin_date: "",
+                content: ""
+            },
+            rules: {
+                begin_date: [
+                    {
+                        required: true,
+                        message: "请选择提醒日期",
+                        trigger: "blur"
+                    }
+                ],
+                content: [
+                    {
+                        required: true,
+                        message: "请输入提醒内容",
+                        trigger: "blur"
+                    }
+                ]
+            }
+        };
     },
-    //展示日历
-    showCalendar(year, month) {
-      let _this = this;
-      //获取当前月份有多少天
-      _this.duringNum = new Date(year, month, 0).getDate();
-      //当月第一天是星期几--上个月差几天(0是周末)
-      _this.first_day = new Date(year, month - 1, 1).getDay();
-      //获取上一个月的天数
-      _this.lastNum = new Date(year, month - 1, 0).getDate();
-      //上个月剩余天数数组
-      _this.lastArr = [];
-      if (_this.first_day > 0) {
-        for (let i = 0; i < _this.first_day; i++) {
-          _this.lastArr.unshift(_this.lastNum - i);
+    beforeMount() {},
+    created() {
+        let _this = this;
+        //获取当前日期
+        _this.initCalendar();
+        //初始化日历和代办事项
+        _this.getInit();
+    },
+    mounted() {
+        let _this = this;
+        //获取ukec通知
+        _this.getNotice();
+        //获取关于ukec
+        _this.getAbout();
+    },
+    methods: {
+        //初始化日历和代办事项
+        getInit() {
+            let _this = this;
+            //展示当前日历
+            _this.showCalendar(_this.calendar_year, _this.calendar_month);
+            //获取当月待办事项
+            _this.getNote(
+                _this.now_year + "-" + _this.now_month + "-01",
+                _this.now_year + "-" + _this.now_month + "-" + "duringNum"
+            );
+        },
+        //是否应该展示灰色日历
+        isGrey(day) {
+            let _this = this;
+            let flag = false;
+            let date = _this.dateFormat(day);
+            _this.noteArr.map(item => {
+                if (item.begin_date == date && date < _this.now_date) {
+                    flag = true;
+                }
+            });
+            return flag;
+        },
+        //是否应该展示绿色日历
+        isGreen(day) {
+            let _this = this;
+            let flag = false;
+            let date = _this.dateFormat(day);
+            _this.noteArr.map(item => {
+                if (item.begin_date == date && date > _this.now_date) {
+                    flag = true;
+                }
+            });
+            return flag;
+        },
+        //是否应该展示红色日历
+        isRed(day) {
+            let _this = this;
+            let flag = false;
+            let date = _this.dateFormat(day);
+            if (date == _this.now_date) {
+                flag = true;
+            }
+            return flag;
+        },
+        //日期格式 2020-03-11
+        dateFormat(day) {
+            let _this = this;
+            let now_day = day < 10 ? "0" + day : day;
+            let now_month =
+                _this.calendar_month < 10
+                    ? "0" + _this.calendar_month
+                    : _this.calendar_month;
+            let date = _this.calendar_year + "-" + now_month + "-" + now_day;
+            return date;
+        },
+
+        //获取ukec通知
+        getNotice() {
+            let _this = this;
+            http.get("/utrack-notice/list").then(res => {
+                if (res) {
+                    _this.notice = res;
+                }
+            });
+        },
+        //获取代办事项
+        getNote(start, end) {
+            let _this = this;
+            http.get("/utrack-notice-student/list", {
+                begin_date1: start,
+                begin_date2: end
+            }).then(res => {
+                _this.noteArr = res;
+                console.log(res);
+            });
+        },
+        //获取关于ukec
+        getAbout() {
+            let _this = this;
+            http.get("/about-ukec/list").then(res => {
+                if (res) {
+                    _this.aboutUKec = res.content;
+                }
+            });
+        },
+        //切换代办事项分类
+        changeNote(index) {
+            this.noteActive = index;
+        },
+        //根据日历切换代办事项内容
+        changeNoteCon(year, month, day) {
+            console.log("我点击的是" + year + "-" + month + "-" + day);
+        },
+        //获取当前日期
+        initCalendar() {
+            let _this = this;
+            const date = new Date();
+            _this.calendar_year = date.getFullYear();
+            _this.calendar_month = date.getUTCMonth() + 1;
+            _this.now_day =
+                date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+            _this.now_month = _this.calendar_month;
+            _this.now_year = _this.calendar_year;
+            _this.now_month > 10
+                ? (_this.now_date =
+                      _this.calendar_year +
+                      "-" +
+                      _this.now_month +
+                      "-" +
+                      _this.now_day)
+                : (_this.now_date =
+                      _this.calendar_year +
+                      "-0" +
+                      _this.now_month +
+                      "-" +
+                      _this.now_day);
+        },
+        //展示日历
+        showCalendar(year, month) {
+            let _this = this;
+            //获取当前月份有多少天
+            _this.duringNum = new Date(year, month, 0).getDate();
+            //当月第一天是星期几--上个月差几天(0是周末)
+            _this.first_day = new Date(year, month - 1, 1).getDay();
+            //获取上一个月的天数
+            _this.lastNum = new Date(year, month - 1, 0).getDate();
+            //上个月剩余天数数组
+            _this.lastArr = [];
+            if (_this.first_day > 0) {
+                for (let i = 0; i < _this.first_day; i++) {
+                    _this.lastArr.unshift(_this.lastNum - i);
+                }
+            }
+            //下个月剩余天数
+            _this.nextNum = 42 - _this.duringNum - _this.first_day;
+        },
+        //日历--上个月
+        lastMonth() {
+            let _this = this;
+            if (_this.calendar_month > 1) {
+                _this.calendar_month--;
+                _this.showCalendar(_this.calendar_year, _this.calendar_month);
+            } else {
+                _this.calendar_month = 12;
+                _this.calendar_year--;
+                _this.showCalendar(_this.calendar_year, _this.calendar_month);
+            }
+        },
+        //日历--上个月
+        nextMonth() {
+            let _this = this;
+            if (_this.calendar_month < 12) {
+                _this.calendar_month++;
+                _this.showCalendar(_this.calendar_year, _this.calendar_month);
+            } else {
+                _this.calendar_month = 1;
+                _this.calendar_year++;
+                _this.showCalendar(_this.calendar_year, _this.calendar_month);
+            }
+        },
+        //新增待办事项
+        submitForm(formName) {
+            let _this = this;
+            _this.$refs[formName].validate(valid => {
+                if (valid) {
+                    http.post("/utrack-notice-student/add", _this.addForm).then(
+                        res => {
+                            let successMsg = _this.$message({
+                                message: "提交成功！",
+                                type: "success"
+                            });
+                            setTimeout(() => {
+                                successMsg.close();
+                                _this.$refs[formName].resetFields();
+                                _this.noteShow = false;
+                                //初始化日历和代办事项
+                                _this.getInit();
+                            }, 1000);
+                        }
+                    );
+                }
+            });
         }
-      }
-      //下个月剩余天数
-      _this.nextNum = 42 - _this.duringNum - _this.first_day;
-    },
-    //日历--上个月
-    lastMonth() {
-      let _this = this;
-      if (_this.calendar_month > 1) {
-        _this.calendar_month--;
-        _this.showCalendar(_this.calendar_year, _this.calendar_month);
-      } else {
-        _this.calendar_month = 12;
-        _this.calendar_year--;
-        _this.showCalendar(_this.calendar_year, _this.calendar_month);
-      }
-    },
-    //日历--上个月
-    nextMonth() {
-      let _this = this;
-      if (_this.calendar_month < 12) {
-        _this.calendar_month++;
-        _this.showCalendar(_this.calendar_year, _this.calendar_month);
-      } else {
-        _this.calendar_month = 1;
-        _this.calendar_year++;
-        _this.showCalendar(_this.calendar_year, _this.calendar_month);
-      }
     }
-  }
 };
 </script>
 <style lang="scss">

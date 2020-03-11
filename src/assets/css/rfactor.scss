@@ -39,11 +39,11 @@
                         padding-left: 10px;
                         @include fontc(16px,1,$f36);
                     }
-                    &:hover{
-                        .rnav_tex{
-                            color: $f64;
-                        }
-                    }
+                    // &:hover{
+                    //     .rnav_tex{
+                    //          color: $f64;
+                    //     }
+                    // }
                 }
             }
         }

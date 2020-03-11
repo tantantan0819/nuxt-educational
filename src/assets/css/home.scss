@@ -40,7 +40,41 @@
             border-radius: 10px;
             background-color: $fc;
             border: solid 1px rgba(0, 0, 0, 0.14);
-            overflow: hidden;
+            position: relative;
+            // overflow: hidden;
+            .note_day{
+                position: absolute;
+                @include wh(56px,69px);
+                @include bg("/images/refactor/data.png");
+                top: -25px;
+                left: 70px;
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                span{
+                    &:nth-child(1){
+                        @include fontc(30px,30px,$fc);
+                        margin: 16px 0 2px 0;
+                    }
+                    &:nth-child(2){
+                        @include fontc(14px,14px,$fc);
+                    }
+                }
+            }
+            .note_add{
+                display: flex;
+                position: absolute;
+                right: 30px;
+                top: 12px;
+                i{
+                    @include wh(30px,30px);
+                    @include bg("/images/refactor/add.png");
+                    margin-right: 8px;
+                    cursor: pointer;
+                }
+                @include fontc(14px,14px,$fee);
+                align-items: center;
+            }
             .note_title{
                 @include fontc(18px,18px,$fc);
                 height: 55px;
@@ -142,6 +176,7 @@
                         @include cr();
                         margin-top: 4px;
                         span{
+                          border-radius: 50%;
                           @include cr();
                           @include wh(30px,30px);
                           @include fontc(14px,14px,$f0);
@@ -152,6 +187,27 @@
                             color: $fcc;
                         }
                     }
+                    .greyActive{
+                        span{
+                            background-color: $f9;
+                            color: $fc;
+                            cursor: pointer;
+                        }
+                    }
+                    .redActive{
+                        span{
+                            background-color: $ff0;
+                            color: $fc;
+                            cursor: pointer;
+                        }
+                    }
+                    .greenActive{
+                        span{
+                            background-color: $f93;
+                            color: $fc;
+                            cursor: pointer;
+                        }
+                    }
                
               }
 
@@ -159,9 +215,6 @@
           }
         }
     }
-}
-.note_con{
-    padding: 0 70px!important;
 }
 .about{
     margin-top: 20px;
@@ -183,8 +236,93 @@
         p{
             @include fontc(14px,24px,#535353);
             margin-bottom: 20px;
+            white-space: pre-wrap;
             &:last-child{
                 margin-bottom: 0;
+            }
+        }
+    }
+}
+.note_con{
+    padding-left: 14px;
+    display: flex;
+    span{
+        flex: 1;
+        padding: 20px 0;
+        background-color: $f88;
+        border-bottom: 1px solid $e5;
+        border-right: 1px solid $e5;
+        cursor: pointer;
+        @include fontc(16px,16px,$f0);
+        @include cr();
+        &:last-child{
+            border-right: none;
+        }
+    }
+    .active{
+        background-color: $fc;
+        border-bottom: none;
+    }
+}
+.note_item{
+    padding: 14px 50px 14px 60px;
+}
+.add_note{
+    .el-dialog__header{
+        display: none;
+    }
+    .el-dialog__body{
+        padding: 0;
+    }
+    .add_title{
+        padding: 20px 0;
+        @include fontc(22px,22px,$fc);
+        @include cr();
+        @include bg("/images/refactor/add_title.png");
+    }
+    .add_con{
+        padding: 38px 78px 58px;
+        .el-form-item{
+            display: flex;
+            flex-direction: column;
+        }
+        .el-form-item__label{
+            text-align: left;
+        }
+        input{
+            width: 100%;
+        }
+        .el-input{
+            width: 100%!important;
+        }
+        textarea{
+            resize: none;
+            height: 170px;
+        }
+        .add_footer{
+            @include cr();
+            span{
+                display: inline-block;
+                border-radius: 24px;
+                @include wh(133px,48px);
+                @include cr();
+                &:nth-child(1){
+                    border: solid 1px $f15;
+                    @include fontc(16px,16px,$f15);
+                    margin-right: 20px;
+                }
+                &:nth-child(2){
+                    background-color: $f15;
+                    @include fontc(16px,16px,$fc);
+                }
+            }
+        }
+        .content{
+            position: relative;
+            span{
+                position: absolute;
+                right: 15px;
+                bottom: 0;
             }
         }
     }
