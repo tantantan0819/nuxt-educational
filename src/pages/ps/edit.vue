@@ -46,7 +46,6 @@
                                 label="2、你为什么申请这个专业？（请选择2个动机并分段回答，每个动机500字以内）"
                                 prop="content1"
                             >
-                              
                                 <el-input
                                     type="textarea"
                                     v-model="psDetailForm.content1"
@@ -60,7 +59,6 @@
                                 ></el-input>
                             </el-form-item>
                             <el-form-item label="3、你为什么觉的自己是一个有竞争力的申请者？" prop="content2">
-                               
                                 <el-input
                                     type="textarea"
                                     v-model="psDetailForm.content2"
@@ -70,17 +68,18 @@
                                     autocomplete="off"
                                 ></el-input>
                             </el-form-item>
-                                <el-form-item label="4、请陈述就读该专业后的短期（1-5年）和长期（5-10年）的职业规划" prop="plan">
-                               
+                            <el-form-item
+                                label="4、请陈述就读该专业后的短期（1-5年）和长期（5-10年）的职业规划"
+                                prop="content8"
+                            >
                                 <el-input
                                     type="textarea"
-                                    v-model="psDetailForm.plan"
+                                    v-model="psDetailForm.content8"
                                     placeholder="请陈述就读该专业后的短期（1-5年）和长期（5-10年）的职业规划"
                                     autocomplete="off"
                                 ></el-input>
                             </el-form-item>
                             <el-form-item label="5、你是否读过与申请专业相关的书籍？" prop="content3">
-                               
                                 <el-input
                                     type="textarea"
                                     v-model="psDetailForm.content3"
@@ -91,7 +90,6 @@
                                 ></el-input>
                             </el-form-item>
                             <el-form-item label="6、是否有过与申请专业相关的实习或工作经历？" prop="content4">
-                             
                                 <el-input
                                     type="textarea"
                                     v-model="psDetailForm.content4"
@@ -133,7 +131,6 @@
                                     autocomplete="off"
                                 ></el-input>
                             </el-form-item>
-                         
                         </el-form>
                     </div>
                 </div>
@@ -180,14 +177,15 @@ export default {
                 content4: "",
                 content5: "",
                 content6: "",
-                plan: ""
+                content8: ""
                 // content7: ''
             }, // ps详情
             rules: {
-                plan: [
+                content8: [
                     {
                         required: true,
-                        message: "请陈述就读该专业后的短期（1-5年）和长期（5-10年）的职业规划",
+                        message:
+                            "请陈述就读该专业后的短期（1-5年）和长期（5-10年）的职业规划",
                         trigger: "blur"
                     }
                 ],

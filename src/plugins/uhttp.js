@@ -29,7 +29,7 @@ const ERROR_TOKEN_EXPIRE = 2050;
 /**
  * 需要登录访问
  */
-const ERROR_NEED_LOGIN = 4000;
+const ERROR_NEED_LOGIN = 3000;
 
 
 // 创建 axios 实例
