@@ -8,6 +8,7 @@ $f6: #666;
 $fc: #fff;
 $f3: #333;
 $f4: #444;
+$f5: #555;
 $f9: #999;
 $fcc: #ccc;
 $fe: #fefefe;
@@ -52,6 +53,13 @@ $f88: #f8f8f8;
 $f15: #015d9e;
 $ff0: #ff0000;
 $f93: #009933;
+$title: #cbc7ca;
+$fe3: #e64c37;
+$fd9: #d9d9d9;
+$fe5: #e5f3fc;
+$f77: #f7f7f7;
+$fc9: #c9e3f5;
+$fea: #ea6553;
 //****** 混合指令 ******/
 //单号省略
 @mixin space {
@@ -332,3 +340,46 @@ body{
     margin-left: 10px;
   }
 }
+.con{
+    padding: 20px;
+    .two_title{
+        span{
+            &:nth-child(1){
+                &:before{
+                    bottom: -23px!important;
+                }
+            }
+        }
+    }
+    .version_title{
+        @include fontc(24px,24px,$f3);
+        display: flex;
+        align-items: center;
+        
+        span{
+            position: relative;
+            &:nth-child(1){
+                &:before{
+                    @include wh(100%,1px);
+                    content:'';
+                    display: inline-block;
+                    background-image: linear-gradient(-90deg, $ff4 0%, $ff7 100%);
+                    position: absolute;
+                    bottom: -17px;
+                }
+            }
+            &:nth-child(2){
+                margin-left: 25px;
+                background-color: $f15;
+                border-radius: 20px;
+                cursor: pointer;
+                @include wh(125px,36px);
+                @include fontc(16px,16px,$fc);
+                @include cr();
+            }
+        }
+        padding-bottom: 16px;
+        border-bottom: 1px solid $title;
+    }
+}
+

@@ -1,8 +1,6 @@
 @import "./base";
 .person_content{
   .person_item{
-    padding: 20px 0;
-    border-bottom: 1px solid $f1;
     @include cb();
     .title{
       display: inline-block;
@@ -10,13 +8,12 @@
       @include fontc(16px,1,$f3);
     }
     .avatar_text{
-      color: $f69!important;
+      color: $f15!important;
     }
     .con{
       width: 235px;
       @include fontc(16px,1,$f3);
       img{
-        @include gradient();
         border: 1px solid $f63;
         @include wh(70px,70px);
         @include borderRadius(50%);
@@ -24,15 +21,14 @@
     }
     .modify{
         cursor: pointer;
+        border: 1px solid $f15;
         @include wh(130px,36px);
         @include cr();
-        @include gradient();
         @include borderRadius(30px);
         i{
-          background: $fc;
           @include wh(128px,34px);
           @include borderRadius(30px);
-          @include fontc(16px, 1, $f69);
+          @include fontc(16px, 1, $f15);
           @include cr();
         }
     }

@@ -41,7 +41,7 @@ export default {
         },
         {
           name: "我的签约",
-          href: "",
+          href: "/sign",
           icon: "/images/refactor/3.png",
           activeIcon:"/images/refactor/33.png",
         },
@@ -53,39 +53,39 @@ export default {
         },
         {
           name: "语言成绩",
-          href: "",
+          href: "/language",
            icon: "/images/refactor/5.png",
           activeIcon:"/images/refactor/55.png",
         },
         {
           name: "我的申请",
-          href: "",
+          href: "/apply",
           icon: "/images/refactor/6.png",
           activeIcon:"/images/refactor/66.png",
         },
         {
           name: "我的住宿",
-          href: "",
+          href: "/accommodation",
            icon: "/images/refactor/7.png",
           activeIcon:"/images/refactor/77.png",
         },
         {
           name: "我的签证",
-          href: "",
+          href: "/visa",
            icon: "/images/refactor/8.png",
           activeIcon:"/images/refactor/88.png",
         },
         {
           name: "我的接机",
-          href: "",
+          href: "/pickup",
            icon: "/images/refactor/9.png",
           activeIcon:"/images/refactor/99.png",
         },
         {
           name: "个人设置",
-          href: "",
+          href: "/person",
            icon: "/images/refactor/10.png",
-          activeIcon:"/images/refactor/10.png",
+          activeIcon:"/images/refactor/1010.png",
         }
       ]
     };

@@ -1,0 +1,97 @@
+@import "./base";
+.visa_table{
+    position: relative;
+    .sign_title{
+        position: absolute;
+        top: -30px;
+        left: 20px;
+        z-index: 2;
+        @include wh(59px,74px);
+        @include cr();
+        @include fontc(16px,20px,$fc);
+        @include bg("/images/refactor/sign_bg.png")
+    }
+    .visa_item{
+        display: flex;
+        align-items: center;
+        .visa_left{
+            flex: 2;
+            text-align: center
+        }
+        .visa_center{
+            display: flex;
+            span{
+                flex: 1;
+                text-align: center;
+                &:nth-child(1){
+                    flex: 1.5
+                }
+                &:nth-child(2){
+                    flex: 1.2
+                }
+            }
+        }
+        .visa_con{
+            flex: 6;
+        }
+        .visa_right{
+            flex: 1;
+            text-align: center;
+
+            span{
+                @include wh(65px,25px);
+                @include fontc(14px,14px,$fc);
+                display: inline-block;
+                padding: 6px 18px;
+                background-color: $f15;
+                border-radius: 13px;
+                cursor: pointer;
+            }
+        }
+    }
+    .visa_top{
+        background-color: $fe3;
+        @include fontc(16px,44px,$fc);
+        .visa_left{
+            border-right: 1px solid $fea;
+        }
+        .visa_center{
+            span{
+                border-right: 1px solid $fea;
+            }
+        }
+    }
+}
+.visa_box{
+    margin-top: 60px;
+    border: 1px solid $fd9;
+}
+.visa_con{
+    
+    .visa_item{
+       @include fontc(16px,52px,$f6);
+       border-bottom: 1px solid $fd9;
+       &:nth-child(odd){
+        background-color: $fc;
+       }
+       &:nth-child(even){
+        background-color: $f77;
+       }
+       &:last-child{
+        border-bottom: none;
+       }
+    }
+    .active{
+        .visa_con{
+            border-right: 1px solid $fd9;
+            border-left: 1px solid $fd9;
+            .visa_center{
+                border-bottom: 1px solid $fd9;
+                &:last-child{
+                    border-bottom: none;
+                }
+            }
+        }
+       
+    }
+}

@@ -29,7 +29,7 @@ module.exports = {
   dev: process.env.NODE_ENV === 'DEV',
   //css
   css:[
-    'swiper/dist/css/swiper.css',
+    { src: "swiper/dist/css/swiper.css" }
   ],
   //配置实例化之前需要运行的插件
   plugins: [
@@ -37,10 +37,7 @@ module.exports = {
       src: '~/plugins/element-ui',
       ssr: true,
     },
-    {
-        src: '~/plugins/swiper',
-        ssr: false,
-    }
+    { src: "~/plugins/swiper.js", ssr: false },
   ],
   // 构建配置
   build: {
@@ -56,6 +53,7 @@ module.exports = {
       '~/plugins/utils',
       '~/plugins/vaildate',
       '~/plugins/swiper',
+      '~/plugins/touch',
     ],
     // 在保存时运行 ESLint
     extend(config, {isDev, isClient}) {

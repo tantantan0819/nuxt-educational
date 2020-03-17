@@ -70,10 +70,25 @@
                     >{{item}}</span>
                 </div>
                 <div class="note_item" v-if="noteActive == 0">
-                    11111
+                    <transition-group tag="div" name="slide">
+                         <p v-for="(item,index) in  cheshi1" :key="index">{{item}}</p>
+                    </transition-group>
+                  
                 </div>
                 <div class="note_item" v-if="noteActive == 1">
-                    <p>1、这是我的提醒</p>
+                    <div class="note_swiper">
+                        <div v-swiper:mySwiper="swiperOption">
+                            <div class="swiper-wrapper">
+                                <div
+                                    class="swiper-slide note_show"
+                                    v-for="(item,index) in noteShowArr"
+                                    :key="index"
+                                >
+                                    <p>{{item.content}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="note_item" v-if="noteActive == 2">
                     <p>1、这是顾问提醒</p>
@@ -107,7 +122,7 @@
                         </el-form-item>
                     </el-form>
                     <div class="add_footer">
-                        <span @click="noteShow = false">取消</span>
+                        <span @click="cancel('addForm')">取消</span>
                         <span @click="submitForm('addForm')">确定</span>
                     </div>
                 </div>
@@ -121,12 +136,48 @@ export default {
     layout: "refactor",
     data() {
         return {
+            cheshi: [
+                "1度网盘为您提供文件的网络备份、同步和分享服务。空间大、速度快、安全稳固,支持教育网加速,支持手机端",
+                "2度网盘为您提供文件的网络备份、同步和分享服务。空间大、速度快、安全稳固,支持教育网加速,支持手机端",
+                "3度网盘为您提供文件的网络备份、同步和分享",
+                "4度网盘为您提供文件的网络备份、同步和分享服务。空间大、速度快、安全稳固,支持教育网加速,支持手机端",
+                "5度网盘为您提供文件的网络备份、同步和分享服务。空间大、速度快、安全稳固,支持教育网加速,支持手机端",
+                "6度网盘为您提供文件的网络备份、同步和分享服务。空间大、速度快、安全稳固,支持教育网加速,支持手机端",
+                "7度网盘为您提供文件的网络备份、同步和分享服务。空间大、",
+                "8度网盘为您提供文件的网络备份、同步和分享服务。空间大、速度快、安全稳固,支持教育网加速,支持手机端",
+                "9度网盘为您提供文件的网络备份、同步和分享服务。空间大、速度快、安全稳固,支持教育网加速,支持手机端",
+                "a度网盘为您提供文件的网络备份、同步和分享服务。空间大、速度快、安全稳固,支持教育网加速,支持手机端",
+                "b度网盘为您提供文件的网络备份、同步和分享",
+                "c度网盘为您提供文件的网络备份、同步和分享服务。空间大、速度快、安全稳固,支持教育网加速,支持手机端",
+                "d度网盘为您提供文件的网络备份、同步和分享服务。空间大、速度快、安全稳固,支持教育网加速,支持手机端",
+                "e度网盘为您提供文件的网络备份、同步和分享服务。空间大、速度快、安全稳固,支持教育网加速,支持手机端",
+                "f度网盘为您提供文件的网络备份、同步和分享服务。空间大、",
+                "g度网盘为您提供文件的网络备份、同步和分享服务。空间大、速度快、安全稳固,支持教育网加速,支持手机端"
+            ],
+            cheshi1: [],
+            isSart: 0,
+            isEnd: 7,
+            swiperOption: {
+                speed: 200,
+                // autoplay: {
+                //     disableOnInteraction: false, //手动滑动之后不打断播放
+                //     delay: 1000
+                // },
+                autoplay: true,
+                loop: false,
+                slidesPerView: 7, //一页显示几个
+                loopedSlides: 1, //
+                direction: "vertical", //方向
+                observer: true, //修改swiper自己或子元素时，自动初始化swiper
+                observeParents: true, //修改swiper的父元素时，自动初始化swiper
+                notNextTick: true //notNextTick是一个组件自有属性，如果notNextTick设置为true，组件则不会通过NextTick来实例化swiper，也就意味着你可以在第一时间获取到swiper对象，假如你需要刚加载遍使用获取swiper对象来做什么事，那么这个属性一定要是true
+            },
             noteShow: false, //是否展示新增代办事项
             noteActive: 0, //待办事项选中分类index
             note: ["全部提醒", "我的提醒", "顾问提醒"], //待办事项分类
             noteArr: [], //待办事项内容 -- 日历当月的内容（获取未展示）
             noteShowArr: [], //待办事项内容 -- 展示
-            noteShowDay: "", //当前展示日期
+            noteShowDay: null, //当前展示日期
             notice: [], //ukec通知内容
             aboutUKec: "", //关于ukec内容
             first_day: null, //当月第一天星期几（周末为0）
@@ -176,8 +227,31 @@ export default {
         _this.getNotice();
         //获取关于ukec
         _this.getAbout();
+
+        // setInterval(() => {
+        //     _this.setNote();
+        // }, 5000);
     },
     methods: {
+        setNote() {
+            let _this = this;
+            _this.cheshi1 = [];
+            if (_this.isEnd > _this.cheshi.length) {
+                _this.isSart = 0;
+                _this.isEnd = 7;
+            }
+            for (let i = _this.isSart; i < _this.isEnd; i++) {
+                _this.cheshi1.push(_this.cheshi[i]);
+            }
+            _this.isSart++;
+            _this.isEnd++;
+            console.log(_this.cheshi1);
+        },
+        //取消新增待办事项
+        cancel(formName) {
+            this.$refs[formName].resetFields();
+            this.noteShow = false;
+        },
         //初始化日历和代办事项
         getInit() {
             let _this = this;
@@ -234,7 +308,6 @@ export default {
             let date = _this.calendar_year + "-" + now_month + "-" + now_day;
             return date;
         },
-
         //获取ukec通知
         getNotice() {
             let _this = this;
@@ -252,7 +325,7 @@ export default {
                 begin_date2: end
             }).then(res => {
                 _this.noteArr = res;
-                console.log(res);
+                _this.noteShowArr = res;
             });
         },
         //获取关于ukec
@@ -271,6 +344,8 @@ export default {
         //根据日历切换代办事项内容
         changeNoteCon(year, month, day) {
             console.log("我点击的是" + year + "-" + month + "-" + day);
+            console.log(this.noteShowArr, "arr");
+            console.log(this.noteShowDay, "day");
         },
         //获取当前日期
         initCalendar() {
@@ -295,6 +370,7 @@ export default {
                       _this.now_month +
                       "-" +
                       _this.now_day);
+            _this.noteShowDay = _this.now_date;
         },
         //展示日历
         showCalendar(year, month) {

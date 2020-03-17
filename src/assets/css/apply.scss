@@ -1,0 +1,47 @@
+@import "./base";
+.apply{
+    padding-top: 30px;
+    .apply_table{
+        margin-bottom: 40px;
+        padding-bottom: 58px;
+        background-color: $f77;
+        .apply_top{
+            padding: 21px 19px 29px;
+            background-color: $f64;
+            display: flex;
+            .apply_box{
+              .apply_item{
+                  display: flex;
+                  flex-direction: column;
+                  span{
+                      &:nth-child(1){
+                          @include fontc(14px,32px,$fc);
+                      }
+                      &:nth-child(2){
+                        @include fontc(16px,32px,$fc);
+                    }
+                  }
+              }
+            }
+            .apply_left{
+                flex: 1;
+                min-width: 260px;
+            }
+            .apply_right{
+                display: flex;
+                flex: 2;
+                .apply_item{
+                    padding-right: 70px;
+                    &:last-child{
+                        padding: 0;
+                    }
+                }
+            }
+        }
+        th{
+            background-color: $fc9;
+            @include fontc(16px,32px,$f0);
+            text-align: center;
+        }
+    }
+}

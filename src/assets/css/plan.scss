@@ -1,0 +1,92 @@
+@import "./base";
+.plan_add_plan{
+    padding-bottom: 35px!important;
+}
+.plan_item{
+    width:  100%;
+    border: 1px solid $fd9;
+    &:nth-child(2){
+        margin: 20px 0 26px 0;
+    }
+    .plan_title{
+        height: 50px;
+        background-color: $fe5;
+        @include cr();
+        @include fontc(16px,16px,$f3);
+    }
+    .plan_wrap{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .plan_box{
+        @include wh(50%,44px);
+        display: flex;
+        align-items: center;
+        border-top: 1px solid $fd9;
+        span{
+            display: flex;
+            align-items: center;
+            &:nth-child(1){
+                @include wh(166px,100%);
+                background-color: $f77;
+                justify-content: flex-end;
+                padding-right: 14px;
+                background: $f77;
+                border-right: 1px solid $fd9;
+            }
+        }
+        &:nth-child(even){
+            span{
+                &:nth-child(1){
+                    border-left: 1px solid $fd9;
+                }
+            }
+        }
+    }
+}
+.sign{
+    .refactor_table{
+        &:nth-child(2){
+            margin-top: 70px;
+        }
+        &:nth-child(3){
+            margin-top: 120px;
+        }
+    }
+    .sign_title{
+        position: absolute;
+        top: -30px;
+        left: 20px;
+        z-index: 2;
+        @include wh(59px,74px);
+        @include cr();
+        @include fontc(16px,20px,$fc);
+        @include bg("/images/refactor/sign_bg.png")
+    }
+}
+.sign_add_con{
+    .plan_wrap{
+        .plan_box{
+            &:last-child{
+                width: 100%;
+            }
+        }
+    }
+    
+}
+.aborad{
+    .add_footer{
+        margin-top: 30px;
+    }
+    .plan_wrap{
+        .plan_box{
+            &:nth-child(1){
+                border-top: none;
+            }
+            &:nth-child(2){
+                border-top: none;
+            }
+        }
+    }
+}
