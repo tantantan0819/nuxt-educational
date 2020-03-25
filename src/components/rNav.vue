@@ -47,7 +47,7 @@ export default {
         },
         {
           name: "我的文书材料",
-          href: "",
+          href: "/writ",
           icon: "/images/refactor/4.png",
           activeIcon:"/images/refactor/44.png",
         },

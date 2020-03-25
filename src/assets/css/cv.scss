@@ -114,7 +114,6 @@
 
   .cv2 {
     padding: 75px 0;
-
     .el-table {
       border: 1px solid #ebeef5;
       border-bottom: none !important;
@@ -139,7 +138,7 @@
         color: $fc !important;
 
         tr {
-          @include gradient();
+         background-color: $f64;
 
           th {
             background: transparent !important;

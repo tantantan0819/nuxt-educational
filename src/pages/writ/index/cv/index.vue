@@ -15,25 +15,24 @@
 <script>
     import {setStore} from '~/plugins/utils';
     export default {
-        layout: 'utrack',
+        layout: 'refactor',
         data() {
             return {
                 active: '',//选中cv
                 cvArr: [
-                    '/cv/step1',
-                    '/cv/step2',
-                    '/cv/step3',
-                    '/cv/step4',
-                    '/cv/step5',
-                    '/cv/step6',
+                    '/writ/cv/step1',
+                    '/writ/cv/step2',
+                    '/writ/cv/step3',
+                    '/writ/cv/step4',
+                    '/writ/cv/step5',
+                    '/writ/cv/step6',
                 ]
             }
         },
         mounted() {
             let path = this.$route.path;
             this.active = path;
-            console.log(path,'cv/index')
-            path == '/cv' ? this.$router.push('/cv/step1') : '';
+            path == '/writ/cv' ? this.$router.push('/writ/cv/step1') : '';
         },
         methods: {
             //切换cv
@@ -48,6 +47,7 @@
         },
         watch:{
             $route(to,from){
+                console.log('2222')
                 if(to.path == '/cv'){
                     this.$router.push('/cv/step1');
                     this.active = '/cv/step1'

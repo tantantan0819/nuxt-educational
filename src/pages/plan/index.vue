@@ -2,40 +2,48 @@
     <div class="plan con">
         <div class="version_title two_title">
             <span>我的方案</span>
-            <span>下载方案</span>
+            <span @click="upload">下载方案</span>
         </div>
         <div class="refactor_table">
             <el-table
                 ref="multipleTable"
-                :data="tableData"
+                :data="planData"
                 tooltip-effect="dark"
-                style="width: 100%"
+                style="width:100%"
                 @selection-change="handleSelectionChange"
             >
                 <el-table-column type="selection" width="50"></el-table-column>
                 <el-table-column type="index" label="序号" width="60"></el-table-column>
-                <el-table-column prop="name" label="学生姓名" width="90"></el-table-column>
-                <el-table-column prop="year" label="入学年份" width="90"></el-table-column>
-                <el-table-column prop="score" label="平均分" width="70"></el-table-column>
-                <el-table-column label="推荐院校">
+                <el-table-column label="学生姓名" width="90" prop="user_info.stu_name"></el-table-column>
+                <el-table-column label="入学年份" width="90" prop="user_info.begin_year"></el-table-column>
+                <el-table-column label="平均分" width="70" prop="user_info.avg_score"></el-table-column>
+                <el-table-column label="推荐院校" prop="大学名称"></el-table-column>
+                <el-table-column label="专业名称" prop="mj_name"></el-table-column>
+                <el-table-column prop="大学地址" label="地理位置" width="100"></el-table-column>
+                <el-table-column prop="排名" label="英国排名" width="90"></el-table-column>
+                <el-table-column prop="QS排名" label="世界排名" width="90"></el-table-column>
+                <el-table-column prop="mj_apply" label="申请费" width="70">
                     <template slot-scope="scope">
-                        <p>{{scope.row.school_en}}</p>
-                        <p>{{scope.row.school}}</p>
+                        <p class="free">
+                            <i v-if="scope.row.mj_apply">￥</i>
+                            {{scope.row.mj_apply}}
+                        </p>
                     </template>
                 </el-table-column>
-                <el-table-column label="专业名称">
+                <el-table-column prop="mj_fee" label="学费" width="90">
                     <template slot-scope="scope">
-                        <p>{{scope.row.major_en}}</p>
-                        <p>{{scope.row.major}}</p>
+                        <p class="free">
+                            <i v-if="scope.row.mj_fee">￥</i>
+                            {{scope.row.mj_fee}}
+                        </p>
                     </template>
                 </el-table-column>
-                <el-table-column prop="location" label="地理位置" width="100"></el-table-column>
-                <el-table-column prop="rank" label="英国排名" width="90"></el-table-column>
-                <el-table-column prop="rank_world" label="世界排名" width="90"></el-table-column>
-                <el-table-column prop="apply" label="申请费" width="70"></el-table-column>
-                <el-table-column prop="free" label="学费" width="60"></el-table-column>
-                <el-table-column prop="require" label="入学要求" width="90"></el-table-column>
-                <el-table-column prop="score_require" label="平均分要求" width="100"></el-table-column>
+                <el-table-column prop="intl" label="入学要求">
+                    <template slot-scope="scope">
+                        <p class="avg_core">{{scope.row.intl}}</p>
+                    </template>
+                </el-table-column>
+                <el-table-column prop="avg_core" label="平均分要求" width="100"></el-table-column>
                 <el-table-column label="操作" width="100">
                     <template slot-scope="scope">
                         <el-button
@@ -54,124 +62,122 @@
                 <div class="add_con plan_add_plan">
                     <div class="plan_item">
                         <div class="plan_title">基本信息</div>
-                        <div class="plan_wrap">
+                        <div class="plan_wrap plan_wrapper">
                             <div class="plan_box">
                                 <span>姓名</span>
-                                <span></span>
+                                <span>{{planDetail.user_info.stu_name || ''}}</span>
                             </div>
                             <div class="plan_box">
                                 <span>目前学历</span>
-                                <span></span>
+                                <span>{{planDetail.user_info.education}}</span>
                             </div>
                             <div class="plan_box">
                                 <span>毕业/就读院校</span>
-                                <span></span>
+                                <span>{{planDetail.user_info.毕业学校}}</span>
                             </div>
                             <div class="plan_box">
                                 <span>是否211</span>
-                                <span></span>
+                                <span>{{planDetail.user_info.school_type | isYes}}</span>
                             </div>
                             <div class="plan_box">
                                 <span>学校排名</span>
-                                <span></span>
+                                <span>{{planDetail.user_info.school_rank}}</span>
                             </div>
                             <div class="plan_box">
                                 <span>毕业/就读专业学科</span>
-                                <span></span>
+                                <span>{{planDetail.user_info.毕业就读专业}}</span>
                             </div>
                             <div class="plan_box">
                                 <span>平均分(%)</span>
-                                <span></span>
+                                <span>{{planDetail.user_info.avg_score}}</span>
                             </div>
                             <div class="plan_box">
                                 <span>就读年份</span>
-                                <span></span>
+                                <span>{{planDetail.user_info.begin_year}}</span>
                             </div>
                             <div class="plan_box">
                                 <span>目标地区</span>
-                                <span></span>
+                                <span>{{planDetail.user_info.target_area}}</span>
                             </div>
                             <div class="plan_box">
                                 <span>目标城市</span>
-                                <span></span>
+                                <span>{{planDetail.user_info.target_city}}</span>
                             </div>
                             <div class="plan_box">
                                 <span>教育官员</span>
-                                <span></span>
+                                <span>{{planDetail.user_info.educrat}}</span>
                             </div>
                             <div class="plan_box">
                                 <span>联系方式</span>
-                                <span></span>
+                                <span>{{planDetail.user_info.link}}</span>
                             </div>
-                            <div class="plan_box">
+                            <div class="plan_box width_box">
                                 <span>选择此专业的动机</span>
-                                <span></span>
+                                <span>{{planDetail.user_info.moto}}</span>
                             </div>
-                            <div class="plan_box">
-                                <span></span>
-                                <span></span>
-                            </div>
+                        
                         </div>
                     </div>
                     <div class="plan_item">
                         <div class="plan_title">择校方案</div>
-                        <div class="plan_wrap">
+                        <div class="plan_wrap plan_wrapper">
                             <div class="plan_box">
                                 <span>目标学科</span>
-                                <span></span>
+                                <span>{{planDetail.user_info.目标学科}}</span>
                             </div>
                             <div class="plan_box">
                                 <span>学校名</span>
-                                <span></span>
+                               <span>{{planDetail.大学名称}}</span>
                             </div>
                             <div class="plan_box">
                                 <span>地理位置</span>
-                                <span></span>
+                                <span>{{planDetail.大学地址}}</span>
                             </div>
                             <div class="plan_box">
                                 <span>英国排名</span>
-                                <span></span>
+                                <span>{{planDetail.排名}}</span>
                             </div>
                             <div class="plan_box">
                                 <span>世界排名</span>
-                                <span></span>
+                                <span>{{planDetail.QS排名}}</span>
                             </div>
                             <div class="plan_box">
                                 <span>申请专业</span>
-                                <span></span>
+                                <span>{{planDetail.mj_name}}</span>
                             </div>
                             <div class="plan_box">
                                 <span>申请费</span>
-                                <span></span>
+                                <span>{{planDetail.mj_apply}}</span>
                             </div>
                             <div class="plan_box">
                                 <span>学费</span>
-                                <span></span>
+                                <span>{{planDetail.mj_fee}}</span>
                             </div>
                             <div class="plan_box">
                                 <span>教育顾问备注(推荐理由)</span>
-                                <span></span>
+                                <span>{{planDetail.recommend_reason}}</span>
                             </div>
                             <div class="plan_box">
                                 <span>平均分要求</span>
-                                <span></span>
+                                <span>{{planDetail.avg_core}}</span>
                             </div>
                             <div class="plan_box">
                                 <span>专业连接</span>
-                                <span></span>
+                                <span><a :href="planDetail.url">{{planDetail.url}}</a></span>
                             </div>
-                            <div class="plan_box">
+                             <div class="plan_box">
+                                <span></span>
+                                <span></span>
+                            </div>  
+                            <div class="plan_box width_box">
                                 <span>入学要求</span>
-                                <span></span>
+                                <span>{{planDetail.intl}}</span>
                             </div>
-                            <div class="plan_box">
+                            <div class="plan_box width_box">
                                 <span>核心课程</span>
                                 <span></span>
                             </div>
-                            <div class="plan_box">
-                                <span></span>
-                                <span></span>
-                            </div>
+                           
                         </div>
                     </div>
                     <div class="add_footer">
@@ -186,68 +192,88 @@
 @import "~/assets/css/plan.scss";
 </style>
 <script>
+import http from "~/plugins/http";
+import { getStore, setStore } from "~/plugins/utils";
 export default {
     layout: "refactor",
     data() {
         return {
             planShow: false, //是否展示查看我的方案
-            tableData: [
-                {
-                    date: "2016-05-03",
-                    name: "王小虎",
-                    year: "2020",
-                    score: "9.6",
-                    school: "清华大学",
-                    school_en: "qinghua",
-                    major: "考古专业",
-                    major_en: "kaogu",
-                    location: "成都分中心",
-                    rank: 10,
-                    rank_world: 19,
-                    apply: 2000,
-                    free: 2000,
-                    require: "要很努力",
-                    score_require: "9"
-                },
-                 {
-                    date: "2016-05-03",
-                    name: "王小虎",
-                    year: "2020",
-                    score: "9.6",
-                    school: "清华大学",
-                    school_en: "qinghua",
-                    major: "考古专业",
-                    major_en: "kaogu",
-                    location: "成都分中心",
-                    rank: 10,
-                    rank_world: 19,
-                    apply: 2000,
-                    free: 2000,
-                    require: "要很努力",
-                    score_require: "9"
+            planData: [], //方案信息
+            uploadArr: [], //下载方案
+            planDetail: {
+                user_info: {
+                    stu_name: "",
+                    education: "",
+                    大学名称: ""
                 }
-            ],
-            multipleSelection: []
+            } //方案详情
         };
     },
-
+    mounted() {
+        let _this = this;
+        //获取方案列表
+        _this.getPlan();
+    },
+    filters:{
+        isYes(val){
+            let result = '';
+            if(val){
+                val == '0' ? result = '否' : result = "是";
+            }
+            console.log(val,'result')
+            return result;
+        }
+    },
     methods: {
-        //查看详情
-        handleEdit(index, val) {
-            console.log(val, "查看详情");
-            this.planShow = true;
-        },
-        toggleSelection(rows) {
-            if (rows) {
-                rows.forEach(row => {
-                    this.$refs.multipleTable.toggleRowSelection(row);
-                });
+        //下载方案
+        upload() {
+            let _this = this;
+            if (_this.uploadArr.length > 0) {
+                let idArr = _this.uploadArr.join(",");
+                http.get("/utrack-school-plan/down", { ids: idArr }).then(
+                    res => {
+                        if (res) {
+                            console.log("下载成功了");
+                        }
+                    }
+                );
             } else {
-                this.$refs.multipleTable.clearSelection();
+                _this.$message.warning("请先选择您要下载的方案！");
             }
         },
+        //获取方案列表
+        getPlan() {
+            let _this = this;
+            http.get("/utrack-school-plan/list").then(res => {
+                if (res) {
+                    console.log(res, "获取的方案列表----");
+                    _this.planData = res.major;
+                }
+            });
+        },
+        //查看详情
+        handleEdit(index, val) {
+            let id = val.id;
+            let _this = this;
+            http.get("/utrack-school-plan/detail", { id: id }).then(res => {
+                if (res) {
+                    _this.planDetail = res.major[0];
+                    console.log(_this.planDetail, "详情");
+                    console.log(_this.planDetail.user_info.stu_name, "详情");
+
+                    _this.planShow = true;
+                }
+            });
+        },
         handleSelectionChange(val) {
-            this.multipleSelection = val;
+            let _this = this;
+            _this.uploadArr = [];
+            if (val.length > 0) {
+                val.map(item => {
+                    _this.uploadArr.push(item.id);
+                });
+            }
         }
     }
 };

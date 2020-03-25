@@ -2,6 +2,28 @@
 .plan_add_plan{
     padding-bottom: 35px!important;
 }
+.plan_wrapper{
+    .plan_box{
+        span{
+            &:nth-child(2){
+                padding-left: 14px;
+                overflow: auto!important;
+                text-overflow:ellipsis;
+                white-space: pre-wrap!important;
+                flex: 1;
+                a{    
+                    overflow: auto;
+                    text-overflow:ellipsis;
+                    white-space: pre-wrap!important;
+                    img{
+                        height: 30px;
+                    }
+                }
+            }
+        }
+    }
+    
+}
 .plan_item{
     width:  100%;
     border: 1px solid $fd9;
@@ -19,14 +41,32 @@
         display: flex;
         flex-wrap: wrap;
     }
+    .width_box{
+        width: 100%!important;
+        span{
+            &:nth-child(2){
+                padding-left: 14px;
+                overflow: auto;
+                text-overflow:ellipsis;
+                white-space: pre-wrap!important;
+                flex: 1;
+            }
+        }
+    }
+   
     .plan_box{
-        @include wh(50%,44px);
+        @include wh(50%,auto);
+        min-height: 44px;
         display: flex;
         align-items: center;
         border-top: 1px solid $fd9;
+        a{
+            @include fontc(14px,14px,$f15);
+        }
         span{
             display: flex;
             align-items: center;
+           
             &:nth-child(1){
                 @include wh(166px,100%);
                 background-color: $f77;
@@ -35,6 +75,23 @@
                 background: $f77;
                 border-right: 1px solid $fd9;
             }
+            &:nth-child(2){
+                padding-left: 14px;
+                overflow: hidden;
+                text-overflow:ellipsis;
+                white-space: nowrap;
+                flex: 1;
+                a{  overflow: hidden;
+                    text-overflow:ellipsis;
+                    white-space: nowrap;
+                    img{
+                        height: 30px;
+                    }
+                }
+            }
+        }
+        .free{
+            color: $f64;
         }
         &:nth-child(even){
             span{
@@ -89,4 +146,11 @@
             }
         }
     }
+}
+.avg_core{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 }

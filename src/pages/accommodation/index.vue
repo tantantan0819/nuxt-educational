@@ -6,11 +6,11 @@
         <div class="accommodation">
             <div class="acc_item">
                 <span>安排方式</span>
-                <span>{{data.arrange_type}}</span>
+                <span>{{data.arrange_type | arrangeFilters}}</span>
             </div>
             <div class="acc_item">
                 <span>住宿方式</span>
-                <span>{{data.living_type}}</span>
+                <span>{{data.living_type | livingFilters}}</span>
             </div>
             <div class="acc_item">
                 <span>入住日期</span>
@@ -46,11 +46,11 @@
             </div>
             <div class="acc_item">
                 <span>收款方式</span>
-                <span>{{data.pay_type}}</span>
+                <span>{{data.pay_type | payFilters}}</span>
             </div>
             <div class="acc_item">
                 <span>是否接受</span>
-                <span>{{data.is_recepet}}</span>
+                <span>{{data.is_recepet | yesFilters}}</span>
             </div>
             <div class="acc_item">
                 <span>确认接受日期</span>
@@ -73,18 +73,86 @@
 </template>
 <script>
 import http from "~/plugins/http";
+import { getStore, setStore } from "~/plugins/utils";
+let that;
 export default {
     layout: "refactor",
     data() {
         return {
-            data: {}
+            data: {}, //住宿
+            living_type: [], //住宿方式
+            arrange_type: [], //安排方式
+            pay_type: [], //付款方式
+            yes_type: [] //是否接受
         };
+    },
+    beforeCreate() {
+        that = this;
     },
     mounted() {
         //获取我的住宿
         this.getAccommodation();
+        //获取字典
+        this.getType();
+    },
+    filters: {
+        arrangeFilters(val) {
+            let type = "";
+            that.arrange_type.map((item, index) => {
+                if (item.id == val) {
+                    type = item.cvalue_cn;
+                }
+            });
+            return type;
+        },
+        livingFilters(val){
+               let type = "";
+            that.living_type.map((item, index) => {
+                if (item.id == val) {
+                    type = item.cvalue_cn;
+                }
+            });
+            return type;
+        },
+        payFilters(val){
+                let type = "";
+            that.pay_type.map((item, index) => {
+                if (item.id == val) {
+                    type = item.cvalue_cn;
+                }
+            });
+            return type;
+        },
+        yesFilters(val){
+                 let type = "";
+            that.yes_type.map((item, index) => {
+                if (item.id == val) {
+                    type = item.cvalue_cn;
+                }
+            });
+            return type;
+        }
     },
     methods: {
+        //获取字典
+        getType() {
+            let _this = this;
+            let dictionary = getStore("dictionary");
+            if (dictionary) {
+                _this.living_type = dictionary.LIVING_TYPE;
+                _this.arrange_type = dictionary.ARRANGE_TYPE;
+                _this.pay_type = dictionary.PAY_TYPE;
+                _this.yes_type = dictionary.YES_OR_NO;
+            } else {
+                http.get("/code-val/group-key-list").then(res => {
+                    _this.living_type = res.LIVING_TYPE;
+                    _this.arrange_type = res.ARRANGE_TYPE;
+                    _this.pay_type = res.PAY_TYPE;
+                    _this.yes_type = res.YES_OR_NO;
+                    setStore("dictionary", res);
+                });
+            }
+        },
         //获取我的住宿
         getAccommodation() {
             let _this = this;

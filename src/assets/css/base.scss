@@ -178,8 +178,9 @@ body{
 //cv按钮样式
 .cv_button {
   cursor: pointer;
+  background-color: $f15;
   @include wh(140px, 40px);
-  @include gradient();
+  
   @include cr();
   @include fontc(16px, 1, $fc);
   @include borderRadius(20px);
@@ -226,14 +227,8 @@ body{
   display: flex;
   position: relative;
   justify-content: space-between;
-
-  &:before {
-    content: '';
-    display: inline-block;
-    background: $e6;
-    @include wh(100%, 1px);
-    @include absolute(49px, 0)
-  }
+  border-bottom: 1px solid $title;
+  padding: 10px 0;
 
   .cv_title {
     position: relative;
@@ -247,9 +242,9 @@ body{
       &:before {
         content: '';
         display: inline-block;
-        @include wh(96px, 1px);
+        @include wh(120px, 1px);
         @include gradient();
-        @include absolute(49px, 0)
+        @include absolute(58px, 0)
       }
     }
 
@@ -287,7 +282,7 @@ body{
 }
 //按钮不可点击
 .gray{
-  background-color: #ccc;
+  background-color: #ccc!important;
   background-image: none !important;
 }
 //手机验证码布局

@@ -23,7 +23,7 @@
                 <el-table-column prop="parts_score" label="小分"></el-table-column>
                 <el-table-column label="文件" prop="file">
                     <template slot-scope="scope">
-                        <a :href="scope.row.file" target="_blank">{{scope.row.file}}</a>
+                        <a :href="scope.row.file" target="_blank">{{scope.row.file_name}}</a>
                     </template>
                 </el-table-column>
                 <!-- <el-table-column prop="file" label="文件"></el-table-column> -->
@@ -40,7 +40,7 @@
             </el-table>
         </div>
         <!-- 语言成绩分页 -->
-        <div class="lang_page" style="margin-top: 100px">
+        <div class="lang_page">
             <el-pagination
                 :hide-on-single-page="isHidden"
                 layout="total,prev, pager, next"
@@ -55,9 +55,9 @@
                 <div class="add_title">上传证书</div>
                 <div class="add_con">
                     <el-form :model="uploadForm" ref="uploadForm" :rules="uploadRules">
-                        <el-form-item prop="file" label="上传证书" class="upload_lang">
+                        <el-form-item prop="file_name" label="上传证书" class="upload_lang">
                             <span class="unload_tip">仅支持jpg、png、pdf格式文件</span>
-                            <el-input v-model="uploadForm.file" readonly></el-input>
+                            <el-input v-model="uploadForm.file_name" readonly></el-input>
                             <upload-btn
                                 class="unload_btn"
                                 :config="configuration"
@@ -75,7 +75,7 @@
         <!-- 新增证书 -->
         <div class="add_note">
             <el-dialog :visible.sync="addShow" width="717px" center>
-                <div class="add_title">上传证书</div>
+                <div class="add_title">新增证书</div>
                 <div class="add_con">
                     <el-form :model="addForm" ref="addForm" :rules="addRules">
                         <el-form-item label="证书" prop="language_certificate">
@@ -105,9 +105,9 @@
                         <el-form-item prop="score" label="成绩" placeholder="请填写您的证书成绩">
                             <el-input v-model="addForm.score"></el-input>
                         </el-form-item>
-                        <el-form-item prop="file" label="上传文件" class="upload_lang">
+                        <el-form-item prop="file_name" label="上传文件" class="upload_lang">
                             <span class="unload_tip">如暂无文件，可后续再行上传。仅支持jpg、png、pdf格式文件</span>
-                            <el-input v-model="addForm.file" readonly></el-input>
+                            <el-input v-model="addForm.file_name" readonly></el-input>
                             <upload-btn
                                 class="unload_btn"
                                 :config="configuration"
@@ -147,20 +147,24 @@ export default {
             langTotal: 0, //语言成绩展示--数据总数
             page: 1, //语言成绩展示--第几页
             page_size: 10, //语言成绩展示--一页多少条数据
-            isHidden: false, //语言成绩展示--只有一页时是否选择隐藏分页
+            isHidden: true, //语言成绩展示--只有一页时是否选择隐藏分页
             langData: [], //语言成绩table
             langType: [], //语言成绩类型
-            uploadType: [
-                //新增证书的证书类型
-                { name: "雅思", val: "1" },
-                { name: "其它", val: "2" }
-            ],
+            configuration: {
+                isShowList: false, //是否展示文件列表
+                multiple: false, //是否允许多文件上传
+                limit: null, //上传文件的限制数量
+                btnText: "上传", //上传按钮显示文字
+                errorText: "请上传PNG、JPG、PDF格式的文件!", //上传失败时的提示
+                accept: ".jpg, .jpeg, .png, .pdf, .JPG, .JPEG, PNG, .PDF" //上传格式
+            },
             uploadForm: {
                 id: "",
-                file: ""
+                file: "",
+                file_name: ""
             },
             uploadRules: {
-                file: [
+                file_name: [
                     {
                         required: true,
                         message: "请上传证书",
@@ -174,7 +178,8 @@ export default {
                 cert_date: "", //考试日期
                 parts_score: "", //小分
                 lang_note: "", //备注
-                file: "" //上传文件
+                file: "", //上传文件路径
+                file_name: "" //上传文件名称
             },
             addRules: {
                 language_certificate: [
@@ -198,14 +203,6 @@ export default {
                         trigger: "blur"
                     }
                 ]
-            },
-            configuration: {
-                isShowList: false, //是否展示文件列表
-                multiple: false, //是否允许多文件上传
-                limit: null, //上传文件的限制数量
-                btnText: "上传", //上传按钮显示文字
-                errorText: "请上传PNG、JPG、PDF格式的文件!", //上传失败时的提示
-                accept: ".jpg, .jpeg, .png, .pdf, .JPG, .JPEG, PNG, .PDF" //上传格式
             }
         };
     },
@@ -213,7 +210,7 @@ export default {
         let _this = this;
         //获取语言成绩
         _this.getLang();
-        //获取学历下拉
+        //获取证书类别下拉
         let dictionary = getStore("dictionary");
         if (dictionary) {
             _this.langType = dictionary.LANGUAGE_CERTIFICATE;
@@ -228,13 +225,17 @@ export default {
     methods: {
         //语言成绩分页
         handleCurrentChange(val) {
-            console.log(val, "多少页");
+            let _this = this;
+            _this.page = val;
+            _this.getLang();
         },
         //新增语言成绩--上传
         addFile(val) {
             let _this = this;
             if (val) {
                 _this.addForm.file = val[val.length - 1].response.data.url;
+                _this.addForm.file_name =
+                    val[val.length - 1].response.data.filename;
             }
         },
         //上传语言成绩文件 -- 修改
@@ -242,6 +243,8 @@ export default {
             let _this = this;
             if (val) {
                 _this.uploadForm.file = val[val.length - 1].response.data.url;
+                _this.uploadForm.file_name =
+                    val[val.length - 1].response.data.filename;
             }
         },
         //获取语言成绩
@@ -257,7 +260,6 @@ export default {
                 }
             });
         },
-
         //过滤语言成绩类型
         typeFormat(row, column) {
             let _this = this;
@@ -290,21 +292,21 @@ export default {
             let _this = this;
             _this.$refs[formName].validate(valid => {
                 if (valid) {
-                    // http.post("/utrack-notice-student/add", _this.addForm).then(
-                    //     res => {
-                    //         let successMsg = _this.$message({
-                    //             message: "提交成功！",
-                    //             type: "success"
-                    //         });
-                    //         setTimeout(() => {
-                    //             successMsg.close();
-                    //             _this.$refs[formName].resetFields();
-                    //             _this.noteShow = false;
-                    //             //初始化日历和代办事项
-                    //             _this.getInit();
-                    //         }, 1000);
-                    //     }
-                    // );
+                    http.post(
+                        "/customer-language/update",
+                        _this.uploadForm
+                    ).then(res => {
+                        let successMsg = _this.$message({
+                            message: "提交成功！",
+                            type: "success"
+                        });
+                        setTimeout(() => {
+                            successMsg.close();
+                            _this.$refs[formName].resetFields();
+                            _this.uploadShow = false;
+                            _this.getLang();
+                        }, 1000);
+                    });
                 }
             });
         },

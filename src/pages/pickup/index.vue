@@ -6,7 +6,7 @@
         <div class="accommodation">
             <div class="acc_item">
                 <span>安排方式</span>
-                <span>{{data.arrange_type}}</span>
+                <span>{{data.arrange_type | arrangeFilters}}</span>
             </div>
             <div class="acc_item">
                 <span>接机费用</span>
@@ -14,7 +14,7 @@
             </div>
             <div class="acc_item">
                 <span>收款方式</span>
-                <span>{{data.pay_type}}</span>
+                <span>{{data.pay_type | payFilters}}</span>
             </div>
             <div class="acc_item">
                 <span>申请截止日期</span>
@@ -61,16 +61,46 @@
 </template>
 <script>
 import http from "~/plugins/http";
+import { getStore, setStore } from "~/plugins/utils";
+let that;
 export default {
     layout: "refactor",
     data() {
         return {
-            data: {}
+            data: {},
+             arrange_type: [], //安排方式
+             pay_type: [], //付款方式
         };
+    },
+        beforeCreate() {
+        that = this;
+    },
+    filters:{
+          arrangeFilters(val) {
+            let type = "";
+            that.arrange_type.map((item, index) => {
+                if (item.id == val) {
+                    type = item.cvalue_cn;
+                }
+            });
+            return type;
+        },
+            payFilters(val){
+                let type = "";
+            that.pay_type.map((item, index) => {
+                if (item.id == val) {
+                    type = item.cvalue_cn;
+                }
+            });
+            return type;
+        },
     },
     mounted() {
         //获取我的接机
         this.getPickUp();
+         //获取字典
+          this.getType();
+          console.log(this.arrange_type,'安排方式')
     },
     methods: {
         //获取我的接机
@@ -82,7 +112,22 @@ export default {
                     console.log(res, "我的接机");
                 }
             });
-        }
+        },
+          //获取字典
+        getType() {
+            let _this = this;
+            let dictionary = getStore("dictionary");
+            if (dictionary) {
+                _this.arrange_type = dictionary.RECEPTION_ARRANGE_TYPE;
+                _this.pay_type = dictionary.PAY_TYPE;
+            } else {
+                http.get("/code-val/group-key-list").then(res => {
+                    _this.arrange_type = res.RECEPTION_ARRANGE_TYPE;
+                    _this.pay_type = res.PAY_TYPE;
+                    setStore("dictionary", res);
+                });
+            }
+        },
     }
 };
 </script>

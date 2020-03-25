@@ -70,8 +70,8 @@
                     >{{item}}</span>
                 </div>
                 <div class="note_item" v-if="noteActive == 0">
-                    <transition-group tag="div" name="slide">
-                         <p v-for="(item,index) in  cheshi1" :key="index">{{item}}</p>
+                    <transition-group tag="div" name="slide" :key="'home_title'">
+                         <p v-for="(item,index) in  cheshi1" :key="'haha'+index">{{item}}</p>
                     </transition-group>
                   
                 </div>
@@ -227,7 +227,6 @@ export default {
         _this.getNotice();
         //获取关于ukec
         _this.getAbout();
-
         // setInterval(() => {
         //     _this.setNote();
         // }, 5000);

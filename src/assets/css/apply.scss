@@ -43,5 +43,14 @@
             @include fontc(16px,32px,$f0);
             text-align: center;
         }
+        td{
+            text-align: center;
+        }
+    }
+}
+.cell{
+    a{
+        @include fontc(12px,14px,$f15);
+        color: $f15!important;
     }
 }

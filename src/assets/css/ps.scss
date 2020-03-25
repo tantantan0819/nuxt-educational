@@ -145,8 +145,8 @@
   .contract_title {
     padding: 0 26px;
     @include wh(100%, 74px);
-    @include gradient();
     @include cb();
+    background-color: $f64;
     justify-content: space-between;
 
     .contract_info {
