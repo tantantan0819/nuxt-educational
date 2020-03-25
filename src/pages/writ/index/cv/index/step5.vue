@@ -28,7 +28,7 @@
             <span class="next">请在退出前点击“下一步”按钮，您当前填写的信息可以被保存。</span>
         </div>
         <!--  新增校园活动  -->
-        <div class="add">
+        <div class="add add_note">
             <el-dialog title :visible.sync="outerVisible">
                 <div class="add_title">添加校园活动</div>
                 <div class="add_content">
@@ -143,11 +143,11 @@ export default {
         },
         //上一步
         prev() {
-            this.$router.push("/cv/step4");
+            this.$router.push("/writ/cv/step4");
         },
         //下一步
         next() {
-            this.$router.push("/cv/step6");
+            this.$router.push("/writ/cv/step6");
         },
         //取消
         cancel(formName) {

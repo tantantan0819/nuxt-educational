@@ -42,15 +42,14 @@
             },
             //预览cv
             preview() {
-                window.open('/cv/preview');
+                window.open('/writ/cv/preview');
             }
         },
         watch:{
             $route(to,from){
-                console.log('2222')
-                if(to.path == '/cv'){
-                    this.$router.push('/cv/step1');
-                    this.active = '/cv/step1'
+                if(to.path == '/writ/cv'){
+                    this.$router.push('/writ/cv/step1');
+                    this.active = '/writ/cv/step1'
                 }else{
                     this.active = to.path;
                 }

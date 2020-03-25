@@ -26,7 +26,7 @@
       <span class="next">请在退出前点击“下一步”按钮，您当前填写的信息可以被保存。</span>
     </div>
     <!--  新增学术经历  -->
-    <div class="add">
+    <div class="add add_note">
       <el-dialog title="" :visible.sync="outerVisible">
         <div class="add_title">添加学术经历</div>
         <div class="add_content">
@@ -106,11 +106,11 @@
             },
             //上一步
             prev() {
-                this.$router.push('/cv/step2')
+                this.$router.push('/writ/cv/step2')
             },
             //下一步
             next() {
-                this.$router.push('/cv/step4')
+                this.$router.push('/writ/cv/step4')
             },
             //取消
             cancel(formName) {

@@ -40,7 +40,7 @@
       }
 
       .active {
-        @include gradient();
+        background-color: $f64;
       }
     }
     .no_nav{
@@ -56,12 +56,10 @@
     @include cuc();
     .footer_button {
       @include cc();
-
       span {
         cursor: pointer;
         @include wh(250px, 50px);
         @include cr();
-        @include gradient();
         @include borderRadius(40px);
         @include fontc(16px, 1, $fc);
 
@@ -71,7 +69,7 @@
             background: $fc;
             @include borderRadius(40px);
             @include wh(248px, 48px);
-            @include fontc(16px, 1, $f69);
+            @include fontc(16px, 1, $f15);
             @include cr();
           }
         }
@@ -309,9 +307,9 @@
   @include cc();
   span {
     cursor: pointer;
-    @include wh(132px, 48px);
+    @include wh(130px, 46px);
     @include cr();
-    @include gradient();
+    background-color: $f15;
     @include borderRadius(30px);
     @include fontc(16px, 1, $fc);
     &:nth-child(1) {
@@ -320,7 +318,7 @@
         background: $fc;
         @include borderRadius(30px);
         @include wh(128px, 44px);
-        @include fontc(16px, 1, $f69);
+        @include fontc(16px, 1, $f15);
         @include cr();
       }
     }

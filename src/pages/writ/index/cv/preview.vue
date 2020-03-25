@@ -197,7 +197,7 @@ export default {
         //关闭cv预览
         close() {
             window.close();
-            this.$router.push("/cv/step1");
+            this.$router.push("/writ/cv/step1");
         },
         //提交CV制作素材
         makeCV() {

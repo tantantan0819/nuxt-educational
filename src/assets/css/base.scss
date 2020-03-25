@@ -60,6 +60,7 @@ $fe5: #e5f3fc;
 $f77: #f7f7f7;
 $fc9: #c9e3f5;
 $fea: #ea6553;
+$fnav: rgba(0, 0, 0, 0.12);
 //****** 混合指令 ******/
 //单号省略
 @mixin space {
@@ -321,6 +322,10 @@ body{
     .el-form-item__content{
       flex:1;
     }
+  }
+  .el-button{
+      background-color: $f15;
+      border-color: $f15;
   }
 }
 .noteTextarea{

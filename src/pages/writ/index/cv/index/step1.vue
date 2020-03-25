@@ -142,7 +142,7 @@
                             });
                             setTimeout(() => {
                                 successMsg.close();
-                                _this.$router.push('/cv/step2')
+                                _this.$router.push('/writ/cv/step2')
                             }, 1000);
                         })
                     }

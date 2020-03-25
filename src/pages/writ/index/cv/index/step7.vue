@@ -28,7 +28,7 @@
       <span class="next">请在退出前点击“下一步”按钮，您当前填写的信息可以被保存。</span>
     </div>
     <!--  完善兴趣/语言/技能/证书  -->
-    <div class="add">
+    <div class="add add_note">
       <el-dialog title :visible.sync="outerVisible">
         <div class="add_title">兴趣/语言/技能/证书</div>
         <div class="add_content">
@@ -138,11 +138,11 @@ export default {
     },
     //上一步
     prev() {
-      this.$router.push("/cv/step5");
+      this.$router.push("/writ/cv/step5");
     },
     //下一步
     next() {
-      this.$router.push("/cv/preview");
+      this.$router.push("/writ/cv/preview");
     },
     //取消
     cancel(formName) {

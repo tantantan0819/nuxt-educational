@@ -258,7 +258,7 @@ export default {
                             setTimeout(() => {
                                 _this.isSubmit = true;
                                 successMsg.close();
-                                _this.$router.push("/ps");
+                                _this.$router.push("/writ/ps");
                             }, 1500);
                         }
                     });

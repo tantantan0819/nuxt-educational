@@ -1,7 +1,7 @@
 <template>
     <div class="modify">
         <span class="cv_button modify_button" @click="dialogVisible=true">修改</span>
-        <div class="add">
+        <div class="add add_note">
             <el-dialog title :visible.sync="dialogVisible" :before-close="handleClose">
                 <div class="add_title">修改</div>
                 <div class="add_content">

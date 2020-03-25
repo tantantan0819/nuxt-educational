@@ -25,7 +25,7 @@
 export default {
   data() {
     return {
-      activeIndex: 0, //选中导航index
+      activeIndex: null, //选中导航index
       nav: [
         {
           name: "首页",
@@ -90,6 +90,16 @@ export default {
       ]
     };
   },
+  mounted(){
+    //导航选中效果
+    this.getName();
+  },
+   watch: {
+        $route(to, from) {
+             //导航选中效果
+             this.getName()
+        }
+    },
   methods:{
       changeNav(index,href){
           let _this = this;
@@ -97,8 +107,48 @@ export default {
           if(href!=''){
               _this.$router.push(href);
           }
-          
-      }
+      },
+        //导航选中效果
+        getName() {
+            let _this = this;
+            let name = this.$route.path;
+            let nowName = name.split("/")[1];
+            switch (nowName) {
+                case "home":
+                    _this.activeIndex = 0;
+                    break;
+                case "plan":
+                   _this.activeIndex = 1;
+                    break;
+                case "sign":
+                   _this.activeIndex = 2;
+                    break;
+                case "writ":
+                    _this.activeIndex = 3;
+                    break;
+                      case "language":
+                   _this.activeIndex = 4;
+                    break;
+                         case "apply":
+                   _this.activeIndex = 5;
+                    break;
+                          case "accommodation":
+                   _this.activeIndex = 6;
+                    break;
+                          case "visa":
+                   _this.activeIndex = 7;
+                    break;
+                          case "pickup":
+                   _this.activeIndex = 8;
+                    break;
+                       case "person":
+                   _this.activeIndex = 9;
+                    break;
+                default:
+                   _this.activeIndex = 0;
+                    break;
+            }
+        }
   }
 };
 </script>

@@ -32,6 +32,7 @@
           @include fontc(16px,26px,$f3);
           border-right: 1px solid $f3;
           padding: 0 6px;
+          position: relative;
           &:nth-child(1){
             padding-left: 0;
           }
@@ -43,10 +44,10 @@
       }
       .info_avatar{
         @include wh(130px,130px);
-        @include gradient();
         @include borderRadius(50%);
         @include cr();
         @include absolute(-10px,60px);
+        background-color: $f64;
         img{
           @include wh(126px,126px);
           @include borderRadius(50%);
@@ -141,14 +142,14 @@
       @include wh(248px,48px);
       @include borderRadius(30px);
       &:nth-child(1){
-          @include gradient();
+          background-color: $f15;
           @include fontc(16px,1,$fc);
         }
         
       &:nth-child(2){
         margin-left: 20px;
-        border: 1px solid $f69;
-        @include fontc(16px,1,$f69);
+        border: 1px solid $f15;
+        @include fontc(16px,1,$f15);
         -webkit-user-select:none;
 	    -moz-user-select:none;
 	    -o-user-select:none;

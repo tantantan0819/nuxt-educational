@@ -220,7 +220,7 @@ export default {
                     type: "warning"
                 });
             } else {
-                this.$router.push("ps/add");
+                this.$router.push("/writ/ps/add");
             }
         },
         //查看ps详情

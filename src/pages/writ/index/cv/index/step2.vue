@@ -31,7 +31,7 @@
             <span class="next">请在退出前点击“下一步”按钮，您当前填写的信息可以被保存。</span>
         </div>
         <!--  新增教育背景  -->
-        <div class="add">
+        <div class="add add_note">
             <el-dialog title :visible.sync="outerVisible" class="school_dialog add">
                 <div class="add_title">添加教育背景</div>
                 <div class="add_content">
@@ -115,7 +115,8 @@
                         <span @click="submitForm('cvForm2')">保存</span>
                     </div>
                 </div>
-                <el-dialog width="650px" title :visible.sync="innerVisible" append-to-body>
+                <div class="add_note">
+   <el-dialog width="650px" title :visible.sync="innerVisible" class="add_note" append-to-body>
                     <div class="add_title">学校列表</div>
                     <div class="add_content school_content">
                         <el-input
@@ -167,6 +168,8 @@
                         </div>
                     </div>
                 </el-dialog>
+                </div>
+             
             </el-dialog>
         </div>
     </div>
@@ -310,11 +313,11 @@ export default {
     methods: {
         //上一步
         prev() {
-            this.$router.push("/cv/step1");
+            this.$router.push("/writ/cv/step1");
         },
         //下一步
         next() {
-            this.$router.push("/cv/step3");
+            this.$router.push("/writ/cv/step3");
         },
         //取消
         cancel(formName) {

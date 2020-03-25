@@ -330,3 +330,23 @@
 .cell{
     @include cr();
 }
+.writ_nav{
+    padding: 20px 100px;
+    display: flex;
+    span{
+        @include wh(144px,50px);
+        box-shadow: 3px 4px 3px 0px $fnav;
+        border-radius: 10px;
+        border: solid 1px $f15;
+        @include fontc(14px,14px,$f15);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        margin-right: 11px;
+    }
+    .active{
+        background-color: $f15;
+        color: $fc;
+    }
+}

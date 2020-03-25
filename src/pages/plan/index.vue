@@ -201,6 +201,7 @@ export default {
             planShow: false, //是否展示查看我的方案
             planData: [], //方案信息
             uploadArr: [], //下载方案
+            uploadHref: '',//下载路径
             planDetail: {
                 user_info: {
                     stu_name: "",
@@ -231,6 +232,8 @@ export default {
             let _this = this;
             if (_this.uploadArr.length > 0) {
                 let idArr = _this.uploadArr.join(",");
+                // _this.uploadHref = "http://apicn.portal.my/utrack-school-plan/down?ids="+idArr;
+                // window.open(_this.uploadHref)
                 http.get("/utrack-school-plan/down", { ids: idArr }).then(
                     res => {
                         if (res) {
