@@ -16,7 +16,7 @@ export default {
     layout: "refactor",
     data() {
         return {
-            activeIndex: '',//选中导航index
+            activeIndex: 0, //选中导航index
             active: "", //选中的导航
             nav: [
                 { name: "CV", href: "/writ/cv/step1" },
@@ -28,16 +28,17 @@ export default {
         };
     },
     mounted() {
-        let path = this.$route.path;
-        this.active = path;
-        path == "/writ" ? this.$router.push("/writ/cv/step1") : "";
-        this.getName();
+        let _this = this;
+        let path = _this.$route.path;
+        path == "/writ" ? _this.$router.push("/writ/cv/step1") : "";
+        _this.getName();
     },
     methods: {
         changeNav(path, index) {
+            let _this = this;
             if (path) {
-                this.$router.push(path);
-                this.active = path;
+                _this.$router.push(path);
+                _this.active = path;
             }
         },
         //导航选中效果
@@ -50,35 +51,31 @@ export default {
                     _this.activeIndex = 0;
                     break;
                 case "ps":
-                   _this.activeIndex = 1;
+                    _this.activeIndex = 1;
                     break;
                 case "letter":
-                   _this.activeIndex = 2;
+                    _this.activeIndex = 2;
                     break;
                 case "material":
                     _this.activeIndex = 3;
                     break;
-                      case "modify":
-                   _this.activeIndex = 4;
+                case "modify":
+                    _this.activeIndex = 4;
                     break;
                 default:
-                   _this.activeIndex = 0;
+                    _this.activeIndex = 0;
                     break;
             }
         }
     },
+
     watch: {
         $route(to, from) {
-             //导航选中效果
-             this.getName()
-            if (to.path == "/writ") {
-                this.$router.push("/writ/cv/step1");
-                this.activeIndex = 0;
-            } else if (to.path == "/writ/cv") {
-                this.$router.push("/writ/cv/step1");
-                this.activeIndex = 0;
-            }
-        }
+            let  _this = this;
+            //导航选中效果
+            _this.getName();
+        },
+
     }
 };
 </script>

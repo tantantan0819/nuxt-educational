@@ -69,29 +69,65 @@
                         @click="changeNote(index)"
                     >{{item}}</span>
                 </div>
-                <div class="note_item" v-if="noteActive == 0">
-                    <transition-group tag="div" name="slide" :key="'home_title'">
-                         <p v-for="(item,index) in  cheshi1" :key="'haha'+index">{{item}}</p>
-                    </transition-group>
-                  
-                </div>
-                <div class="note_item" v-if="noteActive == 1">
+                <div class="note_item note_view" :class="{'note_view_show':noteActive == 0}">
                     <div class="note_swiper">
-                        <div v-swiper:mySwiper="swiperOption">
+                        <div
+                            v-swiper:mySwiper1="swiperOption1"
+                            ref="swiperOption1"
+                            style="height: 220px;"
+                        >
                             <div class="swiper-wrapper">
                                 <div
                                     class="swiper-slide note_show"
                                     v-for="(item,index) in noteShowArr"
                                     :key="index"
+                                    v-if="item.begin_date == note_day"
                                 >
-                                    <p>{{item.content}}</p>
+                                    <p class="note_text">{{item.content}}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="note_item" v-if="noteActive == 2">
-                    <p>1、这是顾问提醒</p>
+                <div class="note_item note_view" :class="{'note_view_show':noteActive == 1}">
+                    <div class="note_swiper">
+                        <div
+                            v-swiper:mySwiper2="swiperOption2"
+                            ref="swiperOption2"
+                            style="height: 220px;"
+                        >
+                            <div class="swiper-wrapper">
+                                <div
+                                    class="swiper-slide note_show"
+                                    v-for="(item,index) in noteShowArr"
+                                    :key="index+'_my'"
+                                    v-if="item.begin_date == note_day && item.type == 'utrack'"
+                                >
+                                    <p class="note_text">{{item.content}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="note_item note_view" :class="{'note_view_show':noteActive == 2}">
+                    <div class="note_swiper">
+                        <div
+                            v-swiper:mySwiper3="swiperOption3"
+                            ref="swiperOption3"
+                            style="height: 220px;"
+                        >
+                            <div class="swiper-wrapper">
+                                <div
+                                    class="swiper-slide note_show"
+                                    v-for="(item,index) in noteShowArr"
+                                    :key="index+'_teacher'"
+                                    v-if="item.begin_date == note_day && item.type == 'crm'"
+                                >
+                                    <p class="note_text">{{item.content}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -136,42 +172,52 @@ export default {
     layout: "refactor",
     data() {
         return {
-            cheshi: [
-                "1度网盘为您提供文件的网络备份、同步和分享服务。空间大、速度快、安全稳固,支持教育网加速,支持手机端",
-                "2度网盘为您提供文件的网络备份、同步和分享服务。空间大、速度快、安全稳固,支持教育网加速,支持手机端",
-                "3度网盘为您提供文件的网络备份、同步和分享",
-                "4度网盘为您提供文件的网络备份、同步和分享服务。空间大、速度快、安全稳固,支持教育网加速,支持手机端",
-                "5度网盘为您提供文件的网络备份、同步和分享服务。空间大、速度快、安全稳固,支持教育网加速,支持手机端",
-                "6度网盘为您提供文件的网络备份、同步和分享服务。空间大、速度快、安全稳固,支持教育网加速,支持手机端",
-                "7度网盘为您提供文件的网络备份、同步和分享服务。空间大、",
-                "8度网盘为您提供文件的网络备份、同步和分享服务。空间大、速度快、安全稳固,支持教育网加速,支持手机端",
-                "9度网盘为您提供文件的网络备份、同步和分享服务。空间大、速度快、安全稳固,支持教育网加速,支持手机端",
-                "a度网盘为您提供文件的网络备份、同步和分享服务。空间大、速度快、安全稳固,支持教育网加速,支持手机端",
-                "b度网盘为您提供文件的网络备份、同步和分享",
-                "c度网盘为您提供文件的网络备份、同步和分享服务。空间大、速度快、安全稳固,支持教育网加速,支持手机端",
-                "d度网盘为您提供文件的网络备份、同步和分享服务。空间大、速度快、安全稳固,支持教育网加速,支持手机端",
-                "e度网盘为您提供文件的网络备份、同步和分享服务。空间大、速度快、安全稳固,支持教育网加速,支持手机端",
-                "f度网盘为您提供文件的网络备份、同步和分享服务。空间大、",
-                "g度网盘为您提供文件的网络备份、同步和分享服务。空间大、速度快、安全稳固,支持教育网加速,支持手机端"
-            ],
-            cheshi1: [],
+            note_con: [],
             isSart: 0,
             isEnd: 7,
-            swiperOption: {
-                speed: 200,
-                // autoplay: {
-                //     disableOnInteraction: false, //手动滑动之后不打断播放
-                //     delay: 1000
-                // },
-                autoplay: true,
+            swiperOption1: {
+                initialSlide: 1,
+                speed: 300,
                 loop: false,
-                slidesPerView: 7, //一页显示几个
-                loopedSlides: 1, //
+                autoplay: {
+                    disableOnInteraction: false, //手动滑动之后不打断播放
+                },
+                autoHeight: true, //高度随内容变化
                 direction: "vertical", //方向
                 observer: true, //修改swiper自己或子元素时，自动初始化swiper
                 observeParents: true, //修改swiper的父元素时，自动初始化swiper
+                slidesPerView: "auto", //一页显示几个
                 notNextTick: true //notNextTick是一个组件自有属性，如果notNextTick设置为true，组件则不会通过NextTick来实例化swiper，也就意味着你可以在第一时间获取到swiper对象，假如你需要刚加载遍使用获取swiper对象来做什么事，那么这个属性一定要是true
             },
+            swiperOption2: {
+                speed: 300,
+                  loop: false,
+                 initialSlide: 1,
+                autoplay: {
+                    disableOnInteraction: false, //手动滑动之后不打断播放
+                },
+                autoHeight: true, //高度随内容变化
+                direction: "vertical", //方向
+                observer: true, //修改swiper自己或子元素时，自动初始化swiper
+                observeParents: true, //修改swiper的父元素时，自动初始化swiper
+                slidesPerView: "auto", //一页显示几个
+                notNextTick: true //notNextTick是一个组件自有属性，如果notNextTick设置为true，组件则不会通过NextTick来实例化swiper，也就意味着你可以在第一时间获取到swiper对象，假如你需要刚加载遍使用获取swiper对象来做什么事，那么这个属性一定要是true
+            },
+            swiperOption3: {
+                speed: 300,
+                  loop: false,
+                 initialSlide: 1,
+                autoplay: {
+                    disableOnInteraction: false, //手动滑动之后不打断播放
+                },
+                autoHeight: true, //高度随内容变化
+                direction: "vertical", //方向
+                observer: true, //修改swiper自己或子元素时，自动初始化swiper
+                observeParents: true, //修改swiper的父元素时，自动初始化swiper
+                slidesPerView: "auto", //一页显示几个
+                notNextTick: true //notNextTick是一个组件自有属性，如果notNextTick设置为true，组件则不会通过NextTick来实例化swiper，也就意味着你可以在第一时间获取到swiper对象，假如你需要刚加载遍使用获取swiper对象来做什么事，那么这个属性一定要是true
+            },
+            note_day: "",
             noteShow: false, //是否展示新增代办事项
             noteActive: 0, //待办事项选中分类index
             note: ["全部提醒", "我的提醒", "顾问提醒"], //待办事项分类
@@ -227,25 +273,8 @@ export default {
         _this.getNotice();
         //获取关于ukec
         _this.getAbout();
-        // setInterval(() => {
-        //     _this.setNote();
-        // }, 5000);
     },
     methods: {
-        setNote() {
-            let _this = this;
-            _this.cheshi1 = [];
-            if (_this.isEnd > _this.cheshi.length) {
-                _this.isSart = 0;
-                _this.isEnd = 7;
-            }
-            for (let i = _this.isSart; i < _this.isEnd; i++) {
-                _this.cheshi1.push(_this.cheshi[i]);
-            }
-            _this.isSart++;
-            _this.isEnd++;
-            console.log(_this.cheshi1);
-        },
         //取消新增待办事项
         cancel(formName) {
             this.$refs[formName].resetFields();
@@ -342,9 +371,15 @@ export default {
         },
         //根据日历切换代办事项内容
         changeNoteCon(year, month, day) {
-            console.log("我点击的是" + year + "-" + month + "-" + day);
-            console.log(this.noteShowArr, "arr");
-            console.log(this.noteShowDay, "day");
+            let _this = this;
+            month < 10 ? (month = "0" + month) : month;
+            day < 10 ? (day = "0" + day) : day;
+            let now_date = year + "-" + month + "-" + day;
+            _this.noteShowArr.map(item => {
+                if (item.begin_date == now_date) {
+                    _this.note_day = now_date;
+                }
+            });
         },
         //获取当前日期
         initCalendar() {
@@ -370,6 +405,7 @@ export default {
                       "-" +
                       _this.now_day);
             _this.noteShowDay = _this.now_date;
+            _this.note_day = _this.now_date;
         },
         //展示日历
         showCalendar(year, month) {

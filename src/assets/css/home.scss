@@ -260,7 +260,7 @@
     }
     .active{
         background-color: $fc;
-        border-bottom: none;
+        border-bottom: 1px solid transparent;
     }
 }
 .note_item{
@@ -272,8 +272,20 @@
         .note_show{
             height: auto!important;
             p{
-                @include fontc(14px,36px,$f0);
+                @include fontc(14px,24px,$f0);
             }
         }
     }
+}
+.note_view{
+    opacity: 0;
+    display: none!important;
+    @include fontc(14px,24px,$f0);
+}
+.note_view_show{
+    opacity: 1;
+    display: block!important;
+}
+.note_text{
+    @include fontc(14px,24px,$f0);
 }

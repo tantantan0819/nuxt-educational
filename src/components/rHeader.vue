@@ -52,13 +52,15 @@
                 </div>
             </div>
         </div>
-        <div class="rHeader_right">
+        <div class="rHeader_right" @click="layout">
             <i></i>退出
         </div>
     </div>
 </template>
 <script>
 import http from "~/plugins/http";
+import uhttp from "~/plugins/uhttp";
+import { setStore, getStore, emptyObj } from "~/plugins/utils";
 export default {
     data() {
         return {
@@ -85,6 +87,23 @@ export default {
         _this.getInfo();
     },
     methods: {
+        //退出登录
+        layout() {
+            let _this = this;
+            uhttp.get("/login/logout").then(res => {
+                let layoutMsg = _this.$message({
+                    message: "退出成功！",
+                    type: "success"
+                });
+                setTimeout(() => {
+                    layoutMsg.close();
+                    setStore("isLogin", "0");
+                    _this.$store.commit("user/SET_USER", {});
+                    _this.$store.commit("SET_RESET", "");
+                    _this.$router.push("/login");
+                }, 1500);
+            });
+        },
         //获取用户信息
         getInfo() {
             let _this = this;

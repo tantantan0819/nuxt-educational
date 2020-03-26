@@ -322,17 +322,12 @@ export default {
         let _this = this;
         //获取用户信息
         _this.active = location.pathname;
-        let userInfo = _this.$store.state.user;
-        if (!emptyObj(userInfo)) {
-            _this.person = deepClone(userInfo);
-        } else {
-            uhttp.get("/user/detail").then(res => {
+        uhttp.get("/user/detail").then(res => {
                 if (res) {
                     _this.$store.commit("user/SET_USER", res);
                     _this.person = res;
                 }
             });
-        }
         //获取区号
         let regionList = getStore("regionList");
         if (regionList) {

@@ -297,6 +297,7 @@ export default {
                 if (res) {
                     _this.apply = res;
                     _this.applyShow = true;
+                    console.log(_this.apply,'详情')
                 }
             });
         },

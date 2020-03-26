@@ -149,7 +149,7 @@
                             </div>
                             <div class="plan_box">
                                 <span>所属部门</span>
-                                <span>{{aboradDetail.sign_dept_id}}</span>
+                                <span>{{aboradDetail.depart_name}}</span>
                             </div>
                             <div class="plan_box">
                                 <span>合同编号</span>
@@ -174,11 +174,11 @@
                             </div>
                             <div class="plan_box">
                                 <span>DIY A套餐应收金额</span>
-                                <span>{{aboradDetail.finance_id_sum_fee}}</span>
+                                <span>{{aboradDetail.finance_id_due_fee}}</span>
                             </div>
                             <div class="plan_box">
                                 <span>DIY A套餐实收金额</span>
-                                <span>{{aboradDetail.finance_id_due_fee}}</span>
+                                <span>{{aboradDetail.finance_id_sum_fee}}</span>
                             </div>
                             <div class="plan_box">
                                 <span>PS总数</span>

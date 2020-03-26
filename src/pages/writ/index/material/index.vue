@@ -1,5 +1,5 @@
 <template>
-  <div class="material">
+  <div class="material cv con">
     <div class="material_item" v-for="(item,index) in materialType" :key="index">
       <div class="material_title">{{item}}</div>
       <!-- 有数据 -->

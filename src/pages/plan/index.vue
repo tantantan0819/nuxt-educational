@@ -3,6 +3,7 @@
         <div class="version_title two_title">
             <span>我的方案</span>
             <span @click="upload">下载方案</span>
+
         </div>
         <div class="refactor_table">
             <el-table
@@ -193,6 +194,7 @@
 </style>
 <script>
 import http from "~/plugins/http";
+import uhttp from "~/plugins/uhttp";
 import { getStore, setStore } from "~/plugins/utils";
 export default {
     layout: "refactor",
@@ -202,6 +204,7 @@ export default {
             planData: [], //方案信息
             uploadArr: [], //下载方案
             uploadHref: '',//下载路径
+            user_id: '',//用户id
             planDetail: {
                 user_info: {
                     stu_name: "",
@@ -215,6 +218,11 @@ export default {
         let _this = this;
         //获取方案列表
         _this.getPlan();
+           uhttp.get("/user/detail").then(res => {
+                if (res) {
+                    _this.user_id = res.id;
+                }
+            });
     },
     filters:{
         isYes(val){
@@ -232,15 +240,8 @@ export default {
             let _this = this;
             if (_this.uploadArr.length > 0) {
                 let idArr = _this.uploadArr.join(",");
-                // _this.uploadHref = "http://apicn.portal.my/utrack-school-plan/down?ids="+idArr;
-                // window.open(_this.uploadHref)
-                http.get("/utrack-school-plan/down", { ids: idArr }).then(
-                    res => {
-                        if (res) {
-                            console.log("下载成功了");
-                        }
-                    }
-                );
+                _this.uploadHref = "http://apicn.portal.my/down-file/down?ids="+idArr+'&id='+_this.user_id;
+                window.open(_this.uploadHref);
             } else {
                 _this.$message.warning("请先选择您要下载的方案！");
             }
