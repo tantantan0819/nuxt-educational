@@ -1,8 +1,7 @@
 <template>
     <div class="writ">
         <div class="writ_nav">
-            <span
-                v-for="(item,index) in nav"
+            <span v-for="(item,index) in nav"
                 :key="index"
                 @click="changeNav(item.href,index)"
                 :class="{'active':activeIndex == index}"
