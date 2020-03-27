@@ -147,7 +147,6 @@ const http = {
     }
     const conf = {
       headers: {
-        "content-type": 'application/x-www-form-urlencoded',
         "Api-Appid": Config.user_id,
         "Api-Salt": salt,
         "Api-Timestamp": timestamp,

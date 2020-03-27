@@ -49,7 +49,6 @@
       }
     }
   }
-
   .cv_footer {
     padding: 40px 0;
     border-top: 1px solid $e6;
@@ -62,11 +61,12 @@
         @include cr();
         @include borderRadius(40px);
         @include fontc(16px, 1, $fc);
-
         &:nth-child(1) {
+            background-color: transparent!important;
+            border: 1px solid $f15;
           i {
             display: inline-block;
-            background: $fc;
+            background: transparent;
             @include borderRadius(40px);
             @include wh(248px, 48px);
             @include fontc(16px, 1, $f15);
