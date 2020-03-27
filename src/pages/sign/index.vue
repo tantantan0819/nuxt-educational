@@ -272,7 +272,6 @@ export default {
             http.get("/contract/my-list").then(res => {
                 if (res) {
                     _this.aboradTable = res;
-                    console.log(res, "留学合同数据");
                 }
             });
         },
@@ -282,7 +281,6 @@ export default {
             http.get("contract/my-list-visa").then(res => {
                 if (res) {
                     _this.visaTable = res;
-                    console.log(res, "签证合同");
                 }
             });
         },

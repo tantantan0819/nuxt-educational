@@ -64,12 +64,10 @@
             let _this = this;
             //nav选中状态
             let path = _this.$route.path;
-            console.log(path)
             let pathReset = path.substring(0, path.indexOf("/", 2));
             pathReset == '' ? _this.active = path : _this.active = pathReset;
             // 获取用户信息
             uhttp.get('/user/detail').then((res) => {
-                console.log(res,'用户信息')
                 _this.$store.commit('user/SET_USER', res);
                 _this.user = _this.$store.state.user;
             })

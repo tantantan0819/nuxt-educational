@@ -32,7 +32,6 @@
         mounted() {
             let path = this.$route.path;
             this.active = path;
-            console.log(path,'cv/index')
             path == '/cv' ? this.$router.push('/cv/step1') : '';
         },
         methods: {

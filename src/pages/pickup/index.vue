@@ -100,7 +100,6 @@ export default {
         this.getPickUp();
          //获取字典
           this.getType();
-          console.log(this.arrange_type,'安排方式')
     },
     methods: {
         //获取我的接机
@@ -109,7 +108,6 @@ export default {
             http.get("/utrack-reception/list").then(res => {
                 if (res) {
                     _this.data = res[0];
-                    console.log(res, "我的接机");
                 }
             });
         },

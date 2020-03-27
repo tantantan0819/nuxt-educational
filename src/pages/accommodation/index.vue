@@ -159,7 +159,6 @@ export default {
             http.get("/utrack-living/list").then(res => {
                 if (res) {
                     _this.data = res[0];
-                    console.log(res, "我的住宿");
                 }
             });
         }

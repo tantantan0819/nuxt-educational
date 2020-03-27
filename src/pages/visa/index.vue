@@ -15,11 +15,7 @@
                     tooltip-effect="dark"
                     style="width: 100%"
                 >
-                    <el-table-column
-                        prop="签证类型"
-                        label="签证类型"
-                        width="280"
-                    ></el-table-column>
+                    <el-table-column prop="签证类型" label="签证类型" width="280"></el-table-column>
                     <el-table-column prop="肺结核检测日期" label="肺结核检查日期"></el-table-column>
                     <el-table-column prop="存款日期" label="存款日期"></el-table-column>
                     <el-table-column prop="递签地点" label="递签地点"></el-table-column>
@@ -82,12 +78,14 @@
                         </div>
                         <div
                             class="visa_con"
-                           :class="{'active':item.material_lists.length>1}"
+                            :class="{'active':item.material_lists.length>1}"
                             v-else
                         >
-                            <div class="visa_center"  
-                            v-for="(item2,index2) in item.material_lists"
-                            :key="index2">
+                            <div
+                                class="visa_center"
+                                v-for="(item2,index2) in item.material_lists"
+                                :key="index2"
+                            >
                                 <span>{{item2.material_name}}</span>
                                 <span>
                                     <a
@@ -102,7 +100,12 @@
                             </div>
                         </div>
                         <div class="visa_right">
-                            <span class="visa_btn" style="width:65px" @click="add(item.id)" v-if="item.isMultiple ||item.material_lists.length<1">新增</span>
+                            <span
+                                class="visa_btn"
+                                style="width:65px"
+                                @click="add(item.id)"
+                                v-if="item.isMultiple ||item.material_lists.length<1"
+                            >新增</span>
                         </div>
                     </div>
                 </div>
@@ -114,11 +117,15 @@
                 <div class="add_title">增加</div>
                 <div class="add_con">
                     <el-form :model="addForm" ref="addForm" :rules="addRules">
-                        <el-form-item prop="material_name" label="材料名称" >
+                        <el-form-item prop="material_name" label="材料名称">
                             <el-input v-model="addForm.material_name" placeholder="请填写您的材料名称"></el-input>
                         </el-form-item>
-                        <el-form-item prop="origin_name" label="文件" class="upload_lang" >
-                            <el-input v-model="addForm.origin_name" readonly placeholder="请上传您的材料文件"></el-input>
+                        <el-form-item prop="origin_name" label="文件" class="upload_lang">
+                            <el-input
+                                v-model="addForm.origin_name"
+                                readonly
+                                placeholder="请上传您的材料文件"
+                            ></el-input>
                             <upload-btn
                                 class="unload_btn"
                                 :config="configuration"
@@ -153,22 +160,22 @@ import UploadBtn from "~/components/upload";
 let that;
 export default {
     layout: "refactor",
-     components: { UploadBtn },
+    components: { UploadBtn },
     data() {
         return {
             addShow: false, //添加材料
             visa: [], //我的签证
             apply: [], //签证申请
             type: [], //签证类型
-            status: [],//审核状态
+            status: [], //审核状态
             img_url: "", //文件查看前缀
-            multipleFile:['身份证','英国签证卡','学位证毕业证','成绩单'],//多文件---不是多文件在已有文件时隐藏新增按钮
+            multipleFile: ["身份证", "英国签证卡", "学位证毕业证", "成绩单"], //多文件---不是多文件在已有文件时隐藏新增按钮
             addForm: {
                 origin_name: "", //材料原始名称
                 material_name: "", //材料名称
-                file_url:"",//文件路径
-               is_private:"",//是否隐藏
-               material_id:"",//材料类型
+                file_url: "", //文件路径
+                is_private: "", //是否隐藏
+                material_id: "" //材料类型
             },
             addRules: {
                 material_name: [
@@ -203,17 +210,8 @@ export default {
             }
         };
     },
-      beforeCreate() {
-    that = this;
-  },
-    filters: {
-        timeFormat(val) {
-            return timeDetail2(val);
-        },
-        statusFormat(val){
-            console.log(that.status,val)
-            return val;
-        }
+    beforeCreate() {
+        that = this;
     },
     mounted() {
         let _this = this;
@@ -272,7 +270,6 @@ export default {
             http.get("/utrack-visa/my-list").then(res => {
                 if (res) {
                     _this.apply = res;
-                    console.log(res, "签证申请");
                 }
             });
         },
@@ -282,16 +279,15 @@ export default {
             http.get("/customer-material/visa-list?service_id=2").then(res => {
                 if (res) {
                     _this.visa = res;
-                    console.log(_this.visa,'我的签证')
-                    _this.visa.map(item=>{
+                    _this.visa.map(item => {
                         let isFlg = false;
-                        _this.multipleFile.map(item2=>{
-                            if(item2 == item.materialname_cn){
+                        _this.multipleFile.map(item2 => {
+                            if (item2 == item.materialname_cn) {
                                 isFlg = true;
                             }
-                        })
+                        });
                         item.isMultiple = isFlg;
-                    })
+                    });
                 }
             });
         },

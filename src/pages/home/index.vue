@@ -79,11 +79,10 @@
                             <div class="swiper-wrapper">
                                 <div
                                     class="swiper-slide note_show"
-                                    v-for="(item,index) in noteShowArr"
+                                    v-for="(item,index) in noteShowArr_all"
                                     :key="index"
-                                    v-if="item.begin_date == note_day"
                                 >
-                                    <p class="note_text">{{item.content}}</p>
+                                    <p class="note_text">{{item.all_index}}、{{item.content}}</p>
                                 </div>
                             </div>
                         </div>
@@ -99,11 +98,10 @@
                             <div class="swiper-wrapper">
                                 <div
                                     class="swiper-slide note_show"
-                                    v-for="(item,index) in noteShowArr"
+                                    v-for="(item,index) in noteShowArr_my"
                                     :key="index+'_my'"
-                                    v-if="item.begin_date == note_day && item.type == 'utrack'"
                                 >
-                                    <p class="note_text">{{item.content}}</p>
+                                    <p class="note_text">{{item.my_index}}、{{item.content}}</p>
                                 </div>
                             </div>
                         </div>
@@ -119,11 +117,10 @@
                             <div class="swiper-wrapper">
                                 <div
                                     class="swiper-slide note_show"
-                                    v-for="(item,index) in noteShowArr"
+                                    v-for="(item,index) in noteShowArr_teacher"
                                     :key="index+'_teacher'"
-                                    v-if="item.begin_date == note_day && item.type == 'crm'"
                                 >
-                                    <p class="note_text">{{item.content}}</p>
+                                    <p class="note_text">{{item.teacher_index}}、{{item.content}}</p>
                                 </div>
                             </div>
                         </div>
@@ -180,7 +177,7 @@ export default {
                 speed: 300,
                 loop: false,
                 autoplay: {
-                    disableOnInteraction: false, //手动滑动之后不打断播放
+                    disableOnInteraction: false //手动滑动之后不打断播放
                 },
                 autoHeight: true, //高度随内容变化
                 direction: "vertical", //方向
@@ -191,10 +188,10 @@ export default {
             },
             swiperOption2: {
                 speed: 300,
-                  loop: false,
-                 initialSlide: 1,
+                loop: false,
+                initialSlide: 1,
                 autoplay: {
-                    disableOnInteraction: false, //手动滑动之后不打断播放
+                    disableOnInteraction: false //手动滑动之后不打断播放
                 },
                 autoHeight: true, //高度随内容变化
                 direction: "vertical", //方向
@@ -205,10 +202,10 @@ export default {
             },
             swiperOption3: {
                 speed: 300,
-                  loop: false,
-                 initialSlide: 1,
+                loop: false,
+                initialSlide: 1,
                 autoplay: {
-                    disableOnInteraction: false, //手动滑动之后不打断播放
+                    disableOnInteraction: false //手动滑动之后不打断播放
                 },
                 autoHeight: true, //高度随内容变化
                 direction: "vertical", //方向
@@ -223,6 +220,9 @@ export default {
             note: ["全部提醒", "我的提醒", "顾问提醒"], //待办事项分类
             noteArr: [], //待办事项内容 -- 日历当月的内容（获取未展示）
             noteShowArr: [], //待办事项内容 -- 展示
+            noteShowArr_all: [], //待办事项内容 -- 全部
+            noteShowArr_my: [], //待办事项内容 -- 我的提醒
+            noteShowArr_teacher: [], //待办事项内容 -- 顾问老师
             noteShowDay: null, //当前展示日期
             notice: [], //ukec通知内容
             aboutUKec: "", //关于ukec内容
@@ -354,6 +354,8 @@ export default {
             }).then(res => {
                 _this.noteArr = res;
                 _this.noteShowArr = res;
+                //将代办事项的内容分类
+                _this.classify();
             });
         },
         //获取关于ukec
@@ -369,6 +371,40 @@ export default {
         changeNote(index) {
             this.noteActive = index;
         },
+        //将代办事项的内容分类
+        classify() {
+            let _this = this;
+            let all_index = 0;
+            let my_index = 1;
+            let teacher_index = 1;
+            _this.noteShowArr_all = [];
+            _this.noteShowArr_my = [];
+            _this.noteShowArr_teacher = [];
+            _this.noteShowArr.map(item => {
+                if (item.begin_date == _this.note_day) {
+                    ++all_index;
+                    item.all_index = all_index;
+                    _this.noteShowArr_all.push(item);
+                }
+            });
+            _this.noteShowArr.map(item => {
+                if (
+                    item.begin_date == _this.note_day &&
+                    item.type == "utrack"
+                ) {
+                    item.my_index = my_index;
+                    my_index++;
+                    _this.noteShowArr_my.push(item);
+                }
+            });
+            _this.noteShowArr.map(item => {
+                if (item.begin_date == _this.note_day && item.type == "crm") {
+                    item.teacher_index = teacher_index;
+                    teacher_index++;
+                    _this.noteShowArr_teacher.push(item);
+                }
+            });
+        },
         //根据日历切换代办事项内容
         changeNoteCon(year, month, day) {
             let _this = this;
@@ -380,6 +416,8 @@ export default {
                     _this.note_day = now_date;
                 }
             });
+            //将代办事项的内容分类
+            _this.classify();
         },
         //获取当前日期
         initCalendar() {
@@ -406,6 +444,8 @@ export default {
                       _this.now_day);
             _this.noteShowDay = _this.now_date;
             _this.note_day = _this.now_date;
+            //将代办事项的内容分类
+            _this.classify();
         },
         //展示日历
         showCalendar(year, month) {

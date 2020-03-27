@@ -230,7 +230,6 @@ export default {
             if(val){
                 val == '0' ? result = '否' : result = "是";
             }
-            console.log(val,'result')
             return result;
         }
     },
@@ -251,7 +250,6 @@ export default {
             let _this = this;
             http.get("/utrack-school-plan/list").then(res => {
                 if (res) {
-                    console.log(res, "获取的方案列表----");
                     _this.planData = res.major;
                 }
             });
@@ -263,9 +261,6 @@ export default {
             http.get("/utrack-school-plan/detail", { id: id }).then(res => {
                 if (res) {
                     _this.planDetail = res.major[0];
-                    console.log(_this.planDetail, "详情");
-                    console.log(_this.planDetail.user_info.stu_name, "详情");
-
                     _this.planShow = true;
                 }
             });
