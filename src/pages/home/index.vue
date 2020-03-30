@@ -377,6 +377,7 @@ export default {
             let all_index = 0;
             let my_index = 1;
             let teacher_index = 1;
+            let hasNote = false;
             _this.noteShowArr_all = [];
             _this.noteShowArr_my = [];
             _this.noteShowArr_teacher = [];
@@ -385,6 +386,7 @@ export default {
                     ++all_index;
                     item.all_index = all_index;
                     _this.noteShowArr_all.push(item);
+                    hasNote = true;
                 }
             });
             _this.noteShowArr.map(item => {
@@ -408,12 +410,15 @@ export default {
         //根据日历切换代办事项内容
         changeNoteCon(year, month, day) {
             let _this = this;
+            let now_month = month;
             month < 10 ? (month = "0" + month) : month;
             day < 10 ? (day = "0" + day) : day;
             let now_date = year + "-" + month + "-" + day;
             _this.noteShowArr.map(item => {
-                if (item.begin_date == now_date) {
+                if (item.begin_date == now_date || now_date == _this.now_date) {
                     _this.note_day = now_date;
+                    _this.now_day = day;
+                    _this.now_month = now_month;
                 }
             });
             //将代办事项的内容分类

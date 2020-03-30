@@ -60,7 +60,7 @@
         @include wh(250px, 50px);
         @include cr();
         @include borderRadius(40px);
-        @include fontc(16px, 1, $fc);
+        @include fontc(16px, 1, $f15);
         &:nth-child(1) {
             background-color: transparent!important;
             border: 1px solid $f15;
@@ -76,6 +76,7 @@
 
         &:nth-child(2) {
           margin-left: 20px;
+          color: $fc;
         }
       }
     }
