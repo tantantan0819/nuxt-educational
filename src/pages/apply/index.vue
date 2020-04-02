@@ -50,7 +50,7 @@
                                 :href="scope.row.专业链接"
                                 target="_blank"
                                 class="view_link"
-                            >点击查看</a>
+                            >官网链接</a>
                         </template>
                     </el-table-column>
                     <el-table-column prop="申请专用邮箱" label="申请专用邮箱" width="180"></el-table-column>
