@@ -3,7 +3,6 @@
         <div class="version_title two_title">
             <span>我的方案</span>
             <span @click="upload">下载方案</span>
-
         </div>
         <div class="refactor_table">
             <el-table
@@ -18,8 +17,20 @@
                 <el-table-column label="学生姓名" width="90" prop="user_info.stu_name"></el-table-column>
                 <el-table-column label="入学年份" width="90" prop="user_info.begin_year"></el-table-column>
                 <el-table-column label="平均分" width="70" prop="user_info.avg_score"></el-table-column>
-                <el-table-column label="推荐院校" prop="大学名称"></el-table-column>
-                <el-table-column label="专业名称" prop="mj_name"></el-table-column>
+                <el-table-column label="推荐院校" prop="大学名称" width="240">
+                     <template slot-scope="scope">
+                        <p class="school_text">
+                            {{scope.row.大学名称}}
+                        </p>
+                    </template>
+                </el-table-column>
+                <el-table-column label="专业名称" prop="mj_name" width="240">
+                       <template slot-scope="scope">
+                        <p class="school_text">
+                            {{scope.row.mj_name}}
+                        </p>
+                    </template>
+                </el-table-column>
                 <el-table-column prop="大学地址" label="地理位置" width="100"></el-table-column>
                 <el-table-column prop="排名" label="英国排名" width="90"></el-table-column>
                 <el-table-column prop="QS排名" label="世界排名" width="90"></el-table-column>
@@ -116,7 +127,6 @@
                                 <span>选择此专业的动机</span>
                                 <span>{{planDetail.user_info.moto}}</span>
                             </div>
-                        
                         </div>
                     </div>
                     <div class="plan_item">
@@ -128,7 +138,7 @@
                             </div>
                             <div class="plan_box">
                                 <span>学校名</span>
-                               <span>{{planDetail.大学名称}}</span>
+                                <span>{{planDetail.大学名称}}</span>
                             </div>
                             <div class="plan_box">
                                 <span>地理位置</span>
@@ -164,21 +174,22 @@
                             </div>
                             <div class="plan_box">
                                 <span>专业连接</span>
-                                <span><a :href="planDetail.url">{{planDetail.url}}</a></span>
+                                <span>
+                                    <a :href="planDetail.url">{{planDetail.url}}</a>
+                                </span>
                             </div>
-                             <div class="plan_box">
+                            <div class="plan_box">
                                 <span></span>
                                 <span></span>
-                            </div>  
+                            </div>
                             <div class="plan_box width_box">
                                 <span>入学要求</span>
                                 <span>{{planDetail.intl}}</span>
                             </div>
                             <div class="plan_box width_box">
                                 <span>核心课程</span>
-                                <span></span>
+                                <span>{{planDetail.mj_core}}</span>
                             </div>
-                           
                         </div>
                     </div>
                     <div class="add_footer">
@@ -203,8 +214,8 @@ export default {
             planShow: false, //是否展示查看我的方案
             planData: [], //方案信息
             uploadArr: [], //下载方案
-            uploadHref: '',//下载路径
-            user_id: '',//用户id
+            uploadHref: "", //下载路径
+            user_id: "", //用户id
             planDetail: {
                 user_info: {
                     stu_name: "",
@@ -218,17 +229,17 @@ export default {
         let _this = this;
         //获取方案列表
         _this.getPlan();
-           uhttp.get("/user/detail").then(res => {
-                if (res) {
-                    _this.user_id = res.id;
-                }
-            });
+        uhttp.get("/user/detail").then(res => {
+            if (res) {
+                _this.user_id = res.id;
+            }
+        });
     },
-    filters:{
-        isYes(val){
-            let result = '';
-            if(val){
-                val == '0' ? result = '否' : result = "是";
+    filters: {
+        isYes(val) {
+            let result = "";
+            if (val) {
+                val == "0" ? (result = "否") : (result = "是");
             }
             return result;
         }
@@ -241,6 +252,25 @@ export default {
                 let idArr = _this.uploadArr.join(",");
                 _this.uploadHref = "http://apicn.portal.my/down-file/down?ids="+idArr+'&id='+_this.user_id;
                 window.open(_this.uploadHref);
+                //尝试处理二进制流文件
+                // http.get("/down-file/down", {
+                //     id: _this.user_id,
+                //     ids: idArr
+                // }).then(res => {
+                //     if (res) {
+                //         var blob = new Blob([res], { type: "text/plain,charset=UTF-8," });
+                //         blob = new String(blob.getBytes("iso-885901"),"GBK");
+                //         let objectUrl = window.URL.createObjectURL(blob); //
+                //         let link = document.createElement('a');
+                //         link.style.display = "none";
+                //         link.href = objectUrl;
+                //         link.setAttribute('download','test.doc');
+                //         document.body.appendChild(link);
+                //         link.click();
+                //         // window.location.href = objectUrl; //
+                //         // console.log(blob);
+                //     }
+                // });
             } else {
                 _this.$message.warning("请先选择您要下载的方案！");
             }

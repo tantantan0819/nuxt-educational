@@ -165,6 +165,9 @@ const http = {
 
     return service.request(conf).then(async function (response) {
       const res = response.data;
+      if(response.config.url == '/down-file/down'){
+        return Promise.resolve(response.data);
+      }
       if (res.code !== 0) {
         // Token 过期了重试
 

@@ -154,3 +154,6 @@
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
 }
+.school_text{
+    @include fontc(14px,16px,$f6);
+}
