@@ -5,16 +5,16 @@
     .visa_table_box{
         position: relative;
         width: 100%;
-        margin-bottom: 56px;
-        &:before{
-            content: '';
-            display: inline-block;
-            width: 100%;
-            height: 56px;
-            bottom: -56px;
-            background-color: #f7f7f7;
-            position: absolute;
-        }
+        // margin-bottom: 56px;
+        // &:before{
+        //     content: '';
+        //     display: inline-block;
+        //     width: 100%;
+        //     height: 56px;
+        //     bottom: -56px;
+        //     background-color: #f7f7f7;
+        //     position: absolute;
+        // }
     }
   
     .el-table{

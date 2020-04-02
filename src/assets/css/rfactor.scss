@@ -1,4 +1,8 @@
 @import "./base";
+.isApply{
+    max-height: 100vh;
+    overflow: scroll;
+}
 #rfactor{
     display: flex;
     min-height: 100vh;
@@ -127,14 +131,15 @@
 .refactor_table{
     margin-top: 30px;
     position: relative;
-    &:after{
-        content: '';
-        display: inline-block;
-        @include wh(100%,56px);
-        background-color: $f77;
-        position: absolute;
-    }
+    // &:after{
+    //     content: '';
+    //     display: inline-block;
+    //     @include wh(100%,56px);
+    //     background-color: $f77;
+    //     position: absolute;
+    // }
     .el-table{
+        min-width: 1500px;
         th{
             background-color: $fe3;
             @include fontc(16px,16px,$fc);

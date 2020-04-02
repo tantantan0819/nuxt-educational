@@ -6,6 +6,7 @@
         </div>
         <div class="refactor_table">
             <el-table
+                stripe
                 ref="multipleTable"
                 :data="planData"
                 tooltip-effect="dark"

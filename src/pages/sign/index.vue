@@ -9,6 +9,7 @@
                 <br />合同
             </div>
             <el-table
+                stripe
                 ref="multipleTable"
                 :data="aboradTable"
                 tooltip-effect="dark"
@@ -38,6 +39,7 @@
                 <br />合同
             </div>
             <el-table
+                stripe
                 ref="multipleTable"
                 :data="visaTable"
                 tooltip-effect="dark"

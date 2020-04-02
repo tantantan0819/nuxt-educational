@@ -7,6 +7,7 @@
 
         <div class="refactor_table">
             <el-table
+                stripe
                 ref="multipleTable"
                 :data="langData"
                 tooltip-effect="dark"

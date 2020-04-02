@@ -4,7 +4,7 @@
       <div class="material_title">{{item}}</div>
       <!-- 有数据 -->
       <div class="material_box" v-for="(item2,index2) in material" :key="index2" v-if="item2[0].materialname_cn == item">
-        <el-table :data="item2" style="width: 100%" size="medium">
+        <el-table :data="item2" style="width: 100%" size="medium" stripe>
           <el-table-column prop="material_name" label="材料名称"></el-table-column>
           <el-table-column prop="origin_name" label="文件">
             <template slot-scope="scope">
@@ -38,7 +38,7 @@
       </div>
       <!-- 没有数据 -->
         <div class="material_box" v-if="showArr[index]">
-        <el-table :data="[]" style="width: 100%" size="medium">
+        <el-table :data="[]" style="width: 100%" size="medium" stripe>
           <el-table-column prop="material_name" label="材料名称"></el-table-column>
           <el-table-column prop="origin_name" label="文件">
             <template slot-scope="scope">

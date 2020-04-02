@@ -2,9 +2,12 @@
 .apply{
     padding-top: 30px;
     .apply_table{
-        margin-bottom: 40px;
+        // margin-bottom: 40px;
         padding-bottom: 58px;
-        background-color: $f77;
+        // background-color: $f77;
+        .el-table{
+            min-width: 1500px;
+        }
         .apply_top{
             padding: 21px 19px 29px;
             background-color: $f64;
@@ -53,4 +56,9 @@
         @include fontc(12px,14px,$f15);
         color: $f15!important;
     }
+}
+.view_link{
+    border: 1px solid $f15;
+    padding: 6px;
+    border-radius: 16px;
 }

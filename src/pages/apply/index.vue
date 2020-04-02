@@ -36,6 +36,7 @@
                     </div>
                 </div>
                 <el-table
+                    stripe
                     ref="multipleTable"
                     :data="item.apply_arr"
                     tooltip-effect="dark"
@@ -43,12 +44,13 @@
                 >
                     <el-table-column prop="university_cn" label="申请院校" width="140"></el-table-column>
                     <el-table-column prop="apply_course_name_cn" label="申请专业" width="110"></el-table-column>
-                    <el-table-column prop="apply_major_url" label="专业连接">
+                    <el-table-column prop="apply_major_url" label="专业链接">
                         <template slot-scope="scope">
-                            <a
+                            <a  v-if="scope.row.专业链接"
                                 :href="scope.row.专业链接"
                                 target="_blank"
-                            >{{scope.row.专业链接}}</a>
+                                class="view_link"
+                            >点击查看</a>
                         </template>
                     </el-table-column>
                     <el-table-column prop="申请专用邮箱" label="申请专用邮箱" width="180"></el-table-column>

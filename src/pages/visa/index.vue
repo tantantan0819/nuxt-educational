@@ -10,6 +10,7 @@
             </div>
             <div class="visa_table_box">
                 <el-table
+                    stripe
                     ref="multipleTable"
                     :data="apply"
                     tooltip-effect="dark"
