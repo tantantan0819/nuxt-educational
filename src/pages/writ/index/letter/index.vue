@@ -11,7 +11,7 @@
                     <span class="cv_button" @click="addLetter" :class="{'gray':count == '0'}">新增推荐信</span>
                 </div>
             </div>
-            <div class="refactor_table">
+            <div class="refactor_table auto_table">
                 <el-table :data="tableData" stripe style="width: 100%">
                     <el-table-column type="index" label="序号" width="70"></el-table-column>
                     <el-table-column prop="name" label="推荐人" width="100"></el-table-column>

@@ -4,7 +4,7 @@
         <div class="version_title">
             <span>修改记录</span>
         </div>
-      <div class="refactor_table">
+      <div class="refactor_table auto_table">
         <el-table :data="tableData" stripe style="width: 100%">
           <el-table-column prop="page_type" label="材料类型" :formatter="noteFormat" ></el-table-column>
           <el-table-column prop="note_type" label="修改类别" :formatter="typeFormat"></el-table-column>

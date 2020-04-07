@@ -19,17 +19,13 @@
                 <el-table-column label="入学年份" width="90" prop="user_info.begin_year"></el-table-column>
                 <el-table-column label="平均分" width="70" prop="user_info.avg_score"></el-table-column>
                 <el-table-column label="推荐院校" prop="大学名称" width="240">
-                     <template slot-scope="scope">
-                        <p class="school_text">
-                            {{scope.row.大学名称}}
-                        </p>
+                    <template slot-scope="scope">
+                        <p class="school_text">{{scope.row.大学名称}}</p>
                     </template>
                 </el-table-column>
                 <el-table-column label="专业名称" prop="mj_name" width="240">
-                       <template slot-scope="scope">
-                        <p class="school_text">
-                            {{scope.row.mj_name}}
-                        </p>
+                    <template slot-scope="scope">
+                        <p class="school_text">{{scope.row.mj_name}}</p>
                     </template>
                 </el-table-column>
                 <el-table-column prop="大学地址" label="地理位置" width="100"></el-table-column>
@@ -251,27 +247,27 @@ export default {
             let _this = this;
             if (_this.uploadArr.length > 0) {
                 let idArr = _this.uploadArr.join(",");
-                _this.uploadHref = "http://apicn.portal.my/down-file/down?ids="+idArr+'&id='+_this.user_id;
-                window.open(_this.uploadHref);
+                // _this.uploadHref = "http://apicn.portal.my/down-file/down?ids="+idArr+'&id='+_this.user_id;
+                // window.open(_this.uploadHref);
                 //尝试处理二进制流文件
-                // http.get("/down-file/down", {
-                //     id: _this.user_id,
-                //     ids: idArr
-                // }).then(res => {
-                //     if (res) {
-                //         var blob = new Blob([res], { type: "text/plain,charset=UTF-8," });
-                //         blob = new String(blob.getBytes("iso-885901"),"GBK");
-                //         let objectUrl = window.URL.createObjectURL(blob); //
-                //         let link = document.createElement('a');
-                //         link.style.display = "none";
-                //         link.href = objectUrl;
-                //         link.setAttribute('download','test.doc');
-                //         document.body.appendChild(link);
-                //         link.click();
-                //         // window.location.href = objectUrl; //
-                //         // console.log(blob);
-                //     }
-                // });
+                http.get("/down-file/down", {
+                    id: _this.user_id,
+                    ids: idArr
+                }).then(res => {
+                    if (res) {
+                        var blob = new Blob([res], {
+                            type: "text/plain;charset=GB2132"
+                        });
+                        // blob = new String(blob.getBytes("iso-885901"),"GBK")
+                        let objectUrl = window.URL.createObjectURL(blob); //
+                        let link = document.createElement('a');
+                        link.style.display = "none";
+                        link.href = objectUrl;
+                        link.setAttribute('download','test.doc');
+                        document.body.appendChild(link);
+                        link.click();
+                    }
+                });
             } else {
                 _this.$message.warning("请先选择您要下载的方案！");
             }
