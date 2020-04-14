@@ -25,6 +25,7 @@
                         width="100"
                         :formatter="relashipFormat"
                     ></el-table-column>
+                    <el-table-column prop="meet_year" label="认识年份" width="100"></el-table-column>
                     <el-table-column prop="email" label="单位邮箱" width="180"></el-table-column>
                     <el-table-column prop="createtime" label="创建时间"></el-table-column>
                     <el-table-column prop="operation" label="操作" width="140">
@@ -81,6 +82,7 @@
                                     width="120"
                                     :formatter="relashipFormat"
                                 ></el-table-column>
+                                <el-table-column prop="meet_year" label="认识年份"></el-table-column>
                                 <el-table-column prop="email" label="单位邮箱" width="180"></el-table-column>
                                 <el-table-column prop="createtime" label="创建时间" width="180"></el-table-column>
                             </el-table>

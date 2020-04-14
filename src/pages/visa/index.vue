@@ -155,7 +155,7 @@
 </template>
 <script>
 import http from "~/plugins/http";
-import { getStore, setStore, timeDetail2 } from "~/plugins/utils";
+import { getStore, setStore, timeDetail2} from "~/plugins/utils";
 import config from "~/plugins/config";
 import UploadBtn from "~/components/upload";
 let that;

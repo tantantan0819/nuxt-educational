@@ -85,6 +85,16 @@
                                         ></el-option>
                                     </el-select>
                                 </el-form-item>
+                                <el-form-item label="认识时间" prop="meet_year">
+                                    <el-date-picker
+                                        type="year"
+                                        format="yyyy"
+                                        value-format="yyyy"
+                                        placeholder="请选择时间"
+                                        v-model="letterForm.meet_year"
+                                        class="widthAll"
+                                    ></el-date-picker>
+                                </el-form-item>
                                 <el-form-item label="单位邮箱" prop="email">
                                     <el-input
                                         v-model="letterForm.email"
@@ -191,9 +201,17 @@ export default {
                 content3: "",
                 content4: "",
                 content5: "",
-                createtime: ""
+                createtime: "",
+                meet_year: ""
             }, // ps详情
             rules: {
+                meet_year: [
+                    {
+                        required: true,
+                        message: "请选择与推荐人认识的年份",
+                        trigger: "blur"
+                    }
+                ],
                 name: [
                     {
                         required: true,
