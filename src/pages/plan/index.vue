@@ -247,27 +247,27 @@ export default {
             let _this = this;
             if (_this.uploadArr.length > 0) {
                 let idArr = _this.uploadArr.join(",");
-                // _this.uploadHref = "http://apicn.portal.my/down-file/down?ids="+idArr+'&id='+_this.user_id;
-                // window.open(_this.uploadHref);
+                _this.uploadHref = "http://apicn.portal.my/down-file/down?ids="+idArr+'&id='+_this.user_id;
+                window.open(_this.uploadHref);
                 //尝试处理二进制流文件
-                http.get("/down-file/down", {
-                    id: _this.user_id,
-                    ids: idArr
-                }).then(res => {
-                    if (res) {
-                        var blob = new Blob([res], {
-                            type: "text/plain;charset=GB2132"
-                        });
-                        // blob = new String(blob.getBytes("iso-885901"),"GBK")
-                        let objectUrl = window.URL.createObjectURL(blob); //
-                        let link = document.createElement('a');
-                        link.style.display = "none";
-                        link.href = objectUrl;
-                        link.setAttribute('download','test.doc');
-                        document.body.appendChild(link);
-                        link.click();
-                    }
-                });
+                // http.get("/down-file/down", {
+                //     id: _this.user_id,
+                //     ids: idArr
+                // }).then(res => {
+                //     if (res) {
+                //         var blob = new Blob([res], {
+                //             type: "text/plain;charset=GB2132"
+                //         });
+                //         // blob = new String(blob.getBytes("iso-885901"),"GBK")
+                //         let objectUrl = window.URL.createObjectURL(blob); //
+                //         let link = document.createElement('a');
+                //         link.style.display = "none";
+                //         link.href = objectUrl;
+                //         link.setAttribute('download','test.doc');
+                //         document.body.appendChild(link);
+                //         link.click();
+                //     }
+                // });
             } else {
                 _this.$message.warning("请先选择您要下载的方案！");
             }
