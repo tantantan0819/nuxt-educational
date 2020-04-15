@@ -153,6 +153,9 @@
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
+    font-size: 12px;
+    padding: 0 6px;
+    line-height: 16px;
 }
 .school_text{
     @include fontc(14px,16px,$f6);

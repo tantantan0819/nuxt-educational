@@ -47,7 +47,7 @@
                         </p>
                     </template>
                 </el-table-column>
-                <el-table-column prop="intl" label="入学要求">
+                <el-table-column prop="intl" label="入学要求" width="150">
                     <template slot-scope="scope">
                         <p class="avg_core">{{scope.row.intl}}</p>
                     </template>
