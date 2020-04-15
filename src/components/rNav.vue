@@ -33,12 +33,12 @@ export default {
           icon: "/images/refactor/1.png",
           activeIcon:"/images/refactor/11.png",
         },
-        {
-          name: "我的方案",
-          href: "/plan",
-           icon: "/images/refactor/2.png",
-          activeIcon:"/images/refactor/22.png",
-        },
+        // {
+        //   name: "我的方案",
+        //   href: "/plan",
+        //    icon: "/images/refactor/2.png",
+        //   activeIcon:"/images/refactor/22.png",
+        // },
         {
           name: "我的签约",
           href: "/sign",
@@ -117,32 +117,32 @@ export default {
                 case "home":
                     _this.activeIndex = 0;
                     break;
-                case "plan":
+                // case "plan":
+                //    _this.activeIndex = 1;
+                //     break;
+                case "sign":
                    _this.activeIndex = 1;
                     break;
-                case "sign":
-                   _this.activeIndex = 2;
-                    break;
                 case "writ":
-                    _this.activeIndex = 3;
+                    _this.activeIndex = 2;
                     break;
                       case "language":
-                   _this.activeIndex = 4;
+                   _this.activeIndex = 3;
                     break;
                          case "apply":
-                   _this.activeIndex = 5;
+                   _this.activeIndex = 4;
                     break;
                           case "accommodation":
-                   _this.activeIndex = 6;
+                   _this.activeIndex = 5;
                     break;
                           case "visa":
-                   _this.activeIndex = 7;
+                   _this.activeIndex = 6;
                     break;
                           case "pickup":
-                   _this.activeIndex = 8;
+                   _this.activeIndex = 7;
                     break;
                        case "person":
-                   _this.activeIndex = 9;
+                   _this.activeIndex = 8;
                     break;
                 default:
                    _this.activeIndex = 0;
