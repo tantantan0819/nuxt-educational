@@ -120,11 +120,16 @@
                             <div class="plan_box">
                                 <span>发票/收据号</span>
                                 <span>{{visaDetail.contract_finance_no}}</span>
-                               
                             </div>
                             <div class="plan_box">
                                 <span>付款证明</span>
-                                 <span><a :href="img_url+visaDetail.fee_file" target="_blank" v-if="visaDetail.fee_file">{{img_url+visaDetail.fee_file}}</a></span>
+                                <span>
+                                    <a
+                                        :href="img_url+visaDetail.fee_file"
+                                        target="_blank"
+                                        v-if="visaDetail.fee_file"
+                                    >{{img_url+visaDetail.fee_file}}</a>
+                                </span>
                             </div>
                             <div class="plan_box">
                                 <span>备注</span>
@@ -204,7 +209,13 @@
                             </div>
                             <div class="plan_box">
                                 <span>付款证明</span>
-                                 <span><a :href="img_url+aboradDetail.fee_file" target="_blank" v-if="aboradDetail.fee_file">{{img_url+aboradDetail.fee_file}}</a></span>
+                                <span>
+                                    <a
+                                        :href="img_url+aboradDetail.fee_file"
+                                        target="_blank"
+                                        v-if="aboradDetail.fee_file"
+                                    >{{img_url+aboradDetail.fee_file}}</a>
+                                </span>
                             </div>
 
                             <div class="plan_box">
@@ -219,11 +230,11 @@
                                 <span>签约时间</span>
                                 <span>{{aboradDetail.sign_date}}</span>
                             </div>
-                            <div class="plan_box">
+                            <div class="plan_box" v-if="aboradDetail.discount_note">
                                 <span>折扣备注</span>
                                 <span>{{aboradDetail.discount_note}}</span>
                             </div>
-                            <div class="plan_box">
+                            <div class="plan_box" v-if="aboradDetail.discount_note">
                                 <span></span>
                                 <span></span>
                             </div>
@@ -263,7 +274,7 @@ export default {
         _this.getAborad();
         //获取签证合同
         _this.getSign();
-          //文件查看前缀
+        //文件查看前缀
         _this.img_url = config.view_host;
     },
 
