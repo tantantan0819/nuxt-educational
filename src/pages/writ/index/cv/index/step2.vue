@@ -72,7 +72,7 @@
                                 @focus="innerVisible=true"
                             ></el-input>
                         </el-form-item>
-                        <el-form-item label="毕业/就读专业" prop="major_id">
+                        <!-- <el-form-item label="毕业/就读专业" prop="major_id">
                             <el-select
                                 v-model="cvForm2.major_id"
                                 class="widthAll"
@@ -85,6 +85,13 @@
                                     :value="item.id"
                                 ></el-option>
                             </el-select>
+                        </el-form-item> -->
+                           <el-form-item label="毕业/就读专业" prop="majorname_cn">
+                             <el-input
+                                v-model="cvForm2.majorname_cn"
+                                placeholder="请输入您的毕业/就读专业"
+                                autocomplete="off"
+                            ></el-input>
                         </el-form-item>
                         <el-form-item label="学历" prop="qualification">
                             <el-select
@@ -211,9 +218,10 @@ export default {
                 admission_date: "",
                 graduaction_date: "",
                 school_id: "",
-                major_id: "",
+                // major_id: "",
                 qualification: "",
-                average_result: ""
+                average_result: "",
+                majorname_cn:'',
             }, //添加教育背景
             rules: {
                 admission_date: [
@@ -244,10 +252,10 @@ export default {
                         trigger: "blur"
                     }
                 ],
-                major_id: [
+                majorname_cn: [
                     {
                         required: true,
-                        message: "请选择您的毕业/就读专业",
+                        message: "请输入您的毕业/就读专业",
                         trigger: "blur"
                     }
                 ],
