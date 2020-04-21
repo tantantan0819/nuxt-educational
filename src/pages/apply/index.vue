@@ -172,6 +172,7 @@
                                     <a :href="img_url+apply.UO图片" target="_blank">
                                         <img :src="img_url+apply.UO图片" alt />
                                     </a>
+                                    <button @click="loadUo(img_url+apply.UO图片)" v-if="apply.UO图片">下载</button>
                                 </span>
                             </div>
                             <div class="plan_box">
@@ -180,6 +181,7 @@
                                     <a :href="img_url+apply.CO图片" target="_blank">
                                         <img :src="img_url+apply.CO图片" alt />
                                     </a>
+                                    <button @click="loadCo(img_url+apply.CO图片)" v-if="apply.CO图片">下载</button>
                                 </span>
                             </div>
                             <div class="plan_box">
@@ -290,6 +292,14 @@ export default {
         _this.img_url = config.view_host;
     },
     methods: {
+        //下载Co
+        loadCo(url){
+            window.open(url+'?attname=','_self')
+        },
+          //下载Uo
+        loadUo(url){
+            window.open(url+'?attname=','_self')
+        },
         //查看详情
         viewApply(index, val) {
             let _this = this;

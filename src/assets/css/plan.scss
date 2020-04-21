@@ -19,6 +19,7 @@
                         height: 30px;
                     }
                 }
+             
             }
         }
     }
@@ -81,12 +82,25 @@
                 text-overflow:ellipsis;
                 white-space: nowrap;
                 flex: 1;
+                position: relative;
                 a{  overflow: hidden;
                     text-overflow:ellipsis;
                     white-space: nowrap;
                     img{
                         height: 30px;
                     }
+                }
+                button{
+                    background: transparent;
+                    outline: none;
+                    border: 1px solid $f15;
+                    @include wh(50px,20px);
+                    border-radius: 14px;
+                    color: $f15;
+                    position: absolute;
+                    right: 10px;
+                    top: 50%;
+                    transform: translateY(-50%);
                 }
             }
         }
