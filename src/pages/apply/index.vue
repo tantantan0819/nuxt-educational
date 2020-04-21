@@ -139,7 +139,7 @@
                                 <span>{{apply.deposit_end_date}}</span>
                             </div>
                             <div class="plan_box">
-                                <span>接受录取结果截止日期</span>
+                                <span>接受录取截止日期</span>
                                 <span>{{apply.accept_result_end_date}}</span>
                             </div>
                             <div class="plan_box">
