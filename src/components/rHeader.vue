@@ -1,7 +1,8 @@
 <template>
     <div class="rHeader">
         <div class="rHeader_left">
-            <img :src="user.avatar" alt />
+            <img v-if="person.avatar" :src="person.avatar" alt />
+            <img v-else src="/images/avatar.jpg" alt />
             <div class="rHeader_text">
                 <div class="text_item">
                     <p>
@@ -30,24 +31,24 @@
                         {{user.center}}
                         <i>/</i>
                     </p>
-                    <p>
-                        <span>顾问老师:</span>
-                        {{user.counselor}}
+                     <p>
+                        <span>教育顾问:</span>
+                        {{user.teacher}}
                         <i>/</i>
                     </p>
-                    <p>
-                        <span>申请老师:</span>
-                        {{user.apply}}
+                      <p>
+                        <span>教育顾问电话:</span>
+                        {{user.teacher_tel}}
                         <i>/</i>
                     </p>
-                    <p>
-                        <span>文书老师:</span>
-                        {{user.writ}}
+                     <p>
+                        <span>入学顾问:</span>
+                        {{user.entrance}}
                         <i>/</i>
                     </p>
-                    <p>
-                        <span>顾问老师电话:</span>
-                        {{user.counselor_tel}}
+                      <p>
+                        <span>入学顾问电话:</span>
+                        {{user.entrance_tel}}
                     </p>
                 </div>
             </div>
@@ -64,6 +65,7 @@ import { setStore, getStore, emptyObj } from "~/plugins/utils";
 export default {
     data() {
         return {
+            person:{},//sso获取到的用户信息
             user: {
                 avatar:
                     "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2205650502,1425754204&fm=26&gp=0.jpg",
@@ -77,7 +79,11 @@ export default {
                 counselor: "张老师", //顾问老师
                 apply: "李老师", //申请老师
                 writ: "杨老师", //文书老师
-                counselor_tel: "18381007777"
+                counselor_tel: "18381007777",
+                teacher: '',//教育顾问
+                teacher_tel: '',//教育顾问电话
+                entrance:'',//入学顾问
+                entrance_tel:''//入学顾问电话
             }
         };
     },
@@ -85,6 +91,16 @@ export default {
         let _this = this;
         //获取用户信息
         _this.getInfo();
+        //获取sso的用户信息
+        let userInfo = this.$store.state.user;
+        if (!emptyObj(userInfo)) {
+            _this.person = userInfo;
+        } else {
+            uhttp.get("/user/detail").then(res => {
+                _this.$store.commit("user/SET_USER", res);
+                _this.person = _this.$store.state.user;
+            });
+        }
     },
     methods: {
         //退出登录
@@ -118,8 +134,12 @@ export default {
                 _this.user.apply = res.apply_man_info.truename;
                 _this.user.counselor = res.online_man_info.truename;
                 _this.user.counselor_tel = res.online_man_info.phone;
+                _this.user.entrance =res.入学顾问.truename;
+                _this.user.entrance_tel =res.入学顾问.phone;
+                _this.user.teacher =res.教育顾问.truename;
+                _this.user.teacher_tel =res.教育顾问.phone;
             });
-        }
+        },
     }
 };
 </script>
