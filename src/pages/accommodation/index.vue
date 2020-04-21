@@ -137,27 +137,18 @@ export default {
         //获取字典
         getType() {
             let _this = this;
-            let dictionary = getStore("dictionary");
-            if (dictionary) {
-                _this.living_type = dictionary.LIVING_TYPE;
-                _this.arrange_type = dictionary.ARRANGE_TYPE;
-                _this.pay_type = dictionary.PAY_TYPE;
-                _this.yes_type = dictionary.YES_OR_NO;
-            } else {
-                http.get("/code-val/group-key-list").then(res => {
+            http.get("/code-val/group-key-list").then(res => {
                     _this.living_type = res.LIVING_TYPE;
                     _this.arrange_type = res.ARRANGE_TYPE;
                     _this.pay_type = res.PAY_TYPE;
                     _this.yes_type = res.YES_OR_NO;
-                    setStore("dictionary", res);
-                });
-            }
+            });
         },
         //获取我的住宿
         getAccommodation() {
             let _this = this;
             http.get("/utrack-living/list").then(res => {
-                if (res) {
+                if (res.length>0) {
                     _this.data = res[0];
                 }
             });

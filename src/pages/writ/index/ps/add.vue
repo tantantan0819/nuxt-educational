@@ -278,21 +278,12 @@ export default {
             }
         });
         //获取申请结果、押金类型、申请结果、课程类型
-        let dictionary = getStore("dictionary");
-        if (dictionary) {
-            _this.resultArr = dictionary.RESULT_OFFER;
-            _this.deposit = dictionary.DEPOSIT_TYPE;
-            _this.signList = dictionary.APPLY_TYPE;
-            _this.course = dictionary.COURSE_TYPE;
-        } else {
-            http.get("/code-val/group-key-list").then(res => {
+        http.get("/code-val/group-key-list").then(res => {
                 _this.resultArr = res.RESULT_OFFER;
                 _this.deposit = res.DEPOSIT_TYPE;
                 _this.signList = res.APPLY_TYPE;
                 _this.course = res.COURSE_TYPE;
-                setStore("dictionary", res);
-            });
-        }
+        });
     },
     methods: {
         //上一步

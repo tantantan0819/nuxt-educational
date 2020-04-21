@@ -305,17 +305,10 @@ export default {
         let _this = this;
         _this.allLetter = _this.$route.query.num;
         //获取关系、性别下拉
-        let dictionary = getStore("dictionary");
-        if (dictionary) {
-            _this.sexList = dictionary.SEX;
-            _this.relaship = dictionary.MY_RELATIONSHIP;
-        } else {
-            http.get("/code-val/group-key-list").then(res => {
+        http.get("/code-val/group-key-list").then(res => {
                 _this.sexList = res.SEX;
                 _this.relaship = res.MY_RELATIONSHIP;
-                setStore("dictionary", res);
             });
-        }
         //推荐信条数
         _this.letterLength = _this.$store.state.letter;
     },

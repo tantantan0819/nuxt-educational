@@ -212,15 +212,9 @@ export default {
         //获取语言成绩
         _this.getLang();
         //获取证书类别下拉
-        let dictionary = getStore("dictionary");
-        if (dictionary) {
-            _this.langType = dictionary.LANGUAGE_CERTIFICATE;
-        } else {
-            http.get("/code-val/group-key-list").then(res => {
-                _this.langType = res.LANGUAGE_CERTIFICATE;
-                setStore("dictionary", res);
-            });
-        }
+        http.get("/code-val/group-key-list").then(res => {
+            _this.langType = res.LANGUAGE_CERTIFICATE;
+        });
     },
 
     methods: {

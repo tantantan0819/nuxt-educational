@@ -107,6 +107,12 @@
                                 @click="add(item.id)"
                                 v-if="item.isMultiple ||item.material_lists.length<1"
                             >新增</span>
+                            <span
+                                class="visa_btn"
+                                style="width:65px"
+                                @click="loadFile(item.material_lists[0].file_url,item.material_lists[0].origin_name)"
+                                v-if="!item.isMultiple && item.material_lists.length>0"
+                            >下载</span>
                         </div>
                     </div>
                 </div>
@@ -243,17 +249,10 @@ export default {
         //获取签证类型
         getType() {
             let _this = this;
-            let dictionary = getStore("dictionary");
-            if (dictionary) {
-                _this.type = dictionary.VISA_TYPE;
-                _this.status = dictionary.MATERIAL_STATUS;
-            } else {
-                http.get("/code-val/group-key-list").then(res => {
+            http.get("/code-val/group-key-list").then(res => {
                     _this.type = res.VISA_TYPE;
                     _this.status = res.MATERIAL_STATUS;
-                    setStore("dictionary", res);
-                });
-            }
+            });
         },
         //过滤签证类型
         typeFormat(row, column) {
@@ -319,6 +318,10 @@ export default {
             let _this = this;
             _this.addForm.material_id = id;
             _this.addShow = true;
+        },
+        //下载文件（单文件且有数据时：将新增按钮更改为下载按钮）
+        loadFile(url,name){
+            window.open(url+'?attname='+name,'_self')
         }
     }
 };

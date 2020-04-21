@@ -68,64 +68,59 @@ export default {
     data() {
         return {
             data: {},
-             arrange_type: [], //安排方式
-             pay_type: [], //付款方式
+            arrange_type: [], //安排方式
+            pay_type: [] //付款方式
         };
     },
-        beforeCreate() {
+    beforeCreate() {
         that = this;
     },
-    filters:{
-          arrangeFilters(val) {
+    filters: {
+        arrangeFilters(val) {
             let type = "";
-            that.arrange_type.map((item, index) => {
-                if (item.id == val) {
-                    type = item.cvalue_cn;
-                }
-            });
+            if (val) {
+                that.arrange_type.map((item, index) => {
+                    if (item.id == val) {
+                        type = item.cvalue_cn;
+                    }
+                });
+            }
             return type;
         },
-            payFilters(val){
-                let type = "";
+        payFilters(val) {
+            let type = "";
             that.pay_type.map((item, index) => {
                 if (item.id == val) {
                     type = item.cvalue_cn;
                 }
             });
             return type;
-        },
+        }
     },
     mounted() {
         //获取我的接机
         this.getPickUp();
-         //获取字典
-          this.getType();
+        //获取字典
+        this.getType();
     },
     methods: {
         //获取我的接机
         getPickUp() {
             let _this = this;
             http.get("/utrack-reception/list").then(res => {
-                if (res) {
+                if (res.length>0) {
                     _this.data = res[0];
                 }
             });
         },
-          //获取字典
+        //获取字典
         getType() {
             let _this = this;
-            let dictionary = getStore("dictionary");
-            if (dictionary) {
-                _this.arrange_type = dictionary.RECEPTION_ARRANGE_TYPE;
-                _this.pay_type = dictionary.PAY_TYPE;
-            } else {
-                http.get("/code-val/group-key-list").then(res => {
-                    _this.arrange_type = res.RECEPTION_ARRANGE_TYPE;
-                    _this.pay_type = res.PAY_TYPE;
-                    setStore("dictionary", res);
-                });
-            }
-        },
+            http.get("/code-val/group-key-list").then(res => {
+                _this.arrange_type = res.RECEPTION_ARRANGE_TYPE;
+                _this.pay_type = res.PAY_TYPE;
+            });
+        }
     }
 };
 </script>

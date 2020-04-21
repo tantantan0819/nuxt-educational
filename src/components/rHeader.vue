@@ -111,6 +111,7 @@ export default {
                     message: "退出成功！",
                     type: "success"
                 });
+                localStorage.clear();
                 setTimeout(() => {
                     layoutMsg.close();
                     setStore("isLogin", "0");

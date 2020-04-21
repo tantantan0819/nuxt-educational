@@ -272,25 +272,14 @@ export default {
         //获取院校选择
         _this.schoolData();
         //获取毕业院校下拉
-        let schoolList = getStore("schoolList");
-        if (schoolList) {
-            _this.select.school = schoolList;
-        } else {
-            http.get("/school-local/list").then(res => {
+        http.get("/school-local/list").then(res => {
                 _this.select.school = res.list;
                 setStore("schoolList", res.list);
-            });
-        }
+         });
         //获取学历下拉
-        let dictionary = getStore("dictionary");
-        if (dictionary) {
-            _this.select.record = dictionary.CURRENT_DEGREE;
-        } else {
-            http.get("/code-val/group-key-list").then(res => {
-                _this.select.record = res.CURRENT_DEGREE;
-                setStore("dictionary", res);
-            });
-        }
+        http.get("/code-val/group-key-list").then(res => {
+            _this.select.record = res.CURRENT_DEGREE;
+        });
         //获取专业下拉
         http.get("/major-local/list").then(res => {
             _this.select.major = res.list;

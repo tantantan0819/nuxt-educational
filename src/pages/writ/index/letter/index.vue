@@ -43,14 +43,17 @@
             <div class="add notice add_note">
                 <el-dialog title :visible.sync="outerVisible">
                     <div class="add_title">推荐信须知</div>
-                    <div class="add_content notice_content add_con" >
+                    <div class="add_content notice_content add_con">
                         <p>1）推荐信必须遵循一定的模板和格式；</p>
                         <p>2）推荐信的长度300-500字为宜；</p>
                         <el-checkbox v-model="notice" class="notice_text">我已阅读 “推荐信须知” 内容</el-checkbox>
-                         <div class="add_footer letter_footer " >
+                        <div class="add_footer letter_footer">
                             <span @click="outerVisible=false">取消制作</span>
-                            <span @click="start()" :class="{'letter_active':notice,'gray':!notice}">开始制作推荐信素材！</span>
-                    </div>
+                            <span
+                                @click="start()"
+                                :class="{'letter_active':notice,'gray':!notice}"
+                            >开始制作推荐信素材！</span>
+                        </div>
                     </div>
                 </el-dialog>
             </div>
@@ -183,17 +186,10 @@ export default {
             }
         });
         //获取关系、性别下拉
-        let dictionary = getStore("dictionary");
-        if (dictionary) {
-            _this.sexList = dictionary.SEX;
-            _this.relaship = dictionary.MY_RELATIONSHIP;
-        } else {
-            http.get("/code-val/group-key-list").then(res => {
-                _this.sexList = res.SEX;
-                _this.relaship = res.MY_RELATIONSHIP;
-                setStore("dictionary", res);
-            });
-        }
+        http.get("/code-val/group-key-list").then(res => {
+            _this.sexList = res.SEX;
+            _this.relaship = res.MY_RELATIONSHIP;
+        });
     },
     computed: {
         //剩余推荐信份数

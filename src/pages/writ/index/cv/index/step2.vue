@@ -85,9 +85,9 @@
                                     :value="item.id"
                                 ></el-option>
                             </el-select>
-                        </el-form-item> -->
-                           <el-form-item label="毕业/就读专业" prop="majorname_cn">
-                             <el-input
+                        </el-form-item>-->
+                        <el-form-item label="毕业/就读专业" prop="majorname_cn">
+                            <el-input
                                 v-model="cvForm2.majorname_cn"
                                 placeholder="请输入您的毕业/就读专业"
                                 autocomplete="off"
@@ -123,60 +123,69 @@
                     </div>
                 </div>
                 <div class="add_note">
-   <el-dialog width="650px" title :visible.sync="innerVisible" class="add_note" append-to-body>
-                    <div class="add_title">学校列表</div>
-                    <div class="add_content school_content">
-                        <el-input
-                            class="input-with-select"
-                            placeholder="请输入搜索的学校名称"
-                            v-model="search"
-                            @keyup.enter.native="searchSchool"
-                        >
-                            <el-select
-                                v-model="state"
-                                slot="prepend"
-                                placeholder="请选择"
-                                @change="changeState"
+                    <el-dialog
+                        width="650px"
+                        title
+                        :visible.sync="innerVisible"
+                        class="add_note"
+                        append-to-body
+                    >
+                        <div class="add_title">学校列表</div>
+                        <div class="add_content school_content">
+                            <el-input
+                                class="input-with-select"
+                                placeholder="请输入搜索的学校名称"
+                                v-model="search"
+                                @keyup.enter.native="searchSchool"
                             >
-                                <el-option label="全部" value></el-option>
-                                <el-option
-                                    v-for="(item,index) in select.state"
-                                    :key="index"
-                                    :label="item.country"
-                                    :value="item.country"
-                                ></el-option>
-                            </el-select>
-                            <el-button slot="append" icon="el-icon-search" @click="searchSchool"></el-button>
-                        </el-input>
-                        <div class="school_table">
-                            <el-table :data="schoolTable" stripe style="width: 100%">
-                                <el-table-column prop label="选择" width="70">
-                                    <template slot-scope="scope">
-                                        <el-radio
-                                            v-model="selectSchool"
-                                            :label="schoolTable[scope.$index].id"
-                                            @change="handleEdit(scope.$index)"
-                                            class="schoolRadio"
-                                        ></el-radio>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column prop="school_name" label="学校名称"></el-table-column>
-                                <el-table-column prop="country" label="所在地" width="150"></el-table-column>
-                            </el-table>
-                            <el-pagination
-                                :hide-on-single-page="isHidden"
-                                layout="total,prev, pager, next"
-                                :total="schoolTotal"
-                                @current-change="handleCurrentChange"
-                            ></el-pagination>
+                                <el-select
+                                    v-model="state"
+                                    slot="prepend"
+                                    placeholder="请选择"
+                                    @change="changeState"
+                                >
+                                    <el-option label="全部" value></el-option>
+                                    <el-option
+                                        v-for="(item,index) in select.state"
+                                        :key="index"
+                                        :label="item.country"
+                                        :value="item.country"
+                                    ></el-option>
+                                </el-select>
+                                <el-button
+                                    slot="append"
+                                    icon="el-icon-search"
+                                    @click="searchSchool"
+                                ></el-button>
+                            </el-input>
+                            <div class="school_table">
+                                <el-table :data="schoolTable" stripe style="width: 100%">
+                                    <el-table-column prop label="选择" width="70">
+                                        <template slot-scope="scope">
+                                            <el-radio
+                                                v-model="selectSchool"
+                                                :label="schoolTable[scope.$index].id"
+                                                @change="handleEdit(scope.$index)"
+                                                class="schoolRadio"
+                                            ></el-radio>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column prop="school_name" label="学校名称"></el-table-column>
+                                    <el-table-column prop="country" label="所在地" width="150"></el-table-column>
+                                </el-table>
+                                <el-pagination
+                                    :hide-on-single-page="isHidden"
+                                    layout="total,prev, pager, next"
+                                    :total="schoolTotal"
+                                    @current-change="handleCurrentChange"
+                                ></el-pagination>
+                            </div>
+                            <div class="footer_button">
+                                <span @click="closeSchool">确定</span>
+                            </div>
                         </div>
-                        <div class="footer_button">
-                            <span @click="closeSchool">确定</span>
-                        </div>
-                    </div>
-                </el-dialog>
+                    </el-dialog>
                 </div>
-             
             </el-dialog>
         </div>
     </div>
@@ -221,7 +230,7 @@ export default {
                 // major_id: "",
                 qualification: "",
                 average_result: "",
-                majorname_cn:'',
+                majorname_cn: ""
             }, //添加教育背景
             rules: {
                 admission_date: [
@@ -293,15 +302,9 @@ export default {
             });
         }
         //获取学历下拉
-        let dictionary = getStore("dictionary");
-        if (dictionary) {
-            _this.select.record = dictionary.CURRENT_DEGREE;
-        } else {
-            http.get("/code-val/group-key-list").then(res => {
-                _this.select.record = res.CURRENT_DEGREE;
-                setStore("dictionary", res);
-            });
-        }
+        http.get("/code-val/group-key-list").then(res => {
+            _this.select.record = res.CURRENT_DEGREE;
+        });
         //获取专业下拉
         http.get("/major-local/list").then(res => {
             _this.select.major = res.list;
