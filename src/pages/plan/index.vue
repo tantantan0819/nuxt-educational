@@ -203,7 +203,6 @@
 <script>
 import http from "~/plugins/http";
 import uhttp from "~/plugins/uhttp";
-import { getStore, setStore } from "~/plugins/utils";
 export default {
     layout: "refactor",
     data() {
@@ -265,6 +264,8 @@ export default {
                         link.click();
                         window.URL.revokeObjectURL(link.href);
                     }
+                }).catch(error=>{
+                    console.log(error,'error')
                 });
             } else {
                 _this.$message.warning("请先选择您要下载的方案！");

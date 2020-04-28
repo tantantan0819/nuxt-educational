@@ -166,6 +166,7 @@ const http = {
 
     return service.request(conf).then(async function (response) {
       const res = response.data;
+      //我的方案--下载--直接返回二进制流文件
       if(response.config.url == '/down-file/down'){
         return Promise.resolve(response.data);
       }
