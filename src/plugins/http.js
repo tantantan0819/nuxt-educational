@@ -103,14 +103,15 @@ const http = {
    * @returns {*}
    */
   get: function (url, data = {}, cache = 10000) {
-    if (cache != true) {
-
-    }
     const config = {
       url: Config.api_host + url,
       method: 'get',
       params: this.filter(data),
     };
+    //我的方案--下载方案
+    if(url == "/down-file/down"){
+      config.responseType = 'blob';
+    }
     return http.request(config)
   },
 

@@ -11,3 +11,4 @@ npm-debug.log
 dist
 .history/
 src/plugins/config.js
+package-lock.json
