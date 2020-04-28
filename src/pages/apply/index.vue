@@ -73,7 +73,6 @@
                 </el-table>
             </div>
         </div>
-        <!-- <upload-btn></upload-btn> -->
         <!-- 查看申请详情 -->
         <div class="add_note">
             <el-dialog :visible.sync="applyShow" width="1024px" center>
@@ -270,7 +269,6 @@
 <script>
 import http from "~/plugins/http";
 import config from "~/plugins/config";
-import { getStore, setStore } from "~/plugins/utils";
 import UploadBtn from "~/components/upload";
 
 export default {

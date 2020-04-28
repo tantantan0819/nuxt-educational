@@ -9,12 +9,15 @@
     background: linear-gradient(45deg,$fb1,$fde);
     overflow: auto;
     .rfactor_left{
-        width: 280px;
+        width: 280px!important;
+        min-width: 280px!important;
         border-right: 1px solid $fce;
+        overflow: hidden;
         .rnav{
             .rnav_img{
                 @include cr();
                 height: 102px;
+                width: 280px;
                 img{
                     @include wh(210px,50px);
                 }
@@ -86,7 +89,7 @@
                         height: 24px;
                         @include fontc(14px,24px,$f1d);
                         p{
-                            
+
                             span{
                                 margin-right: 8px;
                             }
@@ -106,7 +109,7 @@
 
                             }
                         }
-                       
+
                     }
                 }
             }
@@ -165,7 +168,7 @@
             background-color:$f15;
             border-color: $f15;
         }
-      
+
         .cell{
             @include cc();
             padding: 4px 0;
@@ -218,7 +221,7 @@
             resize: none;
             height: 170px;
         }
-      
+
     }
 }
 .upload_lang{
@@ -298,9 +301,9 @@
    .letter_footer{
     span{
         width: 200px!important;
-       
+
     }
-   } 
+   }
    .letter_active{
     background-color: $f15;
    }

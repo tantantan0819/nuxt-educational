@@ -66,12 +66,6 @@
             },1)
         },
         methods: {
-            //enter下一个input获得焦点
-            fun() {
-                const DOM = event.target;
-                const nextDOM = DOM.nextElementSibling;
-                nextDOM.focus()
-            },
             //提交表单
             submitForm(formName) {
                 let _this = this;

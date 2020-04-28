@@ -151,7 +151,6 @@
 @import "~/assets/css/ps.scss";
 </style>
 <script>
-import { validEmail, validPhone } from "~/plugins/validate";
 import http from "~/plugins/http";
 
 export default {

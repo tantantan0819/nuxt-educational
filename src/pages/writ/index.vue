@@ -34,6 +34,7 @@ export default {
         _this.getName();
     },
     methods: {
+        //切换导航
         changeNav(path, index) {
             let _this = this;
             if (path) {

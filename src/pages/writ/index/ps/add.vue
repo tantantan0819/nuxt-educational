@@ -38,10 +38,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="add_footer">
-                <span @click="prev">取消</span>
-                <span @click="next" :class="{'gray':!isNext}">下一步</span>
-            </div> -->
             <div class="cv_footer ps_footer">
                 <div class="footer_button">
                     <span @click="prev">
@@ -219,8 +215,6 @@
 <script>
 import http from "~/plugins/http";
 import config from "~/plugins/config";
-import { getStore, setStore } from "~/plugins/utils";
-
 let that;
 export default {
     layout: "refactor",

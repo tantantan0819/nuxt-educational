@@ -73,7 +73,6 @@
 </template>
 <script>
 import http from "~/plugins/http";
-import { getStore, setStore } from "~/plugins/utils";
 let that;
 export default {
     layout: "refactor",

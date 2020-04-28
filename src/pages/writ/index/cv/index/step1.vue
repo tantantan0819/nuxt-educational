@@ -135,7 +135,6 @@
                         _this.cvForm1.phone += '';
                         http.post('/customer/edit', _this.cvForm1).then((res) => {
                             _this.$store.commit('user/SET_USER', _this.cvForm1);
-                          
                             let successMsg = _this.$message({
                                 message: '提交成功',
                                 type: 'success'

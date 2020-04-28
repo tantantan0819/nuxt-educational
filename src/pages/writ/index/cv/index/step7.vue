@@ -47,7 +47,6 @@
                 class="cvTextarea cvTextarea2"
                 autocomplete="off"
               ></el-input>
-              <!-- <span class="textareaTip">还可输入{{titleMaxLength - cvForm6.interest.length}}字</span> -->
             </el-form-item>
             <el-form-item label="语言" prop="lang" class="cvTextareaBox">
               <el-input
@@ -57,7 +56,6 @@
                 class="cvTextarea cvTextarea2"
                 autocomplete="off"
               ></el-input>
-              <!-- <span class="textareaTip">还可输入{{titleMaxLength - cvForm6.lang.length}}字</span> -->
             </el-form-item>
             <el-form-item label="技能" prop="skill" class="cvTextareaBox">
               <el-input
@@ -67,7 +65,6 @@
                 class="cvTextarea cvTextarea2"
                 autocomplete="off"
               ></el-input>
-              <!-- <span class="textareaTip">还可输入{{titleMaxLength - cvForm6.skill.length}}字</span> -->
             </el-form-item>
             <el-form-item label="证书" prop="certificate" class="cvTextareaBox">
               <el-input
@@ -77,7 +74,6 @@
                 class="cvTextarea cvTextarea2"
                 autocomplete="off"
               ></el-input>
-              <!-- <span class="textareaTip">还可输入{{titleMaxLength - cvForm6.certificate.length}}字</span> -->
             </el-form-item>
           </el-form>
           <div class="footer_button">

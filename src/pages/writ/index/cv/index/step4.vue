@@ -68,7 +68,6 @@
                 class="cvTextarea cvTextarea2"
                 autocomplete="off"
               ></el-input>
-              <!-- <span class="textareaTip">还可输入{{titleMaxLength - cvForm4.descript.length}}字</span> -->
             </el-form-item>
           </el-form>
           <div class="footer_button">

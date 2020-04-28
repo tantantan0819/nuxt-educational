@@ -43,12 +43,10 @@
                 <div class="person_item">
                     <span class="title">手机号</span>
                     <span class="con">{{person.phone || ''}}</span>
-                    <!--          <span class="modify" @click="visiblePhone=true"><i>修改手机号</i></span>-->
                 </div>
                 <div class="person_item">
                     <span class="title">邮箱</span>
                     <span class="con">{{person.email || ''}}</span>
-                    <!--          <span class="modify" @click="visibleEmail=true"><i>修改邮箱</i></span>-->
                 </div>
                  <div class="person_item">
                     <span class="title">生日</span>

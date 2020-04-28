@@ -68,9 +68,6 @@
                                 class="cvTextarea cvTextarea2"
                                 autocomplete="off"
                             ></el-input>
-                            <!-- <span
-                                class="textareaTip"
-                            >还可输入{{titleMaxLength - cvForm5.descript.length}}字</span> -->
                         </el-form-item>
                     </el-form>
                     <div class="footer_button">
@@ -89,7 +86,6 @@
 </style>
 <script>
 import http from "~/plugins/http";
-import { dateFormat } from "~/plugins/utils";
 import InfoModify from "~/components/infoModify";
 export default {
     layout: "refactor",

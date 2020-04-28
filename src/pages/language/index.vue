@@ -27,7 +27,6 @@
                         <a :href="scope.row.file" target="_blank">{{scope.row.file_name}}</a>
                     </template>
                 </el-table-column>
-                <!-- <el-table-column prop="file" label="文件"></el-table-column> -->
                 <el-table-column prop="lang_note" label="备注"></el-table-column>
                 <el-table-column label="操作" width="140">
                     <template slot-scope="scope">
@@ -136,7 +135,6 @@
 </style>
 <script>
 import http from "~/plugins/http";
-import { getStore, setStore } from "~/plugins/utils";
 import UploadBtn from "~/components/upload";
 export default {
     layout: "refactor",

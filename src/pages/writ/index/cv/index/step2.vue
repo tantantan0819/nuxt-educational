@@ -72,20 +72,6 @@
                                 @focus="innerVisible=true"
                             ></el-input>
                         </el-form-item>
-                        <!-- <el-form-item label="毕业/就读专业" prop="major_id">
-                            <el-select
-                                v-model="cvForm2.major_id"
-                                class="widthAll"
-                                placeholder="请选择您的毕业/就读专业"
-                            >
-                                <el-option
-                                    v-for="(item,index) in select.major"
-                                    :key="index"
-                                    :label="item.major_name_cn"
-                                    :value="item.id"
-                                ></el-option>
-                            </el-select>
-                        </el-form-item>-->
                         <el-form-item label="毕业/就读专业" prop="majorname_cn">
                             <el-input
                                 v-model="cvForm2.majorname_cn"

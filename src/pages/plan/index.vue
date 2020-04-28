@@ -2,7 +2,7 @@
     <div class="plan con">
         <div class="version_title two_title">
             <span>我的方案</span>
-            <span @click="upload">下载方案</span>
+            <span @click="upload">下载方案{{isLogin}}</span>
         </div>
         <div class="refactor_table">
             <el-table
@@ -203,6 +203,7 @@
 <script>
 import http from "~/plugins/http";
 import uhttp from "~/plugins/uhttp";
+import { mapState } from 'vuex'
 export default {
     layout: "refactor",
     data() {
@@ -220,6 +221,9 @@ export default {
                 }
             } //方案详情
         };
+    },
+    computed:{
+        ...mapState(['isLogin'])
     },
     mounted() {
         let _this = this;
@@ -291,6 +295,7 @@ export default {
                 }
             });
         },
+        //勾选方案--可多选、全选
         handleSelectionChange(val) {
             let _this = this;
             _this.uploadArr = [];

@@ -13,7 +13,6 @@
   @import "~/assets/css/cv.scss";
 </style>
 <script>
-    import {setStore} from '~/plugins/utils';
     export default {
         layout: 'refactor',
         data() {
