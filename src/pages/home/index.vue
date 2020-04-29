@@ -128,12 +128,29 @@
                 </div>
             </div>
         </div>
+      <div class="bottom_box">
         <div class="about">
-            <div class="about_title">关于UKEC</div>
-            <div class="about_box">
-                <p>{{aboutUKec}}</p>
-            </div>
+          <div class="about_title">关于UKEC</div>
+          <div class="about_box">
+            <p>{{aboutUKec}}</p>
+          </div>
         </div>
+        <div class="banner about">
+          <div
+            v-swiper:mySwiper3="swiperOption3"
+            ref="swiperOption3"
+            style="height: 220px;"
+          >
+            <div class="swiper-wrapper">
+              <div
+                class="swiper-slide banner_img"
+              >
+                <a href="#"><img src="https://ukec.mailxpv.com/Logo/2015-09-02/55e6a3ebccd58.jpg" alt=""></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
         <!-- 新增代办事项的 -->
         <div class="add_note">
             <el-dialog :visible.sync="noteShow" width="717px" center>
@@ -201,6 +218,20 @@ export default {
                 notNextTick: true //notNextTick是一个组件自有属性，如果notNextTick设置为true，组件则不会通过NextTick来实例化swiper，也就意味着你可以在第一时间获取到swiper对象，假如你需要刚加载遍使用获取swiper对象来做什么事，那么这个属性一定要是true
             },
             swiperOption3: {
+                speed: 300,
+                loop: false,
+                initialSlide: 1,
+                autoplay: {
+                    disableOnInteraction: false //手动滑动之后不打断播放
+                },
+                autoHeight: true, //高度随内容变化
+                direction: "vertical", //方向
+                observer: true, //修改swiper自己或子元素时，自动初始化swiper
+                observeParents: true, //修改swiper的父元素时，自动初始化swiper
+                slidesPerView: "auto", //一页显示几个
+                notNextTick: true //notNextTick是一个组件自有属性，如果notNextTick设置为true，组件则不会通过NextTick来实例化swiper，也就意味着你可以在第一时间获取到swiper对象，假如你需要刚加载遍使用获取swiper对象来做什么事，那么这个属性一定要是true
+            },
+            swiperOption4: {
                 speed: 300,
                 loop: false,
                 initialSlide: 1,
