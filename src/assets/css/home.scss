@@ -220,12 +220,14 @@
   margin-top: 20px;
   .about{
     width: 50%;
+    margin-right: 10px;
     background-color: #ffffff;
     box-shadow: 3px 4px 3px 0px
     rgba(0, 0, 0, 0.12);
     border-radius: 10px;
     border: solid 1px rgba(0, 0, 0, 0.14);
-    overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
     .about_title{
       @include fontc(18px,18px,$f0);
       background-color: #dddddd;
@@ -240,6 +242,27 @@
         white-space: pre-wrap;
         &:last-child{
           margin-bottom: 0;
+        }
+      }
+    }
+  }
+  .banner{
+    width: 50%;
+    background-color: #ffffff;
+    box-shadow: 3px 4px 3px 0px
+    rgba(0, 0, 0, 0.12);
+    border-radius: 10px;
+    border: solid 1px rgba(0, 0, 0, 0.14);
+    overflow: hidden;
+    .swiper-wrapper{
+      height: 100%!important;
+    }
+    .swiper-slide{
+      height: 100%!important;
+      a{
+        img{
+          width: 100%;
+          height: 100%;
         }
       }
     }

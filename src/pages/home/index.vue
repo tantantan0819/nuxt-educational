@@ -128,24 +128,29 @@
                 </div>
             </div>
         </div>
-      <div class="bottom_box">
-        <div class="about">
+      <div class="bottom_box" ref="dynamic">
+        <div class="about" :style="{height: dynamicHeight}">
           <div class="about_title">关于UKEC</div>
           <div class="about_box">
             <p>{{aboutUKec}}</p>
           </div>
         </div>
-        <div class="banner about">
+        <div class="banner" :style="{height: dynamicHeight}">
           <div
-            v-swiper:mySwiper3="swiperOption3"
-            ref="swiperOption3"
-            style="height: 220px;"
+            v-swiper:mySwiper4="swiperOption4"
+            ref="swiperOption4"
+            style="height: 100%;"
           >
             <div class="swiper-wrapper">
               <div
                 class="swiper-slide banner_img"
               >
-                <a href="#"><img src="https://ukec.mailxpv.com/Logo/2015-09-02/55e6a3ebccd58.jpg" alt=""></a>
+                <a href="#"><img src="/images/banner.jpg" alt=""></a>
+              </div>
+              <div
+                class="swiper-slide banner_img"
+              >
+                <a href="#"><img src="/images/banner.jpg" alt=""></a>
               </div>
             </div>
           </div>
@@ -189,6 +194,7 @@ export default {
             note_con: [],
             isSart: 0,
             isEnd: 7,
+            dynamicHeight:'',
             swiperOption1: {
                 initialSlide: 1,
                 speed: 300,
@@ -239,7 +245,6 @@ export default {
                     disableOnInteraction: false //手动滑动之后不打断播放
                 },
                 autoHeight: true, //高度随内容变化
-                direction: "vertical", //方向
                 observer: true, //修改swiper自己或子元素时，自动初始化swiper
                 observeParents: true, //修改swiper的父元素时，自动初始化swiper
                 slidesPerView: "auto", //一页显示几个
@@ -304,8 +309,23 @@ export default {
         _this.getNotice();
         //获取关于ukec
         _this.getAbout();
+        //获取浏览器宽度调整关于我们与banner模块高度
+        _this.getWidth();
+        window.onresize = () => {
+            return (() => {
+                _this.getWidth();
+            })();
+        };
     },
     methods: {
+        //获取浏览器宽度调整关于我们与banner模块高度
+        getWidth(){
+            let _this = this;
+            this.$nextTick(function () {
+                let width = _this.$refs.dynamic.clientWidth;
+                _this.dynamicHeight = width/2*0.45+'px';
+            })
+        },
         //取消新增待办事项
         cancel(formName) {
             this.$refs[formName].resetFields();
