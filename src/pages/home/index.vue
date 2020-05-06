@@ -140,19 +140,18 @@
             v-swiper:mySwiper4="swiperOption4"
             ref="swiperOption4"
             style="height: 100%;"
+            v-if="bannerList.length>0"
           >
             <div class="swiper-wrapper">
               <div
                 class="swiper-slide banner_img"
+                v-for="(item,index) in bannerList"
+                :key="index+'banner'"
               >
-                <a href="#"><img src="/images/banner.jpg" alt=""></a>
-              </div>
-              <div
-                class="swiper-slide banner_img"
-              >
-                <a href="#"><img src="/images/banner.jpg" alt=""></a>
+                <a :href="item.http_url" target="_blank"><img :src="item.img_url" :alt="item.name"></a>
               </div>
             </div>
+            <div class="swiper-pagination" v-for="(item,index) in bannerList" :key="index+'dot'" slot="pagination"></div>
           </div>
         </div>
       </div>
@@ -191,6 +190,7 @@ export default {
     layout: "refactor",
     data() {
         return {
+            bannerList: [],//banner轮播
             note_con: [],
             isSart: 0,
             isEnd: 7,
@@ -239,10 +239,15 @@ export default {
             },
             swiperOption4: {
                 speed: 300,
-                loop: false,
+                loop: true,
                 initialSlide: 1,
                 autoplay: {
                     disableOnInteraction: false //手动滑动之后不打断播放
+                },
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                    type: "bullets"
                 },
                 autoHeight: true, //高度随内容变化
                 observer: true, //修改swiper自己或子元素时，自动初始化swiper
@@ -305,11 +310,13 @@ export default {
     },
     mounted() {
         let _this = this;
+        //获取首页banner
+        _this.getBanner();
         //获取ukec通知
         _this.getNotice();
         //获取关于ukec
         _this.getAbout();
-        //获取浏览器宽度调整关于我们与banner模块高度
+        //获取浏览器宽度调整关于我们与banner模块高度--宽度与高度始终保持800：360的比例
         _this.getWidth();
         window.onresize = () => {
             return (() => {
@@ -318,7 +325,16 @@ export default {
         };
     },
     methods: {
-        //获取浏览器宽度调整关于我们与banner模块高度
+        //获取首页banner
+        getBanner(){
+            let _this = this;
+            http.get("/utrack-banner/list").then(res => {
+                if (res) {
+                    _this.bannerList = res;
+                }
+            });
+        },
+        //获取浏览器宽度调整关于我们与banner模块高度--宽度与高度始终保持800：360的比例
         getWidth(){
             let _this = this;
             this.$nextTick(function () {
@@ -339,7 +355,7 @@ export default {
             //获取当月待办事项
             _this.getNote(
                 _this.now_year + "-" + _this.now_month + "-01",
-                _this.now_year + "-" + _this.now_month + "-" + "duringNum"
+                _this.now_year + "-" + _this.now_month + "-" + _this.duringNum
             );
         },
         //是否应该展示灰色日历
@@ -568,7 +584,8 @@ export default {
                     );
                 }
             });
-        }
+        },
+
     }
 };
 </script>

@@ -257,6 +257,9 @@
     .swiper-wrapper{
       height: 100%!important;
     }
+    .swiper-pagination-bullet-active{
+      background: $ff0;
+    }
     .swiper-slide{
       height: 100%!important;
       a{
