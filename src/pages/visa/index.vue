@@ -90,7 +90,7 @@
                                 <span>{{item2.material_name}}</span>
                                 <span>
                                     <a
-                                        :href="img_url+item2.file_url"
+                                        :href="item2.file_url"
                                         target="_blank"
                                     >{{item2.origin_name}}</a>
                                 </span>
