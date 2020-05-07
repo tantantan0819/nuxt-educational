@@ -217,26 +217,26 @@
 <!--                                    >{{img_url+aboradDetail.fee_file}}</a>-->
 <!--                                </span>-->
 <!--                            </div>-->
-                            <div class="plan_box">
-                                <span>费用备注</span>
-                                <span>{{aboradDetail.fee_note}}</span>
-                            </div>
-                            <div class="plan_box">
-                                <span>特殊备注</span>
-                                <span>{{aboradDetail.special_note}}</span>
-                            </div>
+<!--                            <div class="plan_box">-->
+<!--                                <span>费用备注</span>-->
+<!--                                <span>{{aboradDetail.fee_note}}</span>-->
+<!--                            </div>-->
+<!--                            <div class="plan_box">-->
+<!--                                <span>特殊备注</span>-->
+<!--                                <span>{{aboradDetail.special_note}}</span>-->
+<!--                            </div>-->
                             <div class="plan_box">
                                 <span>签约时间</span>
                                 <span>{{aboradDetail.sign_date}}</span>
                             </div>
-                            <div class="plan_box" v-if="aboradDetail.discount_note">
-                                <span>折扣备注</span>
-                                <span>{{aboradDetail.discount_note}}</span>
-                            </div>
 <!--                            <div class="plan_box" v-if="aboradDetail.discount_note">-->
-<!--                                <span></span>-->
-<!--                                <span></span>-->
+<!--                                <span>折扣备注</span>-->
+<!--                                <span>{{aboradDetail.discount_note}}</span>-->
 <!--                            </div>-->
+                            <div class="plan_box">
+                                <span></span>
+                                <span></span>
+                            </div>
                         </div>
                     </div>
                     <div class="add_footer">
