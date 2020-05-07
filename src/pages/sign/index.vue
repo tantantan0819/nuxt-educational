@@ -207,17 +207,16 @@
                                 <span>入学时间</span>
                                 <span>{{aboradDetail.encrol_date}}</span>
                             </div>
-                            <div class="plan_box">
-                                <span>付款证明</span>
-                                <span>
-                                    <a
-                                        :href="img_url+aboradDetail.fee_file"
-                                        target="_blank"
-                                        v-if="aboradDetail.fee_file"
-                                    >{{img_url+aboradDetail.fee_file}}</a>
-                                </span>
-                            </div>
-
+<!--                            <div class="plan_box">-->
+<!--                                <span>付款证明</span>-->
+<!--                                <span>-->
+<!--                                    <a-->
+<!--                                        :href="img_url+aboradDetail.fee_file"-->
+<!--                                        target="_blank"-->
+<!--                                        v-if="aboradDetail.fee_file"-->
+<!--                                    >{{img_url+aboradDetail.fee_file}}</a>-->
+<!--                                </span>-->
+<!--                            </div>-->
                             <div class="plan_box">
                                 <span>费用备注</span>
                                 <span>{{aboradDetail.fee_note}}</span>
@@ -234,10 +233,10 @@
                                 <span>折扣备注</span>
                                 <span>{{aboradDetail.discount_note}}</span>
                             </div>
-                            <div class="plan_box" v-if="aboradDetail.discount_note">
-                                <span></span>
-                                <span></span>
-                            </div>
+<!--                            <div class="plan_box" v-if="aboradDetail.discount_note">-->
+<!--                                <span></span>-->
+<!--                                <span></span>-->
+<!--                            </div>-->
                         </div>
                     </div>
                     <div class="add_footer">
