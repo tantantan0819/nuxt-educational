@@ -108,14 +108,13 @@
                                 <span>预计最迟递签日期</span>
                                 <span>{{visaDetail.sign_end_date}}</span>
                             </div>
-
-                            <div class="plan_box">
+                            <div class="plan_box plan_free">
                                 <span>应收服务费</span>
-                                <span>{{visaDetail.due_fee}}</span>
+                                <span><i>￥{{visaDetail.due_fee}}</i></span>
                             </div>
-                            <div class="plan_box">
+                            <div class="plan_box plan_free">
                                 <span>实收服务费</span>
-                                <span>{{visaDetail.sum_fee}}</span>
+                                <span><i>￥{{visaDetail.sum_fee}}</i></span>
                             </div>
                             <div class="plan_box">
                                 <span>发票/收据号</span>
@@ -191,13 +190,13 @@
                                 <span>PS总数</span>
                                 <span>{{aboradDetail.ps_number}}</span>
                             </div>
-                            <div class="plan_box">
+                            <div class="plan_box plan_free">
                                 <span>应收总金额</span>
-                                <span>{{aboradDetail.due_fee}}</span>
+                                <span><i>￥{{aboradDetail.due_fee}}</i></span>
                             </div>
-                            <div class="plan_box">
+                            <div class="plan_box plan_free">
                                 <span>实收总金额</span>
-                                <span>{{aboradDetail.sum_fee}}</span>
+                                <span><i>￥{{aboradDetail.sum_fee}}</i></span>
                             </div>
                             <div class="plan_box">
                                 <span>发票/收据号</span>
@@ -245,6 +244,159 @@
                 </div>
             </el-dialog>
         </div>
+      <!-- 查看留学子合同详情-- 院校加申-->
+      <div class="add_note">
+        <el-dialog :visible.sync="schoolShow" width="1024px" center>
+          <div class="add_title">留学合同详情</div>
+          <div class="add_con plan_add_plan aborad sign_add_con">
+            <div class="plan_item">
+              <div class="plan_wrap">
+                <div class="plan_box">
+                  <span>客户姓名</span>
+                  <span>{{aboradDetail.customer_name}}</span>
+                </div>
+                <div class="plan_box">
+                  <span>所属部门</span>
+                  <span>{{aboradDetail.depart_name}}</span>
+                </div>
+                <div class="plan_box">
+                  <span>合同编号</span>
+                  <span>{{aboradDetail.contract_no}}</span>
+                </div>
+                <div class="plan_box">
+                  <span>合同类型</span>
+                  <span>{{aboradDetail.sign_type}}</span>
+                </div>
+                <div class="plan_box">
+                  <span>支付方式</span>
+                  <span>{{aboradDetail.pay_type}}</span>
+                </div>
+                <div class="plan_box">
+                  <span>课程类型</span>
+                  <span>{{aboradDetail.course_type}}</span>
+                </div>
+                <div class="plan_box">
+                  <span>加申方案数</span>
+                  <span>{{aboradDetail.apply_num}}</span>
+                </div>
+                <div class="plan_box">
+                  <span>入学时间</span>
+                  <span>{{aboradDetail.encrol_date}}</span>
+                </div>
+                <div class="plan_box plan_free">
+                  <span>院校加申</span>
+                  <span>加校费 <i>￥{{aboradDetail.add_school_fee}}</i> 优惠金额 <i>￥{{aboradDetail.discount_fee}}</i> 应收金额 <i>￥{{aboradDetail.due_fee}}</i> 实收金额 <i>￥{{aboradDetail.sum_fee}}</i></span>
+                </div>
+              </div>
+            </div>
+            <div class="add_footer">
+              <span @click="schoolShow = false">取消</span>
+            </div>
+          </div>
+        </el-dialog>
+      </div>
+      <!-- 查看留子学合同详情--文书加写-->
+      <div class="add_note">
+        <el-dialog :visible.sync="writShow" width="1024px" center>
+          <div class="add_title">留学合同详情</div>
+          <div class="add_con plan_add_plan aborad sign_add_con">
+            <div class="plan_item">
+              <div class="plan_wrap">
+                <div class="plan_box">
+                  <span>所属部门</span>
+                  <span>{{aboradDetail.depart_name}}</span>
+                </div>
+                <div class="plan_box">
+                  <span>合同编号</span>
+                  <span>{{aboradDetail.contract_no}}</span>
+                </div>
+                <div class="plan_box">
+                  <span>合同类型</span>
+                  <span>{{aboradDetail.sign_type}}</span>
+                </div>
+                <div class="plan_box">
+                  <span>支付方式</span>
+                  <span>{{aboradDetail.pay_type}}</span>
+                </div>
+                <div class="plan_box">
+                  <span>服务内容</span>
+                  <span>{{aboradDetail.package_type}}</span>
+                </div>
+                <div class="plan_box">
+                  <span>服务数量</span>
+                  <span>{{aboradDetail.service_num}}</span>
+                </div>
+                <div class="plan_box">
+                  <span>入学时间</span>
+                  <span>{{aboradDetail.encrol_date}}</span>
+                </div>
+                <div class="plan_box">
+                  <span></span>
+                  <span></span>
+                </div>
+                <div class="plan_box plan_free">
+                  <span>服务收费</span>
+                  <span>加写费 <i>￥{{aboradDetail.add_school_fee}}</i> 优惠金额 <i>￥{{aboradDetail.discount_fee}}</i> 应收金额 <i>￥{{aboradDetail.due_fee}}</i> 实收金额 <i>￥{{aboradDetail.sum_fee}}</i></span>
+                </div>
+              </div>
+            </div>
+            <div class="add_footer">
+              <span @click="writShow = false">取消</span>
+            </div>
+          </div>
+        </el-dialog>
+      </div>
+      <!-- 查看留子学合同详情--补齐尾款-->
+      <div class="add_note">
+        <el-dialog :visible.sync="paymentShow" width="1024px" center>
+          <div class="add_title">留学合同详情</div>
+          <div class="add_con plan_add_plan aborad sign_add_con">
+            <div class="plan_item">
+              <div class="plan_wrap">
+                <div class="plan_box">
+                  <span>客户姓名</span>
+                  <span>{{aboradDetail.customer_name}}</span>
+                </div>
+                <div class="plan_box">
+                  <span>所属部门</span>
+                  <span>{{aboradDetail.depart_name}}</span>
+                </div>
+                <div class="plan_box">
+                  <span>合同编号</span>
+                  <span>{{aboradDetail.contract_no}}</span>
+                </div>
+                <div class="plan_box">
+                  <span>合同类型</span>
+                  <span>{{aboradDetail.sign_type}}</span>
+                </div>
+                <div class="plan_box">
+                  <span>支付方式</span>
+                  <span>{{aboradDetail.pay_type}}</span>
+                </div>
+                <div class="plan_box">
+                  <span>课程类型</span>
+                  <span>{{aboradDetail.course_type}}</span>
+                </div>
+                <div class="plan_box">
+                  <span>申请方案数</span>
+                  <span>{{aboradDetail.apply_num}}</span>
+                </div>
+                <div class="plan_box">
+                  <span>入学时间</span>
+                  <span>{{aboradDetail.encrol_date}}</span>
+                </div>
+                <div class="plan_box plan_free">
+                  <span>补齐尾款</span>
+                  <span>应收金额 <i>￥{{aboradDetail.due_fee}}</i> 实收金额 <i>￥{{aboradDetail.sum_fee}}</i></span>
+                </div>
+              </div>
+            </div>
+            <div class="add_footer">
+              <span @click="paymentShow = false">取消</span>
+            </div>
+          </div>
+        </el-dialog>
+      </div>
     </div>
 </template>
 <style lang="scss">
@@ -259,6 +411,9 @@ export default {
         return {
             signShow: false, //是否展示签约合同详情
             aboradShow: false, //是否展示留学合同详情
+            schoolShow: false,//留学子合同--院校加申
+            paymentShow: false,//留学子合同--补齐尾款
+            writShow:false,////留学子合同--文书加写
             visaTable: [], //签证合同
             visaDetail: {}, //签证合同详情
             aboradTable: [], //留学合同（后台的签约管理）
@@ -299,7 +454,6 @@ export default {
         //查看签约合同详情
         viewSign(index, val) {
             let _this = this;
-
             http.get("/contract/my-visa-detail", {
                 id: val.id,
                 service_id: _this.service_id
@@ -312,6 +466,8 @@ export default {
         },
         //查看留学合同详情
         viewAborad(index, val) {
+            let package_type = val.package_type;
+            let is_son = val.is_son_flag;
             let _this = this;
             http.get("/contract/my-detail", {
                 id: val.id,
@@ -319,7 +475,15 @@ export default {
             }).then(res => {
                 if (res) {
                     _this.aboradDetail = res;
-                    _this.aboradShow = true;
+                    if(is_son && package_type == '院校加申'){
+                        _this.schoolShow = true;
+                    }else if(is_son && package_type == '文书加写'){
+                        _this.writShow = true;
+                    }else if(is_son && package_type == '补齐尾款'){
+                        _this.paymentShow = true;
+                    }else{
+                        _this.aboradShow = true;
+                    }
                 }
             });
         }
