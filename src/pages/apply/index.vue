@@ -15,7 +15,7 @@
                     <div class="apply_right apply_box">
                         <div class="apply_item">
                             <span>合同类型</span>
-                            <span>{{item.course_type}}</span>
+                            <span>{{item.sign_type}}</span>
                         </div>
                         <div class="apply_item">
                             <span>签约时间</span>
