@@ -243,10 +243,10 @@ export default {
                     }
                 ],
                 phone: [
-                    { required: true, validator: validPhone, trigger: "blur" }
+                    { required: true,  trigger: "blur" }
                 ],
                 email: [
-                    { required: true, validator: validEmail, trigger: "blur" }
+                    { required: true,  trigger: "blur" }
                 ],
                 relation: [
                     {
