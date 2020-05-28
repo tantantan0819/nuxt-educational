@@ -67,6 +67,8 @@
                         <el-table-column type="index" label="序号" width="74"></el-table-column>
                         <el-table-column prop="start_time" label="开始时间" width="150"></el-table-column>
                         <el-table-column prop="end_time" label="结束时间" width="150"></el-table-column>
+                      <el-table-column prop="program" label="项目名称" width="150"></el-table-column>
+                      <el-table-column prop="job" label="职位" width="150"></el-table-column>
                         <el-table-column prop="exp" label="经历描述"></el-table-column>
                     </el-table>
                 </div>
@@ -83,6 +85,8 @@
                         <el-table-column type="index" label="序号" width="74"></el-table-column>
                         <el-table-column prop="start_time" label="开始时间" width="150"></el-table-column>
                         <el-table-column prop="end_time" label="结束时间" width="150"></el-table-column>
+                      <el-table-column prop="company" label="工作/实习单位" width="150"></el-table-column>
+                      <el-table-column prop="job" label="职位" width="150"></el-table-column>
                         <el-table-column prop="descript" label="经历描述"></el-table-column>
                     </el-table>
                 </div>
