@@ -15,6 +15,8 @@
         <el-table-column type="index" label="序号" width="74"></el-table-column>
         <el-table-column prop="start_time" label="开始时间" width="150"></el-table-column>
         <el-table-column prop="end_time" label="结束时间" width="150"></el-table-column>
+        <el-table-column prop="program" label="项目名称" width="150"></el-table-column>
+        <el-table-column prop="job" label="职位" width="150"></el-table-column>
         <el-table-column prop="exp" label="经历描述"></el-table-column>
       </el-table>
     </div>
@@ -40,8 +42,23 @@
               <el-date-picker type="date" format="yyyy-MM-dd" value-format="yyyy-MM-dd" placeholder="请选择您的学术经历结束时间" v-model="cvForm3.end_time"
                               class="widthAll"></el-date-picker>
             </el-form-item>
+            <el-form-item label="项目名称" prop="program">
+              <el-input
+                v-model="cvForm3.program"
+                placeholder="请输入您的项目名称"
+                autocomplete="off"
+              ></el-input>
+            </el-form-item>
+            <el-form-item label="职位" prop="job">
+              <el-input
+                v-model="cvForm3.job"
+                placeholder="请输入您的职位"
+                autocomplete="off"
+              ></el-input>
+            </el-form-item>
             <el-form-item label="经历描述" prop="exp" class="cvTextareaBox">
-              <el-input type="textarea" v-model="cvForm3.exp"
+              <el-input type="textarea" v-model="cvForm3.exp"  maxlength="100"
+                        show-word-limit
                         placeholder="[在这个部分描述做过的项目，可以是独立的毕业设计/论文，或者小组的项目、作业，参加的宣讲，学术会议或者讲座等等][写出你负责的具体内容，调研、考察、访谈、分析、感受等，以及最终的项目成果，受到导师好评、获奖等][如：进行XX行业研究，负责调研XX的商业模式、市场空间、XXXX等影响因素， 筛选出XXXX通过XXX数据库、问卷调研、XX实验，分析其核心竞争力和持续盈利能力， 撰写3000+字调研报告，并提出XXX建议；此项目锻炼了我的XXXXX能力]整体框架遵循【做了什么】【结果是什么】【有什么价值】的逻辑。"
                         class="cvTextarea" autocomplete="off" ></el-input>
             </el-form-item>
@@ -75,6 +92,8 @@
                     start_time: '',
                     end_time: '',
                     exp: '',
+                    program:'',
+                    job: ''
                 },//添加教育背景
                 rules: {
                     start_time: [
@@ -85,6 +104,12 @@
                     ],
                     exp: [
                         {required: true, message: '请输入您的学术经历描述', trigger: 'blur'}
+                    ],
+                    program: [
+                        {required: true, message: '请输入您的项目名称', trigger: 'blur'}
+                    ],
+                    job: [
+                        {required: true, message: '请输入您的职位', trigger: 'blur'}
                     ],
 
                 }

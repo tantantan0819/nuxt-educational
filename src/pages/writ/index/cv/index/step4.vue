@@ -15,6 +15,8 @@
         <el-table-column type="index" label="序号" width="74"></el-table-column>
         <el-table-column prop="start_time" label="开始时间" width="150"></el-table-column>
         <el-table-column prop="end_time" label="结束时间" width="150"></el-table-column>
+        <el-table-column prop="company" label="工作/实习单位" width="150"></el-table-column>
+        <el-table-column prop="job" label="职位" width="150"></el-table-column>
         <el-table-column prop="descript" label="经历描述"></el-table-column>
       </el-table>
     </div>
@@ -60,12 +62,28 @@
                 class="widthAll"
               ></el-date-picker>
             </el-form-item>
+            <el-form-item label="工作/实习单位" prop="company">
+              <el-input
+                v-model="cvForm4.company"
+                placeholder="请输入您的工作/实习单位称"
+                autocomplete="off"
+              ></el-input>
+            </el-form-item>
+            <el-form-item label="职位" prop="job">
+              <el-input
+                v-model="cvForm4.job"
+                placeholder="请输入您的职位"
+                autocomplete="off"
+              ></el-input>
+            </el-form-item>
             <el-form-item label="经历描述" prop="descript" class="cvTextareaBox">
               <el-input
                 type="textarea"
                 v-model="cvForm4.descript"
                 placeholder="整体框架遵循【做了什么】【结果是什么】【有什么价值】的逻辑。"
                 class="cvTextarea cvTextarea2"
+                maxlength="100"
+                show-word-limit
                 autocomplete="off"
               ></el-input>
             </el-form-item>
@@ -99,7 +117,9 @@ export default {
       cvForm4: {
         start_time: "",
         end_time: "",
-        descript: ""
+        descript: "",
+          company: '',
+          job: ''
       }, //添加教育背景
       rules: {
         start_time: [
@@ -110,19 +130,33 @@ export default {
           }
         ],
         end_time: [
-          {
-            required: true,
-            message: "请选择您的工作/实习经历结束时间",
-            trigger: "blur"
-          }
-        ],
-        descript: [
-          {
-            required: true,
-            message: "请输入您的您的工作/实习经历描述",
-            trigger: "blur"
-          }
-        ]
+              {
+                  required: true,
+                  message: "请选择您的工作/实习经历结束时间",
+                  trigger: "blur"
+              }
+          ],
+          descript: [
+              {
+                  required: true,
+                  message: "请输入您的您的工作/实习经历描述",
+                  trigger: "blur"
+              }
+          ],
+          company: [
+              {
+                  required: true,
+                  message: "请输入您的工作/实习单位称",
+                  trigger: "blur"
+              }
+          ],
+          job: [
+              {
+                  required: true,
+                  message: "请输入您的职位",
+                  trigger: "blur"
+              }
+          ]
       }
     };
   },
