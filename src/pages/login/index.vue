@@ -66,36 +66,45 @@
             },1)
         },
         methods: {
-            //提交表单
-            submitForm(formName) {
+            //登陆sso
+            async login(){
                 let _this = this;
-                _this.$refs[formName].validate((valid) => {
+                return uhttp.post('/login/login', _this.loginForm);
+            },
+            //判断是否是crm的客户
+            async isCrm(){
+                let _this = this;
+                const isLogin = await this.login();
+                if(JSON.stringify(isLogin) == '[]') {
+                    //是否是crm的客户
+                    http.get('/utrack-user/is-crm-user').then((res) => {
+                        if (res == 'yes') {
+                            let successMsg = _this.$message({
+                                message: '登录成功！',
+                                type: 'success'
+                            });
+                            setTimeout(() => {
+                                successMsg.close();
+                                _this.$store.commit('user/SET_USER', {});
+                                _this.$store.commit('SET_RESET', '');
+                                setStore('isLogin', '1');
+                                _this.$router.push('/home');
+                            }, 1500);
+                        } else {
+                            _this.$message({
+                                message: '该客户不在crm系统内，请联系您的顾问老师！',
+                                type: 'error'
+                            });
+                        }
+                    })
+                }
+            },
+            //提交表单
+             submitForm(formName){
+                let _this = this;
+                  _this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        uhttp.post('/login/login', _this.loginForm).then((res) => {
-                            if (JSON.stringify(res) == '[]') {
-                                //是否是crm的客户
-                                http.get('/utrack-user/is-crm-user').then((res)=>{
-                                    if(res == 'yes'){
-                                        let successMsg = _this.$message({
-                                            message: '登录成功！',
-                                            type: 'success'
-                                        });
-                                        setTimeout(() => {
-                                            successMsg.close();
-                                            _this.$store.commit('user/SET_USER', {});
-                                            _this.$store.commit('SET_RESET', '');
-                                            setStore('isLogin','1');
-                                            _this.$router.push('/home');
-                                        }, 1500);
-                                    }else{
-                                        _this.$message({
-                                            message: '该客户不在crm系统内，请联系您的顾问老师！',
-                                            type: 'error'
-                                        });
-                                    }
-                                })
-                            }
-                        })
+                        _this.isCrm();
                     }
                 });
             },
