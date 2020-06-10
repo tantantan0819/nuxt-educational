@@ -286,7 +286,8 @@ export default {
                                 isFlg = true;
                             }
                         });
-                        item.isMultiple = isFlg;
+                        item.is_multi == 1 ? item.isMultiple = true : item.isMultiple = false;
+                        // item.isMultiple = isFlg;
                     });
                 }
             });
