@@ -6,11 +6,11 @@
         </div>
       <div class="refactor_table auto_table">
         <el-table :data="tableData" stripe style="width: 100%">
-          <el-table-column prop="page_type" label="材料类型" :formatter="noteFormat" ></el-table-column>
-          <el-table-column prop="note_type" label="修改类别" :formatter="typeFormat"></el-table-column>
+          <el-table-column prop="page_type" label="材料类型" :formatter="noteFormat" width="150"></el-table-column>
+          <el-table-column prop="note_type" label="修改类别" :formatter="typeFormat" width="150"></el-table-column>
           <el-table-column prop="note_body" label="备注"></el-table-column>
-          <el-table-column prop="create_time" label="提交时间" :formatter="timeFormat"></el-table-column>
-          <el-table-column label="操作">
+          <el-table-column prop="create_time" label="提交时间" :formatter="timeFormat"  width="200"></el-table-column>
+          <el-table-column label="操作" width="150">
             <template slot-scope="scope">
               <el-button
                 size="mini"
