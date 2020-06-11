@@ -6,7 +6,7 @@
                 <span>请认真填写您空缺的资料，保存后不能修改，如需修改请联系您的顾问老师进行修改</span>
             </div>
             <div class="modify_wrap">
-                <info-modify :type="modifyType"></info-modify>
+<!--                <info-modify :type="modifyType"></info-modify>-->
                 <span class="cv_button" @click="outerVisible=true">新增校园活动</span>
             </div>
         </div>

@@ -16,10 +16,10 @@
         //     position: absolute;
         // }
     }
-  
+
     .el-table{
         position: relative;
-      
+
         .cell{
             a{
                 @include fontc(12px,12px,$f15);
@@ -63,6 +63,8 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                line-height: 22px;
+                padding: 14px 4px;
                 a{
                     @include fontc(14px,18px,$f15);
                 }
@@ -72,7 +74,47 @@
                 &:nth-child(2){
                     flex: 1.2
                 }
+              i{
+                height: 26px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 0 10px;
+                border-radius: 17px;
+                font-size: 14px;
+              }
             }
+          .green{
+            i{
+              background-color: $d8f;
+              @include fontc(14px,1,$f0c);
+            }
+          }
+          .blue{
+            i{
+              background-color: $dbe;
+              @include fontc(14px,1,$dff);
+            }
+          }
+          .red{
+            i{
+              @include gradient();
+              @include fontc(14px,1,$fc);
+            }
+          }
+          .onload{
+            i{
+              display: inline-block;
+              width: 30px!important;
+              height: 30px!important;
+              border-radius: 50%;
+              background-color: transparent!important;
+              cursor: pointer;
+              margin-right: 4px;
+              background: url('/images/material/clicon.png') -140px -18px no-repeat;
+            }
+          }
+
         }
         .visa_con{
             flex: 6;
@@ -80,17 +122,38 @@
         .visa_right{
             flex: 1;
             text-align: center;
-
-            span{
-                @include wh(65px,25px);
-                @include fontc(14px,14px,$fc);
-                display: inline-block;
-                padding: 6px 18px;
-                background-color: $f15;
-                border-radius: 13px;
-                cursor: pointer;
-            }
+            display: flex;
+            justify-content: center;
+            //span{
+            //    @include wh(65px,25px);
+            //    @include fontc(14px,14px,$fc);
+            //    display: inline-block;
+            //    padding: 6px 18px;
+            //    background-color: $f15;
+            //    border-radius: 13px;
+            //    cursor: pointer;
+            //}
         }
+      .materia_right{
+        flex: 2;
+        display: flex;
+        justify-content: center;
+        .meteria_add{
+          width: 70px;
+          height: 30px;
+          font-size: 14px;
+          cursor: pointer;
+          background-color: #015d9e;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: #fff;
+          line-height: 1;
+          font-family: helvetica,Microsoft YaHei;
+          word-break: break-word;
+          border-radius: 20px;
+        }
+      }
     }
     .visa_top{
         background-color: $fe3;
@@ -102,6 +165,7 @@
             span{
                 border-right: 1px solid $fea;
             }
+
         }
     }
 }
@@ -110,7 +174,7 @@
     border: 1px solid $fd9;
 }
 .visa_con{
-    
+
     .visa_item{
        @include fontc(16px,52px,$f6);
        border-bottom: 1px solid $fd9;
@@ -133,6 +197,52 @@
                 border-bottom: none;
             }
         }
-       
+
     }
+}
+.visa_btn{
+  width: 70px;
+  height: 30px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: #015d9e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  line-height: 1;
+  font-family: helvetica,Microsoft YaHei;
+  word-break: break-word;
+  border-radius: 20px;
+}
+.materia_table{
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.material_view{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 6px;
+  //.show{
+  //  display: inline-block;
+  //  width: 30px!important;
+  //  height: 30px!important;
+  //  border-radius: 50%;
+  //  background-color: transparent!important;
+  //  cursor: pointer;
+  //  margin-right: 4px;
+  //  &:nth-child(1){
+  //    background: url('/images/material/clicon.png') -19px -18px no-repeat;
+  //  }
+  //  &:nth-child(2){
+  //    background: url('/images/material/clicon.png') -140px -18px no-repeat;
+  //  }
+  //}
+  .modify_button{
+    width: 70px;
+    height: 30px;
+    font-size: 14px;
+  }
 }

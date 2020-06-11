@@ -5,7 +5,7 @@
                 <div class="cv_title">
                     <p>我的PS</p>
                 </div>
-                <info-modify :type="modifyType"></info-modify>
+<!--                <info-modify :type="modifyType"></info-modify>-->
             </div>
             <p class="noData" v-if="contract.length == 0">您名下没有留学方案，故没有PS信息</p>
             <div class="contract_box" v-for="(item,index) in contract" :key="index">

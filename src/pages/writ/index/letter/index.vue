@@ -7,7 +7,7 @@
                     <span>目前您有{{letterLength}}份推荐信，您还可新增{{count}}份推荐信</span>
                 </div>
                 <div class="modify_wrap">
-                    <info-modify :type="modifyType"></info-modify>
+<!--                    <info-modify :type="modifyType"></info-modify>-->
                     <span class="cv_button" @click="addLetter" :class="{'gray':count == '0'}">新增推荐信</span>
                 </div>
             </div>

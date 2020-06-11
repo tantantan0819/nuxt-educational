@@ -33,7 +33,7 @@
                                 class="noteTextarea"
                                 autocomplete="off"
                             ></el-input>
-                          
+
                         </el-form-item>
                         <el-form-item label="附件:" prop="note_files">
                             <el-upload
@@ -131,10 +131,19 @@ export default {
             case "cv":
                 _this.modify.page_type = "cv";
                 break;
+            case "CV":
+                _this.modify.page_type = "cv";
+                break;
             case "ps":
                 _this.modify.page_type = "ps";
                 break;
+            case "个人陈述":
+                _this.modify.page_type = "ps";
+                break;
             case "letter":
+                _this.modify.page_type = "res";
+                break;
+            case "推荐信":
                 _this.modify.page_type = "res";
                 break;
             default:

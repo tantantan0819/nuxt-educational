@@ -6,7 +6,7 @@
         <p>基本信息</p>
         <span>请认真填写您空缺的资料，保存后不能修改，如需修改请联系您的顾问老师进行修改</span>
       </div>
-    <info-modify :type="modifyType"></info-modify>
+<!--    <info-modify :type="modifyType"></info-modify>-->
     </div>
     <div class="cv_content cv1">
       <el-form :model="cvForm1" status-icon :rules="rules" ref="cvForm1" label-width="300px" label-position="top">
