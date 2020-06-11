@@ -8,6 +8,7 @@
             <span>材料名称</span>
             <span>文件</span>
             <span>上传时间</span>
+            <span>上传人</span>
             <span>审核状态</span>
           </div>
         </div>
@@ -27,6 +28,7 @@
             > <span>{{item2.material_name}}</span>
               <span> <a :href="item2.file_url" target="_blank">{{item2.origin_name}}</a></span>
               <span>{{item2.create_time |timeFormat}}</span>
+              <span>{{item2.创建人}}</span>
               <span :class="{'blue':item2.material_status == 199}" v-if="item2.material_status == 199"><i>审核未通过</i></span>
               <span :class="{'red':item2.material_status == 0}" v-else-if="item2.material_status == 0"><i>审核中</i></span>
               <span :class="{'green':item2.material_status == 200}" v-else><i>审核通过</i></span>
