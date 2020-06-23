@@ -228,6 +228,7 @@ export default {
         http.get(
             "/customer-apply-question/get-my-ps?search[id]=" + _this.id
         ).then(res => {
+            console.log(res,'00000')
             if (res && res.length != 0) {
                 _this.plan = res[0];
                 _this.tableData.push(res[0].apply[_this.type]);

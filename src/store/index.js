@@ -4,6 +4,7 @@ export const state= ()=>({
   ps: '',//ps长度
   letter: '',//推荐信长度
   resetToken: '',//重置密码的token
+  isConfirm: false,//是否有未确认的材料确认
 });
 
 export const mutations = {
@@ -21,6 +22,9 @@ export const mutations = {
   },
   SET_LEETER:(state,msg)=>{
     state.letter = msg;
+  },
+  SET_CONFIRM:(state,msg)=>{
+    state.isConfirm = msg;
   }
 };
 

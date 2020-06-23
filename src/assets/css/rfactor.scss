@@ -60,8 +60,37 @@
             .rnav_tex{
                 color: $f64!important;
             }
+
         }
     }
+  .comfirmActive{
+    position: relative;
+    &:before{
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #e75745;
+      position: absolute;
+      top: -6px;
+      right: -10px;
+    }
+  }
+  .comfirmSelect{
+    position: relative;
+    &:before{
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #e75745;
+      position: absolute;
+      top: 14px;
+      right: 32px;
+    }
+  }
     .rfactor_right{
         flex: 1;
         padding: 16px 19px 55px 16px;

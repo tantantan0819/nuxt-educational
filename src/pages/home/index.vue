@@ -338,8 +338,10 @@ export default {
         getWidth(){
             let _this = this;
             this.$nextTick(function () {
-                let width = _this.$refs.dynamic.clientWidth;
-                _this.dynamicHeight = width/2*0.45+'px';
+                if(_this.$refs.dynamic){
+                    let width = _this.$refs.dynamic.clientWidth;
+                    _this.dynamicHeight = width/2*0.45+'px';
+                }
             })
         },
         //取消新增待办事项

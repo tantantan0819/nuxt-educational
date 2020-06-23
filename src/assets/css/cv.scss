@@ -335,6 +335,7 @@
 
 .footer_button156 {
   padding-bottom: 20px;
+  padding-bottom: 20px;
   span {
     @include wh(156px, 48px);
     &:nth-child(1) {
@@ -425,7 +426,7 @@
       @include fontc(18px,1,$dff);
       // background: url('/images/material/clicon.png') -19px -18px no-repeat;
     }
-   
+
   }
   &:hover{
     background-color: $f3a;

@@ -9,7 +9,7 @@
             min-width: 1500px;
         }
         .apply_top{
-            padding: 21px 19px 29px;
+            padding: 20px;
             background-color: $f64;
             display: flex;
             .apply_box{
@@ -18,7 +18,7 @@
                   flex-direction: column;
                   span{
                       &:nth-child(1){
-                          @include fontc(14px,32px,$fc);
+                          @include fontc(14px,14px,$fc);
                       }
                       &:nth-child(2){
                         @include fontc(16px,32px,$fc);
@@ -43,7 +43,7 @@
         }
         th{
             background-color: $fc9;
-            @include fontc(16px,32px,$f0);
+            @include fontc(15px,32px,$f0);
             text-align: center;
             border-right: 1px solid rgba(255,255,255,.5);
             &:last-child{

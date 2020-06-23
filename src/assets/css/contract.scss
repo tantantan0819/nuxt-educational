@@ -1,0 +1,65 @@
+@import "./base";
+.contract{
+  display: flex;
+  .item{
+    margin: 40px 40px 0 0;
+    cursor: pointer;
+    @include cuc();
+    span{
+      @include  fontc(14px,14px,$f6);
+    }
+  }
+}
+.signed{
+    .el-dialog__header{
+      display: none;
+    }
+  .el-dialog{
+    width: 800px;
+  }
+  .el-dialog__body{
+    padding: 0;
+  }
+  .type{
+    @include fontc(18px,18px,$f0);
+  }
+  .top{
+    img{
+      width: 800px;
+    }
+  }
+  .con{
+    padding: 50px 90px 30px;
+    .mate{
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      span{
+        margin-bottom: 10px;
+      }
+    }
+    .title{
+      @include fontc(18px,16px,$f0);
+      font-weight: bold;
+      text-align: center;
+      padding-bottom: 20px;
+    }
+    input{
+      border: none;
+      border-bottom: 1px solid;
+      border-radius: inherit;
+      height: 30px;
+    }
+    .arw{
+      display: flex;
+      align-items: flex-end;
+      margin-top: 8px;
+      p{
+        white-space: nowrap
+      }
+    }
+  }
+}
+.lin30{
+  line-height: 30px;
+}

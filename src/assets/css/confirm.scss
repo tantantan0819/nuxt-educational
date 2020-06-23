@@ -1,0 +1,88 @@
+@import "./base";
+.confirm{
+    margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+
+  .item{
+    width: 424px;
+    height: 288px;
+    border: 1px solid $f9;
+    margin: 0 36px 36px 0;
+    background: $fc;
+    cursor: pointer;
+    .top{
+      height: 48px;
+      background: #dfdfdf;
+      border-bottom: 1px solid $f9;
+      @include fontc(18px,18px,$f6);
+      @include cr();
+    }
+    .active{
+      span{
+        position: relative;
+        &:before{
+          content: '';
+          display: inline-block;
+          position: absolute;
+          background: red;
+          border-radius: 50%;
+          width: 5px;
+          height: 5px;
+          top: -7px;
+          right: -7px;
+        }
+      }
+    }
+    .con{
+      .in{
+        margin-bottom: 20px;
+        p{
+          &:nth-child(1){
+            @include fontc(18px,22px,$f9);
+          }
+          &:nth-child(2){
+            @include fontc(16px,24px,$f6);
+          }
+        }
+        &:last-child{
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+  .red{
+    .top{
+      background: #e93302;
+      color: $fc;
+    }
+  }
+  .green{
+    .top{
+      background: #00ae42;
+      color: $fc;
+    }
+  }
+}
+.confirm_button {
+  @include cc();
+  margin-top: 50px;
+  span {
+    cursor: pointer;
+    @include wh(130px, 46px);
+    @include cr();
+    background-color: $f15;
+    @include borderRadius(30px);
+    @include fontc(16px, 1, $fc);
+  }
+}
+body{
+  background: red;
+}
+.next {
+  width: 100%;
+  display: inline-block;
+  margin-top: 10px;
+  text-align: center;
+  @include fontc(16px, 32px, $f63);
+}
