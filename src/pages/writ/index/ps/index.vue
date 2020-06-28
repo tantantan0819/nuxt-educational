@@ -27,9 +27,9 @@
                         <el-table-column type="index" label="序号" width="74"></el-table-column>
                         <el-table-column prop="university_cn" label="申请院校"></el-table-column>
                         <el-table-column prop="major_cn" label="申请专业"></el-table-column>
-                        <el-table-column prop="sign_date" label="所属合同签约时间" width="170"></el-table-column>
+<!--                        <el-table-column prop="sign_date" label="所属合同签约时间" width="170"></el-table-column>-->
                         <el-table-column prop="createtime" label="创建时间" width="200"></el-table-column>
-                        <el-table-column prop="operation" label="操作" width="250">
+                        <el-table-column prop="operation" label="操作" width="300">
                             <template slot-scope="scope">
                                 <el-button
                                     size="mini"

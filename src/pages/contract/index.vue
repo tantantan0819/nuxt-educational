@@ -15,6 +15,7 @@
     </div>
     <!-- 合同签署 -->
     <div class="signed">
+      <c-diy :show="isDiy"></c-diy>
       <c-g5 :show="isG5"></c-g5>
     </div>
   </div>
@@ -22,14 +23,16 @@
 <script>
     import http from "~/plugins/http";
     import config from "~/plugins/config";
+    import CDiy from "~/components/cDiy";
     import CG5 from "~/components/cG5";
     export default {
         layout: "refactor",
-        components: { CG5},
+        components: {CDiy,CG5},
         data() {
             return {
                 signed: false,//合同签署弹出层
-                isG5: true,
+                isDiy: false,//（new）签约类型选择为“DIY B套餐”时调用【协议2000】2020
+                isG5: true,//（new）签约类型选择为“DIY B套餐”时调用【协议2000】2020
                 signForm: {
                     name: ''
                 }
