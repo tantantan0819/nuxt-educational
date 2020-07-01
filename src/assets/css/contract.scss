@@ -99,9 +99,19 @@ textarea{
     width: 60px!important;
   }
 }
+.w80{
+  input{
+    width: 80px!important;
+  }
+}
 .w100{
   input{
     width: 100px!important;
+  }
+}
+.w300{
+  input{
+    width: 300px!important;
   }
 }
 .w550{
@@ -189,4 +199,7 @@ textarea{
       }
     }
   }
+}
+.el-input__inner{
+  padding: 0 10px!important;
 }

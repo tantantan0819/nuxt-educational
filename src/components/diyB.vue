@@ -1,8 +1,8 @@
 <template>
   <el-dialog title :visible.sync="signed" width="1400">
     <div class="page">
+      <input  type="hidden" value="diyB">
       <div class="top"><img src="/images/contract1.png" alt=""></div>
-      cdiy
       <div class="con">
         <div class="mate">
           <span>协议类别【DIV-A】</span>
