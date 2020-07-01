@@ -75,7 +75,7 @@
             async isCrm(){
                 let _this = this;
                 const isLogin = await this.login();
-                if(JSON.stringify(isLogin) == '[]') {
+                if(isLogin) {
                     //是否是crm的客户
                     http.get('/utrack-user/is-crm-user').then((res) => {
                         if (res == 'yes') {

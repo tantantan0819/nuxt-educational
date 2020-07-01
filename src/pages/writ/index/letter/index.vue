@@ -468,11 +468,12 @@ export default {
         },
         //修改
         modify(index,data){
-            let _this = this;
-            _this.viewModify = [];
-            _this.viewModify.push(deepClone(data));
-            _this.ModifyForm = deepClone(data);
-            _this.Modify = true;
+            this.$router.push({ path: "/writ/letter/modify", query: { id: data.id } });
+            // let _this = this;
+            // _this.viewModify = [];
+            // _this.viewModify.push(deepClone(data));
+            // _this.ModifyForm = deepClone(data);
+            // _this.Modify = true;
         },
         //编辑推荐信
         edit(formName){

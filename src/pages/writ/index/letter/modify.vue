@@ -3,8 +3,7 @@
         <div class="cv_step2">
             <div class="title_box">
                 <div class="cv_title">
-                    <p>新增推荐信</p>
-                    <span>目前您有{{letterLength}}份推荐信，您还可新增{{allLetter-letterLength}}份推荐信</span>
+                    <p>修改推荐信</p>
                 </div>
             </div>
             <div class="cv_content ps_add ps_detail add add_con">
@@ -157,7 +156,7 @@
             </div>
             <div class="add_footer">
                 <span @click="cancel('letterForm')">取消</span>
-                <span @click="submitForm('letterForm')">完成</span>
+                <span @click="submitForm('letterForm')">保存</span>
             </div>
         </div>
     </div>
@@ -175,8 +174,6 @@ export default {
     layout: "refactor",
     data() {
         return {
-            allLetter: 0, //推荐信限制数量
-            letterLength: "", //当前推荐信条数
             titleMaxLength50: 50, //文本域最大字数
             titleMaxLength100: 100, //文本域最大字数
             titleMaxLength200: 200, //文本域最大字数
@@ -221,6 +218,7 @@ export default {
                         trigger: "blur"
                     }
                 ],
+
                 job: [
                     {
                         required: true,
@@ -296,16 +294,25 @@ export default {
             }
         };
     },
-    mounted() {
+   async mounted() {
         let _this = this;
-        _this.allLetter = _this.$route.query.num;
+       let id = _this.$route.query.id;
         //获取关系、性别下拉
-        http.get("/code-val/group-key-list").then(res => {
-                _this.sexList = res.SEX;
-                _this.relaship = res.MY_RELATIONSHIP;
-            });
-        //推荐信条数
-        _this.letterLength = _this.$store.state.letter;
+       let res = await http.get("/code-val/group-key-list");
+       _this.sexList = res.SEX;
+       _this.relaship = res.MY_RELATIONSHIP;
+        //获取推荐信信息
+        http.post("/customer-recommendation/view",{id: id}).then(res=>{
+            if(res){
+                _this.letterForm = res;
+            }
+            _this.relaship.map(item=>{
+                if(item.id == _this.letterForm.relation){
+                    _this.letterForm.relation = item.cvalue_cn;
+                }
+            })
+        })
+
     },
     methods: {
         //取消
@@ -317,11 +324,19 @@ export default {
         submitForm(formName) {
             let _this = this;
             _this.letterForm.phone = _this.letterForm.phone + "";
+            let isNum = parseFloat(_this.letterForm.relation).toString() == "NaN";
+            if(isNum){
+                _this.relaship.map(item=>{
+                    if(item.cvalue_cn == _this.letterForm.relation){
+                        _this.letterForm.relation = item.id;
+                    }
+                })
+            }
             _this.$refs[formName].validate(valid => {
                 if (valid) {
                     _this.letterForm.sex += "";
                     http.post(
-                        "/customer-recommendation/add",
+                        "/customer-recommendation/edit",
                         _this.letterForm
                     ).then(res => {
                         let successMsg = _this.$message({
