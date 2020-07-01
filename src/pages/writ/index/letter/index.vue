@@ -512,15 +512,22 @@ export default {
         //定稿
         finalized(index,data){
             let _this = this;
-            http.post("/customer-recommendation/sure",{id:data.id}).then(res => {
-                if (res) {
-                    let successMsg = _this.$message({
-                        message: "提交成功！",
-                        type: "success"
-                    });
-                    _this.getLetter();
-                }
-            });
+            this.$confirm('提交以后将不能修改，是否继续提交', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                http.post("/customer-recommendation/sure",{id:data.id}).then(res => {
+                    if (res) {
+                        let successMsg = _this.$message({
+                            message: "提交成功！",
+                            type: "success"
+                        });
+                        _this.getLetter();
+                    }
+                });
+            })
+
         }
     }
 };

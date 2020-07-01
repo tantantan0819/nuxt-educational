@@ -7,7 +7,7 @@
                 </div>
             </div>
             <div class="cv_content ps_add ps_detail add add_con">
-                <span class="ps_tip">内容填写完毕，保存后将无法修改，请认真回答以下所有问题！如需修改只能联系自己的顾问老师协助修改</span>
+                <span class="ps_tip">内容填写完毕，提交后将无法修改，请认真回答以下所有问题！如需修改只能联系自己的顾问老师协助修改</span>
                 <div class="ps_plan">
                     <div class="add_content add_form letter_form">
                         <el-form
