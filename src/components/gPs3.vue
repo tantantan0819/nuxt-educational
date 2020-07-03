@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title :visible.sync="signed" width="1400">
+  <el-dialog title :visible.sync="signed" width="1400" :close-on-click-modal="isClose" :close-on-press-escape="isClose" class="cv">
     <div class="page">
       <input  type="hidden" value="gps3">
       <div class="top"><img src="/images/contract1.png" alt=""></div>
@@ -347,13 +347,25 @@
       </div>
       <div class="footer mt50"><img src="/images/contract2.png" alt=""></div>
     </div>
+    <div class="cv_footer ps_footer">
+      <div class="footer_button">
+                    <span @click="close">
+                        <i>取消</i>
+                    </span>
+        <span @click="sure">确认签约</span>
+      </div>
+    </div>
   </el-dialog>
 </template>
+<style lang="scss">
+  @import "~/assets/css/contract.scss";
+  @import "~/assets/css/cv.scss";
+</style>
 <script>
     export  default {
-        props: ["show"],
         data(){
             return{
+                isClose: false,
                 signed: true,
                 student: '',//学生姓名
                 idNumber: '',//身份证
@@ -373,13 +385,15 @@
         mounted() {
             console.log(this.signed)
         },
-        watch: {
-            show(val) {
-                this.signed = val;
+        methods:{
+            close(){
+                this.signed = false;
+                this.$emit("closeContr");
+            },
+            sure(){
+                this.$emit("closeContr");
             }
-        }
+        },
     }
 </script>
-<style lang="scss">
-  @import "~/assets/css/contract.scss";
-</style>
+

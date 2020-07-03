@@ -81,13 +81,15 @@
 .mt30{
   margin-top: 30px;
 }
-textarea{
-  border: none!important;
-  background-image: url('/images/textarea.png')!important;
-  line-height: 30px!important;
-  overflow: auto!important;
-  text-indent: 2rem;
-  padding: 5px 0!important;
+.page{
+  textarea{
+    border: none!important;
+    background-image: url('/images/textarea.png')!important;
+    line-height: 30px!important;
+    overflow: auto!important;
+    text-indent: 2rem;
+    padding: 5px 0!important;
+  }
 }
 .w200{
   input{
@@ -202,4 +204,83 @@ textarea{
 }
 .el-input__inner{
   padding: 0 10px!important;
+}
+.sign_sign{
+  .el-dialog__header{
+    display: block!important;
+  }
+  .cv_footer{
+    border: none!important;
+  }
+  .sign_con{
+    margin-top: 30px;
+    text-align: center;
+    @include fontc(18px,30px,$f0)
+  }
+}
+.pay_con{
+  margin-top: 30px;
+  img{
+    width: 150px;
+    height: 150px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+  }
+  .el-radio-group{
+    display: flex;
+  }
+  .pay_wrap{
+    margin-right: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .el-radio__label{
+    font-size: 15px;
+    font-weight: bold;
+  }
+  .cv_footer{
+    border: none!important;
+  }
+}
+.confirm_button {
+  @include cc();
+  margin-top: 50px;
+  span {
+    cursor: pointer;
+    @include wh(130px, 46px);
+    @include cr();
+    background-color: $f15;
+    @include borderRadius(30px);
+    @include fontc(16px, 1, $fc);
+  }
+}
+.sign_success{
+  color: #67c23a;
+}
+.sign_icon{
+  font-size: 70px;
+}
+.sign_error{
+  color: red;
+}
+.sign_text{
+  @include fontc(20px,20px,$f0);
+  margin-top: 40px;
+  font-weight: bold;
+  span{
+    color: red;
+  }
+}
+.sign_link{
+  color: red;
+  margin-top: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.sign_result{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
 }

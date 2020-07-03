@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title :visible.sync="signed" width="1400">
+  <el-dialog title :visible.sync="signed" width="1400" :close-on-click-modal="isClose" :close-on-press-escape="isClose" class="cv">
     <div class="page">
       <input  type="hidden" value="cps1">
       <div class="top"><img src="/images/contract1.png" alt=""></div>
@@ -310,11 +310,11 @@
           </div>
           <div class="itme">
             <p>英文版个人陈述方向限定</p>
-            <p>3 个专业（备注：若所选专业名字不一样，您须与教育顾问确认是否为不 同方向个人陈述）</p>
+            <p>1 个专业（备注：若所选专业名字不一样，您须与教育顾问确认是否为不 同方向个人陈述）</p>
           </div>
           <div class="itme">
             <p>英文版个人陈述数量限定</p>
-            <p>8 个学校（备注：同一方向，即 95%内容相同；若您需要写成不一样的， 请向教育顾问咨询）</p>
+            <p>6 个学校（备注：同一方向，即 95%内容相同；若您需要写成不一样的， 请向教育顾问咨询）</p>
           </div>
           <div class="itme">
             <p>英文版个人陈述修改限定</p>
@@ -322,7 +322,7 @@
           </div>
           <div class="itme">
             <p>推荐信数量限定</p>
-            <p>推荐信数量限定 2 封</p>
+            <p>2 封</p>
           </div>
           <div class="itme">
             <p>个人简历数量限定</p>
@@ -347,13 +347,25 @@
       </div>
       <div class="footer mt50"><img src="/images/contract2.png" alt=""></div>
     </div>
+    <div class="cv_footer ps_footer">
+      <div class="footer_button">
+                    <span @click="close">
+                        <i>取消</i>
+                    </span>
+        <span @click="sure">确认签约</span>
+      </div>
+    </div>
   </el-dialog>
 </template>
+<style lang="scss">
+  @import "~/assets/css/contract.scss";
+  @import "~/assets/css/cv.scss";
+</style>
 <script>
     export  default {
-        props: ["show"],
         data(){
             return{
+                isClose: false,
                 signed: true,
                 student: '',//学生姓名
                 idNumber: '',//身份证
@@ -371,15 +383,18 @@
             }
         },
         mounted() {
-            console.log(this.signed)
+
         },
-        watch: {
-            show(val) {
-                this.signed = val;
+        methods:{
+            close(){
+                this.signed = false;
+                this.$emit("closeContr");
+            },
+            sure(){
+                this.$emit("closeContr");
             }
-        }
+        },
+
     }
 </script>
-<style lang="scss">
-  @import "~/assets/css/contract.scss";
-</style>
+

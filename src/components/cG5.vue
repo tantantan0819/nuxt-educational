@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title :visible.sync="signed" width="1400">
+  <el-dialog title :visible.sync="signed" width="1400" :close-on-click-modal="isClose" :close-on-press-escape="isClose" class="cv">
     <div class="page">
       <input  type="hidden" value="cg5">
       <div class="top"><img src="/images/contract1.png" alt=""></div>
@@ -102,9 +102,9 @@
         <el-input v-model="phone" autosize type="textarea"></el-input>
         <p class="title1">五、中介服务费用</p>
         <p class="mt10 lin24">1. 甲方委托乙方申请的留学院校在本协议【附件一：选校及专业确认单】范围以内的，本协议第一条所涉 的服务内容收费总额为￥
-          <el-input class="w200 middle" v-model="phone"></el-input>
+          <el-input class="w80 middle" value="15000" readonly></el-input>
           （大写：人民币
-          <el-input class="w200 middle" v-model="phone"></el-input>
+          <el-input class="w80 middle" value="壹万伍仟" readonly></el-input>
           元）。甲方实向乙方交纳服务费￥
           <el-input class="w200 middle" v-model="phone"></el-input>
           （大写：人民币
@@ -115,11 +115,11 @@
           <el-input class="w200 middle" v-model="phone"></el-input>
         </p>
         <p  class="mt10 lin24">（1）申请费用：</p>
-        <p  class="mt10 lin24">牛津大学、剑桥大学：￥ <el-input class="w60 middle" v-model="phone"></el-input>，除牛津、剑桥大学外其他 G5 类院校：￥<el-input class="w60 middle" v-model="phone"></el-input>，非 G5 类院校：￥<el-input class="w60 middle" v-model="phone"></el-input>；</p>
-        <p  class="mt10 lin24">（2）增加一个专业 PS 费用：￥ <el-input class="w60 middle" v-model="phone"></el-input>。</p>
+        <p  class="mt10 lin24">牛津大学、剑桥大学：￥ <el-input class="w60 middle" value="5000" readonly></el-input>，除牛津、剑桥大学外其他 G5 类院校：￥<el-input class="w60 middle" value="2000" readonly></el-input>，非 G5 类院校：￥<el-input class="w60 middle" value="500" readonly></el-input>；</p>
+        <p  class="mt10 lin24">（2）增加一个专业 PS 费用：￥ <el-input class="w60 middle" value="2000" readonly></el-input>。</p>
         <p class="mt10 lin24">备注： <el-input class="w600 middle" v-model="phone"></el-input></p>
         <p class="mt10 lin24">2. 中介服务费支付期限</p>
-        <p class="mt10 lin24">甲方在签署本协议  <el-input class="w60 middle" v-model="phone"></el-input>小时内，一次性向乙方缴纳上述中介服务费，乙方在收到此款项后开始为甲方提供 服务。
+        <p class="mt10 lin24">甲方在签署本协议  <el-input class="w60 middle" value="24" readonly></el-input>小时内，一次性向乙方缴纳上述中介服务费，乙方在收到此款项后开始为甲方提供 服务。
         </p>
         <p class="mt10 lin24">3. 中介服务费支付方式：</p>
         <el-checkbox-group v-model="checkList" class="mt10 lin24">
@@ -146,7 +146,7 @@
         <p class="title1">六、特别提醒</p>
         <p class="mt10 lin24">1. 甲方应及时提供完全符合英国签证最新要求的银行定期存款凭证（须满足包括存款额度、存期、形式等相 关要求）。实时标准如有调整以乙方最新通知为准。甲方必须确保持续该存款状态、不得变更、分拆直至获得 签证结果；</p>
         <p class="mt10 lin24">2. 本协议第一条所述的服务项目为连续性的整体服务，甲方如自愿放弃其中任何项目或另委托第三方代为提 供其中服务的，可能导致相关申请失败，由此导致的后果将由甲方自行承担且不影响乙方根据本协议收取全 额服务费用；</p>
-        <p class="mt10 lin24">3. 在获得英国学生签证后，甲方应在英国院校规定的时间内抵达英国并及时办理报到注册手续。如非因甲方 本人原因（如航班延误、未及时获得签证结果等）将造成抵达延误的须最迟在英国院校规定的时间前<el-input class="middle w60" v-model="gua_idAddress"></el-input>个工作日告知乙方，乙方将协助甲方与英国院校沟通短期延时入学的相关手续（具体以与英国院校协商结果为 准）；</p>
+        <p class="mt10 lin24">3. 在获得英国学生签证后，甲方应在英国院校规定的时间内抵达英国并及时办理报到注册手续。如非因甲方 本人原因（如航班延误、未及时获得签证结果等）将造成抵达延误的须最迟在英国院校规定的时间前<el-input class="middle w60" value="3" readonly></el-input>个工作日告知乙方，乙方将协助甲方与英国院校沟通短期延时入学的相关手续（具体以与英国院校协商结果为 准）；</p>
         <p class="mt10 lin24">4. 甲方收到录取通知后如无法在录取通知书指定的入学年度入学，甲方应在第一时间（最迟不晚于录取通知 书指定入学年度入学时间前 30 日）向乙方发出书面通知，乙方在收到书面通知后将免费代为向该英国院 校申请延期入学至录取通知书指定入学年度的下一年度。乙方将尽力协调及争取，但如因甲方未及时通知乙 方而错过申请期限或院方拒绝延期入学申请而最终导致甲方入学资格因此丧失的后果由甲方自行承担。 若该院校同意甲方延期入学，而乙方尚未为甲方提供任何签证服务的，则乙方为甲方提供签证服务将顺延至 下一学年度。此免费延期签证服务仅有一次，且免费服务期限仅限于下一学年度签证期限内，如超过该期限 的，乙方有权收取与延期服务相关的费用。</p>
         <p class="mt10 lin24">如乙方收到甲方延期通知时签证服务已经办理的，乙方有权另行收取下一年度签证服务费用；</p>
         <p class="mt10 lin24">5. 甲方自理的第三方收费</p>
@@ -322,7 +322,7 @@
           </div>
           <div class="itme">
             <p>推荐信数量限定</p>
-            <p>推荐信数量限定 2 封</p>
+            <p>2 封</p>
           </div>
           <div class="itme">
             <p>个人简历数量限定</p>
@@ -347,13 +347,25 @@
       </div>
       <div class="footer mt50"><img src="/images/contract2.png" alt=""></div>
     </div>
+    <div class="cv_footer ps_footer">
+      <div class="footer_button">
+                    <span @click="close">
+                        <i>取消</i>
+                    </span>
+        <span @click="sure">确认签约</span>
+      </div>
+    </div>
   </el-dialog>
 </template>
+<style lang="scss">
+  @import "~/assets/css/contract.scss";
+  @import "~/assets/css/cv.scss";
+</style>
 <script>
     export  default {
-        props: ["show"],
         data(){
             return{
+                isClose: false,
                 signed: true,
                 student: '',//学生姓名
                 idNumber: '',//身份证
@@ -371,15 +383,17 @@
             }
         },
         mounted() {
-            console.log(this.signed)
+
         },
-        watch: {
-            show(val) {
-                this.signed = val;
+        methods:{
+            close(){
+                this.signed = false;
+                this.$emit("closeContr");
+            },
+            sure(){
+                this.$emit("closeContr");
             }
-        }
+        },
     }
 </script>
-<style lang="scss">
-  @import "~/assets/css/contract.scss";
-</style>
+

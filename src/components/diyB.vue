@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title :visible.sync="signed" width="1400">
+  <el-dialog title :visible.sync="signed" width="1400" :close-on-click-modal="isClose" :close-on-press-escape="isClose" class="cv">
     <div class="page">
       <input  type="hidden" value="diyB">
       <div class="top"><img src="/images/contract1.png" alt=""></div>
@@ -89,9 +89,9 @@
         <el-input v-model="phone" autosize type="textarea"></el-input>
         <p class="title1">五、中介服务费用</p>
         <p class="mt10 lin24">1. 甲方委托乙方申请的留学院校在本协议【附件一：选校及专业确认单】范围以内的，本协议第一条所涉 的服务内容收费总额为￥
-          <el-input class="w200 middle" v-model="phone"></el-input>
+          <el-input class="w60 middle" value="2000" readonly></el-input>
           （大写：人民币
-          <el-input class="w200 middle" v-model="phone"></el-input>
+          <el-input class="w60 middle" value="贰仟" readonly></el-input>
           元）。甲方实向乙方交纳服务费￥
           <el-input class="w200 middle" v-model="phone"></el-input>
           （大写：人民币
@@ -99,7 +99,7 @@
           元）。
         </p>
         <p class="mt10 lin24">甲方委托乙方申请的留学院校超出本协议【附件一：选校及专业确认单】范围的，每增加一所学校，甲方 须另行向乙方缴纳中介服务费用：
-          <el-input class="w200 middle" v-model="phone"></el-input>
+          <el-input class="w200 middle" value="非 G5 类院校：￥500；" readonly></el-input>
         </p>
         <p class="mt10 lin24">备注：</p>
         <el-input v-model="phone" autosize type="textarea"></el-input>
@@ -134,7 +134,7 @@
         <p class="mt10 lin24">1. 本协议第一条所述的服务项目为连续性的整体服务，甲方如自愿放弃其中任何项目或另委托第三方代为 提供其中服务的，可能导致相关申请失败，由此导致的后果将由甲方自行承担且不影响乙方根据本协议收 取全额服务费用；</p>
         <p class="mt10 lin24">2. 在获得英国学生签证后，甲方应在英国院校规定的时间内抵达英国并及时办理报到注册手续。如非因甲 方本人原因（如航班延误、未及时获得签证结果等）将造成抵达延误的须最迟在英国院校规定的时间前 3 个工作日告知乙方，乙方将协助甲方与英国院校沟通短期延时入学的相关手续（具体以与英国院校协商结 果为准）；</p>
         <p class="mt10 lin24">3. 甲方收到录取通知后如无法在录取通知书指定的入学年度入学，甲方应在第一时间（最迟不晚于录取通 知书指定入学年度入学时间前
-          <el-input class="w60 middle" v-model="phone"></el-input>
+          <el-input class="w60 middle" value="30" readonly></el-input>
           日）向乙方发出书面通知，乙方在收到书面通知后将免费代为向该英国 院校申请延期入学至录取通知书指定入学年度的下一年度。乙方将尽力协调及争取，但如因甲方未及时通 知乙方错过申请期限或院方拒绝延期入学申请而最终导致甲方入学资格因此丧失的后果由甲方自行承担。</p>
         <p class="mt10 lin24">4. 甲方自理的第三方收费</p>
         <p class="mt10 lin24">乙方为甲方提供本协议所述之任何服务所产生的第三方收取费用由甲方另行支付，乙方所收取的服务费不 包括任何第三方费用，第三方费用主要包括：</p>
@@ -256,62 +256,13 @@
     </div>
     <div class="page mt50">
       <div class="top"><img src="/images/contract1.png" alt=""></div>
-      <div class="attachment con">
-        <p class="title1 mt20">【附件一：选校及专业确认单】</p>
-        <p class="title1 mt50 cc">选校及专业确认单</p>
-        <p class="mt10 lin24">本人
-          <el-input class="w100 middle" v-model="phone"></el-input>
-          ，自愿选择以下五所院校及对应专业，并就此委托英国教育中心代为办理相关申请及 后续手续
-        </p>
-        <div class="table mt30">
-          <div class="item">
-            <span class="cc">编号申请类型</span>
-            <el-input v-model="phone"></el-input>
-            <el-input  v-model="phone"></el-input>
-            <el-input  v-model="phone"></el-input>
-            <el-input  v-model="phone"></el-input>
-            <el-input  v-model="phone"></el-input>
-          </div>
-          <div class="item">
-            <span class="cc">英国院校（英文全称）</span>
-            <el-input v-model="phone"></el-input>
-            <el-input  v-model="phone"></el-input>
-            <el-input  v-model="phone"></el-input>
-            <el-input  v-model="phone"></el-input>
-            <el-input  v-model="phone"></el-input>
-          </div>
-          <div class="item">
-            <span class="cc">所选专业（与官网一致的英文全称）</span>
-            <el-input v-model="phone"></el-input>
-            <el-input  v-model="phone"></el-input>
-            <el-input  v-model="phone"></el-input>
-            <el-input  v-model="phone"></el-input>
-            <el-input  v-model="phone"></el-input>
-          </div>
-        </div>
-        <p class="mt50 lin24">本人已经了解上述院校及相应专业，并在充分了解的基础上自愿选择，本人承诺以上院校及专业一旦选定 将不再修改。若如本人希望增加学校或专业的将另行签署补充协议并支付费用。</p>
-        <p class="mt10 lin24">特此确认。</p>
-        <p class="mt10 lin24 tr">甲方： <el-input class="w60 middle" v-model="phone"></el-input>（签字）</p>
-        <p class="mt10 lin24 tr">二0
-          <el-input class="w60 middle" v-model="phone"></el-input>
-          年
-          <el-input class="w60 middle" v-model="phone"></el-input>
-          月
-          <el-input class="w60 middle" v-model="phone"></el-input>
-          日
-        </p>
-      </div>
-      <div class="footer mt50"><img src="/images/contract2.png" alt=""></div>
-    </div>
-    <div class="page mt50">
-      <div class="top"><img src="/images/contract1.png" alt=""></div>
       <div class="con attachment">
         <p class="title1 mt20">【附件二：英国留学委托代理协议--补充协议】</p>
         <p class="title1 mt50 cc">声明</p>
         <p class="mt10 lin24">本人
           <el-input class="w100 middle" v-model="phone"></el-input>
           自愿放弃协议中第一条第九款中所述的返还本合同费用，兑换为由乙方提供的
-          <el-input class="middle w550" v-model="phone"></el-input>
+          <el-input class="middle w550" value="英文版个人陈述润色一次（个人陈述字数为 1000 字以内）。" readonly></el-input>
         </p>
         <p class="mt100 lin24">特此声明。</p>
         <p class="mt100 lin24 tr">甲方： <el-input class="w60 middle" v-model="phone"></el-input>（签字）</p>
@@ -326,14 +277,25 @@
       </div>
       <div class="footer mt50"><img src="/images/contract2.png" alt=""></div>
     </div>
-
+    <div class="cv_footer ps_footer">
+      <div class="footer_button">
+                    <span @click="close">
+                        <i>取消</i>
+                    </span>
+        <span @click="sure">确认签约</span>
+      </div>
+    </div>
   </el-dialog>
 </template>
+<style lang="scss">
+  @import "~/assets/css/contract.scss";
+  @import "~/assets/css/cv.scss";
+</style>
 <script>
   export  default {
-      props: ["show"],
       data(){
           return{
+              isClose: false,
               signed: true,
               student: '',//学生姓名
               idNumber: '',//身份证
@@ -351,15 +313,18 @@
           }
       },
       mounted() {
-          console.log(this.signed)
+
       },
-      watch: {
-          show(val) {
-              this.signed = val;
+      methods:{
+          close(){
+              this.signed = false;
+              this.$emit("closeContr");
+          },
+          sure(){
+              this.$emit("closeContr");
           }
-      }
+      },
+
   }
 </script>
-<style lang="scss">
-  @import "~/assets/css/contract.scss";
-</style>
+

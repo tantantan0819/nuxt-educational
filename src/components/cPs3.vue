@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title :visible.sync="signed" width="1400">
+  <el-dialog title :visible.sync="signed" width="1400" :close-on-click-modal="isClose" :close-on-press-escape="isClose" class="cv">
     <div class="page">
       <input  type="hidden" value="cps3">
       <div class="top"><img src="/images/contract1.png" alt=""></div>
@@ -102,9 +102,9 @@
         <el-input v-model="phone" autosize type="textarea"></el-input>
         <p class="title1">五、中介服务费用</p>
         <p class="mt10 lin24">1. 甲方委托乙方申请的留学院校在本协议【附件一：选校及专业确认单】范围以内的，本协议第一条所涉 的服务内容收费总额为￥
-          <el-input class="w200 middle" v-model="phone" value=""></el-input>
+          <el-input class="w80 middle" value="12000" readonly></el-input>
           （大写：人民币
-          <el-input class="w200 middle" v-model="phone" value=""></el-input>
+          <el-input class="w80 middle"  value="壹万贰仟" readonly></el-input>
           元）。甲方实向乙方交纳服务费￥
           <el-input class="w200 middle" v-model="phone"></el-input>
           （大写：人民币
@@ -115,11 +115,11 @@
           <el-input class="w200 middle" v-model="phone"></el-input>
         </p>
         <p  class="mt10 lin24">（1）申请费用：</p>
-        <p  class="mt10 lin24">牛津大学、剑桥大学：￥ <el-input class="w60 middle" v-model="phone"></el-input>，除牛津、剑桥大学外其他 G5 类院校：￥<el-input class="w60 middle" v-model="phone"></el-input>，非 G5 类院校：￥<el-input class="w60 middle" v-model="phone"></el-input>；</p>
-        <p  class="mt10 lin24">（2）增加一个专业 PS 费用：￥ <el-input class="w60 middle" v-model="phone"></el-input>。</p>
+        <p  class="mt10 lin24">牛津大学、剑桥大学：￥ <el-input class="w60 middle" value="5000" readonly></el-input>，除牛津、剑桥大学外其他 G5 类院校：￥<el-input class="w60 middle" value="2000" readonly></el-input>，非 G5 类院校：￥<el-input class="w60 middle" value="500" readonly></el-input>；</p>
+        <p  class="mt10 lin24">（2）增加一个专业 PS 费用：￥ <el-input class="w60 middle" value="2000" readonly></el-input>。</p>
         <p class="mt10 lin24">备注： <el-input class="w600 middle" v-model="phone"></el-input></p>
         <p class="mt10 lin24">2. 中介服务费支付期限</p>
-        <p class="mt10 lin24">甲方在签署本协议  <el-input class="w60 middle" v-model="phone"></el-input>小时内，一次性向乙方缴纳上述中介服务费，乙方在收到此款项后开始为甲方提供 服务。
+        <p class="mt10 lin24">甲方在签署本协议  <el-input class="w60 middle" value="24" readonly></el-input>小时内，一次性向乙方缴纳上述中介服务费，乙方在收到此款项后开始为甲方提供 服务。
         </p>
         <p class="mt10 lin24">3. 中介服务费支付方式：</p>
         <el-checkbox-group v-model="checkList" class="mt10 lin24">
@@ -310,7 +310,7 @@
           </div>
           <div class="itme">
             <p>英文版个人陈述方向限定</p>
-            <p>3 个专业（备注：若所选专业名字不一样，您须与教育顾问确认是否为不 同方向个人陈述）</p>
+            <p>2 个专业（备注：若所选专业名字不一样，您须与教育顾问确认是否为不 同方向个人陈述）</p>
           </div>
           <div class="itme">
             <p>英文版个人陈述数量限定</p>
@@ -322,7 +322,7 @@
           </div>
           <div class="itme">
             <p>推荐信数量限定</p>
-            <p>推荐信数量限定 2 封</p>
+            <p>2 封</p>
           </div>
           <div class="itme">
             <p>个人简历数量限定</p>
@@ -347,13 +347,25 @@
       </div>
       <div class="footer mt50"><img src="/images/contract2.png" alt=""></div>
     </div>
+    <div class="cv_footer ps_footer">
+      <div class="footer_button">
+                    <span @click="close">
+                        <i>取消</i>
+                    </span>
+        <span @click="sure">确认签约</span>
+      </div>
+    </div>
   </el-dialog>
 </template>
+<style lang="scss">
+  @import "~/assets/css/contract.scss";
+  @import "~/assets/css/cv.scss";
+</style>
 <script>
     export  default {
-        props: ["show"],
         data(){
             return{
+                isClose: false,
                 signed: true,
                 student: '',//学生姓名
                 idNumber: '',//身份证
@@ -373,13 +385,14 @@
         mounted() {
             console.log(this.signed)
         },
-        watch: {
-            show(val) {
-                this.signed = val;
+        methods:{
+            close(){
+                this.signed = false;
+                this.$emit("closeContr");
+            },
+            sure(){
+                this.$emit("closeContr");
             }
-        }
+        },
     }
 </script>
-<style lang="scss">
-  @import "~/assets/css/contract.scss";
-</style>
