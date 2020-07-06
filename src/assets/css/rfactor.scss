@@ -94,6 +94,8 @@
     .rfactor_right{
         flex: 1;
         padding: 16px 19px 55px 16px;
+        min-width: 1150px;
+        overflow: scroll;
         .rHeader{
             display: flex;
             justify-content: space-between;

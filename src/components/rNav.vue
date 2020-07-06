@@ -58,7 +58,7 @@
                     },
                     {
                         name: "我的文书材料",
-                        href: "/writ",
+                        href: "/writ/cv/step1",
                         selectName: 'writ',
                         icon: "/images/refactor/4.png",
                         activeIcon: "/images/refactor/44.png",
