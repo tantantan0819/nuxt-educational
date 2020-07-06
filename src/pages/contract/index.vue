@@ -4,25 +4,29 @@
       <span>我的合同</span>
     </div>
     <div class="contract">
-      <div class="item" @click="contract(0)">
+      <!--      <div class="item" @click="contract(0)">-->
+      <!--        <img src="/images/contract.png" alt="">-->
+      <!--        <span>DIY A套餐-待签约</span>-->
+      <!--      </div>-->
+      <!--      <div class="item" @click="contract(1)">-->
+      <!--        <img src="/images/contract.png" alt="">-->
+      <!--        <span>DIY A套餐-待签约</span>-->
+      <!--      </div>-->
+      <div class="item" v-for="(item,index) in list" :key="index" @click="contract(item)">
         <img src="/images/contract.png" alt="">
-        <span>DIY A套餐-待签约</span>
-      </div>
-      <div class="item" @click="contract(1)">
-        <img src="/images/contract.png" alt="">
-        <span>DIY A套餐-待签约</span>
+        <span>{{item.finance_name}}-{{item.utrack_contract_status | status}}</span>
       </div>
     </div>
     <!-- 合同签约 -->
     <div class="signed">
       <diy-a v-if="isDiyA" v-on="{closeContr: showDiyA}"></diy-a>
       <diy-b v-if="isDiyB" v-on="{closeContr: showDiyB}"></diy-b>
-      <c-g5 v-if="isG5" v-on="{closeContr: showG5}"></c-g5>
       <c-ps3 v-if="isPs3" v-on="{closeContr: showPs3}"></c-ps3>
       <c-ps1 v-if="isPs1" v-on="{closeContr: showPs1}"></c-ps1>
+      <c-g5 v-if="isG5" v-on="{closeContr: showG5}"></c-g5>
       <g-ps3 v-if="isgPs" v-on="{closeContr: showGps}"></g-ps3>
       <sign v-if="isSign" v-on="{closeContr: showSign}"></sign>
-      <detection></detection>
+      <detection v-if="isDetetion"></detection>
     </div>
   </div>
 </template>
@@ -40,7 +44,7 @@
 
     export default {
         layout: "refactor",
-        components: {DiyA, DiyB, CG5, CPs3, CPs1, GPs3, Sign,Detection},
+        components: {DiyA, DiyB, CG5, CPs3, CPs1, GPs3, Sign, Detection},
         data() {
             return {
                 signed: false,//合同签署弹出层
@@ -51,21 +55,54 @@
                 isPs1: false,//签约类型选择为“标准全套套餐（1个PS）”时调用【协议10000】2020
                 isgPs: false,//签约类型选择为“豪华G5套餐(3个PS)”时调用【协议18000】2020
                 isSign: false,
-                signForm: {
-                    name: ''
-                }
+                isDetetion: false,
+                list: [],
             };
         },
         mounted() {
-
+            //获取合同列表
+            this.getContract();
+        },
+        filters: {
+            status(val) {
+                let text;
+                switch (val) {
+                    case 1:
+                        text = '待签约';
+                        break;
+                    case 2:
+                        text = '已完成';
+                        break;
+                    case 3:
+                        text = '签约失败';
+                        break;
+                    case 4:
+                        text = '待支付';
+                        break;
+                    default:
+                        text = '待签约';
+                        break;
+                }
+                return text;
+            }
         },
         methods: {
-            contract(val) {
+            //获取合同列表
+            getContract() {
                 let _this = this;
-                if (val == 0) {
-                    _this.isDiyB = true;
-                } else {
-
+                http.get('/contract/my-contract-list').then(res => {
+                    _this.list = res;
+                })
+            },
+            contract(item) {
+                let _this = this;
+                switch (item.utrack_contract_status == 1) {
+                    case 1:
+                        _this.isDiyA = true;
+                        break;
+                    default:
+                        _this.isDiyA = true;
+                        break;
                 }
             },
             showDiyA() {
