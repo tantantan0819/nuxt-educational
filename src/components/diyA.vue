@@ -1,53 +1,53 @@
 <template>
   <el-dialog title :visible.sync="signed" width="1400" :close-on-click-modal="isClose" :close-on-press-escape="isClose" class="cv">
     <div class="page">
-      <input  type="hidden" value="diyA">
+      <input  type="hidden" value="diyA" id="test">
       <div class="top"><img src="/images/contract1.png" alt=""></div>
       <div class="con">
         <div class="mate">
-          <span>协议类别【DIV-A】</span>
-          <span>入学年月【2018-11-02】</span>
-          <span>协议编号【--2018-11-02-----A】</span>
+          <span>协议类别【 {{contractInfo.协议类型}} 】</span>
+          <span>入学年月【 {{contractInfo.入学年月}} 】</span>
+          <span>协议编号【 {{contractInfo.协议编号}} 】</span>
         </div>
         <div class="title mt20">英国留学委托代理协议</div>
         <p>甲方：</p>
         <div class="arw">
           <p>学生：</p>
-          <el-input v-model="student"></el-input>
+          <el-input v-model="customerInfo.学生" readonly></el-input>
           <p>身份证号码：</p>
-          <el-input v-model="idNumber"></el-input>
+          <el-input v-model="customerInfo.身份证号码" readonly></el-input>
         </div>
         <div class="arw">
           <p>身份证地址：</p>
-          <el-input v-model="idAddress"></el-input>
+          <el-input v-model="customerInfo.身份证地址" readonly></el-input>
         </div>
         <div class="arw">
           <p>现住地址：</p>
-          <el-input v-model="nowAddress"></el-input>
+          <el-input v-model="customerInfo.现住地址" readonly></el-input>
         </div>
         <div class="arw">
           <p>监护人：</p>
-          <el-input v-model="guardian"></el-input>
+          <el-input v-model="mandatory.guardian"></el-input>
           <p>系学生的</p>
-          <el-input v-model="relation"></el-input>
+          <el-input v-model="mandatory.guardianship"></el-input>
           <p>身份证号码：</p>
-          <el-input v-model="idRelation"></el-input>
+          <el-input v-model="mandatory.guardian_idcard"></el-input>
         </div>
         <div class="arw">
           <p>身份证地址：</p>
-          <el-input v-model="gua_idAddress"></el-input>
+          <el-input v-model="mandatory.guardian_idcard_addr"></el-input>
         </div>
         <div class="arw">
           <p>现住地址：</p>
-          <el-input v-model="gua_nowAddress"></el-input>
+          <el-input v-model="mandatory.guardian_live_addr"></el-input>
         </div>
         <div class="arw">
           <p>手机号：</p>
-          <el-input v-model="phone"></el-input>
+          <el-input v-model="mandatory.guardian_phone"></el-input>
           <p>家庭电话：</p>
-          <el-input v-model="family_phone"></el-input>
+          <el-input v-model="mandatory.guardian_tel"></el-input>
           <p>邮箱：</p>
-          <el-input v-model="email"></el-input>
+          <el-input v-model="mandatory.guardian_email"></el-input>
         </div>
         <p class="mt50">乙 方：四川英华联教育咨询有限公司</p>
         <p class="mt20">法定代表人：梁军</p>
@@ -67,7 +67,7 @@
 <!--        <p class="mt10 lin24">9. 若甲方成功入学乙方所申请的院校及专业（非 G5），乙方为甲方返还本合同费用。</p>-->
         <p class="title1">二、服务期限</p>
         <p class="mt10 lin24">乙方的服务期限自本协议签订之日起至在录取通知书中规定的入学日期的 2 个自然月内终结，本协议另有 约定的除外。另有约定如下:</p>
-        <el-input v-model="phone" autosize type="textarea"></el-input>
+        <el-input v-model="mandatory.service_promise" autosize type="textarea"></el-input>
         <p class="title1">三、甲方的权利与义务</p>
         <p class="mt10 lin24">1. 参考乙方提供的信息和咨询、建议，决定申请留学的国家、院校中英文名称、留学层次、就读专业或专 业方向，确定留学方案并签署本协议【附件一：选校及专业确认单】；</p>
         <p class="mt10 lin24">2. 有权选择自行缴纳院校申请注册费、材料寄送费、签证等第三方收取的费用；甲方承诺在本协议签订后， 不会以任何直接或间接的方式与英国院校方、英国大使馆等单位自行联系，乙方已告知甲方此举将可能导 致学校、专业申请或签证申请的失败，因此产生的后果以及给乙方造成的损失将由甲方自行承担；</p>
@@ -76,7 +76,7 @@
         <p class="mt10 lin24">5. 按照本协议约定向乙方支付中介服务费；</p>
         <p class="mt10 lin24">6. 保持与乙方的及时联系，并保证所提供的甲方个人情况、地址和通讯方式等信息真实、有效。甲方如变 更通讯地址，应在通讯地址变更后三日内书面通知乙方（甲方通讯地址变更后，变更通知送达前，以原通讯地址为准）。如未履行通知义务，由此而造成的不利后果由甲方自行承担。</p>
         <p class="mt10 lin24">7. 双方约定的其他权利和义务：</p>
-        <el-input v-model="phone" autosize type="textarea"></el-input>
+        <el-input v-model="mandatory.customer_right" autosize type="textarea"></el-input>
         <p class="title1">四、乙方的权利与义务</p>
         <p class="mt10 lin24">1. 要求甲方及时提供办理委托服务所需信息、文件、资料及履行本协议约定的其他义务；</p>
         <p class="mt10 lin24">2. 按本协议约定收取中介服务费；</p>
@@ -86,47 +86,53 @@
         <p class="mt10 lin24">6. 接受甲方委托的留学申请，并协助甲方申请留学院校的录取通知书；</p>
         <p class="mt10 lin24">7. 对甲方提供的个人信息及资料，负有妥善保管及保密义务；</p>
         <p class="mt10 lin24">8. 双方约定的其他权利和义务：</p>
-        <el-input v-model="phone" autosize type="textarea"></el-input>
+        <el-input v-model="mandatory.compay_right" autosize type="textarea"></el-input>
         <p class="title1">五、中介服务费用</p>
         <p class="mt10 lin24">1. 甲方委托乙方申请的留学院校在本协议【附件一：选校及专业确认单】范围以内的，本协议第一条所涉 的服务内容收费总额为￥
           <el-input class="w60 middle" value="1000" readonly></el-input>
           （大写：人民币
           <el-input class="w60 middle" value="壹仟" readonly></el-input>
           元）。甲方实向乙方交纳服务费￥
-          <el-input class="w200 middle" v-model="phone"></el-input>
+          <el-input class="w200 middle" v-model="mandatory.charge_last_number"></el-input>
           （大写：人民币
-          <el-input class="w200 middle" v-model="phone"></el-input>
+          <el-input class="w200 middle" v-model="mandatory.charge_last_capital"></el-input>
           元）。
         </p>
         <p class="mt10 lin24">甲方委托乙方申请的留学院校超出本协议【附件一：选校及专业确认单】范围的，每增加一所学校，甲方 须另行向乙方缴纳中介服务费用：
           <el-input class="w300 middle" value="非 G5 类院校：￥500；" readonly></el-input>
         </p>
         <p class="mt10 lin24">备注：</p>
-        <el-input v-model="phone" autosize type="textarea"></el-input>
+        <el-input v-model="mandatory.charge_remark" autosize type="textarea"></el-input>
         <p class="mt10 lin24">2. 中介服务费支付期限</p>
         <p class="mt10 lin24">甲方在签署本协议
-          <el-input class="w60 middle" v-model="phone"></el-input>
+          <el-input class="w60 middle" v-model="mandatory.charge_endtime"></el-input>
           小时内，一次性向乙方缴纳上述中介服务费，乙方在收到此款项后开始为甲方提供 服务。
         </p>
         <p class="mt10 lin24">3. 中介服务费支付方式：</p>
-        <el-checkbox-group v-model="checkList" class="mt10 lin24">
+<!--        <el-checkbox-group v-model="checkList" class="mt10 lin24">
           <el-checkbox label="现金"></el-checkbox>
           <el-checkbox label="信用卡/借记卡"></el-checkbox>
           <el-checkbox label="汇款"></el-checkbox>
           <el-checkbox label="其他"></el-checkbox>
-        </el-checkbox-group>
+        </el-checkbox-group>-->
+        <el-radio-group v-model="mandatory.charge_payway">
+          <el-radio label="1">现金</el-radio>
+          <el-radio label="2">信用卡/借记卡</el-radio>
+          <el-radio label="3">汇款</el-radio>
+          <el-radio label="4">其他</el-radio>
+        </el-radio-group>
         <p class="mt10 lin24">采用现金和信用卡/借记卡付费的形式，在乙方公司缴纳；采用汇款方式缴纳的，将服务费汇至乙方指定 的以下账户：</p>
         <div class="arw">
           <p>银行账号：</p>
-          <el-input v-model="gua_idAddress"></el-input>
+          <el-input v-model="mandatory.charge_bank_account"></el-input>
         </div>
         <div class="arw">
           <p>账户名称：</p>
-          <el-input v-model="gua_idAddress"></el-input>
+          <el-input v-model="mandatory.charge_compay_name"></el-input>
         </div>
         <div class="arw">
           <p>开户银行：</p>
-          <el-input v-model="gua_idAddress"></el-input>
+          <el-input v-model="mandatory.charge_bank_name"></el-input>
         </div>
         <p class="mt10 lin24">4. 如甲方欠付乙方服务费或其他应付费用，乙方有权暂停并顺延服务，因此所造成的后果甲方自行承担， 如给乙方造成了损失则甲方有义务进行赔偿；如甲方欠付乙方服务费或其他应付费用超过 7 天的，则视 为甲方放弃本协议项下所有权利及院校申请，乙方有权以甲方名义取消甲方所获取的录取资格，有权解除 本协议并要求甲方赔偿乙方因此遭受的损失</p>
         <p class="mt10 lin24">5. 本条所述的服务费仅为提供一次本协议第一条服务内容所涉项目。</p>
@@ -182,24 +188,25 @@
         <p class="mt10 lin24 bold">（3）甲方学生及监护人签署本协议前已对本协议以上条款详细阅读并得到乙方详尽说明和解释，完全明 白并同意以上各项条款。</p>
         <p class="mt10 lin24">（以下无正文，为签字页）</p>
         <p class="mt50 lin24">甲方： </p>
-        <p class="mt10 lin24">学生： <el-input class="w200 middle" v-model="phone"></el-input></p>
-        <p class="mt10 lin24">监护人：<el-input class="w200 middle" v-model="phone"></el-input></p>
+        <p class="mt10 lin24">学生： <el-input class="w200 middle" v-model="customerInfo.学生" readonly></el-input></p>
+        <p class="mt10 lin24">监护人：<el-input class="w200 middle" v-model="mandatory.end_guardian"></el-input></p>
         <p class="mt50 lin24">乙方：四川英华联教育咨询有限公司 </p>
-        <p class="mt10 lin24">乙方经办人：<el-input class="w200 middle" v-model="phone"></el-input></p>
-        <p class="mt10 lin24">本协议签订日期：二0
-          <el-input class="w60 middle" v-model="phone"></el-input>
-          年
-          <el-input class="w60 middle" v-model="phone"></el-input>
-          月
-          <el-input class="w60 middle" v-model="phone"></el-input>
-          日
+        <p class="mt10 lin24">乙方经办人：<el-input class="w200 middle" v-model="mandatory.compay_agent"></el-input></p>
+        <p class="mt10 lin24">本协议签订日期：
+          <el-date-picker
+            v-model="mandatory.signed_time"
+            type="date"
+            placeholder=""
+            :editable="false"
+            format="yyyy 年 MM 月 dd 日" class="deta_no">
+          </el-date-picker>
         </p>
         <p class="mt10 lin24">本协议签订于
-          <el-input class="w60 middle" v-model="phone"></el-input>
+          <el-input class="w100 middle" v-model="mandatory.signed_province"></el-input>
           省
-          <el-input class="w60 middle" v-model="phone"></el-input>
+          <el-input class="w100 middle" v-model="mandatory.signed_city"></el-input>
           市
-          <el-input class="w60 middle" v-model="phone"></el-input>
+          <el-input class="w100 middle" v-model="mandatory.signed_region"></el-input>
           区
         </p>
       </div>
@@ -211,7 +218,7 @@
         <p class="title1 mt20">【附件一：选校及专业确认单】</p>
         <p class="title1 mt50 cc">选校及专业确认单</p>
         <p class="mt10 lin24">本人
-          <el-input class="w100 middle" v-model="phone"></el-input>
+          <el-input class="w100 middle" v-model="mandatory.statement_name"></el-input>
           ，自愿选择以下五所院校及对应专业，并就此委托英国教育中心代为办理相关申请及 后续手续
         </p>
         <div class="table mt30">
@@ -242,14 +249,16 @@
         </div>
         <p class="mt50 lin24">本人已经了解上述院校及相应专业，并在充分了解的基础上自愿选择，本人承诺以上院校及专业一旦选定 将不再修改。若如本人希望增加学校或专业的将另行签署补充协议并支付费用。</p>
         <p class="mt10 lin24">特此确认。</p>
-        <p class="mt10 lin24 tr">甲方： <el-input class="w60 middle" v-model="phone"></el-input>（签字）</p>
-        <p class="mt10 lin24 tr">二0
-          <el-input class="w60 middle" v-model="phone"></el-input>
-          年
-          <el-input class="w60 middle" v-model="phone"></el-input>
-          月
-          <el-input class="w60 middle" v-model="phone"></el-input>
-          日
+        <p class="mt100 lin24 tr">甲方： <el-input class="w60 middle" v-model="mandatory.customer_name"></el-input>（签字）</p>
+        <p class="tr">
+          日期:
+          <el-date-picker
+            v-model="mandatory.customer_signed_time"
+            type="date"
+            placeholder=""
+            :editable="isClear"
+            format="yyyy 年 MM 月 dd 日" class="deta_no w170">
+          </el-date-picker>
         </p>
       </div>
       <div class="footer mt50"><img src="/images/contract2.png" alt=""></div>
@@ -259,7 +268,8 @@
                     <span @click="close">
                         <i>取消</i>
                     </span>
-        <span @click="sure">确认签约</span>
+        <span @click="pay" v-if="status == 1">立即支付</span>
+        <span @click="sure" v-else>确认签约</span>
       </div>
     </div>
   </el-dialog>
@@ -269,41 +279,88 @@
   @import "~/assets/css/cv.scss";
 </style>
 <script>
+  import http from "~/plugins/http";
   export  default {
+      props: ['id','status'],
       data(){
           return{
               isClose: false,
               signed: true,
-              student: '',//学生姓名
-              idNumber: '',//身份证
-              idAddress: '',//身份证地址
-              nowAddress: '',//现住地址
-              guardian: '',//监护人
-              relation: '',//系学生的
-              idRelation: '',//监护人身份证
-              gua_idAddress: '',//监护人身份证地址
-              gua_nowAddress: '',//监护人现住地址
-              phone:'',//手机号
-              family_phone: '' ,//家庭号码
-              email: '',//邮箱
+              isClear: false,
+              contractInfo: {},
+              customerInfo: {},
+              mandatory: {
+                  agree_protocol: '',
+                  guardian: '',
+                  guardianship: '',
+                  guardian_idcard: '',
+                  guardian_idcard_addr: '',
+                  guardian_live_addr: '',
+                  guardian_phone: '',
+                  guardian_tel: '',
+                  guardian_email: '',
+                  service_promise: '',
+                  customer_right: '',
+                  compay_right: '',
+                  charge_last_number: '',
+                  charge_last_capital: '',
+                  charge_remark: '',
+                  charge_endtime: '',
+                  charge_payway: '',
+                  charge_bank_account: '',
+                  charge_compay_name:'',
+                  charge_bank_name:'',
+                  end_guardian:'',
+                  compay_agent:'',
+                  signed_time: '2020-02-09',
+                  signed_province: '',
+                  signed_city: '',
+                  signed_region: '',
+                  statement_name: '',
+                  customer_name:'',
+                  customer_signed_time: '',
+              },
+              no_fill:{
+
+              },
               checkList: [],
+              phone: ''
           }
       },
-      mounted() {
+      mounted(){
+          this.mandatory.agree_protocol = (new Date()).getTime();
+          http.get('/contract-mail-data/detail',{id: this.id}).then(res=>{
+              if(res){
+                  this.contractInfo = res.contractInfo;
+                  this.customerInfo = res.customerInfo;
+                  if(res.data){
+                      this.mandatory = res.data
+                  }
 
+              }
+          })
       },
       methods:{
           close(){
               this.signed = false;
               this.$emit("closeContr");
           },
+          //确认签约
           sure(){
+              let obj = Object.assign(this.mandatory,this.no_fill);
+              obj.contract_id = this.id;
+              http.post('/contract-mail-data/save',obj).then(res=>{
+                  if(res){
+                      this.$emit("closeContr");
+                  }
+              })
+          },
+          //立即支付
+          pay(){
+              this.$router.push({ path: "/contract/pay", query: { id: this.id } });
               this.$emit("closeContr");
           }
       },
-      watch: {
-
-      }
   }
 </script>
 

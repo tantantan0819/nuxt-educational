@@ -1,53 +1,53 @@
 <template>
   <el-dialog title :visible.sync="signed" width="1400" :close-on-click-modal="isClose" :close-on-press-escape="isClose" class="cv">
     <div class="page">
-      <input  type="hidden" value="cps3">
+      <input  type="hidden" value="cps3" id="test">
       <div class="top"><img src="/images/contract1.png" alt=""></div>
       <div class="con">
         <div class="mate">
-          <span>协议类别【DIV-A】</span>
-          <span>入学年月【2018-11-02】</span>
-          <span>协议编号【--2018-11-02-----A】</span>
+          <span>协议类别【 {{contractInfo.协议类型}} 】</span>
+          <span>入学年月【 {{contractInfo.入学年月}} 】</span>
+          <span>协议编号【 {{contractInfo.协议编号}} 】</span>
         </div>
         <div class="title mt20">英国留学委托代理协议</div>
         <p>甲方：</p>
         <div class="arw">
           <p>学生：</p>
-          <el-input v-model="student"></el-input>
+          <el-input v-model="customerInfo.学生" readonly></el-input>
           <p>身份证号码：</p>
-          <el-input v-model="idNumber"></el-input>
+          <el-input v-model="customerInfo.身份证号码" readonly></el-input>
         </div>
         <div class="arw">
           <p>身份证地址：</p>
-          <el-input v-model="idAddress"></el-input>
+          <el-input v-model="customerInfo.身份证地址" readonly></el-input>
         </div>
         <div class="arw">
           <p>现住地址：</p>
-          <el-input v-model="nowAddress"></el-input>
+          <el-input v-model="customerInfo.现住地址" readonly></el-input>
         </div>
         <div class="arw">
           <p>监护人：</p>
-          <el-input v-model="guardian"></el-input>,
+          <el-input v-model="mandatory.guardian"></el-input>
           <p>系学生的</p>
-          <el-input v-model="relation"></el-input>,
+          <el-input v-model="mandatory.guardianship"></el-input>
           <p>身份证号码：</p>
-          <el-input v-model="idRelation"></el-input>
+          <el-input v-model="mandatory.guardian_idcard"></el-input>
         </div>
         <div class="arw">
           <p>身份证地址：</p>
-          <el-input v-model="gua_idAddress"></el-input>
+          <el-input v-model="mandatory.guardian_idcard_addr"></el-input>
         </div>
         <div class="arw">
           <p>现住地址：</p>
-          <el-input v-model="gua_nowAddress"></el-input>
+          <el-input v-model="mandatory.guardian_live_addr"></el-input>
         </div>
         <div class="arw">
           <p>手机号：</p>
-          <el-input v-model="phone"></el-input>
+          <el-input v-model="mandatory.guardian_phone"></el-input>
           <p>家庭电话：</p>
-          <el-input v-model="family_phone"></el-input>
+          <el-input v-model="mandatory.guardian_tel"></el-input>
           <p>邮箱：</p>
-          <el-input v-model="email"></el-input>
+          <el-input v-model="mandatory.guardian_email"></el-input>
         </div>
         <p class="mt50">乙 方：四川英华联教育咨询有限公司</p>
         <p class="mt20">法定代表人：梁军</p>
@@ -352,7 +352,8 @@
                     <span @click="close">
                         <i>取消</i>
                     </span>
-        <span @click="sure">确认签约</span>
+        <span @click="pay" v-if="status == 1">立即支付</span>
+        <span @click="sure" v-else>确认签约</span>
       </div>
     </div>
   </el-dialog>
@@ -362,37 +363,90 @@
   @import "~/assets/css/cv.scss";
 </style>
 <script>
+    import http from "~/plugins/http";
     export  default {
+        props: ['id','status'],
         data(){
             return{
                 isClose: false,
                 signed: true,
-                student: '',//学生姓名
-                idNumber: '',//身份证
-                idAddress: '',//身份证地址
-                nowAddress: '',//现住地址
-                guardian: '',//监护人
-                relation: '',//系学生的
-                idRelation: '',//监护人身份证
-                gua_idAddress: '',//监护人身份证地址
-                gua_nowAddress: '',//监护人现住地址
-                phone:'',//手机号
-                family_phone: '' ,//家庭号码
-                email: '',//邮箱
+                isClear: false,
+                contractInfo: {},
+                customerInfo: {},
+                mandatory: {
+                    agree_protocol: '',
+                    guardian: '',
+                    guardianship: '',
+                    guardian_idcard: '',
+                    guardian_idcard_addr: '',
+                    guardian_live_addr: '',
+                    guardian_phone: '',
+                    guardian_tel: '',
+                    guardian_email: '',
+                    service_promise: '',
+                    customer_right: '',
+                    compay_right: '',
+                    charge_last_number: '',
+                    charge_last_capital: '',
+                    charge_remark: '',
+                    charge_endtime: '',
+                    charge_payway: '',
+                    charge_bank_account: '',
+                    charge_compay_name:'',
+                    charge_bank_name:'',
+                    end_guardian:'',
+                    compay_agent:'',
+                    signed_time: '2020-02-09',
+                    signed_province: '',
+                    signed_city: '',
+                    signed_region: '',
+                    statement_name: '',
+                    customer_name:'',
+                    customer_signed_time: '',
+                    other_service: '',
+                    service_endtime:''
+                },
+                no_fill:{
+
+                },
                 checkList: [],
+                phone: ''
             }
         },
-        mounted() {
-            console.log(this.signed)
+        mounted(){
+            this.mandatory.agree_protocol = (new Date()).getTime();
+            http.get('/contract-mail-data/detail',{id: this.id}).then(res=>{
+                if(res){
+                    this.contractInfo = res.contractInfo;
+                    this.customerInfo = res.customerInfo;
+                    if(res.data){
+                        this.mandatory = res.data
+                    }
+
+                }
+            })
         },
         methods:{
             close(){
                 this.signed = false;
                 this.$emit("closeContr");
             },
+            //确认签约
             sure(){
+                let obj = Object.assign(this.mandatory,this.no_fill);
+                obj.contract_id = this.id;
+                http.post('/contract-mail-data/save',obj).then(res=>{
+                    if(res){
+                        this.$emit("closeContr");
+                    }
+                })
+            },
+            //立即支付
+            pay(){
+                this.$router.push({ path: "/contract/pay", query: { id: this.id } });
                 this.$emit("closeContr");
             }
         },
     }
 </script>
+

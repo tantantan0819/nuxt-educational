@@ -1,9 +1,9 @@
 <template>
   <el-dialog title :visible.sync="signed" width="1400" :close-on-click-modal="isClose" :close-on-press-escape="isClose"
-             class="cv" :before-close="handleDialogClose">
+             class="cv" :close="handleDialogClose">
     <div class="con cv">
       <!--   检测签章信息   -->
-      <div class="sign_result detection_result">
+      <div class="sign_result detection_result" v-if="isDetection">
         <div class="sign_text">正在检测签章信息是否可用，请稍等</div>
         <div class="loading_show">
           <div id="loadingWrap1">
@@ -15,35 +15,75 @@
           </div>
         </div>
       </div>
-      <!--    支付失败   -->
-      <div class="sign_result detection_result">
+      <!--    签署失败   -->
+      <div class="sign_result detection_result" v-else>
         <span class="el-icon-error sign_icon sign_error"></span>
-        <div class="sign_text">支付失败，请回到我的合同重新支付，<span>{{seconds-1}}</span> 秒后页面自动跳转</div>
-        <span class="sign_link" @click="link">立即跳转</span>
+        <div class="sign_text">{{msg}}<span>{{seconds-1}}</span>秒后将自动为您跳转到签章页面</div>
+<!--        <span class="sign_link" @click="link">立即跳转</span>-->
       </div>
     </div>
   </el-dialog>
 
 </template>
 <script>
+    import http from "~/plugins/http";
+    import error from "../layouts/error";
     export default {
         layout: "refactor",
+        props: ['id'],
         data() {
             return {
                 signed: true,
                 isClose: false,
                 seconds: 11,
                 timer: null,
+                isDetection: true,//是否展示检测签章合同
+                msg: '111'
             }
         },
         mounted() {
-            this.showFail();
+            http.post('/contract/check-sign',{id:this.id}).then(res=>{
+                //未签署--获取
+                if(res.contract_sign_status == 0){
+                    http.get('/contract/my-sign-url',{contract_id:this.id}).then(res=>{
+                        console.log('检测正常--未签署');
+                        this.msg = '系统检测到您还未填写签章信息，';
+                        this.isDetection = false;
+                        this.showFail('aaa');
+                    })
+                }
+                //签署中
+                if(res.contract_sign_status == 1){
+                    console.log('检测正常--签署中');
+                    this.msg = '系统检测到您的签章信息正在签署中，';
+                    this.isDetection = false;
+                    this.showFail();
+                }
+                //签署完成
+                if(res.contract_sign_status == 2){
+                    console.log('检测正常--签署完成');
+                    this.signed = false;
+                    this.$emit("closeContr");
+                    this.$router.push({ path: "/contract/pay", query: { id: this.id } });
+                }
+                //签署失败
+                if(res.contract_sign_status == 3){
+                    console.log('检测正常--签署失败');
+                    this.msg = "系统检测到您的签章信息状态为失败，";
+                    this.isDetection = false;
+                    this.showFail();
+                }
+
+            }).catch(error=>{
+
+            })
         },
         methods: {
             handleDialogClose() {
                 this.signed = false;
+                this.$emit("closeContr");
             },
-            showFail(){
+            showFail(url){
                 let _this = this;
                 _this.timer = setInterval(()=>{
                     if(_this.seconds>2){
@@ -51,10 +91,13 @@
                     }else{
                         clearInterval(_this.timer);
                         _this.signed = false;
+                        _this.$emit("closeContr");
+                        window.open(url,'_blank')
                     }
                 },1000)
             },
             link() {
+                this.$emit("closeContr");
                 this.signed = false;
             }
         }

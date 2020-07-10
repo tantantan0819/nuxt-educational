@@ -16,24 +16,13 @@
   @import "~/assets/css/cv.scss";
 </style>
 <script>
+    import http from "~/plugins/http";
     export  default {
+        props: ['id'],
         data(){
             return{
                 isClose: false,
                 signed: true,
-                student: '',//学生姓名
-                idNumber: '',//身份证
-                idAddress: '',//身份证地址
-                nowAddress: '',//现住地址
-                guardian: '',//监护人
-                relation: '',//系学生的
-                idRelation: '',//监护人身份证
-                gua_idAddress: '',//监护人身份证地址
-                gua_nowAddress: '',//监护人现住地址
-                phone:'',//手机号
-                family_phone: '' ,//家庭号码
-                email: '',//邮箱
-                checkList: [],
             }
         },
         mounted() {
@@ -41,15 +30,21 @@
         },
         methods:{
             close(){
-                this.signed = false;
-                this.$emit("closeContr");
+                // window.open('https://www.baidu.com/','_blank')
+                console.log('获取签章url')
+                http.get('/contract/my-sign-url',{contract_id:this.id}).then(res=>{
+                    console.log(res,'hhhhhh')
+                })
+                // this.signed = false;
+                // this.$emit("closeContr");
             },
             sure(){
-                this.$emit("closeContr");
-                this.$router.push('/contract/pay')
+                this.$emit("closeContr",true);
             },
             handleDialogClose(){
+                console.log('通过右上角x关闭填写签章')
                 this.signed = false;
+                this.$emit("closeContr",false);
             }
         },
     }

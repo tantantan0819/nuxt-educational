@@ -1,12 +1,16 @@
 @import "./base";
 .contract{
   display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
   .item{
     margin: 40px 40px 0 0;
     cursor: pointer;
+    width: 196px;
     @include cuc();
     span{
-      @include  fontc(14px,14px,$f6);
+      @include  fontc(14px,20px,$f6);
+      width: 196px;
       margin-top: 10px;
     }
   }
@@ -105,6 +109,18 @@
 .w80{
   input{
     width: 80px!important;
+  }
+}
+.w180{
+  width: 180px!important;
+  input{
+    width: 180px!important;
+  }
+}
+.w170{
+  width: 170px!important;
+  input{
+    width: 170px!important;
   }
 }
 .w100{
@@ -266,7 +282,7 @@
   color: red;
 }
 .sign_text{
-  @include fontc(20px,20px,$f0);
+  @include fontc(19px,20px,$f0);
   margin-top: 40px;
   font-weight: bold;
   span{
@@ -284,4 +300,14 @@
   flex-direction: column;
   align-items: center;
   margin-top: 100px;
+}
+.deta_no{
+  .el-icon-date{
+    &:after{
+      display: none!important;
+    }
+    &:before{
+      display: none!important;
+    }
+  }
 }

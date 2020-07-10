@@ -1,7 +1,7 @@
 <template>
   <el-dialog title :visible.sync="signed" width="1400" :close-on-click-modal="isClose" :close-on-press-escape="isClose" class="cv">
     <div class="page">
-      <input  type="hidden" value="gps3">
+      <input  type="hidden" value="gps3" id="test">
       <div class="top"><img src="/images/contract1.png" alt=""></div>
       <div class="con">
         <div class="mate">

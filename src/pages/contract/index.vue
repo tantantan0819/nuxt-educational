@@ -4,29 +4,21 @@
       <span>我的合同</span>
     </div>
     <div class="contract">
-      <!--      <div class="item" @click="contract(0)">-->
-      <!--        <img src="/images/contract.png" alt="">-->
-      <!--        <span>DIY A套餐-待签约</span>-->
-      <!--      </div>-->
-      <!--      <div class="item" @click="contract(1)">-->
-      <!--        <img src="/images/contract.png" alt="">-->
-      <!--        <span>DIY A套餐-待签约</span>-->
-      <!--      </div>-->
       <div class="item" v-for="(item,index) in list" :key="index" @click="contract(item)">
         <img src="/images/contract.png" alt="">
-        <span>{{item.finance_name}}-{{item.utrack_contract_status | status}}</span>
+        <span>{{item.finance_name}} - {{item.status | status}}</span>
       </div>
     </div>
     <!-- 合同签约 -->
     <div class="signed">
-      <diy-a v-if="isDiyA" v-on="{closeContr: showDiyA}"></diy-a>
-      <diy-b v-if="isDiyB" v-on="{closeContr: showDiyB}"></diy-b>
-      <c-ps3 v-if="isPs3" v-on="{closeContr: showPs3}"></c-ps3>
-      <c-ps1 v-if="isPs1" v-on="{closeContr: showPs1}"></c-ps1>
-      <c-g5 v-if="isG5" v-on="{closeContr: showG5}"></c-g5>
-      <g-ps3 v-if="isgPs" v-on="{closeContr: showGps}"></g-ps3>
-      <sign v-if="isSign" v-on="{closeContr: showSign}"></sign>
-      <detection v-if="isDetetion"></detection>
+      <diy-a v-if="isDiyA" :id="con_id" :status="status_status" v-on="{closeContr: showDiyA}"></diy-a>
+      <diy-b v-if="isDiyB" :id="con_id" :status="status_status" v-on="{closeContr: showDiyB}"></diy-b>
+      <c-ps3 v-if="isPs3" :id="con_id" :status="status_status" v-on="{closeContr: showPs3}"></c-ps3>
+      <c-ps1 v-if="isPs1" :id="con_id"  :status="status_status" v-on="{closeContr: showPs1}"></c-ps1>
+      <c-g5 v-if="isG5" :id="con_id" :status="status_status" v-on="{closeContr: showG5}"></c-g5>
+      <g-ps3 v-if="isgPs" :id="con_id" :status="status_status" v-on="{closeContr: showGps}"></g-ps3>
+      <sign v-if="isSign" :id="con_id"  :status="status_status" v-on="{closeContr: showSign}"></sign>
+      <detection :id="con_id" v-if="isDetetion" :status="status_status" v-on="{closeContr: showDetetion}"></detection>
     </div>
   </div>
 </template>
@@ -48,15 +40,17 @@
         data() {
             return {
                 signed: false,//合同签署弹出层
-                isDiyA: false,//签约类型选择为“DIY A套餐”时调用【协议1000】2020
-                isDiyB: false,//（new）签约类型选择为“DIY B套餐”时调用【协议2000】2020
-                isG5: false,//（new）签约类型选择为“DIY B套餐”时调用【协议2000】2020
-                isPs3: false,//签约类型选择为“VIP套餐(3个PS)”时调用【协议12000】2020
-                isPs1: false,//签约类型选择为“标准全套套餐（1个PS）”时调用【协议10000】2020
-                isgPs: false,//签约类型选择为“豪华G5套餐(3个PS)”时调用【协议18000】2020
-                isSign: false,
-                isDetetion: false,
-                list: [],
+                isDiyA: false,//签约类型选择为“DIY A套餐”时调用【协议1000】2020 finance_id == 59
+                isDiyB: false,//（new）签约类型选择为“DIY B套餐”时调用【协议2000】2020 finance_id == 57
+                isG5: false,//（new）签约类型选择为“精英G5套餐”时调用【协议15000】2020 finance_id == 102
+                isPs3: false,//签约类型选择为“VIP套餐(3个PS)”时调用【协议12000】2020 finance_id == 99
+                isPs1: false,//签约类型选择为“标准全套套餐（1个PS）”时调用【协议10000】2020 finance_id == 98
+                isgPs: false,//签约类型选择为“豪华G5套餐(3个PS)”时调用【协议18000】2020 finance_id == 100
+                isSign: false,//同学你好，填写签章申请后才能继续支付合同，是否已填写签章申请？
+                isDetetion: false,//正在检测签章信息是否可用
+                list: [],//合同列表
+                con_id: '',//查看的合同id
+                status_status: '',//点击当前合同的签约状态
             };
         },
         mounted() {
@@ -64,68 +58,157 @@
             this.getContract();
         },
         filters: {
+            //合同状态
             status(val) {
                 let text;
                 switch (val) {
-                    case 1:
+                    case 0:
                         text = '待签约';
+                        break;
+                    case 1:
+                        text = '待支付';
                         break;
                     case 2:
                         text = '已完成';
                         break;
                     case 3:
-                        text = '签约失败';
+                        text = '签署中';
                         break;
                     case 4:
-                        text = '待支付';
+                        text = '签署中';
                         break;
                     default:
-                        text = '待签约';
+                        text = '';
                         break;
                 }
                 return text;
             }
         },
         methods: {
-            //获取合同列表
+            //获取合同列表--组合字段status判断状态
             getContract() {
                 let _this = this;
                 http.get('/contract/my-contract-list').then(res => {
-                    _this.list = res;
+                    if(res){
+                        res.map(item=>{
+                            let status ; //0：未签约，1：待支付，2：已完成，3：签署中，4：签署失败
+                            if(item.contract_sign_status == 0){
+                                status = 0
+                            }
+                            if(item.contract_sign_status == 1){
+                                status = 3
+                            }
+                            if(item.contract_sign_status == 2 && item.order_pay_status ==1){
+                                status = 2
+                            }
+                            if(item.contract_sign_status == 2 && item.order_pay_status ==2){
+                                status = 1
+                            }
+                            if(item.contract_sign_status == 2 && item.order_pay_status ==0){
+                                status = 1
+                            }
+                            if(item.contract_sign_status == 2 && item.order_pay_status ==3){
+                                status = 4
+                            }
+                            item.status = status;
+                        })
+                        _this.list = res;
+                        console.log(_this.list,'首页获取合同列表')
+                    }
                 })
             },
+            //判断当前合同状态
             contract(item) {
                 let _this = this;
-                switch (item.utrack_contract_status == 1) {
-                    case 1:
+                _this.status_status = item.status;
+                _this.con_id = item.id;
+                switch (item.status) {
+                    case 0: //未签约
+                        _this.goSign(item);
+                        break;
+                    case 1: //未支付
+                        _this.goSign(item);
+                        break;
+                    case 2: //已完成
+                        window.open(item.签章URL地址,'_blank');
+                        break;
+                    case 3: //签署中
+                        this.isSign = true;
+                        break;
+                    case 4: //签署失败
+                        this.isSign = true;
+                        break;
+                    default:
+                        _this.goSign(item);
+                        break;
+                }
+            },
+            //未签约，去签约
+            goSign(item){
+                let _this = this;
+                switch (item.finance_id) {
+                    case '59':
                         _this.isDiyA = true;
+                        break;
+                    case '57':
+                        _this.isDiyB = true;
+                        break;
+                    case '102':
+                        _this.isG5 = true;
+                        break;
+                    case '99':
+                        _this.isPs3 = true;
+                        break;
+                    case '98':
+                        _this.isPs1 = true;
+                        break;
+                    case '100':
+                        _this.isgPs = true;
                         break;
                     default:
                         _this.isDiyA = true;
                         break;
                 }
             },
+            //保存合同之后
+            emerge(){
+                this.isSign = true;
+                this.getContract();
+            },
             showDiyA() {
+                console.log('1111')
                 this.isDiyA = false;
+                this.emerge();
             },
             showDiyB() {
                 this.isDiyB = false;
-                this.isSign = true;
+                this.emerge();
             },
             showG5() {
                 this.isG5 = false;
+                this.emerge();
             },
             showPs3() {
                 this.isPs3 = false;
+                this.emerge();
             },
             showPs1() {
                 this.isPs1 = false;
+                this.emerge();
             },
             showGps() {
                 this.isgPs = false;
+                this.emerge();
             },
-            showSign() {
+            //是否填写签章
+            showSign(val) {
                 this.isSign = false;
+                val ? this.isDetetion = true : '';
+            },
+            //签章检测--成功/失败
+            showDetetion(){
+                this.isDetetion = false;
+                this.isSign = true;
             }
         }
     };
