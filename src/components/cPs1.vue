@@ -27,27 +27,27 @@
         </div>
         <div class="arw">
           <p>监护人：</p>
-          <el-input v-model="mandatory.guardian"></el-input>
+          <el-input v-model="mandatory.guardian" :readonly="status == 1"></el-input>
           <p>系学生的</p>
-          <el-input v-model="mandatory.guardianship"></el-input>
+          <el-input v-model="mandatory.guardianship" :readonly="status == 1"></el-input>
           <p>身份证号码：</p>
-          <el-input v-model="mandatory.guardian_idcard"></el-input>
+          <el-input v-model="mandatory.guardian_idcard" :readonly="status == 1"></el-input>
         </div>
         <div class="arw">
           <p>身份证地址：</p>
-          <el-input v-model="mandatory.guardian_idcard_addr"></el-input>
+          <el-input v-model="mandatory.guardian_idcard_addr" :readonly="status == 1"></el-input>
         </div>
         <div class="arw">
           <p>现住地址：</p>
-          <el-input v-model="mandatory.guardian_live_addr"></el-input>
+          <el-input v-model="mandatory.guardian_live_addr" :readonly="status == 1"></el-input>
         </div>
         <div class="arw">
           <p>手机号：</p>
-          <el-input v-model="mandatory.guardian_phone"></el-input>
+          <el-input v-model="mandatory.guardian_phone" :readonly="status == 1"></el-input>
           <p>家庭电话：</p>
-          <el-input v-model="mandatory.guardian_tel"></el-input>
+          <el-input v-model="mandatory.guardian_tel" :readonly="status == 1"></el-input>
           <p>邮箱：</p>
-          <el-input v-model="mandatory.guardian_email"></el-input>
+          <el-input v-model="mandatory.guardian_email" :readonly="status == 1"></el-input>
         </div>
         <p class="mt50">乙 方：四川英华联教育咨询有限公司</p>
         <p class="mt20">法定代表人：梁军</p>
@@ -68,7 +68,7 @@
         <p class="mt10 lin24">10. 协助甲方安排抵达英国后的住宿及接机事宜。相应接机费用、住宿费用由甲方自行承担；</p>
         <p class="mt10 lin24"><span class="bold">双方确认：</span>乙方的上述服务仅限于本协议及补充协议约定的院校；本协议所述的申请文书，均指申请【附件 一：选校及专业确认单】所列院校及专业所涉及的申请文书；本协议中所述的翻译，仅限中英文互译翻译。</p>
         <p class="mt10 lin24">11.除甲方委托的以上服务项目之外，双方还确定了以下的其他服务项目:</p>
-        <el-input v-model="mandatory.other_service" autosize type="textarea"></el-input>
+        <el-input v-model="mandatory.other_service" autosize type="textarea" :readonly="status == 1"></el-input>
         <p class="title1">二、服务期限</p>
         <p class="mt10 lin24">服务期限自本协议签订之日起至甲方获得
           <el-date-picker
@@ -76,14 +76,15 @@
             type="month"
             placeholder=""
             :editable="false"
+            :readonly="status == 1"
             format="yyyy 年 MM 月" class="deta_no w170">
           </el-date-picker>入学首次留学签证结果为止。在录取通知书 指定的入学年度内，甲方因个人原因未按时递交签证资料，或已递交签证资料但签证申请未通过且未重新按 照规定提交的，乙方的服务期限在录取通知书中规定的入学日期的 2 个自然月内终结。若存在延期入学情形 的，请参照本协议第六条第 4 款关于延期服务的规定。</p>
         <p>本协议另有约定的除外。另有约定如下:</p>
-        <el-input v-model="mandatory.service_promise" autosize type="textarea"></el-input>
+        <el-input v-model="mandatory.service_promise" autosize type="textarea" :readonly="status == 1"></el-input>
         <p class="title1">三、甲方的权利与义务</p>
         <p class="mt10 lin24">1. 参考乙方提供的信息和咨询、建议，决定申请留学的国家、院校中英文名称、留学层次、就读专业或专 业方向，确定留学方案并签署本协议【附件一：选校及专业确认单】；</p>
         <p class="mt10 lin24">2. 有权选择自行缴纳院校申请注册费、材料寄送费、签证等第三方收取的费用；甲方承诺在本协议签订后， 不会以任何直接或间接的方式与英国院校方、英国大使馆等单位自行联系，乙方已告知甲方此举将可能导 致学校、专业申请或签证申请的失败，因此产生的后果以及给乙方造成的损失将由甲方自行承担；</p>
-        <p class="mt10 lin24">3. 向乙方提供留学申请所需的全部文件、材料，材料应于本协议签署后<el-input class="w60 middle" v-model="phone"></el-input>个工作日内提供，并保证所提 供的信息、文件、材料真实、有效；如因甲方提供资料信息不实、不客观或拒绝补充、修改错漏资料的，乙 方有权解除本协议；如因此导致院校申请或签证失败，与乙方无关；如因甲方的行为导致乙方遭到国内外相 关部门或相关院校的警告或处罚的，甲方有义务出具书面解释澄清且乙方有权要求甲方赔偿因此造成的损失；</p>
+        <p class="mt10 lin24">3. 向乙方提供留学申请所需的全部文件、材料，材料应于本协议签署后<el-input class="w60 middle" v-model="mandatory.materials_time" :readonly="status == 1"></el-input>个工作日内提供，并保证所提 供的信息、文件、材料真实、有效；如因甲方提供资料信息不实、不客观或拒绝补充、修改错漏资料的，乙 方有权解除本协议；如因此导致院校申请或签证失败，与乙方无关；如因甲方的行为导致乙方遭到国内外相 关部门或相关院校的警告或处罚的，甲方有义务出具书面解释澄清且乙方有权要求甲方赔偿因此造成的损失；</p>
         <p class="mt10 lin24">4. 配合乙方及时完成申请准备及向申请留学院校提交申请、寄送资料等工作，如遇前往国家留学政策、签证 政策、入学标准发生变化，应根据新的要求及时提供补充材料；</p>
         <p class="mt10 lin24">5. 按照留学院校要求,如期缴纳学费等有关费用;</p>
         <p class="mt10 lin24">6. 按期办理护照及签证；在获得英国学生签证后，甲方应在规定的时间内抵达英国；</p>
@@ -91,7 +92,7 @@
         <p class="mt10 lin24">8. 按使（领）馆要求，提供完全符合留学国签证最新要求的银行定期存款凭证（须满足包括存款额度、存期、 形式等相关要求）。甲方承诺确保该存款状态不得变更、分拆等，直至获得签证结果。</p>
         <p class="mt10 lin24">9. 保持与乙方的及时联系，并保证所提供的甲方个人情况、地址和通讯方式等信息真实、有效。甲方如变更 通讯地址，应在通讯地址变更后三日内书面通知乙方（甲方通讯地址变更后，变更通知送达前，以原通讯地 址为准）。如未履行通知义务，由此而造成的不利后果由甲方自行承担。</p>
         <p class="mt10 lin24">10. 双方约定的其他权利和义务：</p>
-        <el-input v-model="mandatory.customer_right" autosize type="textarea"></el-input>
+        <el-input v-model="mandatory.customer_right" autosize type="textarea" :readonly="status == 1"></el-input>
         <p class="title1">四、乙方的权利与义务</p>
         <p class="mt10 lin24">1. 要求甲方及时提供办理委托服务所需信息、文件、资料及履行本协议约定的其他义务；</p>
         <p class="mt10 lin24">2. 按本协议约定收取中介服务费；</p>
@@ -102,52 +103,52 @@
         <p class="mt10 lin24">7. 对甲方提供的个人信息及资料，负有妥善保管及保密义务；</p>
         <p class="mt10 lin24">8. 甲方同意并确认：乙方有权保留其为甲方撰写的文书及其他材料的著作权，有权在不暴露甲方真实身份及 隐私的前提下、根据需要公开及使用其为甲方撰写的文书及其它材料；</p>
         <p class="mt10 lin24">9. 双方约定的其他权利和义务：</p>
-        <el-input v-model="mandatory.compay_right" autosize type="textarea"></el-input>
+        <el-input v-model="mandatory.compay_right" autosize type="textarea" :readonly="status == 1"></el-input>
         <p class="title1">五、中介服务费用</p>
         <p class="mt10 lin24">1. 甲方委托乙方申请的留学院校在本协议【附件一：选校及专业确认单】范围以内的，本协议第一条所涉 的服务内容收费总额为￥
            <el-input class="w80 middle" value="10000" readonly></el-input>
           （大写：人民币
           <el-input class="w60 middle" value="壹万" readonly></el-input>
           元）。甲方实向乙方交纳服务费￥
-          <el-input class="w200 middle" v-model="mandatory.charge_last_number"></el-input>
+          <el-input class="w200 middle" v-model="mandatory.charge_last_number" :readonly="status == 1"></el-input>
           （大写：人民币
-          <el-input class="w200 middle" v-model="mandatory.charge_last_capital"></el-input>
+          <el-input class="w200 middle" v-model="mandatory.charge_last_capital" :readonly="status == 1"></el-input>
           元）。
         </p>
         <p class="mt10 lin24">甲方委托乙方申请的留学院校超出本协议【附件一：选校及专业确认单】范围的，每增加一所学校，甲方 须另行向乙方缴纳中介服务费用：</p>
         <p  class="mt10 lin24">（1）申请费用：</p>
         <p  class="mt10 lin24">牛津大学、剑桥大学：￥ <el-input class="w60 middle" value="5000" readonly></el-input>，除牛津、剑桥大学外其他 G5 类院校：￥<el-input class="w60 middle" value="2000" readonly></el-input>，非 G5 类院校：￥<el-input class="w60 middle" value="500" readonly></el-input>；</p>
         <p  class="mt10 lin24">（2）增加一个专业 PS 费用：￥ <el-input class="w60 middle" value="2000" readonly></el-input>。</p>
-        <p class="mt10 lin24">备注： <el-input v-model="mandatory.charge_remark" autosize type="textarea"></el-input></p>
+        <p class="mt10 lin24">备注： <el-input v-model="mandatory.charge_remark" autosize type="textarea" :readonly="status == 1"></el-input></p>
         <p class="mt10 lin24">2. 中介服务费支付期限</p>
         <p class="mt10 lin24">甲方在签署本协议  <el-input class="w60 middle" value="24" readonly></el-input>小时内，一次性向乙方缴纳上述中介服务费，乙方在收到此款项后开始为甲方提供 服务。
         </p>
         <p class="mt10 lin24">3. 中介服务费支付方式：</p>
         <el-radio-group v-model="mandatory.charge_payway">
-          <el-radio label="1">现金</el-radio>
-          <el-radio label="2">信用卡/借记卡</el-radio>
-          <el-radio label="3">汇款</el-radio>
-          <el-radio label="4">其他</el-radio>
+          <el-radio :label="1" :disabled="status == 1 && mandatory.charge_payway!==1">现金</el-radio>
+          <el-radio :label="2" :disabled="status == 1 && mandatory.charge_payway!==2">信用卡/借记卡</el-radio>
+          <el-radio :label="3" :disabled="status == 1 && mandatory.charge_payway!==3">汇款</el-radio>
+          <el-radio :label="4" :disabled="status == 1 && mandatory.charge_payway!==4">其他</el-radio>
         </el-radio-group>
         <p class="mt10 lin24">采用现金和信用卡/借记卡付费的形式，在乙方公司缴纳；采用汇款方式缴纳的，将服务费汇至乙方指定 的以下账户：</p>
         <div class="arw">
           <p>银行账号：</p>
-          <el-input v-model="mandatory.charge_bank_account"></el-input>
+          <el-input v-model="mandatory.charge_bank_account" :readonly="status == 1"></el-input>
         </div>
         <div class="arw">
           <p>账户名称：</p>
-          <el-input v-model="mandatory.charge_compay_name"></el-input>
+          <el-input v-model="mandatory.charge_compay_name" :readonly="status == 1"></el-input>
         </div>
         <div class="arw">
           <p>开户银行：</p>
-          <el-input v-model="mandatory.charge_bank_name"></el-input>
+          <el-input v-model="mandatory.charge_bank_name" :readonly="status == 1"></el-input>
         </div>
         <p class="mt10 lin24">4. 如甲方欠付乙方服务费或其他应付费用，乙方有权暂停并顺延服务，因此所造成的后果甲方自行承担， 如给乙方造成了损失则甲方有义务进行赔偿；如甲方欠付乙方服务费或其他应付费用超过 7 天的，则视 为甲方放弃本协议项下所有权利及院校申请，乙方有权以甲方名义取消甲方所获取的录取资格，有权解除 本协议并要求甲方赔偿乙方因此遭受的损失。</p>
         <p class="mt10 lin24">5. 本条所述的服务费仅为提供一次本协议第一条服务内容所涉项目。</p>
         <p class="title1">六、特别提醒</p>
         <p class="mt10 lin24">1. 甲方应及时提供完全符合英国签证最新要求的银行定期存款凭证（须满足包括存款额度、存期、形式等相 关要求）。实时标准如有调整以乙方最新通知为准。甲方必须确保持续该存款状态、不得变更、分拆直至获得 签证结果；</p>
         <p class="mt10 lin24">2. 本协议第一条所述的服务项目为连续性的整体服务，甲方如自愿放弃其中任何项目或另委托第三方代为提 供其中服务的，可能导致相关申请失败，由此导致的后果将由甲方自行承担且不影响乙方根据本协议收取全 额服务费用；</p>
-        <p class="mt10 lin24">3. 在获得英国学生签证后，甲方应在英国院校规定的时间内抵达英国并及时办理报到注册手续。如非因甲方 本人原因（如航班延误、未及时获得签证结果等）将造成抵达延误的须最迟在英国院校规定的时间前<el-input class="w60 middle" value="30" readonly></el-input>个工作日告知乙方，乙方将协助甲方与英国院校沟通短期延时入学的相关手续（具体以与英国院校协商结果为 准）；</p>
+        <p class="mt10 lin24">3. 在获得英国学生签证后，甲方应在英国院校规定的时间内抵达英国并及时办理报到注册手续。如非因甲方 本人原因（如航班延误、未及时获得签证结果等）将造成抵达延误的须最迟在英国院校规定的时间前<el-input class="w60 middle" value="3" readonly></el-input>个工作日告知乙方，乙方将协助甲方与英国院校沟通短期延时入学的相关手续（具体以与英国院校协商结果为 准）；</p>
         <p class="mt10 lin24">4. 甲方收到录取通知后如无法在录取通知书指定的入学年度入学，甲方应在第一时间（最迟不晚于录取通知 书指定入学年度入学时间前 30 日）向乙方发出书面通知，乙方在收到书面通知后将免费代为向该英国院 校申请延期入学至录取通知书指定入学年度的下一年度。乙方将尽力协调及争取，但如因甲方未及时通知乙 方而错过申请期限或院方拒绝延期入学申请而最终导致甲方入学资格因此丧失的后果由甲方自行承担。 若该院校同意甲方延期入学，而乙方尚未为甲方提供任何签证服务的，则乙方为甲方提供签证服务将顺延至 下一学年度。此免费延期签证服务仅有一次，且免费服务期限仅限于下一学年度签证期限内，如超过该期限 的，乙方有权收取与延期服务相关的费用。</p>
         <p class="mt10 lin24">如乙方收到甲方延期通知时签证服务已经办理的，乙方有权另行收取下一年度签证服务费用；</p>
         <p class="mt10 lin24">5. 甲方自理的第三方收费</p>
@@ -214,24 +215,25 @@
         <p class="mt10 lin24">（以下无正文，为签字页）</p>
         <p class="mt50 lin24">甲方： </p>
         <p class="mt10 lin24">学生： <el-input class="w200 middle" v-model="customerInfo.学生" readonly></el-input></p>
-        <p class="mt10 lin24">监护人：<el-input class="w200 middle" v-model="mandatory.end_guardian"></el-input></p>
+        <p class="mt10 lin24">监护人：<el-input class="w200 middle" v-model="mandatory.end_guardian" :readonly="status == 1"></el-input></p>
         <p class="mt50 lin24">乙方：四川英华联教育咨询有限公司 </p>
-        <p class="mt10 lin24">乙方经办人：<el-input class="w200 middle" v-model="mandatory.compay_agent"></el-input></p>
+        <p class="mt10 lin24">乙方经办人：<el-input class="w200 middle" v-model="mandatory.compay_agent" :readonly="status == 1"></el-input></p>
         <p class="mt10 lin24">本协议签订日期：
           <el-date-picker
             v-model="mandatory.signed_time"
             type="date"
             placeholder=""
             :editable="false"
+            :readonly="status == 1"
             format="yyyy 年 MM 月 dd 日" class="deta_no">
           </el-date-picker>
         </p>
         <p class="mt10 lin24">本协议签订于
-          <el-input class="w100 middle" v-model="mandatory.signed_province"></el-input>
+          <el-input class="w100 middle" v-model="mandatory.signed_province" :readonly="status == 1"></el-input>
           省
-          <el-input class="w100 middle" v-model="mandatory.signed_city"></el-input>
+          <el-input class="w100 middle" v-model="mandatory.signed_city" :readonly="status == 1"></el-input>
           市
-          <el-input class="w100 middle" v-model="mandatory.signed_region"></el-input>
+          <el-input class="w100 middle" v-model="mandatory.signed_region" :readonly="status == 1"></el-input>
           区
         </p>
       </div>
@@ -337,7 +339,7 @@
         </div>
         <p class="mt10 lin24">备注：作品集、论文、学习计划等学校额外要求的材料不包含在本合同乙方为甲方制作的文书材料中。若甲 方需乙方代为翻译，则需缴纳翻译服务费。</p>
         <p class="mt100 lin24">特此确认。</p>
-        <p class="mt100 lin24 tr">甲方： <el-input class="w60 middle" v-model="mandatory.customer_name"></el-input>（签字）</p>
+        <p class="mt100 lin24 tr">甲方： <el-input class="w60 middle" v-model="mandatory.customer_name" :readonly="status == 1"></el-input>（签字）</p>
         <p class="tr">
           日期:
           <el-date-picker
@@ -345,6 +347,7 @@
             type="date"
             placeholder=""
             :editable="isClear"
+            :readonly="status == 1"
             format="yyyy 年 MM 月 dd 日" class="deta_no w170">
           </el-date-picker>
         </p>
@@ -408,7 +411,8 @@
                     customer_name:'',
                     customer_signed_time: '',
                     other_service: '',
-                    service_endtime:''
+                    service_endtime:'',
+                    materials_time: ''
                 },
                 no_fill:{
 
@@ -433,7 +437,7 @@
         methods:{
             close(){
                 this.signed = false;
-                this.$emit("closeContr");
+                this.$emit("closeContr",'false');
             },
             //确认签约
             sure(){
@@ -448,7 +452,7 @@
             //立即支付
             pay(){
                 this.$router.push({ path: "/contract/pay", query: { id: this.id } });
-                this.$emit("closeContr");
+                this.$emit("closeContr",'false');
             }
         },
     }

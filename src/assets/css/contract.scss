@@ -7,10 +7,10 @@
     margin: 40px 40px 0 0;
     cursor: pointer;
     width: 196px;
+    justify-content: center;
     @include cuc();
     span{
       @include  fontc(14px,20px,$f6);
-      width: 196px;
       margin-top: 10px;
     }
   }
@@ -191,7 +191,7 @@
       padding: 20px 0;
     }
     .el-input{
-      padding: 6px 0;
+      padding: 6px 1px;
       border-top: 1px solid #cccccc;
       input{
         border: none!important;

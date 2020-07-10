@@ -166,7 +166,10 @@
                         _this.isgPs = true;
                         break;
                     default:
-                        _this.isDiyA = true;
+                        this.$message({
+                            message: '此套餐无合同模板，如有疑问请联系您的顾问老师',
+                            type: "warning"
+                        });
                         break;
                 }
             },
@@ -175,30 +178,29 @@
                 this.isSign = true;
                 this.getContract();
             },
-            showDiyA() {
-                console.log('1111')
+            showDiyA(val) {
                 this.isDiyA = false;
-                this.emerge();
+                val != 'false'? this.emerge() : '';
             },
-            showDiyB() {
+            showDiyB(val) {
                 this.isDiyB = false;
-                this.emerge();
+                val != 'false'? this.emerge() : '';
             },
-            showG5() {
+            showG5(val) {
                 this.isG5 = false;
-                this.emerge();
+                val != 'false'? this.emerge() : '';
             },
-            showPs3() {
+            showPs3(val) {
                 this.isPs3 = false;
-                this.emerge();
+                val != 'false'? this.emerge() : '';
             },
-            showPs1() {
+            showPs1(val) {
                 this.isPs1 = false;
-                this.emerge();
+                val != 'false'? this.emerge() : '';
             },
-            showGps() {
+            showGps(val) {
                 this.isgPs = false;
-                this.emerge();
+                val != 'false'? this.emerge() : '';
             },
             //是否填写签章
             showSign(val) {
