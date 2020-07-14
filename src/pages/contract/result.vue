@@ -24,7 +24,7 @@
         data() {
             return {
                 id: '',//当前合同id
-                seconds: 11,//默认跳转时间
+                seconds: 6,//默认跳转时间
                 timer: null,//定时器
                 contract:{},//当前合同
                 pay_result: false,//支付结果
