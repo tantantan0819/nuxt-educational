@@ -1,5 +1,6 @@
 <template>
     <div class="rHeader">
+      <input type="hidden" id="uid" v-model="uid">
         <div class="rHeader_left">
             <img v-if="person.avatar" :src="person.avatar" alt />
             <img v-else src="/images/avatar.jpg" alt />
@@ -65,6 +66,7 @@ import { setStore, getStore, emptyObj } from "~/plugins/utils";
 export default {
     data() {
         return {
+            uid: '',
             person:{},//sso获取到的用户信息
             user: {
                 avatar:
@@ -125,6 +127,7 @@ export default {
         getInfo() {
             let _this = this;
             http.get("/customer/get-info").then(res => {
+                _this.uid = res.id;
                 _this.user.name = res.customer_name;
                 _this.user.email = res.email;
                 _this.user.tel = res.phone;

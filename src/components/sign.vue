@@ -23,6 +23,7 @@
             return{
                 isClose: false,
                 signed: true,
+                isClick: true,
             }
         },
         mounted() {
@@ -30,19 +31,26 @@
         },
         methods:{
             close(){
-                // window.open('https://www.baidu.com/','_blank')
-                console.log('获取签章url')
-                http.get('/contract/my-sign-url',{contract_id:this.id}).then(res=>{
-                    console.log(res,'hhhhhh')
-                })
-                // this.signed = false;
-                // this.$emit("closeContr");
+                if(this.isClick){
+                    this.isClick = false;
+                    http.get('/contract/my-sign-url',{contract_id:this.id}).then(res=>{
+                        if(res.url.shorturl){
+                            window.open(res.url.shorturl,'_blank')
+                        }
+                        this.isClick = true;
+                    }).catch(error=>{
+                        this.isClick = true;
+                    })
+                }else{
+
+                }
+
             },
             sure(){
                 this.$emit("closeContr",true);
             },
             handleDialogClose(){
-                console.log('通过右上角x关闭填写签章')
+                console.log('通过右上角x关闭填写签章');
                 this.signed = false;
                 this.$emit("closeContr",false);
             }

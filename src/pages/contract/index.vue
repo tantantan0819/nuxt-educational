@@ -51,6 +51,7 @@
                 list: [],//合同列表
                 con_id: '',//查看的合同id
                 status_status: '',//点击当前合同的签约状态
+                pay_type: ''//非596则为线下支付签约，直接返回合同列表
             };
         },
         mounted() {
@@ -122,6 +123,7 @@
                 let _this = this;
                 _this.status_status = item.status;
                 _this.con_id = item.id;
+                _this.pay_type = item.pay_type;
                 switch (item.status) {
                     case 0: //未签约
                         _this.goSign(item);
@@ -130,7 +132,7 @@
                         _this.goSign(item);
                         break;
                     case 2: //已完成
-                        window.open(item.签章URL地址,'_blank');
+                        window.open(item.contract_sign_url,'_blank');
                         break;
                     case 3: //签署中
                         this.isSign = true;
@@ -205,7 +207,9 @@
             //是否填写签章
             showSign(val) {
                 this.isSign = false;
-                val ? this.isDetetion = true : '';
+                if(val && this.pay_type == '596'){
+                    this.isDetetion = true
+                }
             },
             //签章检测--成功/失败
             showDetetion(){

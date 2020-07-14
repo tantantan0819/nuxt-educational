@@ -108,12 +108,13 @@
         <p class="mt10 lin24">1. 甲方委托乙方申请的留学院校在本协议【附件一：选校及专业确认单】范围以内的，本协议第一条所涉 的服务内容收费总额为￥
            <el-input class="w80 middle" value="10000" readonly></el-input>
           （大写：人民币
-          <el-input class="w60 middle" value="壹万" readonly></el-input>
-          元）。甲方实向乙方交纳服务费￥
-          <el-input class="w200 middle" v-model="mandatory.charge_last_number" :readonly="status == 1"></el-input>
-          （大写：人民币
-          <el-input class="w200 middle" v-model="mandatory.charge_last_capital" :readonly="status == 1"></el-input>
-          元）。
+          <el-input class="w60 middle" value="壹万" readonly></el-input> 元）。
+<!--         甲方实向乙方交纳服务费￥-->
+<!--          <el-input class="w200 middle" v-model="mandatory.charge_last_number" :readonly="status == 1"></el-input>-->
+<!--          （大写：人民币-->
+<!--          <el-input class="w200 middle" v-model="mandatory.charge_last_capital" :readonly="status == 1"></el-input>-->
+<!--          元）。-->
+<!--          备注：线上crm无此条-->
         </p>
         <p class="mt10 lin24">甲方委托乙方申请的留学院校超出本协议【附件一：选校及专业确认单】范围的，每增加一所学校，甲方 须另行向乙方缴纳中介服务费用：</p>
         <p  class="mt10 lin24">（1）申请费用：</p>
@@ -121,7 +122,7 @@
         <p  class="mt10 lin24">（2）增加一个专业 PS 费用：￥ <el-input class="w60 middle" value="2000" readonly></el-input>。</p>
         <p class="mt10 lin24">备注： <el-input v-model="mandatory.charge_remark" autosize type="textarea" :readonly="status == 1"></el-input></p>
         <p class="mt10 lin24">2. 中介服务费支付期限</p>
-        <p class="mt10 lin24">甲方在签署本协议  <el-input class="w60 middle" value="24" readonly></el-input>小时内，一次性向乙方缴纳上述中介服务费，乙方在收到此款项后开始为甲方提供 服务。
+        <p class="mt10 lin24">甲方在签署本协议  <el-input class="w60 middle" v-model="mandatory.charge_endtime" :readonly="status == 1"></el-input>小时内，一次性向乙方缴纳上述中介服务费，乙方在收到此款项后开始为甲方提供 服务。
         </p>
         <p class="mt10 lin24">3. 中介服务费支付方式：</p>
         <el-radio-group v-model="mandatory.charge_payway">

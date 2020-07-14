@@ -38,7 +38,7 @@
                 seconds: 11,
                 timer: null,
                 isDetection: true,//是否展示检测签章合同
-                msg: '111'
+                msg: ''
             }
         },
         mounted() {
@@ -46,10 +46,15 @@
                 //未签署--获取
                 if(res.contract_sign_status == 0){
                     http.get('/contract/my-sign-url',{contract_id:this.id}).then(res=>{
-                        console.log('检测正常--未签署');
-                        this.msg = '系统检测到您还未填写签章信息，';
-                        this.isDetection = false;
-                        this.showFail('aaa');
+                      if(res.url.shorturl){
+                          this.msg = '系统检测到您还未填写签章信息，';
+                          this.isDetection = false;
+                          this.showFail('aaa');
+                          setTimeout(function () {
+                              window.open(res.url.shorturl,'_blank')
+                          },500)
+                      }
+
                     })
                 }
                 //签署中

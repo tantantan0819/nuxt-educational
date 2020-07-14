@@ -121,7 +121,7 @@
         <p  class="mt10 lin24">（2）增加一个专业 PS 费用：￥ <el-input class="w60 middle" value="2000" readonly></el-input>。</p>
         <p class="mt10 lin24">备注：<el-input v-model="mandatory.charge_remark" autosize type="textarea" :readonly="status == 1"></el-input></p>
         <p class="mt10 lin24">2. 中介服务费支付期限</p>
-        <p class="mt10 lin24">甲方在签署本协议  <el-input class="w60 middle" value="24" readonly></el-input>小时内，一次性向乙方缴纳上述中介服务费，乙方在收到此款项后开始为甲方提供 服务。
+        <p class="mt10 lin24">甲方在签署本协议<el-input class="w60 middle" v-model="mandatory.charge_endtime" :readonly="status == 1"></el-input>小时内，一次性向乙方缴纳上述中介服务费，乙方在收到此款项后开始为甲方提供 服务。
         </p>
         <p class="mt10 lin24">3. 中介服务费支付方式：</p>
         <el-radio-group v-model="mandatory.charge_payway">
