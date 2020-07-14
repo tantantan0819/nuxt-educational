@@ -4,7 +4,8 @@
     <div class="cv_footer ps_footer">
       <div class="footer_button">
                     <span @click="close">
-                        <i>未填写，立刻申请</i>
+                        <i>{{isClick?'未填写，立刻申请':'加载中……'}}</i>
+                       <i class="el-icon-loading loading_btn" v-if="!isClick"></i>
                     </span>
         <span @click="sure">已填写</span>
       </div>
@@ -42,7 +43,7 @@
                         this.isClick = true;
                     })
                 }else{
-
+                    this.isClick = true;
                 }
 
             },

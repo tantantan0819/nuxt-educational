@@ -3,6 +3,9 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
+  .loading_btn{
+    width: 48px!important;
+  }
   .item{
     margin: 40px 40px 0 0;
     cursor: pointer;

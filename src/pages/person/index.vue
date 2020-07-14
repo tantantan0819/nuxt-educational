@@ -1,5 +1,5 @@
 <template>
-    <div class="cv con">
+    <div class="cv con add_note ">
         <div class="cv_step2">
             <div class="version_title">
                 <span>个人设置</span>

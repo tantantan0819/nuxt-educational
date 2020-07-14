@@ -52,7 +52,6 @@
                           this.isDetection = false;
                           this.showFail(res.url.shorturl);
                       }
-
                     })
                 }
                 //签署中
