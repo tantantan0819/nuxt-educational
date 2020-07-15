@@ -207,58 +207,6 @@
       </div>
       <div class="footer mt50"><img src="/images/contract2.png" alt=""></div>
     </div>
-    <div class="page mt50">
-      <div class="top"><img src="/images/contract1.png" alt="" ></div>
-      <div class="attachment con">
-        <p class="title1 mt20">【附件一：选校及专业确认单】</p>
-        <p class="title1 mt50 cc">选校及专业确认单</p>
-        <p class="mt10 lin24">本人
-          <el-input class="w100 middle" v-model="mandatory.statement_name" :readonly="status == 1"></el-input>
-          ，自愿选择以下五所院校及对应专业，并就此委托英国教育中心代为办理相关申请及 后续手续
-        </p>
-        <div class="table mt30">
-          <div class="item">
-            <span class="cc">编号申请类型</span>
-            <el-input v-model="phone"></el-input>
-            <el-input  v-model="phone"></el-input>
-            <el-input  v-model="phone"></el-input>
-            <el-input  v-model="phone"></el-input>
-            <el-input  v-model="phone"></el-input>
-          </div>
-          <div class="item">
-            <span class="cc">英国院校（英文全称）</span>
-            <el-input v-model="phone"></el-input>
-            <el-input  v-model="phone"></el-input>
-            <el-input  v-model="phone"></el-input>
-            <el-input  v-model="phone"></el-input>
-            <el-input  v-model="phone"></el-input>
-          </div>
-          <div class="item">
-            <span class="cc">所选专业（与官网一致的英文全称）</span>
-            <el-input v-model="phone"></el-input>
-            <el-input  v-model="phone"></el-input>
-            <el-input  v-model="phone"></el-input>
-            <el-input  v-model="phone"></el-input>
-            <el-input  v-model="phone"></el-input>
-          </div>
-        </div>
-        <p class="mt50 lin24">本人已经了解上述院校及相应专业，并在充分了解的基础上自愿选择，本人承诺以上院校及专业一旦选定 将不再修改。若如本人希望增加学校或专业的将另行签署补充协议并支付费用。</p>
-        <p class="mt10 lin24">特此确认。</p>
-        <p class="mt100 lin24 tr">甲方： <el-input class="w60 middle" v-model="mandatory.customer_name" :readonly="status == 1"></el-input>（签字）</p>
-        <p class="tr">
-          日期:
-          <el-date-picker
-            v-model="mandatory.customer_signed_time"
-            type="date"
-            placeholder=""
-            :editable="isClear"
-            :readonly="status == 1"
-            format="yyyy 年 MM 月 dd 日" class="deta_no w170">
-          </el-date-picker>
-        </p>
-      </div>
-      <div class="footer mt50"><img src="/images/contract2.png" alt=""></div>
-    </div>
     <div class="cv_footer ps_footer">
       <div class="footer_button">
                     <span @click="close">
