@@ -47,7 +47,7 @@
           <p>家庭电话：</p>
           <el-input v-model="mandatory.guardian_tel" :readonly="status == 1"></el-input>
           <p>邮箱：</p>
-          <el-input v-model="mandatory.guardian_email" :readonly="status == 1"></el-input>
+          <el-input class="w180 middle"  v-model="mandatory.guardian_email" :readonly="status == 1"></el-input>
         </div>
         <p class="mt50">乙 方：四川英华联教育咨询有限公司</p>
         <p class="mt20">法定代表人：梁军</p>

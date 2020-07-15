@@ -47,7 +47,7 @@
           <p>家庭电话：</p>
           <el-input v-model="mandatory.guardian_tel" :readonly="status == 1"></el-input>
           <p>邮箱：</p>
-          <el-input v-model="mandatory.guardian_email" :readonly="status == 1"></el-input>
+          <el-input class="w180 middle"  v-model="mandatory.guardian_email" :readonly="status == 1"></el-input>
         </div>
         <p class="mt50">乙 方：四川英华联教育咨询有限公司</p>
         <p class="mt20">法定代表人：梁军</p>
@@ -290,7 +290,7 @@
         </div>
         <p class="mt10 lin24">备注：作品集、论文、学习计划等学校额外要求的材料不包含在本合同乙方为甲方制作的文书材料中。若甲 方需乙方代为翻译，则需缴纳翻译服务费。</p>
         <p class="mt100 lin24">特此确认。</p>
-        <p class="mt100 lin24 tr">甲方： <el-input class="w60 middle" v-model="mandatory.customer_name" :readonly="status == 1"></el-input>（签字）</p>
+        <p class="mt100 lin24 tr">甲方： <el-input class="w100 middle" v-model="mandatory.customer_name" :readonly="status == 1"></el-input>（签字）</p>
         <p class="tr">
           日期:
           <el-date-picker
