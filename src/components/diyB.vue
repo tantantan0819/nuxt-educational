@@ -89,17 +89,17 @@
         <el-input v-model="mandatory.compay_right" autosize type="textarea" :readonly="status == 1"></el-input>
         <p class="title1">五、中介服务费用</p>
         <p class="mt10 lin24">1. 甲方委托乙方申请的留学院校在本协议【附件一：选校及专业确认单】范围以内的，本协议第一条所涉 的服务内容收费总额为￥
-          <el-input class="w60 middle" value="2000" readonly></el-input>
+          <el-input class="w80 middle" value="2000" readonly></el-input>
           （大写：人民币
-          <el-input class="w60 middle" value="贰仟" readonly></el-input>
-          元）。甲方实向乙方交纳服务费￥
-          <el-input class="w200 middle" v-model="mandatory.charge_last_number" :readonly="status == 1"></el-input>
-          （大写：人民币
-          <el-input class="w200 middle" v-model="mandatory.charge_last_capital" :readonly="status == 1"></el-input>
-          元）。
+          <el-input class="w80 middle" value="贰仟" readonly></el-input>元）
+          <!--。甲方实向乙方交纳服务费￥-->
+          <!--<el-input class="w200 middle" v-model="mandatory.charge_last_number" :readonly="status == 1"></el-input>-->
+          <!--（大写：人民币-->
+          <!--<el-input class="w200 middle" v-model="mandatory.charge_last_capital" :readonly="status == 1"></el-input>-->
+          <!--元）。-->
         </p>
         <p class="mt10 lin24">甲方委托乙方申请的留学院校超出本协议【附件一：选校及专业确认单】范围的，每增加一所学校，甲方 须另行向乙方缴纳中介服务费用：
-          <el-input class="w200 middle" value="非 G5 类院校：￥500；" readonly></el-input>
+          <el-input class="w180 middle" value="非 G5 类院校：￥500；" readonly></el-input>
         </p>
         <p class="mt10 lin24">备注：</p>
         <el-input v-model="mandatory.charge_remark" autosize type="textarea" :readonly="status == 1"></el-input>
@@ -215,7 +215,7 @@
         <p class="mt10 lin24">本人
           <el-input class="w100 middle" v-model="mandatory.statement_name" :readonly="status == 1"></el-input>
           自愿放弃协议中第一条第九款中所述的返还本合同费用，兑换为由乙方提供的
-          <el-input class="middle w550" value="英文版个人陈述润色一次（个人陈述字数为 1000 字以内）。" readonly></el-input>
+          <el-input class="middle w550" v-model="mandatory.statement_txt" :readonly="status == 1"></el-input>
         </p>
         <p class="mt100 lin24">特此声明。</p>
         <p class="mt100 lin24 tr">甲方： <el-input class="w60 middle" v-model="mandatory.customer_name" :readonly="status == 1"></el-input>（签字）</p>
@@ -238,7 +238,7 @@
                     <span @click="close">
                         <i>取消</i>
                     </span>
-        <span @click="pay" v-if="status == 1">立即支付</span>
+        <span @click="pay" v-if="state == 1">立即支付</span>
         <span @click="sure" v-else>确认签约</span>
       </div>
     </div>
@@ -251,9 +251,10 @@
 <script>
   import http from "~/plugins/http";
   export  default {
-      props: ['id','status'],
+      props: ['id','state'],
       data(){
           return{
+              status: 1,//不可编辑状态
               isClose: false,
               signed: true,
               isClear: false,
@@ -289,6 +290,7 @@
                   statement_name: '',
                   customer_name:'',
                   customer_signed_time: '',
+                  statement_txt:''
               },
               no_fill:{
 
@@ -304,7 +306,11 @@
                   this.contractInfo = res.contractInfo;
                   this.customerInfo = res.customerInfo;
                   if(res.data){
-                      this.mandatory = res.data
+                      this.mandatory = res.data;
+                      //备注：可能会出现文本域换行，特此处理
+                      for(let i in this.mandatory){
+                          typeof this.mandatory[i] == 'string' ? this.mandatory[i] = this.mandatory[i].trim() : '';
+                      }
                   }
 
               }

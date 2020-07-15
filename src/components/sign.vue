@@ -39,13 +39,8 @@
                             window.open(res.url.shorturl,'_blank')
                         }
                         this.isClick = true;
-                    }).catch(error=>{
-                        this.isClick = true;
                     })
-                }else{
-                    this.isClick = true;
                 }
-
             },
             sure(){
                 this.$emit("closeContr",true);

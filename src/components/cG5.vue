@@ -68,7 +68,7 @@
         <p class="mt10 lin24">10. 协助甲方安排抵达英国后的住宿及接机事宜。相应接机费用、住宿费用由甲方自行承担；</p>
         <p class="mt10 lin24"><span class="bold">双方确认：</span>乙方的上述服务仅限于本协议及补充协议约定的院校；本协议所述的申请文书，均指申请【附件 一：选校及专业确认单】所列院校及专业所涉及的申请文书；本协议中所述的翻译，仅限中英文互译翻译。</p>
         <p class="mt10 lin24">11.除甲方委托的以上服务项目之外，双方还确定了以下的其他服务项目:</p>
-        <el-input v-model="mandatory.other_service" autosize type="textarea" :readonly="status == 1"></el-input>
+        <el-input v-model.trim="mandatory.other_service" autosize type="textarea" :readonly="status == 1"></el-input>
         <p class="title1">二、服务期限</p>
         <p class="mt10 lin24">服务期限自本协议签订之日起至甲方获得
           <el-date-picker
@@ -266,11 +266,11 @@
           </div>
           <div class="itme">
             <p>英文版个人陈述方向限定</p>
-            <p>3 个专业（备注：若所选专业名字不一样，您须与教育顾问确认是否为不 同方向个人陈述）</p>
+            <p>1 个方向（备注：若所选专业名字不一样，您须与教育顾问确认是否为不 同方向个人陈述）</p>
           </div>
           <div class="itme">
             <p>英文版个人陈述数量限定</p>
-            <p>8 个学校（备注：同一方向，即 95%内容相同；若您需要写成不一样的， 请向教育顾问咨询）</p>
+            <p>6 个学校（备注：同一方向，即 95%内容相同；若您需要写成不一样的， 请向教育顾问咨询）</p>
           </div>
           <div class="itme">
             <p>英文版个人陈述修改限定</p>
@@ -311,7 +311,7 @@
                     <span @click="close">
                         <i>取消</i>
                     </span>
-        <span @click="pay" v-if="status == 1">立即支付</span>
+        <span @click="pay" v-if="state == 1">立即支付</span>
         <span @click="sure" v-else>确认签约</span>
       </div>
     </div>
@@ -324,9 +324,10 @@
 <script>
     import http from "~/plugins/http";
     export  default {
-        props: ['id','status'],
+        props: ['id','state'],
         data(){
             return{
+                status: 1,//不可编辑状态
                 isClose: false,
                 signed: true,
                 isClear: false,
@@ -380,11 +381,20 @@
                     this.contractInfo = res.contractInfo;
                     this.customerInfo = res.customerInfo;
                     if(res.data){
-                        this.mandatory = res.data
+                        this.mandatory = res.data;
+                        //备注：可能会出现文本域换行，特此处理
+                        for(let i in this.mandatory){
+                            typeof this.mandatory[i] == 'string' ? this.mandatory[i] = this.mandatory[i].trim() : '';
+                        }
                     }
 
                 }
             })
+        },
+        filters:{
+            trimText(val){
+                return val.trim();
+            }
         },
         methods:{
             close(){

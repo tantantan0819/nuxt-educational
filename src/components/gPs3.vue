@@ -265,7 +265,7 @@
           </div>
           <div class="itme">
             <p>英文版个人陈述方向限定</p>
-            <p>3 个专业（备注：若所选专业名字不一样，您须与教育顾问确认是否为不 同方向个人陈述）</p>
+            <p>3 个方向（备注：若所选专业名字不一样，您须与教育顾问确认是否为不 同方向个人陈述）</p>
           </div>
           <div class="itme">
             <p>英文版个人陈述数量限定</p>
@@ -310,7 +310,7 @@
                     <span @click="close">
                         <i>取消</i>
                     </span>
-        <span @click="pay" v-if="status == 1">立即支付</span>
+        <span @click="pay" v-if="state == 1">立即支付</span>
         <span @click="sure" v-else>确认签约</span>
       </div>
     </div>
@@ -323,9 +323,10 @@
 <script>
     import http from "~/plugins/http";
     export  default {
-        props: ['id','status'],
+        props: ['id','state'],
         data(){
             return{
+                status: 1,//不可编辑状态
                 isClose: false,
                 signed: true,
                 isClear: false,
@@ -379,7 +380,11 @@
                     this.contractInfo = res.contractInfo;
                     this.customerInfo = res.customerInfo;
                     if(res.data){
-                        this.mandatory = res.data
+                        this.mandatory = res.data;
+                        //备注：可能会出现文本域换行，特此处理
+                        for(let i in this.mandatory){
+                            typeof this.mandatory[i] == 'string' ? this.mandatory[i] = this.mandatory[i].trim() : '';
+                        }
                     }
 
                 }

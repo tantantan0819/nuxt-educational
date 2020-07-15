@@ -106,9 +106,9 @@
         <el-input v-model="mandatory.compay_right" autosize type="textarea" :readonly="status == 1"></el-input>
         <p class="title1">五、中介服务费用</p>
         <p class="mt10 lin24">1. 甲方委托乙方申请的留学院校在本协议【附件一：选校及专业确认单】范围以内的，本协议第一条所涉 的服务内容收费总额为￥
-           <el-input class="w80 middle" value="10000" readonly></el-input>
+           <el-input class="w80 middle" v-model="mandatory.charge_number" readonly></el-input>
           （大写：人民币
-          <el-input class="w60 middle" value="壹万" readonly></el-input> 元）。
+          <el-input class="w80 middle" v-model="mandatory.charge_capital" readonly></el-input> 元）。
 <!--         甲方实向乙方交纳服务费￥-->
 <!--          <el-input class="w200 middle" v-model="mandatory.charge_last_number" :readonly="status == 1"></el-input>-->
 <!--          （大写：人民币-->
@@ -266,7 +266,7 @@
           </div>
           <div class="itme">
             <p>英文版个人陈述方向限定</p>
-            <p>1 个专业（备注：若所选专业名字不一样，您须与教育顾问确认是否为不 同方向个人陈述）</p>
+            <p>1 个方向（备注：若所选专业名字不一样，您须与教育顾问确认是否为不 同方向个人陈述）</p>
           </div>
           <div class="itme">
             <p>英文版个人陈述数量限定</p>
@@ -311,7 +311,7 @@
                     <span @click="close">
                         <i>取消</i>
                     </span>
-        <span @click="pay" v-if="status == 1">立即支付</span>
+        <span @click="pay" v-if="state == 1">立即支付</span>
         <span @click="sure" v-else>确认签约</span>
       </div>
     </div>
@@ -324,9 +324,10 @@
 <script>
     import http from "~/plugins/http";
     export  default {
-        props: ['id','status'],
+        props: ['id','state'],
         data(){
             return{
+                status: 1,//不可编辑状态
                 isClose: false,
                 signed: true,
                 isClear: false,
@@ -364,7 +365,9 @@
                     customer_signed_time: '',
                     other_service: '',
                     service_endtime:'',
-                    materials_time: ''
+                    materials_time: '',
+                    charge_number: '',
+                    charge_capital:''
                 },
                 no_fill:{
 
@@ -380,7 +383,11 @@
                     this.contractInfo = res.contractInfo;
                     this.customerInfo = res.customerInfo;
                     if(res.data){
-                        this.mandatory = res.data
+                        this.mandatory = res.data;
+                        //备注：可能会出现文本域换行，特此处理
+                        for(let i in this.mandatory){
+                            typeof this.mandatory[i] == 'string' ? this.mandatory[i] = this.mandatory[i].trim() : '';
+                        }
                     }
 
                 }
