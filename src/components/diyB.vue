@@ -31,7 +31,7 @@
           <p>系学生的</p>
           <el-input v-model="mandatory.guardianship" :readonly="status == 1"></el-input>
           <p>身份证号码：</p>
-          <el-input v-model="mandatory.guardian_idcard" :readonly="status == 1"></el-input>
+          <el-input class="w180 middle" v-model="mandatory.guardian_idcard" :readonly="status == 1"></el-input>
         </div>
         <div class="arw">
           <p>身份证地址：</p>
