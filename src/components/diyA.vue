@@ -268,7 +268,6 @@
               no_fill:{
 
               },
-
           }
       },
       mounted(){
