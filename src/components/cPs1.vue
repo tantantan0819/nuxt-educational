@@ -372,8 +372,7 @@
                 no_fill:{
 
                 },
-                checkList: [],
-                phone: ''
+
             }
         },
         mounted(){
