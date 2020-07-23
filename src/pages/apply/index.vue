@@ -43,7 +43,7 @@
                     style="width: 100%"
                 >
                     <el-table-column prop="university_cn" label="申请院校" width="140"></el-table-column>
-                    <el-table-column prop="apply_course_name_cn" label="申请专业" width="110"></el-table-column>
+                    <el-table-column prop="major_cn" label="申请专业" width="110"></el-table-column>
                     <el-table-column prop="apply_major_url" label="专业链接">
                         <template slot-scope="scope">
                             <a  v-if="scope.row.专业链接"
