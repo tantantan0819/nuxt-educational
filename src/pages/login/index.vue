@@ -46,7 +46,8 @@
                 ],//轮播图片
                 loginForm: {
                     password: '',
-                    username: ''
+                    username: '',
+                    from:'PC',//来源 PC IOS Android
                 },
                 rules: {
                     username: [
