@@ -34,6 +34,10 @@
           <el-input v-model="cvForm1.email" placeholder="请输入您的邮箱" autocomplete="off"
                     v-bind:readonly="userForm.email | textFormat"></el-input>
         </el-form-item>
+        <el-form-item label="申请专用邮箱" prop="apply_email">
+          <el-input v-model="cvForm1.apply_email" placeholder="请输入您的申请专用邮箱" autocomplete="off"
+                    v-bind:readonly="userForm.apply_email | textFormat"></el-input>
+        </el-form-item>
         <el-form-item label="地址" prop="now_address">
           <el-input v-model="cvForm1.now_address" placeholder="请输入您的地址" autocomplete="off"
                     v-bind:readonly="userForm.now_address | textFormat"></el-input>
@@ -72,6 +76,7 @@
                     birthday: '',
                     phone: '',
                     email: '',
+                    apply_email: '',
                     now_address: ''
                 },
                 rules: {
@@ -88,6 +93,9 @@
                         {required: true, validator: validPhone, trigger: 'blur'}
                     ],
                     email: [
+                        {required: true, validator: validEmail, trigger: 'blur'}
+                    ],
+                    apply_email: [
                         {required: true, validator: validEmail, trigger: 'blur'}
                     ],
                     now_address: [
@@ -108,6 +116,7 @@
                     _this.cvForm1.birthday = res.birthday;
                     _this.cvForm1.phone = res.phone;
                     _this.cvForm1.email = res.email;
+                    _this.cvForm1.apply_email = res.apply_email;
                     _this.cvForm1.now_address = res.now_address;
                 }
             })
