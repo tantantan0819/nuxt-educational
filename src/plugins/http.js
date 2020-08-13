@@ -90,7 +90,8 @@ const http = {
     let tmp = Object.entries(obj);
     let res = {};
     tmp.filter(function (item) {
-      return item[1] !== "" && item[1] !== null && item[1] !== undefined;
+      // return item[1] !== "" && item[1] !== null && item[1] !== undefined;
+      return item[1] !== null && item[1] !== undefined;
     }).forEach(function (val) {
       res[val[0]] = val[1];
     });

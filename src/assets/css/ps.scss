@@ -1,16 +1,39 @@
 @import "./base";
-
+.ps_newTitle{
+  @include fontc(16px,32px,$f3);
+  position: relative;
+  &:before{
+    content: '*';
+    display: inline-block;
+    color: $f56;
+    margin-right: 4px;
+  }
+}
 .ps {
   textarea::-webkit-input-placeholder {
     color: $f9;
   }
+  .psDetailForm{
+    margin-top: 0!important;
+  }
   .ps_add {
-    padding: 50px 0 100px 0;
+    padding: 20px 0 0 0;
+    .ps_formIndent{
+      padding: 0 10px;
+    }
 
     .ps_tip {
       margin-bottom: 23px;
       display: inline-block;
       @include fontc(16px, 1, $f6);
+    }
+    .ps_remind{
+      p{
+        @include fontc(14px,24px,$f70);
+      }
+      .text-indent{
+        text-indent: 2em;
+      }
     }
 
     .add_box {
