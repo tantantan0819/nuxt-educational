@@ -155,7 +155,7 @@
                     case '57':
                         _this.isDiyB = true;
                         break;
-                    case '102':
+                    case '248':
                         _this.isG5 = true;
                         break;
                     case '99':

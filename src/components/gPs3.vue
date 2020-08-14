@@ -70,16 +70,7 @@
         <p class="mt10 lin24">11.除甲方委托的以上服务项目之外，双方还确定了以下的其他服务项目:</p>
         <el-input v-model="mandatory.other_service" autosize type="textarea" :readonly="status == 1"></el-input>
         <p class="title1">二、服务期限</p>
-        <p class="mt10 lin24">服务期限自本协议签订之日起至甲方获得
-          <el-date-picker
-            v-model="mandatory.service_endtime"
-            type="month"
-            placeholder=""
-            :editable="false"
-            :readonly="status == 1"
-            format="yyyy 年 MM 月" class="deta_no w170">
-          </el-date-picker>入学首次留学签证结果为止。在录取通知书 指定的入学年度内，甲方因个人原因未按时递交签证资料，或已递交签证资料但签证申请未通过且未重新按 照规定提交的，乙方的服务期限在录取通知书中规定的入学日期的 2 个自然月内终结。若存在延期入学情形 的，请参照本协议第六条第 4 款关于延期服务的规定。</p>
-        <p>本协议另有约定的除外。另有约定如下:</p>
+        <p class="mt10 lin24">服务期限自本协议签订之日起至甲方获得  <el-input v-model="mandatory.encrol_date" :readonly="status == 1"></el-input> 入学首次留学签证结果为止，本协议另有约定的 除外。另有约定如下</p>
         <el-input v-model="mandatory.service_promise" autosize type="textarea" :readonly="status == 1"></el-input>
         <p class="title1">三、甲方的权利与义务</p>
         <p class="mt10 lin24">1. 参考乙方提供的信息和咨询、建议，决定申请留学的国家、院校中英文名称、留学层次、就读专业或专 业方向，确定留学方案并签署本协议【附件一：选校及专业确认单】；</p>
@@ -117,12 +108,12 @@
         </p>
         <p class="mt10 lin24">甲方委托乙方申请的留学院校超出本协议【附件一：选校及专业确认单】范围的，每增加一所学校，甲方 须另行向乙方缴纳中介服务费用：</p>
         <p  class="mt10 lin24">（1）申请费用：</p>
-        <p  class="mt10 lin24">牛津大学、剑桥大学：￥ <el-input class="w60 middle" value="5000" readonly></el-input>，除牛津、剑桥大学外其他 G5 类院校：￥<el-input class="w60 middle" value="2000" readonly></el-input>，非 G5 类院校：￥<el-input class="w60 middle" value="500" readonly></el-input>；</p>
-        <p  class="mt10 lin24">（2）增加一个专业 PS 费用：￥ <el-input class="w60 middle" value="2000" readonly></el-input>。</p>
+        <p  class="mt10 lin24">牛津大学、剑桥大学：￥ <el-input class="w60 middle" value="5000（含 PS）" readonly></el-input>，除牛津、剑桥大学外其他 G5 类院校：￥<el-input class="w60 middle" value="2000（不含 PS）" readonly></el-input>，非 G5 类院校：￥<el-input class="w60 middle" value="500（不含 PS），￥1000（含 PS）；" readonly></el-input>；</p>
+        <p  class="mt10 lin24">（2）文书费用：</p>
+        <p  class="mt10 lin24">增加一个专业 PS 费用：非 G5 除华威：￥ <el-input class="w60 middle" value="1000" readonly></el-input>，非牛津剑桥 G5 及华威：￥ <el-input class="w60 middle" value="2000" readonly></el-input>。</p>
         <p class="mt10 lin24">备注：<el-input v-model="mandatory.charge_remark" autosize type="textarea" :readonly="status == 1"></el-input></p>
         <p class="mt10 lin24">2. 中介服务费支付期限</p>
-        <p class="mt10 lin24">甲方在签署本协议<el-input class="w60 middle" v-model="mandatory.charge_endtime" :readonly="status == 1"></el-input>小时内，一次性向乙方缴纳上述中介服务费，乙方在收到此款项后开始为甲方提供 服务。
-        </p>
+        <p class="mt10 lin24">甲方在签署本协议<el-input class="w60 middle" v-model="mandatory.charge_endtime" :readonly="status == 1"></el-input>小时内，一次性向乙方缴纳上述中介服务费，乙方在收到此款项后开始为甲方提供 服务。</p>
         <p class="mt10 lin24">3. 中介服务费支付方式：</p>
         <el-radio-group v-model="mandatory.charge_payway">
           <el-radio :label="1" :disabled="status == 1 && mandatory.charge_payway!==1">现金</el-radio>
@@ -364,7 +355,8 @@
                     customer_signed_time: '',
                     other_service: '',
                     service_endtime:'',
-                    materials_time: ''
+                    materials_time: '',
+                    encrol_date:''
                 },
                 no_fill:{
 
