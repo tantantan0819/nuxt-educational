@@ -118,7 +118,7 @@
                   </el-radio>
                 </el-radio-group>
               </el-form-item>
-              <div class="ps_newTitle">2、您选择这个专业的动机是什么？（请至少选填2个动机，每个动机不超过300字）</div>
+              <div class="ps_newTitle mt50">2、您选择这个专业的动机是什么？（请至少选填2个动机，每个动机不超过300字）</div>
               <div class="ps_formIndent">
                 <el-form-item
                   label="•动机1：研究兴趣；因为本科阶段就读于该专业，并对做过的相关项目/论文/课题的研究进行描述，对于深入研究某个点有浓厚的兴趣。（同专业申请必填）"
@@ -142,7 +142,7 @@
                             show-word-limit></el-input>
                 </el-form-item>
               </div>
-              <div class="ps_newTitle">3、您的职业规划是什么？</div>
+              <div class="ps_newTitle mt50">3、您的职业规划是什么？</div>
               <div class="ps_formIndent">
                 <el-form-item
                   label="•短期规划（请列出希望就职的公司名称，具体岗位以及该岗位的要求）"
@@ -157,7 +157,7 @@
                   <el-input type="textarea" readonly v-model="psDetailForm.changqiguihua" autocomplete="off"></el-input>
                 </el-form-item>
               </div>
-              <div class="ps_newTitle">4、 您为什么觉的自己是一个有竞争力的申请者？(请至少选填3个方式,共1000字以内）？</div>
+              <div class="ps_newTitle mt50">4、 您为什么觉的自己是一个有竞争力的申请者？(请至少选填3个方式,共1000字以内）？</div>
               <div class="ps_formIndent">
                 <el-form-item
                   label="•方式1：请与教育顾问老师联系，确认本专业有无特殊的录取要求，如对于某些课程或者经历有特殊要求的，务必添加。比如：曼彻斯特大学的发展金融专业要求宏观经济学，微观经济学，统计学都要达到80分以上，因此，必须在PS里面详述这三门课的学习成果，研究能力；可以通过课堂作业，小组作业等举例描述"
@@ -191,12 +191,12 @@
                             maxlength="500" show-word-limit></el-input>
                 </el-form-item>
               </div>
-              <el-form-item
+              <el-form-item class="mt50"
                 label="5、 为什么想要申请该院校的该专业？（请填写1-2门课程，选修或必修，建议选所有申请院校中重复率最高的课程，请参考官网课程介绍，详述希望通过该课程掌握哪些技能，以及对个人未来的帮助 ）"
                 prop="shenqingliyou">
                 <el-input type="textarea" readonly v-model="psDetailForm.shenqingliyou" autocomplete="off"></el-input>
               </el-form-item>
-              <el-form-item
+              <el-form-item class="mt50"
                 label="6、  除开您的学习能力及经历之外，您还参加了譬如学生会，社团及其他社会活动对您团队协作，组织领导能力，独立性养成等有重要影响。（如果有若干事件都相关，请选取您认为有代表性的，切勿一一罗列，写明具体时间和具体工作内容，以及您获得的收获）（动机与学术背景较为充实的可不填写，200字）"
                 prop="content5">
                 <el-input type="textarea" readonly v-model="psDetailForm.content5" autocomplete="off" maxlength="200"
@@ -250,7 +250,7 @@
                   </el-radio>
                 </el-radio-group>
               </el-form-item>
-              <div class="ps_newTitle">2、您选择这个专业的动机是什么？（请至少选填2个动机，每个动机不超过300字）</div>
+              <div class="ps_newTitle mt50">2、您选择这个专业的动机是什么？（请至少选填2个动机，每个动机不超过300字）</div>
               <div class="ps_formIndent">
                 <el-form-item
                   label="•动机1：研究兴趣；因为本科阶段就读于该专业，并对做过的相关项目/论文/课题的研究进行描述，对于深入研究某个点有浓厚的兴趣。（同专业申请必填）"
@@ -271,7 +271,7 @@
                   <el-input type="textarea" v-model="psModifyForm.dongji3" autocomplete="off" maxlength="300" show-word-limit></el-input>
                 </el-form-item>
               </div>
-              <div class="ps_newTitle">3、您的职业规划是什么？</div>
+              <div class="ps_newTitle mt50">3、您的职业规划是什么？</div>
               <div class="ps_formIndent">
                 <el-form-item
                   label="•短期规划（请列出希望就职的公司名称，具体岗位以及该岗位的要求）"
@@ -286,7 +286,7 @@
                   <el-input type="textarea" v-model="psModifyForm.changqiguihua" autocomplete="off"></el-input>
                 </el-form-item>
               </div>
-              <div class="ps_newTitle">4、 您为什么觉的自己是一个有竞争力的申请者？(请至少选填3个方式,共1000字以内）？</div>
+              <div class="ps_newTitle mt50">4、 您为什么觉的自己是一个有竞争力的申请者？(请至少选填3个方式,共1000字以内）？</div>
               <div class="ps_formIndent">
                 <el-form-item label="•方式1：请与教育顾问老师联系，确认本专业有无特殊的录取要求，如对于某些课程或者经历有特殊要求的，务必添加。比如：曼彻斯特大学的发展金融专业要求宏观经济学，微观经济学，统计学都要达到80分以上，因此，必须在PS里面详述这三门课的学习成果，研究能力；可以通过课堂作业，小组作业等举例描述"
                               prop="ziwoyoushi1"
@@ -314,10 +314,10 @@
                   <el-input type="textarea" v-model="psModifyForm.ziwoyoushi5" autocomplete="off" maxlength="500" show-word-limit></el-input>
                 </el-form-item>
               </div>
-              <el-form-item prop="shenqingliyou" label="5、 为什么想要申请该院校的该专业？（请填写1-2门课程，选修或必修，建议选所有申请院校中重复率最高的课程，请参考官网课程介绍，详述希望通过该课程掌握哪些技能，以及对个人未来的帮助 ）" >
+              <el-form-item class="mt50" prop="shenqingliyou" label="5、 为什么想要申请该院校的该专业？（请填写1-2门课程，选修或必修，建议选所有申请院校中重复率最高的课程，请参考官网课程介绍，详述希望通过该课程掌握哪些技能，以及对个人未来的帮助 ）" >
                 <el-input type="textarea" v-model="psModifyForm.shenqingliyou" autocomplete="off"></el-input>
               </el-form-item>
-              <el-form-item  prop="content5" label="6、  除开您的学习能力及经历之外，您还参加了譬如学生会，社团及其他社会活动对您团队协作，组织领导能力，独立性养成等有重要影响。（如果有若干事件都相关，请选取您认为有代表性的，切勿一一罗列，写明具体时间和具体工作内容，以及您获得的收获）（动机与学术背景较为充实的可不填写，200字）" >
+              <el-form-item class="mt50"  prop="content5" label="6、  除开您的学习能力及经历之外，您还参加了譬如学生会，社团及其他社会活动对您团队协作，组织领导能力，独立性养成等有重要影响。（如果有若干事件都相关，请选取您认为有代表性的，切勿一一罗列，写明具体时间和具体工作内容，以及您获得的收获）（动机与学术背景较为充实的可不填写，200字）" >
                 <el-input type="textarea" v-model="psModifyForm.content5" autocomplete="off" maxlength="200" show-word-limit></el-input>
               </el-form-item>
             </el-form>
