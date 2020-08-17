@@ -66,7 +66,7 @@
         <p class="mt10 lin24">8. 协助甲方安排抵达英国后的住宿及接机事宜。相应接机费用、住宿费用由甲方自行承担。</p>
         <p class="mt10 lin24">9. 若甲方成功入学乙方所申请的院校及专业（非 G5），乙方为甲方返还本合同费用。</p>
         <p class="title1">二、服务期限</p>
-        <p class="mt10 lin24">乙方的服务期限自本协议签订之日起至在录取通知书中规定的入学日期的 2 个自然月内终结，本协议另有 约定的除外。另有约定如下:</p>
+        <p class="mt10 lin24">服务期限自本协议签订之日起至甲方获得  <el-input v-model="mandatory.encrol_date" :readonly="status == 1"></el-input> 入学首次留学签证结果为止，本协议另有约定的 除外。另有约定如下</p>
         <el-input v-model="mandatory.service_promise" autosize type="textarea" :readonly="status == 1"></el-input>
         <p class="title1">三、甲方的权利与义务</p>
         <p class="mt10 lin24">1. 参考乙方提供的信息和咨询、建议，决定申请留学的国家、院校中英文名称、留学层次、就读专业或专 业方向，确定留学方案并签署本协议【附件一：选校及专业确认单】；</p>
@@ -92,14 +92,14 @@
           <el-input class="w80 middle" value="2000" readonly></el-input>
           （大写：人民币
           <el-input class="w80 middle" value="贰仟" readonly></el-input>元）
-          <!--。甲方实向乙方交纳服务费￥-->
-          <!--<el-input class="w200 middle" v-model="mandatory.charge_last_number" :readonly="status == 1"></el-input>-->
-          <!--（大写：人民币-->
-          <!--<el-input class="w200 middle" v-model="mandatory.charge_last_capital" :readonly="status == 1"></el-input>-->
-          <!--元）。-->
+          。甲方实向乙方交纳服务费￥
+          <el-input class="w200 middle" v-model="mandatory.charge_last_number" :readonly="status == 1"></el-input>
+          （大写：人民币
+          <el-input class="w200 middle" v-model="mandatory.charge_last_capital" :readonly="status == 1"></el-input>
+          元）。
         </p>
         <p class="mt10 lin24">甲方委托乙方申请的留学院校超出本协议【附件一：选校及专业确认单】范围的，每增加一所学校，甲方 须另行向乙方缴纳中介服务费用：
-          <el-input class="w180 middle" value="非 G5 类院校：￥500；" readonly></el-input>
+          <el-input class="w180 middle" value="非 G5 类院校：￥500；（不含 PS）；" readonly></el-input>
         </p>
         <p class="mt10 lin24">备注：</p>
         <el-input v-model="mandatory.charge_remark" autosize type="textarea" :readonly="status == 1"></el-input>
@@ -290,7 +290,8 @@
                   statement_name: '',
                   customer_name:'',
                   customer_signed_time: '',
-                  statement_txt:''
+                  statement_txt:'',
+                  encrol_date:''
               },
               no_fill:{
 
