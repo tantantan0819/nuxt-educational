@@ -249,6 +249,7 @@ export default {
             _this.$refs[formName].validate(valid => {
                 if (valid && _this.isSubmit) {
                     _this.isSubmit = false;
+                    _this.psDetailForm.version = 1;
                     http.post(
                         "/customer-apply-question/add",
                         _this.psDetailForm
