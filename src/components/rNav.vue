@@ -42,13 +42,13 @@
                     //    icon: "/images/refactor/2.png",
                     //   activeIcon:"/images/refactor/22.png",
                     // },
-                    // {
-                    //     name: "我的合同",
-                    //     href: "/contract",
-                    //     selectName: 'contract',
-                    //     icon: "/images/refactor/3.png",
-                    //     activeIcon: "/images/refactor/33.png",
-                    // },
+                    {
+                        name: "我的合同",
+                        href: "/contract",
+                        selectName: 'contract',
+                        icon: "/images/refactor/3.png",
+                        activeIcon: "/images/refactor/33.png",
+                    },
                     {
                         name: "我的签约",
                         href: "/sign",
