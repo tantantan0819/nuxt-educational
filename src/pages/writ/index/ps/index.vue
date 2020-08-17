@@ -76,8 +76,8 @@
         </el-dialog>
       </div>
       <!--  PS详情新版  -->
-      <div class="add ps_detail add_note" v-if="isNew">
-        <el-dialog title :visible.sync="psDatil" width="1377">
+      <div class="add ps_detail add_note">
+        <el-dialog title :visible.sync="psDatil_new" width="1377">
           <div class="add_title">PS详情</div>
           <div class="add_content add_con">
             <div class="detail_table">
@@ -204,13 +204,13 @@
               </el-form-item>
             </el-form>
             <div class="add_footer">
-              <span @click="psDatil = false">关闭</span>
+              <span @click="psDatil_new = false">关闭</span>
             </div>
           </div>
         </el-dialog>
       </div>
       <!--  PS详情旧版  -->
-      <div class="add ps_detail add_note" v-else>
+      <div class="add ps_detail add_note">
         <el-dialog title :visible.sync="psDatil" width="1377">
           <div class="add_title">PS详情</div>
           <div class="add_content add_con">
@@ -317,8 +317,8 @@
 
 
       <!--  PS修改新版  -->
-      <div class="add ps_detail add_note" v-if="isNew">
-        <el-dialog title :visible.sync="psModify" width="1377">
+      <div class="add ps_detail add_note">
+        <el-dialog title :visible.sync="psModify_new" width="1377">
           <div class="add_title">PS修改</div>
           <div class="add_content add_con">
             <div class="detail_table">
@@ -429,14 +429,14 @@
               </el-form-item>
             </el-form>
             <div class="add_footer">
-              <span @click="psModify = false">取消</span>
+              <span @click="psModify_new = false">取消</span>
               <span @click="edit('psModifyForm')">保存</span>
             </div>
           </div>
         </el-dialog>
       </div>
       <!--  PS修改旧版  -->
-      <div class="add ps_detail add_note" v-else>
+      <div class="add ps_detail add_note" >
         <el-dialog title :visible.sync="psModify" width="1377">
           <div class="add_title">PS修改</div>
           <div class="add_content add_con">
@@ -586,7 +586,9 @@
                 innerVisible: false, // 内层
                 notice: "", // 个人陈诉须知
                 psDatil: false, // ps查看详情
+                psDatil_new: false, // ps查看详情
                 psModify: false, // ps修改详情
+                psModify_new: false, // ps修改详情
                 tableData: [], //table
                 viewDetail: [], //查看当前ps
                 viewModify: [], //查看当前ps
@@ -675,8 +677,7 @@
                 _this.viewDetail.push(deepClone(_this.contract[contract].apply[index]));
                 _this.psDetailForm = this.viewDetail[0];
                 _this.psDetailForm.need_teacher += "";
-                _this.psDetailForm.version == 1 ? _this.isNew = true : _this.isNew = false;
-                _this.psDatil = true;
+                _this.psDetailForm.version == 1 ? _this.psDatil_new = true : _this.psDatil = true;
             },
             //修改
             modify(contract, index) {
@@ -685,74 +686,108 @@
                 _this.viewModify.push(deepClone(_this.contract[contract].apply[index]));
                 _this.psModifyForm = this.viewModify[0];
                 _this.psModifyForm.need_teacher += "";
-                _this.psDetailForm.version == 1 ? _this.isNew = true : _this.isNew = false;
-                _this.psModify = true;
+                _this.psModifyForm.version == 1 ? _this.psModify_new = true : _this.psModify = true;
             },
             //编辑推荐信
             edit(formName) {
                 let _this = this;
-                let dongjiNum = 0;
-                let yousiNum = 0;
-                let yousiLength = _this.psModifyForm.ziwoyoushi1.length + _this.psModifyForm.ziwoyoushi2.length + _this.psModifyForm.ziwoyoushi3.length + _this.psModifyForm.ziwoyoushi4.length + _this.psModifyForm.ziwoyoushi5.length;
-                _this.psModifyForm.dongji1 == '' ? dongjiNum++ : '';
-                _this.psModifyForm.dongji2 == '' ? dongjiNum++ : '';
-                _this.psModifyForm.dongji3 == '' ? dongjiNum++ : '';
-                _this.psModifyForm.ziwoyoushi1 == '' ? yousiNum++ : '';
-                _this.psModifyForm.ziwoyoushi2 == '' ? yousiNum++ : '';
-                _this.psModifyForm.ziwoyoushi3 == '' ? yousiNum++ : '';
-                _this.psModifyForm.ziwoyoushi4 == '' ? yousiNum++ : '';
-                _this.psModifyForm.ziwoyoushi5 == '' ? yousiNum++ : '';
-                if(dongjiNum>1){
-                    _this.$message({
-                        message: "请至少选填2个选择该专业的动机！",
-                        type: "error"
-                    });
-                    return false;
-                }
-                if(yousiNum>2){
-                    _this.$message({
-                        message: "请至少选填3个觉得自己是一个有竞争力的申请者的方式！",
-                        type: "error"
-                    });
-                    return false;
-                }
-                if(yousiLength>1000){
-                    _this.$message({
-                        message: "觉得自己是一个有竞争力的申请者的方式内容超出1000字",
-                        type: "error"
-                    });
-                    return false;
-                }
-                _this.$refs[formName].validate(valid => {
-                    if (valid && _this.isEdit) {
-                        _this.isEdit = false;
-                        http.post(
-                            "/customer-apply-question/edit",
-                            _this.psModifyForm
-                        ).then(res => {
-                            let successMsg = _this.$message({
-                                message: "提交成功！",
-                                type: "success"
-                            });
-                            setTimeout(() => {
-                                successMsg.close();
-                                _this.getPs();
-                                _this.psModify = false;
-                                _this.isEdit = true;
-                                _this.$refs[formName].resetFields();
-                            }, 1000);
-                        }).catch(error => {
-                            _this.isEdit = true;
-                        })
-                    } else {
+                if(_this.psModifyForm.version == 1){
+                    let dongjiNum = 0;
+                    let yousiNum = 0;
+                    let yousiLength = _this.psModifyForm.ziwoyoushi1.length + _this.psModifyForm.ziwoyoushi2.length + _this.psModifyForm.ziwoyoushi3.length + _this.psModifyForm.ziwoyoushi4.length + _this.psModifyForm.ziwoyoushi5.length;
+                    _this.psModifyForm.dongji1 == '' ? dongjiNum++ : '';
+                    _this.psModifyForm.dongji2 == '' ? dongjiNum++ : '';
+                    _this.psModifyForm.dongji3 == '' ? dongjiNum++ : '';
+                    _this.psModifyForm.ziwoyoushi1 == '' ? yousiNum++ : '';
+                    _this.psModifyForm.ziwoyoushi2 == '' ? yousiNum++ : '';
+                    _this.psModifyForm.ziwoyoushi3 == '' ? yousiNum++ : '';
+                    _this.psModifyForm.ziwoyoushi4 == '' ? yousiNum++ : '';
+                    _this.psModifyForm.ziwoyoushi5 == '' ? yousiNum++ : '';
+                    if(dongjiNum>1){
                         _this.$message({
-                            message: "请完整填写表单！",
+                            message: "请至少选填2个选择该专业的动机！",
                             type: "error"
                         });
-                        _this.isEdit = true;
                         return false;
                     }
-                });
+                    if(yousiNum>2){
+                        _this.$message({
+                            message: "请至少选填3个觉得自己是一个有竞争力的申请者的方式！",
+                            type: "error"
+                        });
+                        return false;
+                    }
+                    if(yousiLength>1000){
+                        _this.$message({
+                            message: "觉得自己是一个有竞争力的申请者的方式内容超出1000字",
+                            type: "error"
+                        });
+                        return false;
+                    }
+                    _this.$refs[formName].validate(valid => {
+                        if (valid && _this.isEdit) {
+                            _this.isEdit = false;
+                            _this.psModifyForm.version =1;
+                            http.post(
+                                "/customer-apply-question/edit",
+                                _this.psModifyForm
+                            ).then(res => {
+                                let successMsg = _this.$message({
+                                    message: "提交成功！",
+                                    type: "success"
+                                });
+                                setTimeout(() => {
+                                    successMsg.close();
+                                    _this.getPs();
+                                    _this.psModify_new = false;
+                                    _this.isEdit = true;
+                                    _this.$refs[formName].resetFields();
+                                }, 1000);
+                            }).catch(error => {
+                                _this.isEdit = true;
+                            })
+                        } else {
+                            _this.$message({
+                                message: "请完整填写表单！",
+                                type: "error"
+                            });
+                            _this.isEdit = true;
+                            return false;
+                        }
+                    });
+                }else{
+                    _this.$refs[formName].validate(valid => {
+                        if (valid&&_this.isEdit) {
+                            _this.isEdit = false;
+                            http.post(
+                                "/customer-apply-question/edit",
+                                _this.psModifyForm
+                            ).then(res => {
+                                let successMsg = _this.$message({
+                                    message: "提交成功！",
+                                    type: "success"
+                                });
+                                setTimeout(() => {
+                                    successMsg.close();
+                                    _this.getPs();
+                                    _this.psModify = false;
+                                    _this.isEdit = true;
+                                    _this.$refs[formName].resetFields();
+                                }, 1000);
+                            }).catch(error=>{
+                                _this.isEdit = true;
+                            })
+                        } else {
+                            _this.$message({
+                                message: "请完整填写表单！",
+                                type: "error"
+                            });
+                            _this.isEdit = true;
+                            return false;
+                        }
+                    });
+
+                }
             },
             //定稿
             finalized(index, data) {
