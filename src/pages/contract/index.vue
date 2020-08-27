@@ -11,13 +11,13 @@
     </div>
     <!-- 合同签约 -->
     <div class="signed">
-      <diy-a v-if="isDiyA" :id="con_id" :state="status_status" v-on="{closeContr: showDiyA}"></diy-a>
-      <diy-b v-if="isDiyB" :id="con_id" :state="status_status" v-on="{closeContr: showDiyB}"></diy-b>
-      <c-ps3 v-if="isPs3" :id="con_id" :state="status_status" v-on="{closeContr: showPs3}"></c-ps3>
-      <c-ps1 v-if="isPs1" :id="con_id"  :state="status_status" v-on="{closeContr: showPs1}"></c-ps1>
-      <c-g5 v-if="isG5" :id="con_id" :state="status_status" v-on="{closeContr: showG5}"></c-g5>
-      <g-ps3 v-if="isgPs" :id="con_id" :state="status_status" v-on="{closeContr: showGps}"></g-ps3>
-      <sign v-if="isSign" :id="con_id"  :state="status_status" v-on="{closeContr: showSign}"></sign>
+      <diy-a v-if="isDiyA" :id="con_id" :type="pay_type" :state="status_status" v-on="{closeContr: showDiyA}"></diy-a>
+      <diy-b v-if="isDiyB" :id="con_id" :type="pay_type" :state="status_status" v-on="{closeContr: showDiyB}"></diy-b>
+      <c-ps3 v-if="isPs3" :id="con_id" :type="pay_type" :state="status_status" v-on="{closeContr: showPs3}"></c-ps3>
+      <c-ps1 v-if="isPs1" :id="con_id"  :type="pay_type" :state="status_status" v-on="{closeContr: showPs1}"></c-ps1>
+      <c-g5 v-if="isG5" :id="con_id" :type="pay_type" :state="status_status" v-on="{closeContr: showG5}"></c-g5>
+      <g-ps3 v-if="isgPs" :id="con_id" :type="pay_type" :state="status_status" v-on="{closeContr: showGps}"></g-ps3>
+      <sign v-if="isSign" :id="con_id"  :type="pay_type" :state="status_status" v-on="{closeContr: showSign}"></sign>
       <detection :id="con_id" v-if="isDetetion" :state="status_status" v-on="{closeContr: showDetetion}"></detection>
     </div>
   </div>
@@ -51,7 +51,7 @@
                 list: [],//合同列表
                 con_id: '',//查看的合同id
                 status_status: '',//点击当前合同的签约状态
-                pay_type: ''//非596则为线下支付签约，直接返回合同列表
+                pay_type: ''//非596则为线下支付签约，直接返回合同列表--没有确认签约按钮
             };
         },
         mounted() {
@@ -77,6 +77,9 @@
                         break;
                     case 4:
                         text = '签署中';
+                        break;
+                    case 5:
+                        text = '签署失败';
                         break;
                     default:
                         text = '';
@@ -111,10 +114,12 @@
                             if(item.contract_sign_status == 2 && item.order_pay_status ==3){
                                 status = 4
                             }
+                            if(item.contract_sign_status == 3){
+                                status = 5
+                            }
                             item.status = status;
                         })
                         _this.list = res;
-                        console.log(_this.list,'首页获取合同列表')
                     }
                 })
             },

@@ -131,8 +131,7 @@
       <div class="bottom_box" ref="dynamic">
         <div class="about" :style="{height: dynamicHeight}">
           <div class="about_title">关于UKEC</div>
-          <div class="about_box">
-            <p>{{aboutUKec}}</p>
+          <div class="about_box" v-html="aboutUKec">
           </div>
         </div>
         <div class="banner" :style="{height: dynamicHeight}">

@@ -212,8 +212,8 @@
                     <span @click="close">
                         <i>取消</i>
                     </span>
-        <span @click="pay" v-if="state == 1">立即支付</span>
-        <span @click="sure" v-else>确认签约</span>
+        <span @click="pay" v-if="state == 1 && type== 596">立即支付</span>
+        <span @click="sure" v-if="state != 1 && type== 596">确认签约</span>
       </div>
     </div>
   </el-dialog>
@@ -225,7 +225,7 @@
 <script>
   import http from "~/plugins/http";
   export  default {
-      props: ['id','state'],
+      props: ['id','state','type'],
       data(){
           return{
               status: 1,//不可编辑状态

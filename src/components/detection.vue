@@ -45,32 +45,32 @@
             http.post('/contract/check-sign',{id:this.id}).then(res=>{
                 //未签署--获取
                 if(res.contract_sign_status == 0){
-                    console.log('检测正常--未签署');
                     http.get('/contract/my-sign-url',{contract_id:this.id}).then(res=>{
                       if(res.url.shorturl){
                           this.msg = '系统检测到您还未填写签章信息，';
                           this.isDetection = false;
                           this.showFail(res.url.shorturl);
                       }
+                    }).catch(error=>{
+                        setTimeout(function () {
+                            window.location.reload();
+                        },3000)
                     })
                 }
                 //签署中
                 if(res.contract_sign_status == 1){
-                    console.log('检测正常--签署中');
                     this.msg = '系统检测到您的签章信息正在签署中，';
                     this.isDetection = false;
                     this.showFail();
                 }
                 //签署完成
                 if(res.contract_sign_status == 2){
-                    console.log('检测正常--签署完成');
                     this.signed = false;
                     this.$emit("closeContr");
                     this.$router.push({ path: "/contract/pay", query: { id: this.id } });
                 }
                 //签署失败
                 if(res.contract_sign_status == 3){
-                    console.log('检测正常--签署失败');
                     this.msg = "系统检测到您的签章信息状态为失败，";
                     this.isDetection = false;
                     this.showFail();
