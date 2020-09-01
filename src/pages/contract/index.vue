@@ -163,7 +163,7 @@
                     case '248':
                         _this.isG5 = true;
                         break;
-                    case '99':
+                    case '265':
                         _this.isPs3 = true;
                         break;
                     case '98':
