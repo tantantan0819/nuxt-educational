@@ -17,7 +17,13 @@ const App_key = Config.api_key;
 export function getToken() {
   return cookie.get('token');
 }
-
+/**
+ * 获取refresh
+ * @returns {string | null}
+ */
+export function getRefresh() {
+  return cookie.get('refresh');
+}
 /**
  * 设置token
  * @param token
@@ -25,7 +31,13 @@ export function getToken() {
 export function setToken(token) {
   return cookie.set('token', token)
 }
-
+/**
+ * 设置refresh
+ * @param refresh
+ */
+export function setRefresh(refresh) {
+  return cookie.set('refresh', refresh)
+}
 /**
  * 检测token是否存在
  * @returns {boolean}
@@ -109,7 +121,10 @@ export function requestTokenAsync() {
     baseURL: Config.user_host,
     headers: headers
   }).then((res) => {
+
     var result = res.data;
+    let refresh = result.data.refresh;
+    setRefresh(refresh);
     if (result.code !== 0) {
       return Promise.reject(result.msg);
     }
@@ -139,6 +154,40 @@ export async function requestTokenSync() {
     headers: headers
   })
   var result = res.data;
+  let refresh = result.data.refresh;
+  setRefresh(refresh);
+  if (result.code !== 0) {
+    throw new Error(result.msg)
+  }
+  return result.data;
+}
+
+
+/**
+ * 同步刷新token
+ * @returns {Promise<AxiosResponse<any>>}
+ */
+export async function refreshSync() {
+  const timeStamp = Util.getUnixTime(); //时间戳
+  const salt = Util.rendomString(5); //随机字符串4位，数字、大小写
+  const headers = {
+    'Api-Appid': User_id,
+    'Api-Timestamp': timeStamp,
+    'Api-Salt': salt,
+    'Api-Sso': User_id,
+    'Api-Sign': createSign('', timeStamp, salt)
+  }
+  let data = {
+    refresh: getRefresh()
+  }
+  var res = await axios.get('token/refresh', {
+    baseURL: Config.user_host,
+    headers: headers,
+    params: fiterParams(data)
+  })
+  var result = res.data;
+  let refresh = result.data.refresh;
+  setRefresh(refresh);
   if (result.code !== 0) {
     throw new Error(result.msg)
   }
@@ -168,4 +217,19 @@ export async function requestSiteIDSync(ip = '') {
     throw new Error(result.msg);
   }
   return result.data;
+}
+/**
+ * 格式化请求参数
+ * @returns {Promise<AxiosResponse<any>>}
+ */
+export function fiterParams(obj) {
+    let tmp = Object.entries(obj);
+    let res = {};
+    tmp.filter(function (item) {
+      // return item[1] !== "" && item[1] !== null && item[1] !== undefined;
+      return item[1] !== null && item[1] !== undefined;
+    }).forEach(function (val) {
+      res[val[0]] = val[1];
+    });
+    return res;
 }

@@ -9,7 +9,7 @@ import axios from 'axios';
 import {MessageBox} from 'element-ui';
 import Config from './config';
 import * as Util from './utils';
-import {getToken, getTokenSign, requestTokenSync, createSignUtrack, setToken} from './token';
+import {getToken, getTokenSign, requestTokenSync, createSignUtrack, setToken,refreshSync} from './token';
 
 /**
  * Access Token 不能为空
@@ -173,27 +173,33 @@ const http = {
       }
       if (res.code !== 0) {
         // Token 过期了重试
-
-        if (res.code == ERROR_TOKEN_EMPTY || res.code === ERROR_TOKEN_INVALID || res.code === ERROR_TOKEN_EXPIRE) {
+        if (res.code == ERROR_TOKEN_EMPTY) {
           if (process.server) {
-
             //同步请求token
             var tokenData = await requestTokenSync();
             global.ctx.cookies.set('token', tokenData.token, {path: "/", httpOnly: false});
             global.token = token = tokenData.token;
           } else {
-
             //同步请求token
             var tokenData = await requestTokenSync();
             setToken(tokenData.token);
             token = tokenData.token;
           }
-
-          //重新发起axios请求
-          return http.request(config_bak);
-
-          //处理需要登录的情况
+        }else if(res.code === ERROR_TOKEN_INVALID || res.code === ERROR_TOKEN_EXPIRE){
+          //token过期或者失效就去刷新token
+          if (process.server) {
+            //同步请求token
+            var tokenData = await refreshSync();
+            global.ctx.cookies.set('token', tokenData.token, {path: "/", httpOnly: false});
+            global.token = token = tokenData.token;
+          } else {
+            //同步请求token
+            var tokenData = await requestTokenSync();
+            setToken(tokenData.token);
+            token = tokenData.token;
+          }
         } else if (res.code === ERROR_NEED_LOGIN) {
+          //处理需要登录的情况
           Util.setStore('isLogin', '0');
           MessageBox({
             message: '登录已失效，前往登录页面重新登录~~',
