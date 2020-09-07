@@ -25,28 +25,35 @@
                 isClose: false,
                 signed: true,
                 isClick: true,
+                newUrl: '',
             }
         },
-        mounted() {
-
+        watch:{
+            newUrl(){
+                window.open(this.newUrl,"_blank")
+            }
         },
         methods:{
-            close(){
+           async close(){
                 if(this.isClick){
                     this.isClick = false;
-                    http.get('/contract/my-sign-url',{contract_id:this.id}).then(res=>{
-                        if(res.url.shorturl){
-                            window.open(res.url.shorturl,'_blank')
-                        }
-                        this.isClick = true;
-                    })
+                    let res  = await http.get('/contract/my-sign-url',{contract_id:this.id});
+                    if(res.url.shorturl){
+                        this.newUrl = res.url.shorturl;
+                    }
+                    this.isClick = true;
+                    // http.get('/contract/my-sign-url',{contract_id:this.id}).then(res=>{
+                    //     if(res.url.shorturl){
+                    //         window.open(res.url.shorturl,'_blank')
+                    //     }
+                    //     this.isClick = true;
+                    // })
                 }
             },
             sure(){
                 this.$emit("closeContr",true);
             },
             handleDialogClose(){
-                console.log('通过右上角x关闭填写签章');
                 this.signed = false;
                 this.$emit("closeContr",false);
             }
