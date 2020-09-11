@@ -42,7 +42,7 @@
                 isShow: false,
                 interval: 2000,//轮播切换时间
                 carouselImg: [
-                    '/images/login/utrack_login.png',
+                    '/images/login/utrack_login.jpg',
                 ],//轮播图片
                 loginForm: {
                     password: '',
