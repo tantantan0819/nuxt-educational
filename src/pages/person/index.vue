@@ -342,14 +342,14 @@ export default {
             let _this = this;
             let len = val.length;
             let target = val[len-1];
-            let img_url = target.response.data.url;
+            let img_url = target.response.data.key;
             uhttp.post("user/edit", { avatar: img_url }).then(res => {
                 if (res) {
                     _this.$message({
                         message: "头像修改成功！",
                         type: "success"
                     });
-                    _this.person.avatar = img_url;
+                    _this.person.avatar = config.view_host+img_url;
                     _this.$store.commit("user/SET_USER", _this.person);
                 }
             }).catch(error=>{
