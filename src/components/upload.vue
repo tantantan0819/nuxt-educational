@@ -19,16 +19,18 @@
 </template>
 <script>
 import uhttp from "~/plugins/uhttp";
+import configuration from '~/plugins/config'
 export default {
     props: ["config"],
     data() {
         return {
-            qiniu_url: "http://upload.qiniup.com", //上传地址
+            qiniu_url: '', //上传地址
             configuration: {
                 isShowList: false, //是否展示文件列表
                 multiple: false, //是否允许多文件上传
                 limit: null, //上传文件的限制数量
                 btnText: "上传", //上传按钮显示文字
+                isPrompt:'',//是否需要上传成功的提示,不需要传入'false'
                 errorText: "请上传PNG、JPG、PDF、WORD、EXCEL格式的文件!", //上传失败时的提示
                 accept:
                     ".jpg, .jpeg, .png, .pdf, .excel, .docx,.psd,.PSD, .JPG, .JPEG, PNG, .PDF, .EXCEL, .DOCX" //上传格式
@@ -49,6 +51,7 @@ export default {
     },
     mounted(){
         this.configuration = this.config;
+        this.qiniu_url = configuration.qiniu_url;
     },
     methods: {
         //文件上传之前
@@ -100,10 +103,12 @@ export default {
             let _this = this;
             _this.flieBox = fileList;
             _this.$emit("uploadFile",fileList);
-            _this.$message({
-                message: "上传成功！",
-                type: "success"
-            });
+            if(_this.configuration.isPrompt != 'false'){
+                _this.$message({
+                    message: "上传成功！",
+                    type: "success"
+                });
+            }
         }
     }
 };

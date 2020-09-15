@@ -1,5 +1,5 @@
 <template>
-    <div class="modify">
+    <div class="modify modify_upload">
         <span class="cv_button modify_button" @click="dialogVisible=true">修改</span>
         <div class="add add_note">
             <el-dialog title :visible.sync="dialogVisible" :before-close="handleClose">
@@ -35,23 +35,11 @@
                             ></el-input>
 
                         </el-form-item>
-                        <el-form-item label="附件:" prop="note_files">
-                            <el-upload
-                                class="upload-demo"
-                                :action="qiniu_url"
-                                :data="postData"
-                                :before-upload="beforUpload"
-                                :on-success="successUpload"
-                                :on-remove="handleRemove"
-                                :show-file-list="true"
-                                :file-list="fileList"
-                                :limit="5"
-                                :on-exceed="handleExceed"
-                                :on-error="modifyError"
-                                accept=".jpg, .jpeg, .png, .pdf, .excel, .docx, .JPG, .JPEG, PNG, .PDF, .EXCEL, .DOCX"
-                            >
-                                <el-button slot="trigger" size="medium" type="primary">上传</el-button>
-                            </el-upload>
+                        <el-form-item label="附件:" prop="note_files" class="upload_lang">
+                          <upload-btn
+                            :config="configuration"
+                            v-on="{uploadFile: addFile}"
+                          ></upload-btn>
                         </el-form-item>
                     </el-form>
                     <div class="footer_button">
@@ -67,17 +55,24 @@
 </template>
 <script>
 import http from "~/plugins/http";
-import uhttp from "~/plugins/uhttp";
 import { getStore, setStore } from "~/plugins/utils";
+import UploadBtn from "~/components/upload";
 export default {
     props: ["type"],
+    components: {UploadBtn},
     data() {
         return {
             postUrl: "", //提交地址
             titleMaxLength: 500, //文本域最大字数
             dialogVisible: false, //是否弹框
-            qiniu_url: "http://upload.qiniup.com", //上传地址
-            unloadType: ["image/png", "image/jpeg"], //上传格式
+            configuration: {
+                isShowList: true, //是否展示文件列表
+                multiple: true, //是否允许多文件上传
+                limit: 5, //上传文件的限制数量
+                btnText: "上传", //上传按钮显示文字
+                errorText: "请上传PNG、JPG、PDF、WORD、EXCEL格式的文件!", //上传失败时的提示
+                accept: ".jpg, .jpeg, .png, .pdf,.doc,.xls,.JPG, .JPEG, PNG, .PDF,.DOC,.XLS" //上传格式
+            },
             flieBox: [],
             postData: {
                 token: "",
@@ -180,49 +175,10 @@ export default {
         }
     },
     methods: {
-        //头像上传之前
-        async beforUpload(file) {
-            let _this = this;
-            const isLt30M = file.size / 1024 / 1024 < 30;
-            if (!isLt30M) {
-                _this.$message({
-                    message: `请上传大小不能超过30MB的文件!`,
-                    type: "warning"
-                });
-            }
-            _this.tokenParams.ext = file.name.split(".")[1];
-            _this.postData.name = file.name;
-            await _this.uploadToken();
-        },
-        //获取上传token
-        async uploadToken() {
-            let _this = this;
-            await uhttp.get("/qiniu/token", this.tokenParams).then(res => {
-                _this.postData.token = res.token;
-                _this.postData.key = res.key;
-            });
-        },
-        //限制文件
-        handleExceed(files, fileList) {
-            this.$message.warning(
-                `当前限制选择 5 个文件，本次选择了 ${
-                    files.length
-                } 个文件，共选择了 ${files.length + fileList.length} 个文件`
-            );
-        },
-        //移除文件
-        handleRemove(file, fileList) {
-            let _this = this;
-            _this.flieBox = fileList;
-        },
-        //成功上传
-        successUpload(res, file, fileList) {
-            let _this = this;
-            _this.flieBox = fileList;
-        },
-        //上传失败
-        modifyError() {
-            this.$message.error("请上传PNG、JPG、PDF、WORD、EXCEL格式的文件!");
+        //上传文件监听
+        addFile(val) {
+            this.flieBox = val;
+            console.log(val,'文件监听')
         },
         //关闭弹窗
         handleClose(done) {
@@ -243,6 +199,7 @@ export default {
             if (_this.flieBox.length == 0) {
                 _this.modify.note_files = [];
             } else {
+                _this.modify.note_files = [];
                 _this.flieBox.map(item => {
                     _this.modify.note_files.push({
                         name: item.response.data.filename,

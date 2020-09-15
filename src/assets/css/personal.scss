@@ -1,5 +1,8 @@
 @import "./base";
 .person_content{
+  .el-upload{
+    color: $f15!important;
+  }
   .person_item{
     @include cb();
     .title{

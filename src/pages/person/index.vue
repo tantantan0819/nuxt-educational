@@ -14,19 +14,10 @@
                         <img src="/images/avatar.jpg" alt />
                     </span>
                     <span class="modify">
-                        <i>
-                            <el-upload
-                                class="upload-demo"
-                                :action="qiniu_url"
-                                :data="postData"
-                                :before-upload="beforUpload"
-                                :on-success="successUpload"
-                                :show-file-list="false"
-                                :file-list="fileList"
-                            >
-                                <span class="avatar_text">修改头像</span>
-                            </el-upload>
-                        </i>
+                        <upload-btn
+                          :config="configuration"
+                          v-on="{uploadFile: addFile}"
+                        ></upload-btn>
                     </span>
                 </div>
                 <div class="person_item">
@@ -218,10 +209,13 @@
 <script>
 import { validEmail, validPhone, valiPassward } from "~/plugins/validate";
 import { getStore, setStore, deepClone, emptyObj } from "~/plugins/utils";
+import UploadBtn from "~/components/upload";
+import config from '~/plugins/config'
 import uhttp from "~/plugins/uhttp";
 
 export default {
     layout: "refactor",
+    components: {UploadBtn},
     data() {
         var validConfirm = (rule, value, callback) => {
             if (!value) {
@@ -235,6 +229,15 @@ export default {
             }
         };
         return {
+            configuration: {
+                isShowList: false, //是否展示文件列表
+                multiple: false, //是否允许多文件上传
+                limit: 100, //上传文件的限制数量
+                btnText: "修改头像", //上传按钮显示文字
+                errorText: "请上传PNG、JPG格式的文件!", //上传失败时的提示
+                accept: ".jpg, .jpeg, .png, .JPG, .JPEG, PNG", //上传格式
+                isPrompt: 'false',//是否需要上传成功的提示
+            },
             codeImg: "", // 图形验证码
             region: [], //区号下拉
             person: {}, //用户信息--拷贝
@@ -246,18 +249,6 @@ export default {
             visiblePssword: false, //修改密码
             visiblePhone: false, //修改手机号码
             visibleEmail: false, //修改邮箱
-            qiniu_url: "http://upload.qiniup.com", //头像上传地址
-            postData: {
-                token: "",
-                name: "",
-                key: ""
-            },
-            tokenParams: {
-                //请求token的参数
-                bucket: "ukec",
-                path: "upload/user",
-                ext: ""
-            },
             fileList: [],
             passwordForm: {
                 new_password: "", // 新密码
@@ -346,34 +337,12 @@ export default {
         _this.changeGraphic();
     },
     methods: {
-        //头像上传之前
-        async beforUpload(file) {
+        //上传文件监听
+        addFile(val) {
             let _this = this;
-            const isJPG =
-                file.type === "image/png" || file.type === "image/jpeg";
-            const isLt30M = file.size / 1024 / 1024 < 30;
-            if (!isLt30M || !isJPG) {
-                _this.$message({
-                    message: `请上传大小不能超过30MB的图片!`,
-                    type: "warning"
-                });
-            }
-            _this.tokenParams.ext = file.name.split(".")[1];
-            _this.postData.name = file.name;
-            await _this.uploadToken();
-        },
-        //获取上传token
-        async uploadToken() {
-            let _this = this;
-            await uhttp.get("/qiniu/token", this.tokenParams).then(res => {
-                _this.postData.token = res.token;
-                _this.postData.key = res.key;
-            });
-        },
-        //成功上传图片
-        successUpload(res) {
-            let _this = this;
-            let img_url = res.data.url;
+            let len = val.length;
+            let target = val[len-1];
+            let img_url = target.response.data.url;
             uhttp.post("user/edit", { avatar: img_url }).then(res => {
                 if (res) {
                     _this.$message({
@@ -383,6 +352,11 @@ export default {
                     _this.person.avatar = img_url;
                     _this.$store.commit("user/SET_USER", _this.person);
                 }
+            }).catch(error=>{
+                _this.$message({
+                    message: "头像修改失败！",
+                    type: 'error'
+                });
             });
         },
         //获取图形验证码

@@ -332,6 +332,20 @@ body{
     color: $f63;
   }
 }
+.modify_upload{
+  .upload-demo{
+    display: flex;
+    flex-direction: column;
+  }
+  .el-upload-list{
+    width: 100%;
+  }
+  .el-upload{
+    @include wh(70px,36px);
+    border-radius: 6px;
+    background-color: $f15;
+  }
+}
 .modify{
   .el-form-item{
     display: flex;
