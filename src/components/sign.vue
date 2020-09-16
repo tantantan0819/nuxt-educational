@@ -42,12 +42,6 @@
                         this.newUrl = res.url.shorturl;
                     }
                     this.isClick = true;
-                    // http.get('/contract/my-sign-url',{contract_id:this.id}).then(res=>{
-                    //     if(res.url.shorturl){
-                    //         window.open(res.url.shorturl,'_blank')
-                    //     }
-                    //     this.isClick = true;
-                    // })
                 }
             },
             sure(){

@@ -12,6 +12,7 @@ export default {
   user_id: 'cc613542',
   user_key:'56a1d11798254ab79cc613542d178f62993e73f',
   user_version: '',
-  view_host:'http://crm.mailxpv.com/',//查看文件前缀
+  view_host:'https://crm.mailxpv.com/',//查看文件前缀
+  qiniu_url: 'https://upload.qiniup.com',//七牛上传地址
   // view_host:'http://test.mailxpv.com/',//查看文件前缀 -- 本地测试环境
 };
