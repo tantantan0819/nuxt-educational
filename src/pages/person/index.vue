@@ -342,7 +342,7 @@ export default {
             let _this = this;
             let len = val.length;
             let target = val[len-1];
-            let img_url = target.response.data.key;
+            let img_url = target.response.data.url;
             uhttp.post("user/edit", { avatar: img_url }).then(res => {
                 if (res) {
                     _this.$message({
