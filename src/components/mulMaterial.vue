@@ -9,17 +9,22 @@
             <el-input v-model="addForm.material_name" placeholder="请填写您的材料名称"></el-input>
           </el-form-item>
           <el-form-item prop="origin_name" label="文件" class="upload_lang">
-            <el-input
-              v-model="addForm.origin_name"
-              readonly
-              placeholder="请上传您的材料文件"
-            ></el-input>
+          <!--  <el-input-->
+          <!--    v-model="addForm.origin_name"-->
+          <!--    readonly-->
+          <!--    placeholder="请上传您的材料文件"-->
+          <!--  ></el-input>-->
+          <!--  <upload-btn-->
+          <!--    class="unload_btn"-->
+          <!--    :config="configuration"-->
+          <!--    v-on="{uploadFile: addFile}"-->
+          <!--  ></upload-btn>-->
             <upload-btn
-              class="unload_btn"
               :config="configuration"
               v-on="{uploadFile: addFile}"
             ></upload-btn>
           </el-form-item>
+
         </el-form>
         <div class="add_footer">
           <span @click="cancelAdd('addForm')">取消</span>
@@ -45,9 +50,9 @@
                 addShow: true,
                 isClose: false,//不可点击模态框关闭
                 configuration: {
-                    isShowList: false, //是否展示文件列表
-                    multiple: false, //是否允许多文件上传
-                    limit: null, //上传文件的限制数量
+                    isShowList: true, //是否展示文件列表
+                    multiple: true, //是否允许多文件上传
+                    limit: 5, //上传文件的限制数量
                     btnText: "上传", //上传按钮显示文字
                     errorText: "", //上传失败时的提示
                     accept: "" //上传格式

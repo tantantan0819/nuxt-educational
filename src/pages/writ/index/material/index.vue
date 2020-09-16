@@ -133,8 +133,12 @@
             //新增材料弹框展示
             isAdd(id){
                 this.material_id = id;
-                this.single = true;
-                // this.addShow = true;
+                //cv、个人陈述、推荐信展示多文件上传，其它展示单文件上传
+                if( id == 6 || id == 10 || id == 14){
+                    this.multiple = true;
+                }else{
+                    this.single = true;
+                }
             },
             //新增单文件弹框关闭
             closeSingle(val){
@@ -144,7 +148,7 @@
                 }
             },
             //新增多文件弹框关闭
-            closeMultiple(){
+            closeMultiple(val){
                 this.multiple = false;
                 if(val=='true'){
                     this.getMaterial();
