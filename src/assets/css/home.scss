@@ -228,6 +228,11 @@
     border: solid 1px rgba(0, 0, 0, 0.14);
     overflow-y: scroll;
     overflow-x: hidden;
+    .about_img{
+      img{
+        width: 100%;
+      }
+    }
     .about_title{
       @include fontc(18px,18px,$f0);
       background-color: #dddddd;

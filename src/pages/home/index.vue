@@ -129,24 +129,37 @@
             </div>
         </div>
       <div class="bottom_box" ref="dynamic">
-        <div class="about" :style="{height: dynamicHeight}">
-          <div class="about_title">关于UKEC</div>
-          <div class="about_box" v-html="aboutUKec">
+        <!--<div class="about" :style="{height: dynamicHeight}">-->
+        <!--  <div class="about_title">关于UKEC</div>-->
+        <!--  <div class="about_box" v-html="aboutUKec">-->
+        <!--  </div>-->
+        <!--</div>-->
+        <div class="banner about" :style="{height: dynamicHeight}">
+          <div class="about_img">
+            <img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1689053532,4230915864&fm=26&gp=0.jpg" alt="">
           </div>
+          <!--<div-->
+          <!--  v-swiper:mySwiper4="swiperOption4"-->
+          <!--  ref="swiperOption4"-->
+          <!--  style="height: 100%;"-->
+          <!--  v-if="bannerList.length>0"-->
+          <!--&gt;-->
+          <!--  <div class="swiper-wrapper">-->
+          <!--    <div class="swiper-slide banner_img" v-for="(item,index) in bannerList" :key="index+'banner'" v-if=" index==0 ">-->
+          <!--      <a :href="item.http_url" target="_blank"><img :src="item.img_url" :alt="item.name"></a>-->
+          <!--    </div>-->
+          <!--  </div>-->
+          <!--</div>-->
         </div>
         <div class="banner" :style="{height: dynamicHeight}">
           <div
-            v-swiper:mySwiper4="swiperOption4"
-            ref="swiperOption4"
+            v-swiper:mySwiper5="swiperOption5"
+            ref="swiperOption5"
             style="height: 100%;"
             v-if="bannerList.length>0"
           >
             <div class="swiper-wrapper">
-              <div
-                class="swiper-slide banner_img"
-                v-for="(item,index) in bannerList"
-                :key="index+'banner'"
-              >
+              <div class="swiper-slide banner_img" v-for="(item,index) in bannerList" :key="index+'banner'">
                 <a :href="item.http_url" target="_blank"><img :src="item.img_url" :alt="item.name"></a>
               </div>
             </div>
@@ -237,6 +250,19 @@ export default {
                 notNextTick: true //notNextTick是一个组件自有属性，如果notNextTick设置为true，组件则不会通过NextTick来实例化swiper，也就意味着你可以在第一时间获取到swiper对象，假如你需要刚加载遍使用获取swiper对象来做什么事，那么这个属性一定要是true
             },
             swiperOption4: {
+                speed: 300,
+                loop: false,
+                initialSlide: 1,
+                autoplay: {
+                    disableOnInteraction: false //手动滑动之后不打断播放
+                },
+                autoHeight: true, //高度随内容变化
+                observer: true, //修改swiper自己或子元素时，自动初始化swiper
+                observeParents: true, //修改swiper的父元素时，自动初始化swiper
+                slidesPerView: "auto", //一页显示几个
+                notNextTick: true //notNextTick是一个组件自有属性，如果notNextTick设置为true，组件则不会通过NextTick来实例化swiper，也就意味着你可以在第一时间获取到swiper对象，假如你需要刚加载遍使用获取swiper对象来做什么事，那么这个属性一定要是true
+            },
+            swiperOption5: {
                 speed: 300,
                 loop: true,
                 initialSlide: 1,
