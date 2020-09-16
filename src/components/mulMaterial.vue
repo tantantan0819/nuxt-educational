@@ -75,10 +75,11 @@
             //新增材料--上传
             addFile(val) {
                 let _this = this;
-                if (val) {
-                    _this.addForm.file_url = val[val.length - 1].response.data.url;
-                    _this.addForm.origin_name = val[val.length - 1].response.data.filename;
-                }
+                console.log(val,'上传文件----')
+                // if (val) {
+                //     _this.addForm.file_url = val[val.length - 1].response.data.url;
+                //     _this.addForm.origin_name = val[val.length - 1].response.data.filename;
+                // }
             },
             //取消添加材料
             cancelAdd(formName) {

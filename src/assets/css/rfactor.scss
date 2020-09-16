@@ -285,8 +285,15 @@
   .upload_lang{
     display: flex;
     flex-direction: row!important;
+    .el-form-item__content{
+      flex: 1;
+    }
+    .el-form-item__label{
+      position: absolute;
+    }
   }
 }
+
 .lang_page{
     margin-top: 100px;
     text-align: center;
