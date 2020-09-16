@@ -129,27 +129,10 @@
             </div>
         </div>
       <div class="bottom_box" ref="dynamic">
-        <!--<div class="about" :style="{height: dynamicHeight}">-->
-        <!--  <div class="about_title">关于UKEC</div>-->
-        <!--  <div class="about_box" v-html="aboutUKec">-->
-        <!--  </div>-->
-        <!--</div>-->
         <div class="banner about" :style="{height: dynamicHeight}">
           <div class="about_img">
-            <img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1689053532,4230915864&fm=26&gp=0.jpg" alt="">
+            <img :src="aboutUKec" alt="">
           </div>
-          <!--<div-->
-          <!--  v-swiper:mySwiper4="swiperOption4"-->
-          <!--  ref="swiperOption4"-->
-          <!--  style="height: 100%;"-->
-          <!--  v-if="bannerList.length>0"-->
-          <!--&gt;-->
-          <!--  <div class="swiper-wrapper">-->
-          <!--    <div class="swiper-slide banner_img" v-for="(item,index) in bannerList" :key="index+'banner'" v-if=" index==0 ">-->
-          <!--      <a :href="item.http_url" target="_blank"><img :src="item.img_url" :alt="item.name"></a>-->
-          <!--    </div>-->
-          <!--  </div>-->
-          <!--</div>-->
         </div>
         <div class="banner" :style="{height: dynamicHeight}">
           <div
@@ -457,7 +440,7 @@ export default {
             let _this = this;
             http.get("/about-ukec/list").then(res => {
                 if (res) {
-                    _this.aboutUKec = res.content;
+                    _this.aboutUKec = res.images;
                 }
             });
         },
