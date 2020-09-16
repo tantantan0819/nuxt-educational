@@ -349,7 +349,7 @@ export default {
                         message: "头像修改成功！",
                         type: "success"
                     });
-                    _this.person.avatar = config.view_host+img_url;
+                    _this.person.avatar = img_url;
                     _this.$store.commit("user/SET_USER", _this.person);
                 }
             }).catch(error=>{
