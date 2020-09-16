@@ -1,6 +1,6 @@
 <template>
   <!-- 材料列表新增：单文件上传 -->
-  <div class="add_note">
+  <div class="add_note modify_upload mul_upload">
     <el-dialog :visible.sync="addShow" width="717px" center :close-on-click-modal="isClose" :close-on-press-escape="isClose">
       <div class="add_title">增加---</div>
       <div class="add_con">
@@ -9,22 +9,11 @@
             <el-input v-model="addForm.material_name" placeholder="请填写您的材料名称"></el-input>
           </el-form-item>
           <el-form-item prop="origin_name" label="文件" class="upload_lang">
-          <!--  <el-input-->
-          <!--    v-model="addForm.origin_name"-->
-          <!--    readonly-->
-          <!--    placeholder="请上传您的材料文件"-->
-          <!--  ></el-input>-->
-          <!--  <upload-btn-->
-          <!--    class="unload_btn"-->
-          <!--    :config="configuration"-->
-          <!--    v-on="{uploadFile: addFile}"-->
-          <!--  ></upload-btn>-->
             <upload-btn
               :config="configuration"
               v-on="{uploadFile: addFile}"
             ></upload-btn>
           </el-form-item>
-
         </el-form>
         <div class="add_footer">
           <span @click="cancelAdd('addForm')">取消</span>
@@ -83,7 +72,7 @@
             }
         },
         methods:{
-            //新增语言成绩--上传
+            //新增材料--上传
             addFile(val) {
                 let _this = this;
                 if (val) {
@@ -97,7 +86,7 @@
                 this.addShow = false;
                 this.$emit("closeContr",'false');
             },
-            //提交新增语言证书
+            //提交新增材料
             addSubmit(formName) {
                 let _this = this;
                 _this.$refs[formName].validate(valid => {

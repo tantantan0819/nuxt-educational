@@ -78,7 +78,7 @@
             }
         },
         methods:{
-            //新增语言成绩--上传
+            //新增材料--上传
             addFile(val) {
                 let _this = this;
                 if (val) {
@@ -92,7 +92,7 @@
                 this.addShow = false;
                 this.$emit("closeContr",'false');
             },
-            //提交新增语言证书
+            //提交新增材料
             addSubmit(formName) {
                 let _this = this;
                 _this.$refs[formName].validate(valid => {

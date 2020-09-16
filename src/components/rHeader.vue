@@ -62,7 +62,7 @@
 <script>
 import http from "~/plugins/http";
 import uhttp from "~/plugins/uhttp";
-import { setStore, getStore, emptyObj } from "~/plugins/utils";
+import { setStore, emptyObj } from "~/plugins/utils";
 export default {
     data() {
         return {
