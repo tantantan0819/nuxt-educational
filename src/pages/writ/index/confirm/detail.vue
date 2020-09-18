@@ -22,7 +22,12 @@
           <el-table-column  label="材料名称" prop="material_name"></el-table-column>
           <el-table-column label="文件">
             <template slot-scope="scope">
-              <a :href="scope.row.file_url" target="_blank">{{scope.row.origin_name}}</a>
+
+              <!--<a :href="scope.row.file_url" target="_blank">{{scope.row.origin_name}}</a>-->
+              <!--单文件：直接展示文件-->
+              <a :href="scope.row.file_url_data[0].file_url" target="_blank" v-if="scope.row.file_url_data.length<2">{{scope.row.file_url_data[0].name}}</a>
+              <!--单文件：展示文件列表-->
+              <i v-else class="showList" @click="showList(scope.row.file_url_data)">文件列表</i>
             </template>
           </el-table-column>
           <el-table-column  label="上传时间">
@@ -39,14 +44,20 @@
         <span class="next">请勾选您需要确认的材料进行确认，对于您尚有疑问的材料请勿勾选<br>若全选材料确认后，该方案将变为已确认，我们将以此材料进行申请</span>
       </div>
     </div>
+    <!-- 查看文件列表 -->
+    <file-list v-if="isList" :tabel="listData" v-on="{closeContr: closeList}"></file-list>
   </div>
 </template>
 <script>
     import http from "~/plugins/http";
     import { timeDetail, emptyObj, getStore } from "~/plugins/utils";
+    import FileList from "~/components/fileList";
     export default {
+        components: {FileList},
         data() {
             return {
+                isList: false,//是否展示文件列表
+                listData:[],//文件列表数据
                 confirm: {},
                 tableData: [],
                 planId: '',
@@ -101,6 +112,16 @@
                 val.map(item=>{
                     _this.idArr.push(item.id)
                 })
+            },
+            //点击展示文件列表
+            showList(data){
+                console.log(data,'---yangguan ')
+                this.listData = data;
+                this.isList = true;
+            },
+            //关闭展示文件列表
+            closeList(){
+                this.isList = false;
             },
             //确认材料
             sure(){

@@ -86,3 +86,7 @@ body{
   text-align: center;
   @include fontc(16px, 32px, $f63);
 }
+.showList{
+  @include fontc(14px, 16px, $f15);
+  cursor: pointer;
+}

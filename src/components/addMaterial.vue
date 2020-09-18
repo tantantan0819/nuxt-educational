@@ -1,7 +1,7 @@
 <template>
   <!-- 材料列表新增：单文件上传 -->
   <div class="add_note">
-    <el-dialog :visible.sync="addShow" width="717px" center :close-on-click-modal="isClose" :close-on-press-escape="isClose">
+    <el-dialog :visible.sync="addShow" width="717px" center  @close='closeDialog'>
       <div class="add_title">增加</div>
       <div class="add_con">
         <el-form :model="addForm" ref="addForm" :rules="addRules">
@@ -90,6 +90,10 @@
             cancelAdd(formName) {
                 this.$refs[formName].resetFields();
                 this.addShow = false;
+                this.$emit("closeContr",'false');
+            },
+            //监听关闭弹框的事件
+            closeDialog(){
                 this.$emit("closeContr",'false');
             },
             //提交新增材料

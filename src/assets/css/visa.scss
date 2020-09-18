@@ -169,6 +169,10 @@
         }
     }
 }
+.showList{
+  @include fontc(14px,18px,$f15);
+  cursor: pointer;
+}
 .visa_box{
     margin-top: 60px;
     border: 1px solid $fd9;

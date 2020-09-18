@@ -1,7 +1,7 @@
 <template>
   <!-- 材料列表新增：单文件上传 -->
   <div class="add_note modify_upload mul_upload">
-    <el-dialog :visible.sync="addShow" width="717px" center :close-on-click-modal="isClose" :close-on-press-escape="isClose">
+    <el-dialog :visible.sync="addShow" width="717px" center @close='closeDialog'>
       <div class="add_title">增加---</div>
       <div class="add_con">
         <el-form :model="addForm" ref="addForm" :rules="addRules">
@@ -32,7 +32,7 @@
     import http from "~/plugins/http";
     import UploadBtn from "~/components/upload";
     export  default {
-        props: ['single','id'],
+        props: ['id','num'],
         components: { UploadBtn},
         data(){
             return{
@@ -47,9 +47,9 @@
                     accept: "" //上传格式
                 },
                 addForm: {
-                    origin_name: "", //材料原始名称
+                    origin_name: [], //材料原始名称
                     material_name: "", //材料名称
-                    file_url: "", //文件路径
+                    file_url: [], //文件路径
                     material_id: "", //材料类型
                     is_private: "1", //是否隐藏
                 },
@@ -71,20 +71,30 @@
                 },
             }
         },
+        mounted(){
+            this.configuration.limit = Number.parseInt(this.num);
+        },
         methods:{
             //新增材料--上传
             addFile(val) {
                 let _this = this;
-                console.log(val,'上传文件----')
-                // if (val) {
-                //     _this.addForm.file_url = val[val.length - 1].response.data.url;
-                //     _this.addForm.origin_name = val[val.length - 1].response.data.filename;
-                // }
+                _this.addForm.origin_name = [];
+                _this.addForm.file_url = [];
+                val.map((item)=>{
+                    if(item.response){
+                        _this.addForm.origin_name.push(item.response.data.filename);
+                        _this.addForm.file_url.push(item.response.data.url);
+                    }
+                })
             },
             //取消添加材料
             cancelAdd(formName) {
                 this.$refs[formName].resetFields();
                 this.addShow = false;
+                this.$emit("closeContr",'false');
+            },
+            //监听关闭弹框的事件
+            closeDialog(){
                 this.$emit("closeContr",'false');
             },
             //提交新增材料
