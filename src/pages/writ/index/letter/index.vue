@@ -39,13 +39,11 @@
                             size="mini"
                             @click="modify(scope.$index, scope.row)"
                             class="table_btn"
-                            v-if="!scope.row.sure_time"
                           >修改</el-button>
                           <el-button
                             size="mini"
                             @click="finalized(scope.$index, scope.row)"
                             class="table_btn"
-                            v-if="!scope.row.sure_time"
                           >提交</el-button>
                         </template>
                     </el-table-column>
