@@ -182,6 +182,7 @@ export default {
             titleMaxLength200: 200, //文本域最大字数
             relaship: [], //关系下拉
             sexList: [], //性别下拉
+            isSubmit: true, //是否可提交，避免重复提交
             letterForm: {
                 name: "",
                 sex: "", //男：4，女：5
@@ -319,21 +320,30 @@ export default {
             _this.letterForm.phone = _this.letterForm.phone + "";
             _this.$refs[formName].validate(valid => {
                 if (valid) {
-                    _this.letterForm.sex += "";
-                    http.post(
-                        "/customer-recommendation/add",
-                        _this.letterForm
-                    ).then(res => {
-                        let successMsg = _this.$message({
-                            message: "提交成功！",
-                            type: "success"
+                    if(_this.isSubmit) {
+                        _this.letterForm.sex += "";
+                        _this.isSubmit = false;
+                        http.post(
+                            "/customer-recommendation/add",
+                            _this.letterForm
+                        ).then(res => {
+                            let successMsg = _this.$message({
+                                message: "提交成功！",
+                                type: "success"
+                            });
+                            setTimeout(() => {
+                                successMsg.close();
+                                _this.isSubmit = true;
+                                _this.$refs[formName].resetFields();
+                                _this.$router.go(-1);
+                            }, 1000);
                         });
-                        setTimeout(() => {
-                            successMsg.close();
-                            _this.$refs[formName].resetFields();
-                            _this.$router.go(-1);
-                        }, 1000);
-                    });
+                    }else{
+                        _this.$message({
+                            message: "请勿重复提交！",
+                            type: "error"
+                        });
+                    }
                 } else {
                     _this.$message({
                         message: "请完整填写表单！",
