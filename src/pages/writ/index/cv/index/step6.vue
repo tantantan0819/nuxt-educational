@@ -7,7 +7,7 @@
       </div>
       <div class="modify_wrap">
 <!--        <info-modify :type="modifyType"></info-modify>-->
-        <span class="cv_button cv_button3" @click="outerVisible=true">完善兴趣/语言/技能/证书</span>
+        <span class="cv_button cv_button3" @click="open">完善兴趣/语言/技能/证书</span>
       </div>
     </div>
     <div class="cv_content cv2">
@@ -121,7 +121,7 @@ export default {
       http.get("/customer-introduce/list").then(res => {
         if (JSON.stringify(res) != "[]") {
           this.tableData = res;
-          this.cvForm6 = res[0];
+          this.cvForm6 = {...res[0]};
           for (let i in res[0]) {
             for (let m in this.cvForm6) {
               if (i == m && !res[0][i]) {
@@ -144,6 +144,11 @@ export default {
     cancel(formName) {
       this.$refs[formName].resetFields();
       this.outerVisible = false;
+    },
+    //打开弹框，同步数据
+    open(){
+       this.cvForm6 = {...this.tableData[0]};
+       this.outerVisible=true;
     },
     //保存--提交表单
     submitForm(formName) {
