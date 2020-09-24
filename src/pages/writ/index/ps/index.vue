@@ -790,7 +790,7 @@
             //定稿
             finalized(index, data) {
                 let _this = this;
-                this.$confirm('已成功提交给顾问老师，待顾问老师反馈', '提示', {
+                this.$confirm('请确定是否提交给顾问老师？', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
