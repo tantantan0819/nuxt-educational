@@ -124,6 +124,13 @@
                 _this.$store.commit('SET_CONFIRM', flag);
             }
             this.isConfirm = this.$store.state.isConfirm;
+            //如果我的合同列表有数据则展示我的合同标签，如我的合同列表没有数据则不展示我的合同标签
+           let contractList = await http.get('/contract/my-contract-list');
+           if(contractList.length == 0){
+               this.nav.map((item,index)=>{
+                   item.name == '我的合同' ? this.nav.splice(index,1) : '';
+               })
+           }
         },
         watch: {
             $route(to, from) {
