@@ -179,11 +179,11 @@
                                 <span>{{aboradDetail.apply_num}}</span>
                             </div>
                             <div class="plan_box">
-                                <span>DIY A套餐应收金额</span>
+                                <span>{{aboradDetail.finance_id_project_cn}}应收金额</span>
                                 <span>{{aboradDetail.finance_id_due_fee}}</span>
                             </div>
                             <div class="plan_box">
-                                <span>DIY A套餐实收金额</span>
+                                <span>{{aboradDetail.finance_id_project_cn}}实收金额</span>
                                 <span>{{aboradDetail.finance_id_sum_fee}}</span>
                             </div>
                             <div class="plan_box">
