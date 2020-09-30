@@ -230,8 +230,9 @@
     overflow-y: scroll;
     overflow-x: hidden;
     .about_img{
+      @include wh(100%,100%);
       img{
-        width: 100%;
+        @include wh(100%,100%);
       }
     }
     .about_title{
