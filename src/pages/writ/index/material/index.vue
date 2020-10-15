@@ -17,16 +17,14 @@
       <div class="visa_con">
         <div class="visa_item" v-for="(item,index) in material" :key="index">
           <div class="visa_left">{{item.materialname_cn}}</div>
-          <div
-            class="visa_con"
-            :class="{'active':item.lists.length>1}"
-          >
-            <div
-              class="visa_center"
-              v-for="(item2,index2) in item.lists"
-              :key="index2"
-            > <span>{{item2.material_name}}</span>
-              <span> <a :href="item2.file_url" target="_blank">{{item2.origin_name}}</a></span>
+          <div class="visa_con" :class="{'active':item.lists.length>1}">
+            <div class="visa_center" v-for="(item2,index2) in item.lists" :key="index2"> <span>{{item2.material_name}}</span>
+              <span>
+                <!--单文件：直接展示文件-->
+                <a :href="item2.file_url" target="_blank" v-if="item.allow_file_num<2 || item2.file_url_data.length<2">{{item2.origin_name}}</a>
+                <!--单文件：展示文件列表-->
+                <i v-else class="showList" @click="showList(item2.file_url_data)">文件列表</i>
+              </span>
               <span>{{item2.create_time |timeFormat}}</span>
               <span>{{item2.创建人}}</span>
               <span :class="{'blue':item2.material_status == 199}" v-if="item2.material_status == 199"><i>审核未通过</i></span>
@@ -35,7 +33,7 @@
             </div>
           </div>
           <div class="visa_right materia_right">
-            <span class="meteria_add" @click="isAdd(item.material_id)" v-if="item.is_multi == 1 || item.lists.length<1">新增</span>
+            <span class="meteria_add" @click="isAdd(item.material_id,item.allow_file_num)" v-if="item.is_multi == 1 || item.lists.length<1">新增</span>
             <span class="meteria_add"  v-else @click="download(item2.file_url,item2.origin_name)">下载</span>
             <div class="material_view" v-if="item.materialname_cn == 'CV'||item.materialname_cn == '个人陈述'||item.materialname_cn == '推荐信'">
                 <info-modify :type="item.materialname_cn" ></info-modify>
@@ -44,35 +42,12 @@
         </div>
       </div>
     </div>
-    <!-- 添加材料 -->
-    <div class="add_note">
-      <el-dialog :visible.sync="addShow" width="717px" center>
-        <div class="add_title">增加</div>
-        <div class="add_con">
-          <el-form :model="addForm" ref="addForm" :rules="addRules">
-            <el-form-item prop="material_name" label="材料名称">
-              <el-input v-model="addForm.material_name" placeholder="请填写您的材料名称"></el-input>
-            </el-form-item>
-            <el-form-item prop="origin_name" label="文件" class="upload_lang">
-              <el-input
-                v-model="addForm.origin_name"
-                readonly
-                placeholder="请上传您的材料文件"
-              ></el-input>
-              <upload-btn
-                class="unload_btn"
-                :config="configuration"
-                v-on="{uploadFile: addFile}"
-              ></upload-btn>
-            </el-form-item>
-          </el-form>
-          <div class="add_footer">
-            <span @click="cancelAdd('addForm')">取消</span>
-            <span @click="addSubmit('addForm')">确定</span>
-          </div>
-        </div>
-      </el-dialog>
-    </div>
+    <!-- 新增材料：单文件-->
+    <add-material v-if="single" :id="material_id" v-on="{closeContr: closeSingle}"></add-material>
+    <!-- 新增材料：多文件-->
+    <mul-material v-if="multiple" :id="material_id" :num="meterial_num" v-on="{closeContr: closeMultiple}"></mul-material>
+    <!-- 查看文件列表 -->
+    <file-list v-if="isList" :tabel="listData" v-on="{closeContr: closeList}"></file-list>
   </div>
 </template>
 
@@ -81,51 +56,23 @@
     import config from "~/plugins/config";
     import {timeDetail} from '~/plugins/utils';
     import InfoModify from "~/components/infoModify";
-    import UploadBtn from "~/components/upload";
+    import AddMaterial from "~/components/addMaterial";
+    import MulMaterial from "~/components/mulMaterial";
+    import FileList from "~/components/fileList";
     export default {
         name: "new",
-        components: { InfoModify,UploadBtn},
+        components: { InfoModify,AddMaterial,MulMaterial,FileList},
         data() {
             return {
+                isList: false,//是否展示文件列表
+                material_id: '',//新增材料的id
+                meterial_num: '',//新增材料多份文件的个数限制
+                single: false,//单文件上传弹框
+                multiple: false,//多文件上传弹框
                 img_url: "", //文件查看前缀
-                userForm: {}, //用户信息
                 cid: '',//用户cid
                 material: [],//签证材料
-                showArr: [],//是否展示table
-                materialType: ["个人陈述", "CV", "推荐信"],
-                modifyType: 'cv',//修改类型
-                addShow: false, //添加材料
-                addForm: {
-                    origin_name: "", //材料原始名称
-                    material_name: "", //材料名称
-                    file_url: "", //文件路径
-                    material_id: "", //材料类型
-                    is_private: "1", //是否隐藏
-                },
-                addRules: {
-                    material_name: [
-                        {
-                            required: true,
-                            message: "请填写您的材料名称",
-                            trigger: "blur"
-                        }
-                    ],
-                    origin_name: [
-                        {
-                            required: true,
-                            message: "请上传您的材料文件",
-                            trigger: "blur"
-                        }
-                    ],
-                },
-                configuration: {
-                    isShowList: false, //是否展示文件列表
-                    multiple: false, //是否允许多文件上传
-                    limit: null, //上传文件的限制数量
-                    btnText: "上传", //上传按钮显示文字
-                    errorText: "", //上传失败时的提示
-                    accept: "" //上传格式
-                }
+                listData:[],//文件列表数据
             };
         },
         filters: {
@@ -138,7 +85,6 @@
             let _this = this;
             //文件查看前缀
             _this.img_url = config.view_host;
-            //material
             //获取用户信息
             let urserInfo = await http.get("/customer/get-info");
             _this.cid = urserInfo.id;
@@ -155,54 +101,44 @@
                     }
                 });
             },
-            isAdd(id){
-                this.addForm.material_id = id;
-                this.addShow = true;
+            //新增材料弹框展示
+            isAdd(id,mul){
+                this.material_id = id;
+                this.meterial_num = mul;
+                //cv、个人陈述、推荐信展示多文件上传，其它展示单文件上传
+                if(mul>1){
+                    this.multiple = true;
+                }else{
+                    this.single = true;
+                }
             },
-            //查看材料
-            viewMaterial(url) {
-                window.open(config.view_host+url,'_blank')
+            //新增单文件弹框关闭
+            closeSingle(val){
+                this.single = false;
+                if(val=='true'){
+                    this.getMaterial();
+                }
+            },
+            //新增多文件弹框关闭
+            closeMultiple(val){
+                this.multiple = false;
+                if(val=='true'){
+                    this.getMaterial();
+                }
             },
             //下载材料
             download(url,name) {
                 window.open(config.view_host+url+'?attname='+name,'_self')
             },
-            //新增语言成绩--上传
-            addFile(val) {
-                let _this = this;
-                if (val) {
-                    _this.addForm.file_url = val[val.length - 1].response.data.url;
-                    _this.addForm.origin_name =
-                        val[val.length - 1].response.data.filename;
-                }
+            //点击展示文件列表
+            showList(data){
+                this.listData = data;
+                this.isList = true;
             },
-            //取消添加材料
-            cancelAdd(formName) {
-                this.$refs[formName].resetFields();
-                this.addShow = false;
-            },
-            //提交新增语言证书
-            addSubmit(formName) {
-                let _this = this;
-                _this.$refs[formName].validate(valid => {
-                    if (valid) {
-                        http.post("/customer-material/add", _this.addForm).then(
-                            res => {
-                                let successMsg = _this.$message({
-                                    message: "提交成功！",
-                                    type: "success"
-                                });
-                                setTimeout(() => {
-                                    successMsg.close();
-                                    _this.$refs[formName].resetFields();
-                                    _this.addShow = false;
-                                    _this.getMaterial();
-                                }, 1000);
-                            }
-                        );
-                    }
-                });
-            },
+            //关闭展示文件列表
+            closeList(){
+                this.isList = false;
+            }
         }
     }
 </script>
@@ -211,5 +147,4 @@
   @import "~/assets/css/accommodation.scss";
   @import "~/assets/css/visa.scss";
   @import "~/assets/css/cv.scss";
-
 </style>

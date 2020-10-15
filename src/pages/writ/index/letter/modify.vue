@@ -305,6 +305,7 @@ export default {
         http.post("/customer-recommendation/view",{id: id}).then(res=>{
             if(res){
                 _this.letterForm = res;
+                _this.letterForm.sex = Number.parseInt(_this.letterForm.sex);
             }
             _this.relaship.map(item=>{
                 if(item.id == _this.letterForm.relation){

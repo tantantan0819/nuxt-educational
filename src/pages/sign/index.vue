@@ -445,7 +445,7 @@ export default {
         //获取签证合同
         getSign() {
             let _this = this;
-            http.get("contract/my-list-visa").then(res => {
+            http.get("/contract/my-list-visa").then(res => {
                 if (res) {
                     _this.visaTable = res;
                 }

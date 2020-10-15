@@ -361,6 +361,16 @@ body{
       border-color: $f15;
   }
 }
+.fileList{
+  .add_content{
+    padding-bottom: 50px;
+  }
+  .el-table th{
+    background-color: #ea5d500f!important;
+    color: #e95b50!important;
+    border-right: none!important;
+  }
+}
 .noteTextarea{
   textarea{
     height: 140px!important;

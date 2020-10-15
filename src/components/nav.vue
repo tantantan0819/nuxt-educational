@@ -22,7 +22,7 @@
 </style>
 <script>
     import uhttp from "~/plugins/uhttp";
-    import {setStore, getStore, emptyObj} from '~/plugins/utils';
+    import {setStore} from '~/plugins/utils';
 
     export default {
         data() {

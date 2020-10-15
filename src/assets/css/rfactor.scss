@@ -263,7 +263,6 @@
         white-space: nowrap;
         padding-right: 90px;
     }
-    position: relative;
     .unload_tip{
         position: absolute;
         right: 14px;
@@ -281,6 +280,29 @@
         right: 14px;
         cursor: pointer;
     }
+}
+.mul_upload{
+  .upload_lang{
+    display: flex;
+    flex-direction: row!important;
+    .el-form-item__content{
+      flex: 1;
+    }
+    .el-form-item__label{
+      position: absolute;
+    }
+  }
+  .el-table{
+    border: 1px solid #ebeef5;
+    border-bottom: none;
+    .cell{
+      text-align: center;
+      font-size: 14px;
+      a{
+        @include fontc(12px,12px,$f15)
+      }
+    }
+  }
 }
 .lang_page{
     margin-top: 100px;

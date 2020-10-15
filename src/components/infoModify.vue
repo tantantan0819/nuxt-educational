@@ -33,7 +33,6 @@
                                 class="noteTextarea"
                                 autocomplete="off"
                             ></el-input>
-
                         </el-form-item>
                         <el-form-item label="附件:" prop="note_files" class="upload_lang">
                           <upload-btn

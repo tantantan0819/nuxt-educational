@@ -247,31 +247,37 @@ export default {
                 return false;
             }
             _this.$refs[formName].validate(valid => {
-                if (valid && _this.isSubmit) {
-                    _this.isSubmit = false;
-                    _this.psDetailForm.version = 1;
-                    http.post(
-                        "/customer-apply-question/add",
-                        _this.psDetailForm
-                    ).then(res => {
-                        if (res) {
-                            let successMsg = _this.$message({
-                                message: "提交成功！",
-                                type: "success"
-                            });
-                            setTimeout(() => {
-                                _this.isSubmit = true;
-                                successMsg.close();
-                                _this.$router.push("/writ/ps");
-                            }, 1500);
-                        }
-                    });
+                if (valid) {
+                    if(_this.isSubmit) {
+                        _this.isSubmit = false;
+                        _this.psDetailForm.version = 1;
+                        http.post(
+                            "/customer-apply-question/add",
+                            _this.psDetailForm
+                        ).then(res => {
+                            if (res) {
+                                let successMsg = _this.$message({
+                                    message: "提交成功！",
+                                    type: "success"
+                                });
+                                setTimeout(() => {
+                                    _this.isSubmit = true;
+                                    successMsg.close();
+                                    _this.$router.push("/writ/ps");
+                                }, 1500);
+                            }
+                        });
+                    }else{
+                        _this.$message({
+                            message: "请勿重复提交！",
+                            type: "error"
+                        });
+                    }
                 }else {
                     _this.$message({
                         message: "请完整填写表单！",
                         type: "error"
                     });
-                    _this.isSubmit = true;
                     return false;
                 }
             });
