@@ -512,7 +512,7 @@ export default {
         //定稿
         finalized(index,data){
             let _this = this;
-            this.$confirm('提交以后将不能修改，是否继续提交', '提示', {
+            this.$confirm('提交后，将不可再修改，后续等待顾问老师反馈', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'warning'
