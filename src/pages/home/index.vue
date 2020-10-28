@@ -331,7 +331,6 @@ export default {
                 _this.getWidth();
             })();
         };
-        console.log('测试一下啦，记得删除')
     },
     methods: {
         //获取首页banner
