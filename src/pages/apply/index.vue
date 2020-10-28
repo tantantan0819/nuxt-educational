@@ -77,7 +77,7 @@
         <div class="add_note">
             <el-dialog :visible.sync="applyShow" width="1024px" center>
                 <div class="add_title">申请详情</div>
-                <div class="add_con plan_add_plan">
+                <div class="add_con plan_add_plan apply_add_plan">
                     <div class="plan_item">
                         <div class="plan_title">主课申请</div>
                         <div class="plan_wrap">

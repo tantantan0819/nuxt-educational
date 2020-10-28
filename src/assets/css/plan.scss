@@ -2,6 +2,15 @@
 .plan_add_plan{
     padding-bottom: 35px!important;
 }
+.apply_add_plan{
+  .plan_box{
+    span{
+      &:nth-child(2){
+        white-space: normal!important;
+      }
+    }
+  }
+}
 .plan_wrapper{
     .plan_box{
         span{
