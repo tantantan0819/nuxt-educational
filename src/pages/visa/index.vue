@@ -322,7 +322,7 @@ export default {
         },
         //下载文件（单文件且有数据时：将新增按钮更改为下载按钮）
         loadFile(url,name){
-            window.open(url+'?attname='+name,'_self')
+            window.open(url+'?attname='+name,'_self');
         }
     }
 };
