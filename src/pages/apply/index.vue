@@ -58,7 +58,11 @@
                     <el-table-column prop="是否接受" label="是否接受" width="90"></el-table-column>
                     <el-table-column prop="申请档案号" label="申请档案号" width="230"></el-table-column>
                     <el-table-column prop="入学状态" label="入学状态" width="90"></el-table-column>
-                    <el-table-column prop="定校时间" label="定校时间" width="90"></el-table-column>
+                    <el-table-column prop="so_submit_date" label="定校时间">
+                      <template slot-scope="scope">
+                         {{scope.row.so_submit_date | timeFormat}}
+                      </template>
+                    </el-table-column>
                     <el-table-column prop="申请提交日期" label="申请提交日期"></el-table-column>
                     <el-table-column prop="意向院校" label="意向院校"></el-table-column>
                     <el-table-column label="操作" width="100">
@@ -269,6 +273,7 @@
 <script>
 import http from "~/plugins/http";
 import config from "~/plugins/config";
+import {timeDetail2} from "~/plugins/utils";
 import UploadBtn from "~/components/upload";
 
 export default {
@@ -288,6 +293,16 @@ export default {
         _this.getApply();
         //文件查看前缀
         _this.img_url = config.view_host;
+    },
+    filters: {
+       // 时间戳转换
+        timeFormat(time) {
+            let newTime = "";
+            if (time && time != '0') {
+                newTime = timeDetail2(time);
+            }
+            return newTime;
+        },
     },
     methods: {
         //下载Co
