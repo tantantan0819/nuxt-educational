@@ -78,7 +78,7 @@
             </div>
         </div>
         <!-- 查看申请详情 -->
-        <div class="add_note">
+        <div class="add_note apply_detail">
             <el-dialog :visible.sync="applyShow" width="1024px" center>
                 <div class="add_title">申请详情</div>
                 <div class="add_con plan_add_plan apply_add_plan">
@@ -171,20 +171,14 @@
                             </div>
                             <div class="plan_box">
                                 <span>UO</span>
-                                <span>
-                                    <a :href="img_url+apply.UO图片" target="_blank">
-                                        <img :src="img_url+apply.UO图片" alt />
-                                    </a>
-                                    <button @click="loadUo(img_url+apply.UO图片)" v-if="apply.UO图片">下载</button>
+                                <span class="noPadding">
+                                   <a :href="item.url" v-for="(item,index) in apply.uo_files" :key="index" target="_blank">{{item.origin_name}}</a>
                                 </span>
                             </div>
                             <div class="plan_box">
                                 <span>CO</span>
-                                <span>
-                                    <a :href="img_url+apply.CO图片" target="_blank">
-                                        <img :src="img_url+apply.CO图片" alt />
-                                    </a>
-                                    <button @click="loadCo(img_url+apply.CO图片)" v-if="apply.CO图片">下载</button>
+                                <span class="noPadding">
+                                   <a :href="item.url" v-for="(item,index) in apply.uo_files" :key="index" target="_blank">{{item.origin_name}}</a>
                                 </span>
                             </div>
                             <div class="plan_box">
