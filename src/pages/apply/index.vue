@@ -178,7 +178,7 @@
                             <div class="plan_box">
                                 <span>CO</span>
                                 <span class="noPadding">
-                                   <a :href="item.url" v-for="(item,index) in apply.uo_files" :key="index" target="_blank">{{item.origin_name}}</a>
+                                   <a :href="item.url" v-for="(item,index) in apply.co_files" :key="index" target="_blank">{{item.origin_name}}</a>
                                 </span>
                             </div>
                             <div class="plan_box">
