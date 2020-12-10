@@ -247,6 +247,7 @@ body{
   display: flex;
   position: relative;
   justify-content: space-between;
+  align-items: center;
   border-bottom: 1px solid $title;
   padding: 10px 0;
 
@@ -425,4 +426,12 @@ body{
         border-bottom: 1px solid $title;
     }
 }
-
+.letter_title{
+  p{
+    min-width: 124px;
+  }
+  span{
+    font-size: 14px!important;
+    line-height: 24px!important;
+  }
+}

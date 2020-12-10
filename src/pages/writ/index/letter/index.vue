@@ -2,9 +2,9 @@
     <div class="cv con">
         <div class="cv_step2">
             <div class="title_box">
-                <div class="cv_title">
+                <div class="cv_title letter_title">
                     <p>我的推荐信</p>
-                    <span>目前您有{{letterLength}}份推荐信，您还可新增{{count}}份推荐信</span>
+                    <span>目前您有{{letterLength}}份推荐信，您还可新增{{count}}份推荐信。【推荐信须知：如果您的推荐老师对推荐信有要求，请提前说明。没有任何说明且已经完成的推荐信，质量无问题，均不能做免费修改。】</span>
                 </div>
                 <div class="modify_wrap">
 <!--                    <info-modify :type="modifyType"></info-modify>-->
