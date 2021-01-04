@@ -29,9 +29,10 @@
               <span> <a :href="item2.file_url" target="_blank">{{item2.origin_name}}</a></span>
               <span>{{item2.create_time |timeFormat}}</span>
               <span>{{item2.创建人}}</span>
-              <span :class="{'blue':item2.material_status == 199}" v-if="item2.material_status == 199"><i>审核未通过</i></span>
-              <span :class="{'red':item2.material_status == 0}" v-else-if="item2.material_status == 0"><i>审核中</i></span>
-              <span :class="{'green':item2.material_status == 200}" v-else><i>审核通过</i></span>
+              <!--<span :class="{'blue':item2.material_status == 199}" v-if="item2.material_status == 199"><i>审核未通过</i></span>-->
+              <!--<span :class="{'red':item2.material_status == 0}" v-else-if="item2.material_status == 0"><i>审核中</i></span>-->
+              <span :class="{'green':item2.material_status == 200}" v-if="item2.material_status == 200"><i>审核通过</i></span>
+              <span v-else></span>
             </div>
           </div>
           <div class="visa_right materia_right">
