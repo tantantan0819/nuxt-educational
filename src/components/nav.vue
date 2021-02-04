@@ -1,100 +1,103 @@
 <template>
   <div class="nav">
-    <div class="logo"><img src="/images/logo.png" alt=""></div>
-    <div class="avatar">
-      <div class="avatar_box">
-        <img v-if="user.avatar" :src="user.avatar" alt="">
-        <img v-else src="/images/avatar.jpg" alt="">
-      </div>
-    </div>
-    <p class="user_name tc">{{user.username}}</p>
-    <div class="logout"><span @click="layout">退出</span></div>
-    <ul class="nav_list">
-      <li v-for="(item,index) in nav" :key="index" @click="link(item.link)" :class="{'active': active == item.link}">
-        {{item.name}}
-      </li>
-    </ul>
+    <el-menu default-active="$store.getters.active" class="el-menu-vertical-demo nvamenu" @open="handleOpen" @close="handleClose" :collapse="isCollapse"
+             :background-color="backgroundColor"
+             :text-color="textcolor"
+             :active-text-color="activecolor">
+      <!--<el-menu-item index="1">处理中心</el-menu-item>-->
+      <!--<el-submenu index="2">-->
+      <!--  <template slot="title">我的工作台</template>-->
+      <!--  <el-menu-item index="2-1">选项1</el-menu-item>-->
+      <!--  <el-menu-item index="2-2">选项2</el-menu-item>-->
+      <!--  <el-menu-item index="2-3">选项3</el-menu-item>-->
+      <!--  <el-submenu index="2-4">-->
+      <!--    <template slot="title">选项4</template>-->
+      <!--    <el-menu-item index="2-4-1">选项1</el-menu-item>-->
+      <!--    <el-menu-item index="2-4-2">选项2</el-menu-item>-->
+      <!--    <el-menu-item index="2-4-3">选项3</el-menu-item>-->
+      <!--  </el-submenu>-->
+      <!--</el-submenu>-->
+      <el-submenu :index="item.href" v-for="(item,index) in navList" :key="index">
+        <template slot="title">{{item.navItem}}</template>
+        <el-menu-item index="2-1">选项1</el-menu-item>
+        <el-menu-item index="2-2">选项2</el-menu-item>
+        <el-menu-item index="2-3">选项3</el-menu-item>
+        <el-submenu index="2-4">
+          <template slot="title">选项4</template>
+          <el-menu-item index="2-4-1">选项1</el-menu-item>
+          <el-menu-item index="2-4-2">选项2</el-menu-item>
+          <el-menu-item index="2-4-3">选项3</el-menu-item>
+        </el-submenu>
+      </el-submenu>
+      <!--<el-menu-item index="3" disabled>消息中心</el-menu-item>-->
+      <!--<el-menu-item index="4"><a href="https://www.ele.me" target="_blank">订单管理</a></el-menu-item>-->
+    </el-menu>
   </div>
 </template>
-<style lang="scss">
-  @import "~/assets/css/nav.scss";
-
-</style>
 <script>
-    import uhttp from "~/plugins/uhttp";
-    import {setStore} from '~/plugins/utils';
-
     export default {
+        layout: 'system',
         data() {
             return {
-                count: 0,
-                user: {},
-                active: '', //激活导航
-                nav: [
+                backgroundColor: '#545c64',
+                textcolor: '#fff',
+                activecolor: '#6d778b',
+                isCollapse: false,
+                navList: [
                     {
-                        name: 'CV',
-                        link: '/cv'
-                    },
-                    {
-                        name: 'PS',
-                        link: '/ps'
-                    },
-                    {
-                        name: '推荐信',
-                        link: '/letter'
-                    },
-                    {
-                        name: '文书材料',
-                        link: '/material'
-                    },
-                    {
-                        name: '修改记录',
-                        link: '/modify'
-                    },
-                    {
-                        name: '个人设置',
-                        link: '/person'
+                        href: '/system',
+                        navItem: '系统管理',
+                        iconName: 'el-icon-setting',
+                        child: [
+                            {
+                                href: '/system/setting',
+                                name: '系统配置'
+                            },
+                            {
+                                href: '/system/notice',
+                                name: '提醒规则'
+                            },
+                            // {
+                            //     href: '',
+                            //     name: '材料设置'
+                            // },
+                            // {
+                            //     href: '',
+                            //     name: '电话区号管理'
+                            // },
+                            // {
+                            //     href: '',
+                            //     name: '链接二维码'
+                            // },
+                            // {
+                            //     href: '',
+                            //     name: '留下市场部配置'
+                            // },
+                        ]
                     },
 
-                ]
-
+                ],
             }
         },
-        mounted() {
-            let _this = this;
-            //nav选中状态
-            let path = _this.$route.path;
-            let pathReset = path.substring(0, path.indexOf("/", 2));
-            pathReset == '' ? _this.active = path : _this.active = pathReset;
-            // 获取用户信息
-            uhttp.get('/user/detail').then((res) => {
-                _this.$store.commit('user/SET_USER', res);
-                _this.user = _this.$store.state.user;
-            })
+        beforeMount() {
+
         },
-        methods: {
-            //跳转
-            link(href) {
-                this.active = href;
-                this.$router.push(href);
+        mounted(){
+            console.log(this.$router)
+        },
+        methods:{
+            handleOpen(key, keyPath) {
+                console.log(key, keyPath);
             },
-            //退出登录
-            layout() {
-                let _this = this;
-                uhttp.get('/login/logout').then((res) => {
-                    let layoutMsg = _this.$message({
-                        message: '退出成功！',
-                        type: 'success'
-                    });
-                    setTimeout(() => {
-                        layoutMsg.close();
-                        setStore('isLogin', '0');
-                        _this.$store.commit('user/SET_USER', {});
-                        _this.$store.commit('SET_RESET', '');
-                        _this.$router.push('/login')
-                    }, 1500);
-                })
+            handleClose(key, keyPath) {
+                console.log(key, keyPath);
             },
+            changestatus(){
+                this.isCollapse = !this.isCollapse;
+            }
         }
     }
 </script>
+<style lang="scss">
+  @import "~/assets/css/common.scss";
+</style>

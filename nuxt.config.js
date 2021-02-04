@@ -2,7 +2,7 @@ module.exports = {
 
   // 配置header
   head: {
-    title: 'UKEC学生留学查询系统',
+    title: 'education system',
     meta: [
       {charset: 'utf-8'},
       {name: 'viewport', content: 'width=device-width, initial-scale=1'},
@@ -18,14 +18,13 @@ module.exports = {
 
   // 配置端口号
   server: {
-    port: 8866, // default: 3000
+    port: 8833, // default: 3000
     host: '0.0.0.0', // default: localhost,
   },
 
   // 配置加载进度条颜色
-  loading: {color: '#ff4e82'},
+  loading: {color: '#00d1a2'},
 
-  //
   dev: process.env.NODE_ENV === 'DEV',
   //css
   css:[
@@ -33,7 +32,7 @@ module.exports = {
   ],
   //配置实例化之前需要运行的插件
   plugins: [
-    { 
+    {
       src: '~/plugins/element-ui',
       ssr: true,
     },
@@ -67,19 +66,5 @@ module.exports = {
       }
     }
   },
-  //跨域
-  // modules: [
-  //   '@nuxtjs/axios',
-  //   '@nuxtjs/proxy'
-  // ],
-  // proxy: [
-  //   [
-  //     '/api/',//拦截目录
-  //     {
-  //       target: 'http://i.sso.cn/', // 代理api主机
-  //       pathRewrite: { '^/api/' : '' }
-  //     }
-  //   ]
-  // ]
 };
 

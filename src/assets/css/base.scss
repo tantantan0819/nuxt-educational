@@ -2,67 +2,14 @@
 @import "./reset";
 
 //****** 颜色变量 ******/
+$body: #f2f5f9;
+$ff: #fff;
 $f0: #000;
-$f8: #888;
-$f6: #666;
-$fc: #fff;
-$f3: #333;
-$f4: #444;
-$f5: #555;
-$f9: #999;
-$fcc: #ccc;
-$fe: #fefefe;
-$f1: #f1f1f1;
-$fd: #fdfafa;
-$e5: #e5e5e5;
-$fd5: #fdf5f5;
-$f69: #ff6977;
-$ff6: #ff6878;
-$f53: #535353;
-$fc6: #c6c6c6;
-$fd1: #d1d1d1;
-$f63: #ff6633;
-$e6: #e6e6e6;
-$fba: #baf0fa;
-$ff5: #ff537f;
-$f60: #606266;
-$fdc: #dcdfe6;
-$ff3: #ffc3d2;
 $ff4: #ff4b82;
 $ff7: #ff7e70;
-$fd5: #fdf5f5;
-$f53: #535353;
-$dbe: #dbedff;
-$dff: #429dff;
-$d8f: #d8f0f0;
-$f0c: #0cb959;
-$fce: #cec5c8;
-$fb1: #fbe4e1;
-$fde: #dce8f1;
-$f36: #366c93;
-$f64: #e64c37;
-$fc8: #f3ccd8;
-$f1d: #1d557e;
-$fa3: #a3a3a3;
-$e75: #e75b4f;
-$f90: #909399;
-$f3a: rgba(8,141,245,.02);
-$f40: #409EFF;
-$fee: #fffefe;
-$f88: #f8f8f8;
-$f15: #015d9e;
-$ff0: #ff0000;
-$f93: #009933;
-$title: #cbc7ca;
-$fe3: #e64c37;
-$fd9: #d9d9d9;
-$fe5: #e5f3fc;
-$f77: #f7f7f7;
-$fc9: #c9e3f5;
-$fea: #ea6553;
-$f70: #707070;
-$f56: #F56C6C;
-$fnav: rgba(0, 0, 0, 0.12);
+$fd: #fdfafa;
+
+
 //****** 混合指令 ******/
 //单号省略
 @mixin space {
@@ -77,11 +24,6 @@ $fnav: rgba(0, 0, 0, 0.12);
   height: $height;
 }
 
-// 渐变背景色
-@mixin gradient{
-  background-image: linear-gradient(-90deg, $ff4 0%, $ff7 100%), linear-gradient( $fd, $fd);
-  background-blend-mode: normal, normal!important;
-}
 
 // 公用阴影
 @mixin shadow{
@@ -153,13 +95,16 @@ $fnav: rgba(0, 0, 0, 0.12);
    left: $left;
 }
 
+// 渐变背景色
+@mixin gradient{
+  background-image: linear-gradient(-90deg, $ff4 0%, $ff7 100%), linear-gradient( $fd, $fd);
+  background-blend-mode: normal, normal!important;
+}
+
 
 //****** 公共样式 ******/
 .tc{
   text-align: center;
-}
-body{
-  background: $fd;
 }
 .mt20{
   margin-top: 20px;
@@ -176,262 +121,6 @@ body{
 .mt10{
   margin-top: 10px;
 }
-#utrack{
-  display: flex;
-  .utrack_right{
-    flex: 1;
-    .utrack_content{
-      min-height: -moz-calc(100% - 140px);
-      min-height: -webkit-calc(100% - 140px);
-      min-height: calc(100% - 140px);
-      margin-right: 20px;
-      background-color: $fc;
-      margin-bottom: 60px;
-      @include borderRadius(10px);
-      @include shadow();
-    }
-  }
-}
-//cv按钮样式
-.cv{
-    padding: 40px 100px!important;
-}
-.cv_button {
-  cursor: pointer;
-  background-color: $f15;
-  @include wh(140px, 40px);
-
-  @include cr();
-  @include fontc(16px, 1, $fc);
-  @include borderRadius(20px);
-}
-.modify_button{
-  width: 100px;
-}
-//文本域样式
-.cvTextareaBox {
-  .el-form-item{
-    position: relative;
-  }
-  .cvTextarea {
-    textarea {
-      height: 320px !important;
-      resize: none;
-      padding-bottom: 30px;
-    }
-  }
-  .cvTextarea2 {
-    textarea {
-      height: 110px !important;
-    }
-  }
-  .textareaTip {
-    position: absolute;
-    bottom: 12px;
-    right: 12px;
-    z-index: 3;
-    @include fontc(16px, 1, $f63);
-  }
-}
-.noteTextarea{
-  textarea {
-    height: 100 !important;
-  }
-}
-//日期插件
-.widthAll{
-  width: 100%!important;
-}
-//公用标题
-.title_box {
-  display: flex;
-  position: relative;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid $title;
-  padding: 10px 0;
-
-  .cv_title {
-    position: relative;
-    z-index: 2;
-    @include cb();
-
-    p {
-      position: relative;
-      @include fontc(24px, 48px, $f3);
-
-      &:before {
-        content: '';
-        display: inline-block;
-        @include wh(120px, 1px);
-        @include gradient();
-        @include absolute(58px, 0)
-      }
-    }
-
-    span {
-      margin-left: 40px;
-      @include fontc(16px, 48px, $f63);
-    }
-  }
-  @media screen and (max-width: 1500px){
-    .cv_title6{
-      span{
-        margin-left: 10px;
-        @include fontc(15px, 48px, $f63);
-      }
-    }
- }
-
-
-}
-//查看详情按钮
-.viewBtn{
-  border: none!important;
-  background: transparent!important;
-  color: $f60!important;
-  &:hover{
-    color: $f69!important;
-  }
-}
-.el-radio__input.is-checked+.el-radio__label{
-   color: $f69;
-}
-.el-radio__input.is-checked .el-radio__inner{
-  border-color: $f69;
-  background: $f69;
-}
-//按钮不可点击
-.gray{
-  background-color: #ccc!important;
-  background-image: none !important;
-}
-//手机验证码布局
-#isPhone{
-  display: flex;
-  .isRegion{
-    width: 100px;
-  }
-  .isPhone{
-    flex: 1;
-  }
-}
-#graphic{
-  display: flex;
-  .el-form-item{
-    flex: 1;
-  }
-  img{
-    @include wh(130px,40px);
-    margin-left: 20px;
-    cursor: pointer;
-  }
-}
-.modfityTip {
-  margin: -20px 0 0 0!important;
-  span{
-    color: $f63;
-  }
-}
-.modify_upload{
-  .upload-demo{
-    display: flex;
-    flex-direction: column;
-  }
-  .el-upload-list{
-    width: 100%;
-  }
-  .el-upload{
-    @include wh(70px,36px);
-    border-radius: 6px;
-    background-color: $f15;
-  }
-}
-.modify{
-  .el-form-item{
-    display: flex;
-    .el-form-item__label{
-      width: 70px;
-    }
-    .el-form-item__content{
-      flex:1;
-    }
-  }
-  .el-button{
-      background-color: $f15;
-      border-color: $f15;
-  }
-}
-.fileList{
-  .add_content{
-    padding-bottom: 50px;
-  }
-  .el-table th{
-    background-color: #ea5d500f!important;
-    color: #e95b50!important;
-    border-right: none!important;
-  }
-}
-.noteTextarea{
-  textarea{
-    height: 140px!important;
-    resize: none;
-  }
-}
-.modify_wrap{
-  display: flex;
-  span{
-    margin-left: 10px;
-  }
-}
-.con{
-    padding: 20px;
-    .two_title{
-        span{
-            &:nth-child(1){
-                &:before{
-                    bottom: -23px!important;
-                }
-            }
-        }
-    }
-    .version_title{
-        @include fontc(24px,24px,$f3);
-        display: flex;
-        align-items: center;
-
-        span{
-            position: relative;
-            &:nth-child(1){
-                &:before{
-                    @include wh(100%,1px);
-                    content:'';
-                    display: inline-block;
-                    background-image: linear-gradient(-90deg, $ff4 0%, $ff7 100%);
-                    position: absolute;
-                    bottom: -17px;
-                }
-            }
-            &:nth-child(2){
-                margin-left: 25px;
-                background-color: $f15;
-                border-radius: 20px;
-                cursor: pointer;
-                @include wh(125px,36px);
-                @include fontc(16px,16px,$fc);
-                @include cr();
-            }
-        }
-        padding-bottom: 16px;
-        border-bottom: 1px solid $title;
-    }
-}
-.letter_title{
-  p{
-    min-width: 124px;
-  }
-  span{
-    font-size: 14px!important;
-    line-height: 24px!important;
-  }
+body{
+  background-color: $body;
 }

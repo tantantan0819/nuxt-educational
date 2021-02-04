@@ -1,9 +1,12 @@
 <template>
-  <section class="container"></section>
+  <section class="container">
+    222
+  </section>
 </template>
 
 <script>
 export default {
+    layout: 'blank',
    data(){
        return{
        }
